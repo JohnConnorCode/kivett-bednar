@@ -20,7 +20,7 @@ export function ProductCard({product}: {product: Product}) {
   return (
     <Link
       href={`/merch/${product.slug}`}
-      className="group block border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+      className="group block border rounded-lg overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1 duration-200"
     >
       {product.images?.[0]?.asset && (
         <div className="relative aspect-square bg-muted">

@@ -33,7 +33,7 @@ export function EventCard({event}: {event: Event}) {
   )
 
   return (
-    <div className="border rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+    <div className="border rounded-lg overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1 duration-200">
       {event.coverImage?.asset && (
         <div className="relative aspect-video">
           <Image
