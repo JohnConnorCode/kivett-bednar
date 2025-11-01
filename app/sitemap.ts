@@ -78,6 +78,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           changeFrequency = 'weekly'
           url = `${domain}/merch/${p.slug}`
           break
+        default:
+          continue
       }
       sitemap.push({
         lastModified: p._updatedAt || new Date(),
