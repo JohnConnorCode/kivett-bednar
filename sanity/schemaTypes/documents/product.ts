@@ -126,7 +126,7 @@ export const product = defineType({
             defineField({
               name: 'optionValues',
               title: 'Option Values',
-              type: 'object',
+              type: 'json',
               description: 'Key-value pairs like {Size: "Medium", Color: "Black"}',
             }),
             defineField({
