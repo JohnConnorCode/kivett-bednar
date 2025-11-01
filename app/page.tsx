@@ -3,6 +3,7 @@ import Link from 'next/link'
 import {sanityFetch} from '@/sanity/lib/live'
 import {upcomingEventsQuery} from '@/sanity/lib/queries'
 import {EventCard} from '@/components/ui/EventCard'
+import {HeroSlider} from '@/components/ui/HeroSlider'
 
 export const metadata: Metadata = {
   title: 'Kivett Bednar | Blues Guitarist & Musician',
@@ -21,49 +22,8 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[85vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-midnight-500 via-charcoal-900 to-midnight-500">
-        {/* Background pattern overlay */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)',
-            backgroundSize: '40px 40px'
-          }} />
-        </div>
-
-        <div className="relative z-10 container mx-auto px-4 text-center text-bone">
-          <h1 className="text-7xl md:text-8xl lg:text-9xl font-bold mb-6 tracking-tight">
-            Kivett Bednar
-          </h1>
-          <p className="text-2xl md:text-3xl lg:text-4xl mb-8 font-light tracking-wide text-amber-600">
-            Blues • Guitar • Portland
-          </p>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto mb-12 leading-relaxed text-bone/90">
-            Gritty Texas Blues meets the heart of the Pacific Northwest
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/shows"
-              className="px-8 py-4 bg-amber-600 text-charcoal-900 font-bold rounded-lg hover:bg-amber-500 transition-all transform hover:scale-105 text-lg"
-            >
-              See Live Shows
-            </Link>
-            <Link
-              href="/lessons"
-              className="px-8 py-4 border-2 border-bone text-bone font-semibold rounded-lg hover:bg-bone/10 transition-all text-lg"
-            >
-              Book a Lesson
-            </Link>
-          </div>
-        </div>
-
-        {/* Decorative bottom wave */}
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1200 120" className="w-full h-16 text-bone">
-            <path d="M0,0 Q300,40 600,20 T1200,0 L1200,120 L0,120 Z" fill="currentColor" />
-          </svg>
-        </div>
-      </section>
+      {/* Hero Slider */}
+      <HeroSlider />
 
       {/* About Section */}
       <section className="py-24 bg-bone">
