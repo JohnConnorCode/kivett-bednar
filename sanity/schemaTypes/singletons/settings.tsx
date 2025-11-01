@@ -151,6 +151,69 @@ export const settings = defineType({
         }),
       ],
     }),
+    defineField({
+      name: 'contactEmail',
+      title: 'Contact Email',
+      type: 'string',
+      description: 'Primary contact email address',
+      validation: (rule) => rule.email(),
+    }),
+    defineField({
+      name: 'bookingUrl',
+      title: 'Booking/Scheduling URL',
+      type: 'url',
+      description: 'URL for lesson booking or scheduling (e.g., helpwith.co link)',
+    }),
+    defineField({
+      name: 'socialLinks',
+      title: 'Social Media Links',
+      type: 'array',
+      description: 'Add social media links for the site',
+      of: [
+        defineArrayMember({
+          type: 'object',
+          name: 'socialLink',
+          fields: [
+            defineField({
+              name: 'platform',
+              title: 'Platform',
+              type: 'string',
+              options: {
+                list: [
+                  {title: 'Facebook', value: 'facebook'},
+                  {title: 'Instagram', value: 'instagram'},
+                  {title: 'YouTube', value: 'youtube'},
+                  {title: 'Twitter/X', value: 'twitter'},
+                  {title: 'Spotify', value: 'spotify'},
+                  {title: 'SoundCloud', value: 'soundcloud'},
+                  {title: 'Bandcamp', value: 'bandcamp'},
+                ],
+                layout: 'dropdown',
+              },
+              validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'url',
+              title: 'URL',
+              type: 'url',
+              validation: (rule) => rule.required().uri({scheme: ['http', 'https']}),
+            }),
+          ],
+          preview: {
+            select: {
+              platform: 'platform',
+              url: 'url',
+            },
+            prepare({platform, url}) {
+              return {
+                title: platform,
+                subtitle: url,
+              }
+            },
+          },
+        }),
+      ],
+    }),
   ],
   preview: {
     prepare() {

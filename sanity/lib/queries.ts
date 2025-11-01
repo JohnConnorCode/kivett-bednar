@@ -13,6 +13,12 @@ export const settingsQuery = defineQuery(`*[_type == "settings"][0]{
     asset->,
     alt,
     metadataBase
+  },
+  contactEmail,
+  bookingUrl,
+  socialLinks[]{
+    platform,
+    url
   }
 }`)
 
@@ -34,6 +40,73 @@ export const navigationQuery = defineQuery(`*[_type == "navigation"][0]{
       "slug": slug.current
     }
   }
+}`)
+
+// Home Page
+export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
+  _id,
+  heroSlides[]{
+    _key,
+    image{asset->, alt},
+    alt
+  },
+  heroHeading,
+  heroSubheading,
+  heroTagline,
+  aboutHeading,
+  aboutText,
+  aboutImage{asset->, alt},
+  albumTitle,
+  albumYear,
+  albumFormat,
+  albumDescription,
+  albumImage{asset->, alt},
+  albumFeatures,
+  ctaLessonsHeading,
+  ctaLessonsText
+}`)
+
+// Lessons Page
+export const lessonsPageQuery = defineQuery(`*[_type == "lessonsPage"][0]{
+  _id,
+  heroHeading,
+  heroSubheading,
+  philosophyHeading,
+  philosophyText,
+  learningItems[]{
+    _key,
+    title,
+    description
+  },
+  ctaBoxHeading,
+  ctaBoxText,
+  credentials
+}`)
+
+// Contact Page
+export const contactPageQuery = defineQuery(`*[_type == "contactPage"][0]{
+  _id,
+  heroHeading,
+  heroSubheading
+}`)
+
+// Setlist Page
+export const setlistPageQuery = defineQuery(`*[_type == "setlistPage"][0]{
+  _id,
+  heroHeading,
+  introText,
+  ctaHeading,
+  ctaText
+}`)
+
+// Songs
+export const allSongsQuery = defineQuery(`*[_type == "song"] | order(order asc){
+  _id,
+  title,
+  key,
+  artist,
+  notes,
+  order
 }`)
 
 // Module query fragment

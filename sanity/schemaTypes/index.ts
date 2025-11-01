@@ -7,6 +7,11 @@ import {callToAction} from './objects/callToAction'
 import {infoSection} from './objects/infoSection'
 import {settings} from './singletons/settings'
 import {navigation} from './singletons/navigation'
+import {homePage} from './singletons/homePage'
+import {lessonsPage} from './singletons/lessonsPage'
+import {contactPage} from './singletons/contactPage'
+import {setlistPage} from './singletons/setlistPage'
+import {song} from './documents/song'
 import {link} from './objects/link'
 import {blockContent} from './objects/blockContent'
 
@@ -25,12 +30,17 @@ export const schemaTypes = [
   // Singletons
   settings,
   navigation,
+  homePage,
+  lessonsPage,
+  contactPage,
+  setlistPage,
   // Documents
   page,
   post,
   person,
   event,
   product,
+  song,
   // Objects
   blockContent,
   infoSection,
