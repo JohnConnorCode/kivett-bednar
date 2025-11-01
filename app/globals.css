@@ -1,61 +1,39 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-@layer base {
-  :root {
-    /* Shadcn/UI Theme Variables */
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 214 70% 34%; /* midnight-500 */
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
-    --accent: 42 96% 59%; /* amber-600 - stage lights */
-    --accent-foreground: 222 47% 11%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 214 70% 34%;
-    --radius: 0.5rem;
-  }
+@plugin "@tailwindcss/typography";
 
-  .dark {
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 214 70% 34%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 217 33% 17%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-    --accent: 42 96% 59%;
-    --accent-foreground: 222 47% 11%;
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217 33% 17%;
-    --input: 217 33% 17%;
-    --ring: 214 70% 34%;
-  }
+@theme {
+  /* Shadcn/UI Theme Variables */
+  --color-background: oklch(100% 0 0);
+  --color-foreground: oklch(23% 0.015 255);
+  --color-card: oklch(100% 0 0);
+  --color-card-foreground: oklch(23% 0.015 255);
+  --color-popover: oklch(100% 0 0);
+  --color-popover-foreground: oklch(23% 0.015 255);
+  --color-primary: oklch(43% 0.12 245); /* midnight-500 */
+  --color-primary-foreground: oklch(98% 0.005 240);
+  --color-secondary: oklch(96% 0.005 240);
+  --color-secondary-foreground: oklch(23% 0.015 255);
+  --color-muted: oklch(96% 0.005 240);
+  --color-muted-foreground: oklch(53% 0.015 245);
+  --color-accent: oklch(76% 0.15 85); /* amber-600 */
+  --color-accent-foreground: oklch(23% 0.015 255);
+  --color-destructive: oklch(62% 0.22 25);
+  --color-destructive-foreground: oklch(98% 0.005 240);
+  --color-border: oklch(91% 0.01 245);
+  --color-input: oklch(91% 0.01 245);
+  --color-ring: oklch(43% 0.12 245);
+
+  --default-transition-duration: 200ms;
+  --radius: 0.5rem;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-    font-feature-settings: 'rlig' 1, 'calt' 1;
-  }
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-feature-settings: 'rlig' 1, 'calt' 1;
 }
