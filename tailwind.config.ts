@@ -3,7 +3,7 @@ import typography from '@tailwindcss/typography'
 import animate from 'tailwindcss-animate'
 
 export default {
-  darkMode: ['class'],
+  darkMode: 'class',
   content: [
     './app/**/*.{ts,tsx}',
     './sanity/**/*.{ts,tsx}',
