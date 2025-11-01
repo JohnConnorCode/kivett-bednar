@@ -90,7 +90,7 @@ export default function LessonsPage() {
             {/* What You'll Learn */}
             <div className="bg-white rounded-2xl p-12 border-2 border-charcoal-900/10">
               <h2 className="text-4xl font-bold mb-12 text-center text-charcoal-900">
-                What You'll Learn
+                What You&apos;ll Learn
               </h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {[
