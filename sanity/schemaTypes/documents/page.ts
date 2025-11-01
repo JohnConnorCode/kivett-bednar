@@ -41,13 +41,22 @@ export const page = defineType({
       type: 'string',
     }),
     defineField({
-      name: 'pageBuilder',
-      title: 'Page builder',
+      name: 'modules',
+      title: 'Page Modules',
       type: 'array',
-      of: [{type: 'callToAction'}, {type: 'infoSection'}],
+      of: [
+        {type: 'hero'},
+        {type: 'richText'},
+        {type: 'imageGallery'},
+        {type: 'featureGrid'},
+        {type: 'ctaBanner'},
+        {type: 'videoEmbed'},
+        {type: 'musicEmbed'},
+        {type: 'callToAction'},
+        {type: 'infoSection'},
+      ],
       options: {
         insertMenu: {
-          // Configure the "Add Item" menu to display a thumbnail preview of the content type. https://www.sanity.io/docs/array-type#efb1fe03459d
           views: [
             {
               name: 'grid',
@@ -58,5 +67,48 @@ export const page = defineType({
         },
       },
     }),
+    defineField({
+      name: 'seo',
+      title: 'SEO',
+      type: 'object',
+      options: {
+        collapsible: true,
+        collapsed: false,
+      },
+      fields: [
+        defineField({
+          name: 'title',
+          title: 'SEO Title',
+          type: 'string',
+          description: 'If empty, defaults to page name',
+        }),
+        defineField({
+          name: 'description',
+          title: 'SEO Description',
+          type: 'text',
+          rows: 3,
+        }),
+        defineField({
+          name: 'ogImage',
+          title: 'Open Graph Image',
+          type: 'image',
+          options: {
+            hotspot: true,
+          },
+        }),
+      ],
+    }),
   ],
+  preview: {
+    select: {
+      title: 'name',
+      slug: 'slug.current',
+    },
+    prepare({title, slug}) {
+      return {
+        title,
+        subtitle: `/${slug || ''}`,
+      }
+    },
+  },
 })
