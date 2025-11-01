@@ -1,13 +1,20 @@
 import {Metadata} from 'next'
 import Link from 'next/link'
 import {ContactForm} from '@/components/ui/ContactForm'
+import {sanityFetch} from '@/sanity/lib/live'
+import {contactPageQuery, settingsQuery} from '@/sanity/lib/queries'
 
 export const metadata: Metadata = {
   title: 'Contact | Kivett Bednar',
   description: 'Get in touch',
 }
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const [{data: contactPage}, {data: settings}] = await Promise.all([
+    sanityFetch({query: contactPageQuery}),
+    sanityFetch({query: settingsQuery}),
+  ])
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -21,11 +28,13 @@ export default function ContactPage() {
 
         <div className="relative z-10 container mx-auto px-4 text-center text-bone">
           <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
-            Get in Touch
+            {contactPage?.heroHeading || 'Get in Touch'}
           </h1>
-          <p className="text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed text-bone/90">
-            Booking, lessons, collaborations, or just to say hello
-          </p>
+          {contactPage?.heroSubheading && (
+            <p className="text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed text-bone/90">
+              {contactPage.heroSubheading}
+            </p>
+          )}
         </div>
 
         <div className="absolute bottom-0 left-0 right-0">
@@ -51,40 +60,38 @@ export default function ContactPage() {
               {/* Contact Info & Social */}
               <div className="space-y-8">
                 {/* Direct Contact */}
-                <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-8 text-bone border-2 border-amber-600/20">
-                  <h2 className="text-2xl font-bold mb-4">Direct Contact</h2>
-                  <a
-                    href="mailto:kivettbednar@gmail.com"
-                    className="text-amber-600 hover:text-amber-500 transition-colors text-lg font-semibold break-all"
-                  >
-                    kivettbednar@gmail.com
-                  </a>
-                </div>
-
-                {/* Social Media */}
-                <div className="bg-white rounded-2xl p-8 border-2 border-charcoal-900/10">
-                  <h2 className="text-2xl font-bold mb-4 text-charcoal-900">Follow Along</h2>
-                  <div className="space-y-3">
+                {settings?.contactEmail && (
+                  <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-8 text-bone border-2 border-amber-600/20">
+                    <h2 className="text-2xl font-bold mb-4">Direct Contact</h2>
                     <a
-                      href="https://www.facebook.com/kivettbednar"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 text-midnight-500 hover:text-amber-600 transition-colors font-semibold"
+                      href={`mailto:${settings.contactEmail}`}
+                      className="text-amber-600 hover:text-amber-500 transition-colors text-lg font-semibold break-all"
                     >
-                      <span>→</span>
-                      Facebook
-                    </a>
-                    <a
-                      href="https://www.instagram.com/kivettbednar"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-3 text-midnight-500 hover:text-amber-600 transition-colors font-semibold"
-                    >
-                      <span>→</span>
-                      Instagram
+                      {settings.contactEmail}
                     </a>
                   </div>
-                </div>
+                )}
+
+                {/* Social Media */}
+                {settings?.socialLinks && settings.socialLinks.length > 0 && (
+                  <div className="bg-white rounded-2xl p-8 border-2 border-charcoal-900/10">
+                    <h2 className="text-2xl font-bold mb-4 text-charcoal-900">Follow Along</h2>
+                    <div className="space-y-3">
+                      {settings.socialLinks.map((link: any) => (
+                        <a
+                          key={link.url}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 text-midnight-500 hover:text-amber-600 transition-colors font-semibold capitalize"
+                        >
+                          <span>→</span>
+                          {link.platform}
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {/* Quick Links */}
                 <div className="bg-white rounded-2xl p-8 border-2 border-charcoal-900/10">
