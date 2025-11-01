@@ -26,7 +26,6 @@ export default async function MerchPage() {
         </div>
 
         <div className="relative z-10 container mx-auto px-4 text-center text-bone">
-          <div className="text-6xl mb-6">🎸</div>
           <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
             Merch
           </h1>
@@ -55,7 +54,6 @@ export default async function MerchPage() {
             ) : (
               <div className="text-center py-24">
                 <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-16 max-w-2xl mx-auto border-2 border-amber-600/20">
-                  <div className="text-7xl mb-6">🎁</div>
                   <h2 className="text-4xl font-bold text-bone mb-4">
                     Merch Store Opening Soon!
                   </h2>

@@ -18,7 +18,6 @@ export default function LessonsPage() {
         </div>
 
         <div className="relative z-10 container mx-auto px-4 text-center text-bone">
-          <div className="text-6xl mb-6">🎓</div>
           <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
             Guitar Lessons
           </h1>
@@ -63,7 +62,6 @@ export default function LessonsPage() {
               </div>
 
               <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-12 text-bone flex flex-col justify-center border-2 border-amber-600/20">
-                <div className="text-5xl mb-6">🎸</div>
                 <h3 className="text-3xl font-bold mb-6">Ready to Start?</h3>
                 <p className="text-lg mb-8 text-bone/80">
                   Schedule your first lesson and begin your musical journey.
@@ -95,38 +93,34 @@ export default function LessonsPage() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {[
                   {
-                    icon: '🎵',
                     title: 'Blues Techniques',
                     desc: 'Authentic phrasing, bending, vibrato, and the feel that makes blues come alive'
                   },
                   {
-                    icon: '📚',
                     title: 'Music Theory',
                     desc: 'Western harmony fundamentals that work across all genres and instruments'
                   },
                   {
-                    icon: '🎭',
                     title: 'Improvisation',
                     desc: 'Develop your ear and learn to express yourself spontaneously through music'
                   },
                   {
-                    icon: '✍️',
                     title: 'Composition',
                     desc: 'Songwriting techniques and arranging skills to create your own music'
                   },
                   {
-                    icon: '👂',
                     title: 'Ear Training',
                     desc: 'Recognize intervals, chords, and progressions by ear'
                   },
                   {
-                    icon: '🧠',
                     title: 'Musical Concepts',
                     desc: 'Instrument-agnostic understanding that transcends technical ability\n'
                   },
                 ].map((item, index) => (
-                  <div key={index} className="text-center">
-                    <div className="text-5xl mb-4">{item.icon}</div>
+                  <div key={index} className="text-center group">
+                    <div className="w-12 h-12 mx-auto mb-4 rounded-full border-2 border-midnight-500/20 flex items-center justify-center text-midnight-500 font-bold text-lg group-hover:border-amber-600 group-hover:text-amber-600 transition-colors">
+                      {index + 1}
+                    </div>
                     <h3 className="text-2xl font-bold mb-3 text-charcoal-900">{item.title}</h3>
                     <p className="text-charcoal-900/70 leading-relaxed">{item.desc}</p>
                   </div>
@@ -137,7 +131,6 @@ export default function LessonsPage() {
             {/* Credentials Banner */}
             <div className="mt-16 bg-gradient-to-r from-midnight-500/10 to-amber-600/10 rounded-2xl p-8 border-2 border-midnight-500/20">
               <div className="flex flex-col md:flex-row items-center justify-center gap-8 text-center md:text-left">
-                <div className="text-6xl">🏆</div>
                 <div>
                   <h3 className="text-2xl font-bold text-charcoal-900 mb-2">
                     Berklee College of Music

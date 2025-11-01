@@ -49,7 +49,6 @@ export default function SetlistPage() {
         </div>
 
         <div className="relative z-10 container mx-auto px-4 text-center text-bone">
-          <div className="text-6xl mb-6">♫</div>
           <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
             Blues Setlist
           </h1>
@@ -104,7 +103,6 @@ export default function SetlistPage() {
             {/* CTA Section */}
             <div className="mt-24 relative">
               <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-12 text-center text-bone border-2 border-amber-600/20">
-                <div className="text-5xl mb-6">🎸</div>
                 <h2 className="text-4xl font-bold mb-4">
                   Want to learn these classics?
                 </h2>

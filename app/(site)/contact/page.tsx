@@ -20,7 +20,6 @@ export default function ContactPage() {
         </div>
 
         <div className="relative z-10 container mx-auto px-4 text-center text-bone">
-          <div className="text-6xl mb-6">✉️</div>
           <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
             Get in Touch
           </h1>
@@ -53,7 +52,6 @@ export default function ContactPage() {
               <div className="space-y-8">
                 {/* Direct Contact */}
                 <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-8 text-bone border-2 border-amber-600/20">
-                  <div className="text-4xl mb-4">📧</div>
                   <h2 className="text-2xl font-bold mb-4">Direct Contact</h2>
                   <a
                     href="mailto:kivettbednar@gmail.com"
@@ -65,7 +63,6 @@ export default function ContactPage() {
 
                 {/* Social Media */}
                 <div className="bg-white rounded-2xl p-8 border-2 border-charcoal-900/10">
-                  <div className="text-4xl mb-4">👥</div>
                   <h2 className="text-2xl font-bold mb-4 text-charcoal-900">Follow Along</h2>
                   <div className="space-y-3">
                     <a
@@ -91,7 +88,6 @@ export default function ContactPage() {
 
                 {/* Quick Links */}
                 <div className="bg-white rounded-2xl p-8 border-2 border-charcoal-900/10">
-                  <div className="text-4xl mb-4">🔗</div>
                   <h2 className="text-2xl font-bold mb-4 text-charcoal-900">Quick Links</h2>
                   <div className="space-y-3">
                     <Link

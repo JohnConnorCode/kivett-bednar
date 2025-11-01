@@ -89,10 +89,15 @@ export default async function HomePage() {
                   </Link>
                 </div>
               </div>
-              <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-lg aspect-square flex items-center justify-center">
-                <div className="text-center p-8">
-                  <div className="text-6xl mb-4">🎸</div>
-                  <p className="text-bone/60 italic">Photo coming soon</p>
+              <div className="relative bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-lg aspect-square flex items-center justify-center overflow-hidden border border-amber-600/20">
+                <div className="absolute inset-0 opacity-20">
+                  <div className="absolute inset-0" style={{
+                    backgroundImage: 'linear-gradient(45deg, transparent 45%, rgba(240,200,62,0.1) 50%, transparent 55%)',
+                    backgroundSize: '20px 20px'
+                  }} />
+                </div>
+                <div className="text-center p-8 relative z-10">
+                  <div className="text-bone/40 text-sm uppercase tracking-widest">Photo</div>
                 </div>
               </div>
             </div>
@@ -106,10 +111,17 @@ export default async function HomePage() {
           <div className="max-w-6xl mx-auto">
             <h2 className="text-5xl font-bold mb-12 text-center">Land of the Living</h2>
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="bg-midnight-500/30 rounded-lg aspect-square flex items-center justify-center border-2 border-amber-600/30">
-                <div className="text-center p-8">
-                  <div className="text-6xl mb-4">💿</div>
-                  <p className="text-bone/60 italic">Album artwork</p>
+              <div className="relative bg-midnight-500/30 rounded-lg aspect-square flex items-center justify-center border-2 border-amber-600/30 overflow-hidden">
+                <div className="absolute inset-0">
+                  <div className="absolute inset-0" style={{
+                    backgroundImage: 'radial-gradient(circle at center, rgba(240,200,62,0.05) 0%, transparent 70%)',
+                  }} />
+                </div>
+                <div className="text-center p-8 relative z-10">
+                  <div className="w-32 h-32 mx-auto border-2 border-bone/20 rounded-full flex items-center justify-center mb-4">
+                    <div className="text-bone/40 text-sm uppercase tracking-widest">Vinyl</div>
+                  </div>
+                  <p className="text-bone/60 text-sm uppercase tracking-wide">Land of the Living</p>
                 </div>
               </div>
               <div>
@@ -123,15 +135,15 @@ export default async function HomePage() {
                 </p>
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
-                    <span className="text-amber-600">♫</span>
+                    <div className="w-1 h-1 bg-amber-600 rounded-full"></div>
                     <span>Classic blues interpretations</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-amber-600">♫</span>
+                    <div className="w-1 h-1 bg-amber-600 rounded-full"></div>
                     <span>Live studio recordings</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-amber-600">♫</span>
+                    <div className="w-1 h-1 bg-amber-600 rounded-full"></div>
                     <span>Limited red vinyl pressing</span>
                   </div>
                 </div>
