@@ -1,18 +1,101 @@
 import type {Config} from 'tailwindcss'
 import typography from '@tailwindcss/typography'
+import animate from 'tailwindcss-animate'
 
 export default {
-  content: ['./app/**/*.{ts,tsx}', './sanity/**/*.{ts,tsx}'],
+  darkMode: ['class'],
+  content: [
+    './app/**/*.{ts,tsx}',
+    './sanity/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+  ],
   theme: {
     container: {
       center: true,
       padding: '2rem',
+      screens: {
+        '2xl': '1400px',
+      },
     },
     extend: {
       boxShadow: {
         layer: '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
       },
       colors: {
+        border: 'hsl(var(--border))',
+        input: 'hsl(var(--input))',
+        ring: 'hsl(var(--ring))',
+        background: 'hsl(var(--background))',
+        foreground: 'hsl(var(--foreground))',
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          foreground: 'hsl(var(--primary-foreground))',
+        },
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          foreground: 'hsl(var(--secondary-foreground))',
+        },
+        destructive: {
+          DEFAULT: 'hsl(var(--destructive))',
+          foreground: 'hsl(var(--destructive-foreground))',
+        },
+        muted: {
+          DEFAULT: 'hsl(var(--muted))',
+          foreground: 'hsl(var(--muted-foreground))',
+        },
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          foreground: 'hsl(var(--accent-foreground))',
+        },
+        popover: {
+          DEFAULT: 'hsl(var(--popover))',
+          foreground: 'hsl(var(--popover-foreground))',
+        },
+        card: {
+          DEFAULT: 'hsl(var(--card))',
+          foreground: 'hsl(var(--card-foreground))',
+        },
+        // Kivett Bednar brand colors - Blues/Americana theme
+        midnight: {
+          50: '#e8edf5',
+          100: '#d1dbe9',
+          200: '#a3b7d4',
+          300: '#7593be',
+          400: '#476fa9',
+          500: '#1a4b93', // Primary midnight blue
+          600: '#153c76',
+          700: '#102d58',
+          800: '#0b1e3b',
+          900: '#060f1d',
+          950: '#03070e',
+        },
+        charcoal: {
+          50: '#f6f6f7',
+          100: '#edeeef',
+          200: '#dcdcdf',
+          300: '#cacbcf',
+          400: '#b9b9bf',
+          500: '#a7a8af',
+          600: '#86878c',
+          700: '#646569',
+          800: '#434446',
+          900: '#212223', // Primary charcoal
+          950: '#101111',
+        },
+        bone: '#f8f6f1', // Bone white
+        amber: {
+          50: '#fefbf3',
+          100: '#fdf7e7',
+          200: '#fbefc',
+          300: '#f8e7c3',
+          400: '#f6df9b',
+          500: '#f4d773',
+          600: '#f0c83e', // Stage light amber accent
+          700: '#d4a919',
+          800: '#9f7d13',
+          900: '#6a520d',
+          950: '#352907',
+        },
         black: '#0d0e12',
         white: '#fff',
         cyan: {
@@ -96,11 +179,31 @@ export default {
       },
       fontFamily: {
         sans: ['var(--font-inter)'],
+        display: ['var(--font-display)', 'serif'],
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
+      keyframes: {
+        'accordion-down': {
+          from: {height: '0'},
+          to: {height: 'var(--radix-accordion-content-height)'},
+        },
+        'accordion-up': {
+          from: {height: 'var(--radix-accordion-content-height)'},
+          to: {height: '0'},
+        },
+      },
+      animation: {
+        'accordion-down': 'accordion-down 0.2s ease-out',
+        'accordion-up': 'accordion-up 0.2s ease-out',
       },
     },
   },
   future: {
     hoverOnlyWhenSupported: true,
   },
-  plugins: [typography],
+  plugins: [typography, animate],
 } satisfies Config
