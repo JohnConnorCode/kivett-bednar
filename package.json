@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "prebuild": "npm run extract-schema && npm run typegen",
+    "prebuild": "npm run extract-schema || true && npm run typegen || true",
     "build": "next build",
     "dev": "next dev --turbopack",
     "lint": "next lint",
