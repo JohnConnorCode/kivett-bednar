@@ -26,19 +26,19 @@ export function ModuleRenderer({modules}: Props) {
       {modules.map((module) => {
         switch (module._type) {
           case 'hero':
-            return <Hero key={module._key} {...module} />
+            return <Hero key={module._key} {...(module as any)} />
           case 'richText':
-            return <RichText key={module._key} {...module} />
+            return <RichText key={module._key} {...(module as any)} />
           case 'imageGallery':
-            return <ImageGallery key={module._key} {...module} />
+            return <ImageGallery key={module._key} {...(module as any)} />
           case 'featureGrid':
-            return <FeatureGrid key={module._key} {...module} />
+            return <FeatureGrid key={module._key} {...(module as any)} />
           case 'ctaBanner':
-            return <CtaBanner key={module._key} {...module} />
+            return <CtaBanner key={module._key} {...(module as any)} />
           case 'videoEmbed':
-            return <VideoEmbed key={module._key} {...module} />
+            return <VideoEmbed key={module._key} {...(module as any)} />
           case 'musicEmbed':
-            return <MusicEmbed key={module._key} {...module} />
+            return <MusicEmbed key={module._key} {...(module as any)} />
           default:
             console.warn(`Unknown module type: ${module._type}`)
             return null
