@@ -1,4 +1,5 @@
 import {Metadata} from 'next'
+import Link from 'next/link'
 import {sanityFetch} from '@/sanity/lib/live'
 import {allProductsQuery} from '@/sanity/lib/queries'
 import {ProductCard} from '@/components/ui/ProductCard'
@@ -63,18 +64,18 @@ export default async function MerchPage() {
                     Check back for updates or follow on social media for the launch announcement.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a
+                    <Link
                       href="/contact"
                       className="px-8 py-4 rounded-lg bg-amber-600 text-charcoal-900 font-bold hover:bg-amber-500 transition-all transform hover:scale-105"
                     >
                       Get Notified
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href="/shows"
                       className="px-8 py-4 rounded-lg border-2 border-bone text-bone font-semibold hover:bg-bone/10 transition-all"
                     >
                       See Live Shows
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

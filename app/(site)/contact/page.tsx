@@ -1,4 +1,5 @@
 import {Metadata} from 'next'
+import Link from 'next/link'
 import {ContactForm} from '@/components/ui/ContactForm'
 
 export const metadata: Metadata = {
@@ -93,27 +94,27 @@ export default function ContactPage() {
                   <div className="text-4xl mb-4">🔗</div>
                   <h2 className="text-2xl font-bold mb-4 text-charcoal-900">Quick Links</h2>
                   <div className="space-y-3">
-                    <a
+                    <Link
                       href="/shows"
                       className="flex items-center gap-3 text-midnight-500 hover:text-amber-600 transition-colors font-semibold"
                     >
                       <span>→</span>
                       Upcoming Shows
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href="/lessons"
                       className="flex items-center gap-3 text-midnight-500 hover:text-amber-600 transition-colors font-semibold"
                     >
                       <span>→</span>
                       Guitar Lessons
-                    </a>
-                    <a
+                    </Link>
+                    <Link
                       href="/setlist"
                       className="flex items-center gap-3 text-midnight-500 hover:text-amber-600 transition-colors font-semibold"
                     >
                       <span>→</span>
                       Blues Setlist
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

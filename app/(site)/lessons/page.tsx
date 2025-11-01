@@ -49,15 +49,15 @@ export default function LessonsPage() {
                 </h2>
                 <div className="space-y-6 text-xl text-charcoal-900/80 leading-relaxed">
                   <p>
-                    We'll start at the beginning to make sure that your musical foundations are solid,
-                    and then we'll take a tour through Western harmony.
+                    We&apos;ll start at the beginning to make sure that your musical foundations are solid,
+                    and then we&apos;ll take a tour through Western harmony.
                   </p>
                   <p>
-                    You'll understand music from a perspective that transcends your instrument,
+                    You&apos;ll understand music from a perspective that transcends your instrument,
                     giving you the tools to grow as a musician for the rest of your life.
                   </p>
                   <p className="text-2xl font-semibold text-midnight-500 pt-4">
-                    "Music is a language. Let's learn to speak it fluently."
+                    &ldquo;Music is a language. Let&apos;s learn to speak it fluently.&rdquo;
                   </p>
                 </div>
               </div>
@@ -122,7 +122,7 @@ export default function LessonsPage() {
                   {
                     icon: '🧠',
                     title: 'Musical Concepts',
-                    desc: 'Instrument-agnostic understanding that transcends technical ability'
+                    desc: 'Instrument-agnostic understanding that transcends technical ability\n'
                   },
                 ].map((item, index) => (
                   <div key={index} className="text-center">
