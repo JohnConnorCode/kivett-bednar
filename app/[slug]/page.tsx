@@ -3,7 +3,7 @@ import Head from 'next/head'
 
 import PageBuilderPage from '@/app/components/PageBuilder'
 import {sanityFetch} from '@/sanity/lib/live'
-import {getPageQuery, pagesSlugs} from '@/sanity/lib/queries'
+import {pageBySlugQuery, pagesSlugs} from '@/sanity/lib/queries'
 import {GetPageQueryResult} from '@/sanity.types'
 import {PageOnboarding} from '@/app/components/Onboarding'
 
@@ -32,7 +32,7 @@ export async function generateStaticParams() {
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
   const {data: page} = await sanityFetch({
-    query: getPageQuery,
+    query: pageBySlugQuery,
     params,
     // Metadata should never contain stega
     stega: false,
@@ -46,7 +46,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function Page(props: Props) {
   const params = await props.params
-  const [{data: page}] = await Promise.all([sanityFetch({query: getPageQuery, params})])
+  const [{data: page}] = await Promise.all([sanityFetch({query: pageBySlugQuery, params})])
 
   if (!page?._id) {
     return (

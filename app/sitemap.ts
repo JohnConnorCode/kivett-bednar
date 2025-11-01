@@ -1,6 +1,6 @@
 import {MetadataRoute} from 'next'
 import {sanityFetch} from '@/sanity/lib/live'
-import {sitemapData} from '@/sanity/lib/queries'
+import {sitemapQuery} from '@/sanity/lib/queries'
 import {headers} from 'next/headers'
 
 /**
@@ -10,7 +10,7 @@ import {headers} from 'next/headers'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allPostsAndPages = await sanityFetch({
-    query: sitemapData,
+    query: sitemapQuery,
   })
   const headersList = await headers()
   const sitemap: MetadataRoute.Sitemap = []

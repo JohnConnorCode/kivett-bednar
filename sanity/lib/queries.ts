@@ -175,6 +175,40 @@ export const featuredProductsQuery = defineQuery(`*[_type == "product"] | order(
   currency
 }`)
 
+// Posts (blog functionality - template remnant)
+export const postQuery = defineQuery(`*[_type == "post" && slug.current == $slug][0]{
+  _id,
+  title,
+  "slug": slug.current,
+  excerpt,
+  content,
+  date,
+  coverImage{asset->, alt},
+  author->{firstName, lastName, picture{asset->}}
+}`)
+
+export const postPagesSlugs = defineQuery(`*[_type == "post" && defined(slug.current)]{
+  "slug": slug.current
+}`)
+
+export const allPostsQuery = defineQuery(`*[_type == "post"] | order(date desc){
+  _id,
+  title,
+  "slug": slug.current,
+  excerpt,
+  date,
+  author->{firstName, lastName}
+}`)
+
+export const morePostsQuery = defineQuery(`*[_type == "post" && _id != $skip] | order(date desc)[0...$limit]{
+  _id,
+  title,
+  "slug": slug.current,
+  excerpt,
+  date,
+  author->{firstName, lastName}
+}`)
+
 // Sitemap
 export const sitemapQuery = defineQuery(`*[_type in ["page", "product", "post"] && defined(slug.current)] | order(_type asc){
   "slug": slug.current,
