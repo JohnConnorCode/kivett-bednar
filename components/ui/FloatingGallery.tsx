@@ -2,10 +2,11 @@
 
 import {motion, useScroll, useTransform, MotionValue} from 'framer-motion'
 import Image from 'next/image'
-import {useRef} from 'react'
+import {useRef, useState, useEffect} from 'react'
+import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
 
 interface GalleryImage {
-  src: string
+  src: SanityImageWithPositioning | string
   alt: string
   width: number
   height: number
@@ -19,9 +20,10 @@ interface FloatingImageProps {
   image: GalleryImage
   index: number
   scrollYProgress: MotionValue<number>
+  isMobile: boolean
 }
 
-function FloatingImage({image, index, scrollYProgress}: FloatingImageProps) {
+function FloatingImage({image, index, scrollYProgress, isMobile}: FloatingImageProps) {
   // Create parallax effect for this image
   const yOffset = index % 2 === 0 ? [0, -50] : [0, 50]
   const y = useTransform(scrollYProgress, [0, 1], yOffset)
@@ -50,11 +52,16 @@ function FloatingImage({image, index, scrollYProgress}: FloatingImageProps) {
 
         {/* Image */}
         <Image
-          src={image.src}
+          src={typeof image.src === 'string' ? image.src : image.src.asset?.url || ''}
           alt={image.alt}
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-110"
           sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          style={{
+            objectPosition: typeof image.src === 'string'
+              ? 'center center'
+              : getObjectPosition(image.src, isMobile)
+          }}
         />
 
         {/* Elegant border with subtle animation */}
@@ -80,6 +87,15 @@ function FloatingImage({image, index, scrollYProgress}: FloatingImageProps) {
 }
 
 export function FloatingGallery({images}: FloatingGalleryProps) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   const containerRef = useRef<HTMLDivElement>(null)
   const {scrollYProgress} = useScroll({
     target: containerRef,
@@ -121,6 +137,7 @@ export function FloatingGallery({images}: FloatingGalleryProps) {
               image={image}
               index={index}
               scrollYProgress={scrollYProgress}
+              isMobile={isMobile}
             />
           ))}
         </div>

@@ -1,5 +1,9 @@
+'use client'
+
 import Image from 'next/image'
 import {urlFor} from '@/sanity/lib/image'
+import {useState, useEffect} from 'react'
+import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
 
 type FeatureGridProps = {
   items: Array<{
@@ -7,13 +11,20 @@ type FeatureGridProps = {
     body?: string
     iconType?: 'image' | 'icon'
     icon?: string
-    image?: {
-      asset: any
-    }
+    image?: SanityImageWithPositioning
   }>
 }
 
 export function FeatureGrid({items}: FeatureGridProps) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   if (!items || items.length === 0) return null
 
   return (
@@ -28,6 +39,9 @@ export function FeatureGrid({items}: FeatureGridProps) {
                   alt=""
                   fill
                   className="object-contain"
+                  style={{
+                    objectPosition: getObjectPosition(item.image, isMobile)
+                  }}
                 />
               </div>
             )}

@@ -2,11 +2,12 @@
 
 import {motion} from 'framer-motion'
 import Image from 'next/image'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
+import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
 
 interface StaggeredImageGridProps {
   images: {
-    src: string
+    src: SanityImageWithPositioning | string
     alt: string
     caption?: string
     width?: number
@@ -17,6 +18,14 @@ interface StaggeredImageGridProps {
 
 export function StaggeredImageGrid({images, columns = 3}: StaggeredImageGridProps) {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   return (
     <div
@@ -53,11 +62,16 @@ export function StaggeredImageGrid({images, columns = 3}: StaggeredImageGridProp
           >
             <div className="relative aspect-[3/4]">
               <Image
-                src={image.src}
+                src={typeof image.src === 'string' ? image.src : image.src.asset?.url || ''}
                 alt={image.alt}
                 fill
                 className="object-cover"
                 sizes={`(max-width: 768px) 100vw, ${100 / columns}vw`}
+                style={{
+                  objectPosition: typeof image.src === 'string'
+                    ? 'center center'
+                    : getObjectPosition(image.src, isMobile)
+                }}
               />
 
               {/* Hover Overlay */}

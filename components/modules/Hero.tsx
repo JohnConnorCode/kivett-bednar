@@ -1,13 +1,16 @@
+'use client'
+
 import Image from 'next/image'
 import {urlFor} from '@/sanity/lib/image'
 import {cn} from '@/lib/utils'
+import {useState, useEffect} from 'react'
+import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
 
 type HeroProps = {
   headline: string
   subhead?: string
   mediaType?: 'image' | 'video'
-  image?: {
-    asset: any
+  image?: SanityImageWithPositioning & {
     alt: string
   }
   video?: string
@@ -19,6 +22,15 @@ type HeroProps = {
 }
 
 export function Hero({headline, subhead, mediaType = 'image', image, video, ctas}: HeroProps) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   return (
     <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
       {/* Background Media */}
@@ -30,6 +42,9 @@ export function Hero({headline, subhead, mediaType = 'image', image, video, ctas
             fill
             className="object-cover"
             priority
+            style={{
+              objectPosition: getObjectPosition(image, isMobile)
+            }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20" />
         </div>

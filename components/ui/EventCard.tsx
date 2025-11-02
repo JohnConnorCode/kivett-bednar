@@ -1,7 +1,11 @@
+'use client'
+
 import Image from 'next/image'
 import {format} from 'date-fns'
 import {formatInTimeZone} from 'date-fns-tz'
 import {urlFor} from '@/sanity/lib/image'
+import {useState, useEffect} from 'react'
+import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
 
 type Event = {
   _id: string
@@ -12,8 +16,7 @@ type Event = {
   city: string
   state?: string
   ticketUrl?: string
-  coverImage?: {
-    asset: any
+  coverImage?: SanityImageWithPositioning & {
     alt?: string
   }
   isCanceled?: boolean
@@ -21,6 +24,15 @@ type Event = {
 }
 
 export function EventCard({event}: {event: Event}) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   const eventDate = formatInTimeZone(
     new Date(event.startDateTime),
     event.timezone,
@@ -41,6 +53,9 @@ export function EventCard({event}: {event: Event}) {
             alt={event.coverImage.alt || event.title}
             fill
             className="object-cover"
+            style={{
+              objectPosition: getObjectPosition(event.coverImage, isMobile)
+            }}
           />
           {event.isCanceled && (
             <div className="absolute inset-0 bg-black/70 flex items-center justify-center">

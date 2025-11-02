@@ -1,15 +1,27 @@
+'use client'
+
 import Image from 'next/image'
 import {urlFor} from '@/sanity/lib/image'
+import {useState, useEffect} from 'react'
+import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
 
 type ImageGalleryProps = {
-  images: Array<{
-    asset: any
+  images: Array<SanityImageWithPositioning & {
     alt: string
     caption?: string
   }>
 }
 
 export function ImageGallery({images}: ImageGalleryProps) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   if (!images || images.length === 0) return null
 
   return (
@@ -22,6 +34,9 @@ export function ImageGallery({images}: ImageGalleryProps) {
               alt={image.alt || ''}
               fill
               className="object-cover transition-transform group-hover:scale-105"
+              style={{
+                objectPosition: getObjectPosition(image, isMobile)
+              }}
             />
             {image.caption && (
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">

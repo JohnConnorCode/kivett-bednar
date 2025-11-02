@@ -1,11 +1,12 @@
 'use client'
 
-import {useRef} from 'react'
+import {useRef, useState, useEffect} from 'react'
 import {motion, useScroll, useTransform} from 'framer-motion'
 import Image from 'next/image'
+import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
 
 interface ImageRevealScrollProps {
-  imageSrc: string
+  imageSrc: SanityImageWithPositioning | string
   imageAlt: string
   direction?: 'left' | 'right' | 'up' | 'down'
   children?: React.ReactNode
@@ -17,6 +18,15 @@ export function ImageRevealScroll({
   direction = 'right',
   children,
 }: ImageRevealScrollProps) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   const containerRef = useRef<HTMLDivElement>(null)
   const {scrollYProgress} = useScroll({
     target: containerRef,
@@ -46,13 +56,15 @@ export function ImageRevealScroll({
         className="relative w-full h-[400px] rounded-2xl overflow-hidden shadow-2xl"
       >
         <Image
-          src={imageSrc}
+          src={typeof imageSrc === 'string' ? imageSrc : imageSrc.asset?.url || ''}
           alt={imageAlt}
           fill
           className="object-cover"
           sizes="100vw"
           style={{
-            objectPosition: 'center 40%'
+            objectPosition: typeof imageSrc === 'string'
+              ? 'center center'
+              : getObjectPosition(imageSrc, isMobile)
           }}
         />
 

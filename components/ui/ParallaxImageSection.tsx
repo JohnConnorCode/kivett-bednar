@@ -1,12 +1,13 @@
 'use client'
 
-import {useRef} from 'react'
+import {useRef, useState, useEffect} from 'react'
 import {motion, useScroll, useTransform, MotionValue} from 'framer-motion'
 import Image from 'next/image'
+import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
 
 interface ParallaxImageProps {
   image: {
-    src: string
+    src: SanityImageWithPositioning | string
     alt: string
     position: 'left' | 'right'
     offset?: number
@@ -14,9 +15,10 @@ interface ParallaxImageProps {
   index: number
   scrollYProgress: MotionValue<number>
   darkOverlay: boolean
+  isMobile: boolean
 }
 
-function ParallaxImage({image, index, scrollYProgress, darkOverlay}: ParallaxImageProps) {
+function ParallaxImage({image, index, scrollYProgress, darkOverlay, isMobile}: ParallaxImageProps) {
   const yOffset = image.offset || (index % 2 === 0 ? 100 : -100)
   const y = useTransform(scrollYProgress, [0, 1], [yOffset, -yOffset])
 
@@ -29,11 +31,16 @@ function ParallaxImage({image, index, scrollYProgress, darkOverlay}: ParallaxIma
     >
       <div className="relative w-full h-full">
         <Image
-          src={image.src}
+          src={typeof image.src === 'string' ? image.src : image.src.asset?.url || ''}
           alt={image.alt}
           fill
           className="object-cover rounded-2xl shadow-2xl"
           sizes="33vw"
+          style={{
+            objectPosition: typeof image.src === 'string'
+              ? 'center center'
+              : getObjectPosition(image.src, isMobile)
+          }}
         />
         {darkOverlay && (
           <div className="absolute inset-0 bg-gradient-to-br from-charcoal-900/20 to-transparent rounded-2xl" />
@@ -45,7 +52,7 @@ function ParallaxImage({image, index, scrollYProgress, darkOverlay}: ParallaxIma
 
 interface ParallaxImageSectionProps {
   images: {
-    src: string
+    src: SanityImageWithPositioning | string
     alt: string
     position: 'left' | 'right'
     offset?: number
@@ -59,6 +66,15 @@ export function ParallaxImageSection({
   children,
   darkOverlay = false,
 }: ParallaxImageSectionProps) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   const containerRef = useRef<HTMLDivElement>(null)
   const {scrollYProgress} = useScroll({
     target: containerRef,
@@ -75,6 +91,7 @@ export function ParallaxImageSection({
           index={index}
           scrollYProgress={scrollYProgress}
           darkOverlay={darkOverlay}
+          isMobile={isMobile}
         />
       ))}
 

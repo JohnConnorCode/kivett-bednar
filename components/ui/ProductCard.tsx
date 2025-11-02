@@ -1,13 +1,16 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
 import {urlFor} from '@/sanity/lib/image'
+import {useState, useEffect} from 'react'
+import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
 
 type Product = {
   _id: string
   title: string
   slug: string
-  images: Array<{
-    asset: any
+  images: Array<SanityImageWithPositioning & {
     alt: string
   }>
   priceCents: number
@@ -15,6 +18,15 @@ type Product = {
 }
 
 export function ProductCard({product}: {product: Product}) {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   const price = (product.priceCents / 100).toFixed(2)
 
   return (
@@ -29,6 +41,9 @@ export function ProductCard({product}: {product: Product}) {
             alt={product.images[0].alt || product.title}
             fill
             className="object-cover group-hover:scale-105 transition-transform"
+            style={{
+              objectPosition: getObjectPosition(product.images[0], isMobile)
+            }}
           />
         </div>
       )}
