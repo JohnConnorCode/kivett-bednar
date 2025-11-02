@@ -97,7 +97,7 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
   albumYear,
   albumFormat,
   albumDescription,
-  albumImage{asset->{_id, url}, alt},
+  albumCoverImage{asset->{_id, url}, alt},
   albumFeatures,
   ctaLessonsHeading,
   ctaLessonsText,
