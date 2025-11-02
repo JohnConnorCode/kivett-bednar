@@ -85,34 +85,34 @@ export default async function ShowsPage() {
             <StaggeredImageGrid
               images={[
                 {
-                  src: '/images/performance/stage-main.png',
-                  alt: 'Kivett performing at venue',
-                  caption: 'Blues Performance',
-                },
-                {
                   src: '/images/performance/orpheum-main.jpg',
-                  alt: 'Orpheum Theatre performance',
+                  alt: 'Historic Orpheum Theatre performance',
                   caption: 'Orpheum Theatre',
                 },
                 {
-                  src: '/images/gallery/hero-stage-compressed.jpg',
-                  alt: 'Main stage performance',
-                  caption: 'Live on Stage',
+                  src: '/images/382702580_10225110781416892_2823231479166319016_n.jpg',
+                  alt: 'Recent live performance',
+                  caption: 'Live Energy',
                 },
                 {
-                  src: '/images/hero/guitar-red.jpg',
-                  alt: 'Performance with red lighting',
-                  caption: 'Guitar Solo',
+                  src: '/images/38696879_10212495556648941_4928380418454978560_o.jpg',
+                  alt: 'Blues performance in action',
+                  caption: 'Blues Power',
                 },
                 {
-                  src: '/images/gallery/orpheum-performance.jpg',
-                  alt: 'Orpheum show',
-                  caption: 'Historic Venue',
+                  src: '/images/37124646_10212749349148811_4768331034854948864_o.jpg',
+                  alt: 'Concert energy and presence',
+                  caption: 'Stage Presence',
                 },
                 {
-                  src: '/images/performance/waltz-brewing-promo.jpg',
-                  alt: 'Waltz Brewing performance',
-                  caption: 'Waltz Brewing',
+                  src: '/images/26910150_10211126011331164_9091562930595566163_o.jpg',
+                  alt: 'Guitar-focused performance',
+                  caption: 'Guitar Craft',
+                },
+                {
+                  src: '/images/16487687_1351833004875154_191765266250731543_o.jpg',
+                  alt: 'Wide stage shot blues performance',
+                  caption: 'Pacific Northwest Blues',
                 },
               ]}
               columns={3}

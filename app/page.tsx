@@ -50,8 +50,8 @@ export default async function HomePage() {
 
       {/* About Section - Split Screen with Image */}
       <SplitScreenImage
-        imageSrc="/images/hero/background-1.jpg"
-        imageAlt="Kivett Bednar blues musician"
+        imageSrc="/images/kivett-high-res_magicstudio_ybv1se0lo5i-2.jpg"
+        imageAlt="Kivett Bednar - Musician, Amp Maker, Artist"
         imagePosition="left"
       >
         <h2 className="text-5xl font-bold mb-6 text-charcoal-900">
@@ -74,8 +74,8 @@ export default async function HomePage() {
       {/* Parallax Image Section */}
       <ParallaxImageSection
         images={[
-          {src: '/images/hero/hero-slide.jpg', alt: 'Kivett performing blues', position: 'left'},
-          {src: '/images/portraits/traced-portrait.png', alt: 'Kivett artistic portrait', position: 'right', offset: 150},
+          {src: '/images/10321709_666559680059075_1761408545473889635_o.jpg', alt: 'Dramatic stage performance', position: 'left'},
+          {src: '/images/10386889_666568380058205_4706124177037425882_o.jpg', alt: 'Guitar craftsmanship detail', position: 'right', offset: 150},
         ]}
       >
         <div className="text-center py-32">
@@ -128,8 +128,8 @@ export default async function HomePage() {
               </h2>
             </AnimatedSection>
             <ImageRevealScroll
-              imageSrc="/images/gallery/hero-performance.jpg"
-              imageAlt="Kivett Bednar live performance"
+              imageSrc="/images/performance/orpheum-main.jpg"
+              imageAlt="Performing at the historic Orpheum Theatre"
               direction="up"
             />
           </div>
@@ -151,40 +151,52 @@ export default async function HomePage() {
         <FloatingGallery
           images={[
             {
-              src: '/images/gallery/hero-stage-compressed.jpg',
-              alt: 'Kivett Bednar performing on stage',
-              width: 1920,
-              height: 1280,
+              src: '/images/10386889_666568380058205_4706124177037425882_o.jpg',
+              alt: 'Guitar craftsmanship and blues tradition',
+              width: 2048,
+              height: 1996,
             },
             {
-              src: '/images/hero/rae-gordon-album.jpg',
-              alt: 'Rae Gordon Band collaboration',
-              width: 1000,
-              height: 1000,
+              src: '/images/37124646_10212749349148811_4768331034854948864_o.jpg',
+              alt: 'Concert energy and stage presence',
+              width: 1952,
+              height: 1952,
             },
             {
-              src: '/images/gallery/guitar-portrait.jpg',
-              alt: 'Kivett with guitar',
-              width: 800,
-              height: 1000,
+              src: '/images/16486991_10208279632410298_2503941337142380558_o.jpg',
+              alt: 'Intimate blues performance',
+              width: 894,
+              height: 1440,
             },
             {
-              src: '/images/performance/stage-main.png',
-              alt: 'Professional stage performance',
+              src: '/images/12345438_10100487099276149_1793184209465297962_n.jpg',
+              alt: 'Live show atmosphere',
+              width: 960,
+              height: 846,
+            },
+            {
+              src: '/images/performance/waltz-brewing-promo.jpg',
+              alt: 'Waltz Brewing performance',
+              width: 1080,
+              height: 1080,
+            },
+            {
+              src: '/images/38518091_10212495556928948_4930564546763948032_o.jpg',
+              alt: 'Stage performance with guitar',
               width: 1200,
-              height: 900,
+              height: 1071,
             },
             {
-              src: '/images/gallery/orpheum-performance.jpg',
-              alt: 'Historic Orpheum Theatre',
-              width: 1510,
-              height: 1249,
+              src: '/images/16487687_1351833004875154_191765266250731543_o.jpg',
+              alt: 'Wide angle stage shot',
+              width: 2048,
+              height: 1366,
             },
             {
-              src: '/images/hero/guitar-red.jpg',
-              alt: 'Red guitar blues performance',
-              width: 1200,
-              height: 1200,
+              src: '/images/blues-kiv.jpg',
+              alt: 'Classic blues performance',
+              width: 960,
+              height: 741,
             },
           ]}
         />
