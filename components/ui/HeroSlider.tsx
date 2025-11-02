@@ -11,6 +11,8 @@ interface HeroSlide {
   image: SanityImageWithPositioning | null
   mobileImage?: SanityImageWithPositioning | null
   alt: string | null
+  desktopPosition?: string | null
+  mobilePosition?: string | null
 }
 
 interface HeroSliderProps {
@@ -51,15 +53,22 @@ export function HeroSlider({
 
   // Debug: Log positioning data
   useEffect(() => {
-    if (slides.length > 0) {
+    if (slides.length > 0 && slides[0]) {
+      const slide = slides[0]
+      const activeImage = isMobile && slide.mobileImage?.asset?.url ? slide.mobileImage : slide.image
+      const imageWithPosition = {
+        ...activeImage,
+        desktopPosition: slide.desktopPosition,
+        mobilePosition: slide.mobilePosition
+      }
       console.log('Hero Slider Debug:', {
         isMobile,
-        slide0: slides[0] ? {
-          desktopPosition: slides[0].image?.desktopPosition,
-          mobilePosition: slides[0].image?.mobilePosition,
-          hotspot: slides[0].image?.hotspot,
-          calculatedPosition: getObjectPosition(slides[0].image, isMobile)
-        } : null
+        slide: {
+          desktopPosition: slide.desktopPosition,
+          mobilePosition: slide.mobilePosition,
+          hotspot: activeImage?.hotspot,
+          calculatedPosition: getObjectPosition(imageWithPosition, isMobile)
+        }
       })
     }
   }, [slides, isMobile])
@@ -105,17 +114,24 @@ export function HeroSlider({
                 const activeImage = isMobile && slide.mobileImage?.asset?.url ? slide.mobileImage : slide.image
                 const imageUrl = activeImage?.asset?.url
 
+                // Combine image data with slide-level position settings
+                const imageWithPosition = {
+                  ...activeImage,
+                  desktopPosition: slide.desktopPosition,
+                  mobilePosition: slide.mobilePosition
+                }
+
                 return imageUrl ? (
                   <Image
                     src={imageUrl}
-                    alt={slide.alt || activeImage.alt || 'Kivett Bednar'}
+                    alt={slide.alt || activeImage?.alt || 'Kivett Bednar'}
                     fill
                     className="object-cover"
                     priority={index === 0}
                     quality={95}
                     sizes="100vw"
                     style={{
-                      objectPosition: getObjectPosition(activeImage, isMobile)
+                      objectPosition: getObjectPosition(imageWithPosition, isMobile)
                     }}
                   />
                 ) : null
