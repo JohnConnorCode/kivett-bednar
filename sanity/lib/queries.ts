@@ -84,7 +84,14 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
   _id,
   heroSlides[]{
     _key,
-    image{asset->{_id, url}, alt},
+    image{
+      asset->{_id, url},
+      hotspot,
+      crop,
+      desktopPosition,
+      mobilePosition,
+      alt
+    },
     alt
   },
   heroHeading,
@@ -92,12 +99,26 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
   heroTagline,
   aboutHeading,
   aboutText,
-  aboutImage{asset->{_id, url}, alt},
+  aboutImage{
+    asset->{_id, url},
+    hotspot,
+    crop,
+    desktopPosition,
+    mobilePosition,
+    alt
+  },
   albumTitle,
   albumYear,
   albumFormat,
   albumDescription,
-  albumCoverImage{asset->{_id, url}, alt},
+  albumCoverImage{
+    asset->{_id, url},
+    hotspot,
+    crop,
+    desktopPosition,
+    mobilePosition,
+    alt
+  },
   albumFeatures,
   ctaLessonsHeading,
   ctaLessonsText,
@@ -105,18 +126,39 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
   parallaxSubheading,
   parallaxImages[]{
     _key,
-    image{asset->{_id, url}, alt},
+    image{
+      asset->{_id, url},
+      hotspot,
+      crop,
+      desktopPosition,
+      mobilePosition,
+      alt
+    },
     alt,
     position,
     offset
   },
   performanceSectionHeading,
-  performanceImage{asset->{_id, url}, alt},
+  performanceImage{
+    asset->{_id, url},
+    hotspot,
+    crop,
+    desktopPosition,
+    mobilePosition,
+    alt
+  },
   gallerySectionHeading,
   gallerySectionSubheading,
   galleryImages[]{
     _key,
-    image{asset->{_id, url}, alt},
+    image{
+      asset->{_id, url},
+      hotspot,
+      crop,
+      desktopPosition,
+      mobilePosition,
+      alt
+    },
     alt,
     width,
     height

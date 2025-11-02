@@ -4,13 +4,11 @@ import {useState, useEffect, useRef} from 'react'
 import {motion, useScroll, useTransform} from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import {getObjectPosition, type SanityImageWithPositioning} from '@/sanity/lib/image'
 
 interface HeroSlide {
   _key: string
-  image: {
-    asset: any
-    alt?: string
-  }
+  image: SanityImageWithPositioning
   alt: string
 }
 
@@ -29,6 +27,7 @@ export function HeroSlider({
 }: HeroSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
 
   // Parallax effect: background moves at 50% speed
@@ -37,6 +36,17 @@ export function HeroSlider({
     offset: ['start start', 'end start'],
   })
   const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 400])
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768) // Tailwind md breakpoint
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     setIsLoaded(true)
@@ -84,7 +94,7 @@ export function HeroSlider({
                   quality={95}
                   sizes="100vw"
                   style={{
-                    objectPosition: 'center center'
+                    objectPosition: getObjectPosition(slide.image, isMobile)
                   }}
                 />
               )}
