@@ -3,17 +3,19 @@
 import {motion, useScroll, useTransform} from 'framer-motion'
 import {useEffect, useState, useRef} from 'react'
 import Image from 'next/image'
+import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
 
 interface AnimatedHeroProps {
   title: string
   subtitle?: string
   variant?: 'lessons' | 'shows' | 'contact' | 'setlist'
-  backgroundImage?: string
+  backgroundImage?: SanityImageWithPositioning | string
   backgroundAlt?: string
 }
 
 export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImage, backgroundAlt}: AnimatedHeroProps) {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
 
   // Parallax effect: background moves at 50% speed
@@ -22,6 +24,16 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
     offset: ['start start', 'end start'],
   })
   const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 300])
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     setIsLoaded(true)
@@ -44,7 +56,7 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
         >
           <div className="absolute inset-0 animate-ken-burns">
             <Image
-              src={backgroundImage}
+              src={typeof backgroundImage === 'string' ? backgroundImage : backgroundImage.asset?.url || ''}
               alt={backgroundAlt || title}
               fill
               className="object-cover object-center"
@@ -52,7 +64,9 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
               quality={95}
               sizes="100vw"
               style={{
-                objectPosition: 'center 40%'
+                objectPosition: typeof backgroundImage === 'string'
+                  ? 'center 40%'
+                  : getObjectPosition(backgroundImage, isMobile)
               }}
             />
           </div>
