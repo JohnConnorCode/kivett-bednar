@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import {useState, useEffect} from 'react'
+import {usePathname} from 'next/navigation'
 
 interface HeaderProps {
   siteName?: string
@@ -11,6 +12,8 @@ interface HeaderProps {
 export function Header({siteName, navigation}: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const pathname = usePathname()
+  const isHomePage = pathname === '/'
 
   // Fallback navigation if not provided from CMS
   const navItems = navigation || [
@@ -35,7 +38,7 @@ export function Header({siteName, navigation}: HeaderProps) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
+      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ease-out ${
         isScrolled ? 'shadow-lg' : ''
       }`}
       style={{
@@ -52,10 +55,12 @@ export function Header({siteName, navigation}: HeaderProps) {
           {/* Logo - White text with strong shadow for visibility over images */}
           <Link
             href="/"
-            className={`text-2xl font-bold tracking-tight transition-all duration-300 ${
+            className={`text-2xl font-bold tracking-tight transition-all duration-500 ${
               isScrolled
-                ? 'text-white hover:text-midnight-400'
+                ? 'text-white hover:text-midnight-400 opacity-100'
                 : 'text-white hover:text-midnight-300'
+            } ${
+              isHomePage && !isScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
             style={{
               textShadow: isScrolled

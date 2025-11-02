@@ -8,8 +8,6 @@ import {HeroSlider} from '@/components/ui/HeroSlider'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
 import {FloatingGallery} from '@/components/ui/FloatingGallery'
 import {SplitScreenImage} from '@/components/ui/SplitScreenImage'
-import {ParallaxImageSection} from '@/components/ui/ParallaxImageSection'
-import {ImageRevealScroll} from '@/components/ui/ImageRevealScroll'
 
 export const metadata: Metadata = {
   title: 'Kivett Bednar | Blues Guitarist & Musician',
@@ -75,32 +73,6 @@ export default async function HomePage() {
         </SplitScreenImage>
       )}
 
-      {/* Parallax Image Section */}
-      <ParallaxImageSection
-        images={homePage.parallaxImages && homePage.parallaxImages.length > 0
-          ? homePage.parallaxImages
-              .filter((img: any) => img.image?.asset?.url)
-              .map((img: any) => ({
-                src: img.image.asset.url,
-                alt: img.alt || img.image?.alt || 'Performance image',
-                position: img.position || 'left',
-                offset: img.offset || 0
-              }))
-          : []
-        }
-      >
-        <div className="text-center py-32">
-          <AnimatedSection animation="fadeIn">
-            <h2 className="text-6xl font-bold text-charcoal-900 mb-6">
-              {homePage.parallaxHeading || 'Gritty Texas Blues'}
-            </h2>
-            <p className="text-2xl text-midnight-600 font-semibold">
-              {homePage.parallaxSubheading || 'Meets the Heart of the Pacific Northwest'}
-            </p>
-          </AnimatedSection>
-        </div>
-      </ParallaxImageSection>
-
       {/* Latest Album/Music Section */}
       {(homePage as any).albumCoverImage?.asset?.url && (
         <SplitScreenImage
@@ -130,26 +102,6 @@ export default async function HomePage() {
         )}
         </SplitScreenImage>
       )}
-
-      {/* Performance Image Reveal */}
-      <section className="py-24 bg-gradient-to-b from-charcoal-900 to-midnight-500">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <AnimatedSection animation="fadeIn">
-              <h2 className="text-5xl font-bold text-center text-bone mb-12">
-                {homePage.performanceSectionHeading || 'Live Performances'}
-              </h2>
-            </AnimatedSection>
-            {homePage.performanceImage?.asset?.url && (
-              <ImageRevealScroll
-                imageSrc={homePage.performanceImage.asset.url}
-                imageAlt={homePage.performanceImage?.alt || "Performing at the historic Orpheum Theatre"}
-                direction="up"
-              />
-            )}
-          </div>
-        </div>
-      </section>
 
       {/* Floating Image Gallery with Parallax */}
       <section className="bg-gradient-to-b from-midnight-500 via-charcoal-900/50 to-bone py-32">

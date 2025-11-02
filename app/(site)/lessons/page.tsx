@@ -3,7 +3,6 @@ import {client} from '@/sanity/lib/client'
 import {lessonsPageQuery, settingsQuery} from '@/sanity/lib/queries'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
-import {ImageRevealScroll} from '@/components/ui/ImageRevealScroll'
 import {SplitScreenImage} from '@/components/ui/SplitScreenImage'
 
 export const metadata: Metadata = {
@@ -37,19 +36,6 @@ export default async function LessonsPage() {
         backgroundAlt={lessonsPage.heroImage?.alt || 'Kivett Bednar with guitar'}
       />
 
-      {/* Image Reveal - Teaching */}
-      <section className="bg-gradient-to-b from-bone to-charcoal-900/5 py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <ImageRevealScroll
-              imageSrc={lessonsPage.teachingImage?.asset?.url || '/images/hero/guitar-red.jpg'}
-              imageAlt={lessonsPage.teachingImage?.alt || 'Kivett Bednar teaching guitar'}
-              direction="left"
-            />
-          </div>
-        </div>
-      </section>
-
       {/* Teaching Philosophy - Split Screen */}
       <SplitScreenImage
         imageSrc={lessonsPage.philosophyImage?.asset?.url || '/images/portraits/guild-shirt.jpg'}
@@ -64,19 +50,6 @@ export default async function LessonsPage() {
           {lessonsPage.philosophyText}
         </div>
       </SplitScreenImage>
-
-      {/* Image Reveal - Performance */}
-      <section className="bg-gradient-to-b from-bone to-midnight-500/10 py-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <ImageRevealScroll
-              imageSrc={lessonsPage.performanceImage?.asset?.url || '/images/26910150_10211126011331164_9091562930595566163_o.jpg'}
-              imageAlt={lessonsPage.performanceImage?.alt || 'Kivett Bednar live blues performance'}
-              direction="right"
-            />
-          </div>
-        </div>
-      </section>
 
       {/* CTA Box */}
       <section className="bg-bone py-24">
