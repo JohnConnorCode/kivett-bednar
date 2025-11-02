@@ -79,12 +79,12 @@ export function HeroSlider({
                   src={slide.image.asset.url}
                   alt={slide.alt || slide.image.alt || 'Kivett Bednar'}
                   fill
-                  className="object-cover object-center"
+                  className="object-cover"
                   priority={index === 0}
                   quality={95}
                   sizes="100vw"
                   style={{
-                    objectPosition: 'center 40%'
+                    objectPosition: 'center center'
                   }}
                 />
               )}
