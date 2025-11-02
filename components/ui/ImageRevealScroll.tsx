@@ -58,7 +58,7 @@ export function ImageRevealScroll({
 
         {/* Border Glow Effect */}
         <motion.div
-          className="absolute inset-0 border-2 border-amber-600 rounded-2xl"
+          className="absolute inset-0 border-2 border-sky-500 rounded-2xl"
           animate={{
             boxShadow: [
               '0 0 20px rgba(217, 119, 6, 0.3)',

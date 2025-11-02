@@ -63,7 +63,7 @@ export default async function HomePage() {
         <div className="flex gap-4">
           <Link
             href="/setlist"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-midnight-500 text-bone font-semibold rounded-lg hover:bg-amber-600 hover:text-charcoal-900 transition-all transform hover:scale-105"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-midnight-500 text-bone font-semibold rounded-lg hover:bg-sky-500 hover:text-charcoal-900 transition-all transform hover:scale-105"
           >
             View Setlist
             <span>→</span>
@@ -83,7 +83,7 @@ export default async function HomePage() {
             <h2 className="text-6xl font-bold text-charcoal-900 mb-6">
               Gritty Texas Blues
             </h2>
-            <p className="text-2xl text-amber-600 font-semibold">
+            <p className="text-2xl text-sky-500 font-semibold">
               Meets the Heart of the Pacific Northwest
             </p>
           </AnimatedSection>
@@ -99,7 +99,7 @@ export default async function HomePage() {
       >
         <h2 className="text-5xl font-bold mb-6">{homePage.albumTitle}</h2>
         {(homePage.albumYear || homePage.albumFormat) && (
-          <p className="text-2xl mb-6 text-amber-600 font-semibold">
+          <p className="text-2xl mb-6 text-sky-500 font-semibold">
             {[homePage.albumYear, homePage.albumFormat].filter(Boolean).join(' • ')}
           </p>
         )}
@@ -110,7 +110,7 @@ export default async function HomePage() {
           <div className="space-y-4">
             {homePage.albumFeatures.map((feature: string, index: number) => (
               <div key={index} className="flex items-center gap-3">
-                <div className="w-1 h-1 bg-amber-600 rounded-full"></div>
+                <div className="w-1 h-1 bg-sky-500 rounded-full"></div>
                 <span>{feature}</span>
               </div>
             ))}
@@ -200,7 +200,7 @@ export default async function HomePage() {
                   <h2 className="text-5xl font-bold text-charcoal-900">Upcoming Shows</h2>
                   <Link
                     href="/shows"
-                    className="text-midnight-500 font-semibold hover:text-amber-600 transition-colors"
+                    className="text-midnight-500 font-semibold hover:text-sky-500 transition-colors"
                   >
                     See all shows →
                   </Link>
@@ -228,7 +228,7 @@ export default async function HomePage() {
             </p>
             <Link
               href="/lessons"
-              className="inline-block px-8 py-4 bg-amber-600 text-charcoal-900 font-bold rounded-lg hover:bg-amber-500 transition-all transform hover:scale-105 text-lg"
+              className="inline-block px-8 py-4 bg-sky-500 text-charcoal-900 font-bold rounded-lg hover:bg-sky-400 transition-all transform hover:scale-105 text-lg"
             >
               Schedule Your First Lesson
             </Link>

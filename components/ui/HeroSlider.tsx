@@ -46,11 +46,17 @@ export function HeroSlider({
       {slides.length > 0 && slides.map((slide, index) => (
         <div
           key={slide._key || index}
-          className={`absolute inset-0 transition-opacity duration-2000 ${
-            index === currentSlide ? 'opacity-100' : 'opacity-0'
+          className={`absolute inset-0 ${
+            index === currentSlide ? 'opacity-100 z-20' : 'opacity-0 z-10'
           }`}
+          style={{
+            transition: 'opacity 1500ms cubic-bezier(0.22, 1, 0.36, 1)',
+            backfaceVisibility: 'hidden',
+            transform: 'translateZ(0)',
+            willChange: 'opacity'
+          }}
         >
-          <div className="absolute inset-0 animate-ken-burns">
+          <div className={`absolute inset-0 animate-ken-burns-${(index % 3) + 1}`}>
             {slide.image?.asset?.url && (
               <Image
                 src={slide.image.asset.url}
@@ -63,9 +69,9 @@ export function HeroSlider({
               />
             )}
           </div>
-          {/* Dramatic overlays for readability and atmosphere */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
-          <div className="absolute inset-0 bg-gradient-to-r from-midnight-500/30 via-transparent to-amber-600/20" />
+          {/* Lighter overlays - let the images show! */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/25 to-black/45" />
+          <div className="absolute inset-0 bg-gradient-to-r from-midnight-500/15 via-transparent to-sky-500/10" />
         </div>
       ))}
 
@@ -79,20 +85,20 @@ export function HeroSlider({
           }`}
           style={{
             transitionDelay: '200ms',
-            textShadow: '0 2px 15px rgba(0,0,0,0.9), 0 0 20px rgba(240,200,62,0.2)'
+            textShadow: '0 2px 8px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.4), 0 0 12px rgba(240,200,62,0.15)'
           }}
         >
           {heading}
         </h1>
         <p
-          className={`text-3xl md:text-4xl lg:text-5xl mb-8 font-medium tracking-wide text-amber-400 transform transition-all duration-1000 ${
+          className={`text-3xl md:text-4xl lg:text-5xl mb-8 font-medium tracking-wide text-sky-300 transform transition-all duration-1000 ${
             isLoaded
               ? 'translate-y-0 opacity-100'
               : 'translate-y-8 opacity-0'
           }`}
           style={{
             transitionDelay: '400ms',
-            textShadow: '0 2px 12px rgba(0,0,0,0.9), 0 0 15px rgba(240,200,62,0.25)'
+            textShadow: '0 1px 4px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3), 0 0 8px rgba(240,200,62,0.12)'
           }}
         >
           {subheading}
@@ -105,7 +111,7 @@ export function HeroSlider({
           }`}
           style={{
             transitionDelay: '600ms',
-            textShadow: '0 2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.7)'
+            textShadow: '0 1px 3px rgba(0,0,0,0.6), 0 2px 6px rgba(0,0,0,0.4)'
           }}
         >
           {tagline}
@@ -120,23 +126,23 @@ export function HeroSlider({
         >
           <Link
             href="/shows"
-            className="group relative px-10 py-5 bg-amber-600 text-black font-bold rounded-lg overflow-hidden text-xl shadow-2xl transform transition-all duration-300 hover:scale-110"
+            className="group relative px-10 py-5 bg-sky-500 text-black font-bold rounded-lg overflow-hidden text-xl shadow-2xl transform transition-all duration-300 hover:scale-110"
             style={{
               boxShadow: '0 0 20px rgba(240,200,62,0.3), 0 10px 30px rgba(0,0,0,0.5)'
             }}
           >
             <span className="relative z-10">See Live Shows</span>
-            <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-amber-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-r from-sky-400 to-amber-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </Link>
           <Link
             href="/lessons"
-            className="group relative px-10 py-5 border-3 border-amber-600 text-bone font-bold rounded-lg overflow-hidden text-xl backdrop-blur-sm transform transition-all duration-300 hover:scale-110"
+            className="group relative px-10 py-5 border-3 border-sky-500 text-bone font-bold rounded-lg overflow-hidden text-xl backdrop-blur-sm transform transition-all duration-300 hover:scale-110"
             style={{
               boxShadow: '0 0 15px rgba(240,200,62,0.2), 0 10px 30px rgba(0,0,0,0.5)'
             }}
           >
             <span className="relative z-10">Book a Lesson</span>
-            <div className="absolute inset-0 bg-amber-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-sky-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </Link>
         </div>
       </div>
@@ -150,7 +156,7 @@ export function HeroSlider({
               onClick={() => setCurrentSlide(index)}
               className={`transition-all duration-500 rounded-full ${
                 index === currentSlide
-                  ? 'bg-amber-600 w-12 h-2'
+                  ? 'bg-sky-500 w-12 h-2'
                   : 'bg-bone/30 hover:bg-bone/50 w-2 h-2'
               }`}
               aria-label={`Go to slide ${index + 1}`}
@@ -159,12 +165,6 @@ export function HeroSlider({
         </div>
       )}
 
-      {/* Decorative bottom wave */}
-      <div className="absolute bottom-0 left-0 right-0 z-10">
-        <svg viewBox="0 0 1200 120" className="w-full h-16 text-bone">
-          <path d="M0,0 Q300,40 600,20 T1200,0 L1200,120 L0,120 Z" fill="currentColor" />
-        </svg>
-      </div>
     </section>
   )
 }

@@ -56,12 +56,12 @@ export function SplitScreenImage({
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/30 via-transparent to-transparent" />
 
               {/* Decorative Frame */}
-              <div className="absolute inset-0 border-4 border-amber-600/20 rounded-2xl" />
+              <div className="absolute inset-0 border-4 border-sky-500/20 rounded-2xl" />
             </div>
 
             {/* Floating Accent */}
             <motion.div
-              className="absolute -top-4 -right-4 w-32 h-32 bg-amber-600/10 rounded-full blur-3xl"
+              className="absolute -top-4 -right-4 w-32 h-32 bg-sky-500/10 rounded-full blur-3xl"
               animate={{
                 scale: [1, 1.2, 1],
                 opacity: [0.3, 0.5, 0.3],

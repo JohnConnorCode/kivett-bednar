@@ -19,22 +19,6 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
     setIsLoaded(true)
   }, [])
 
-  // Animated background elements based on variant
-  const renderBackground = () => {
-    switch (variant) {
-      case 'lessons':
-        return <MusicalNotesBackground />
-      case 'shows':
-        return <SpotlightBackground />
-      case 'contact':
-        return <VinylBackground />
-      case 'setlist':
-        return <SheetMusicBackground />
-      default:
-        return <SpotlightBackground />
-    }
-  }
-
   return (
     <section className="relative h-[70vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-charcoal-900">
       {/* Background Image (if provided) */}
@@ -52,12 +36,8 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
         </div>
       )}
 
-      {/* Animated Background (decorative overlay) */}
-      {!backgroundImage && renderBackground()}
-
-      {/* Gradient Overlays for depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90 z-10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-midnight-500/20 via-transparent to-amber-600/10 z-10" />
+      {/* Strong Dark Overlay for Readability */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/75 z-10" />
 
       {/* Content */}
       <div className="relative z-20 container mx-auto px-4 text-center text-bone">
@@ -65,9 +45,9 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
           initial={{opacity: 0, y: 50, scale: 0.9}}
           animate={isLoaded ? {opacity: 1, y: 0, scale: 1} : {}}
           transition={{duration: 0.8, ease: [0.22, 1, 0.36, 1]}}
-          className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 tracking-tight"
+          className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 tracking-tight drop-shadow-2xl"
           style={{
-            textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 0 25px rgba(240,200,62,0.25)'
+            textShadow: '0 4px 12px rgba(0,0,0,0.9), 0 8px 24px rgba(0,0,0,0.7), 0 2px 4px rgba(0,0,0,1)'
           }}
         >
           {title}
@@ -78,9 +58,9 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
             initial={{opacity: 0, y: 30}}
             animate={isLoaded ? {opacity: 1, y: 0} : {}}
             transition={{duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1]}}
-            className="text-2xl md:text-3xl lg:text-4xl max-w-4xl mx-auto leading-relaxed text-amber-400 font-light"
+            className="text-2xl md:text-3xl lg:text-4xl max-w-4xl mx-auto leading-relaxed text-blue-300 font-light drop-shadow-xl"
             style={{
-              textShadow: '0 2px 15px rgba(0,0,0,0.9), 0 0 18px rgba(240,200,62,0.2)'
+              textShadow: '0 2px 8px rgba(0,0,0,0.9), 0 4px 16px rgba(0,0,0,0.7), 0 1px 2px rgba(0,0,0,1)'
             }}
           >
             {subtitle}
@@ -88,17 +68,6 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
         )}
       </div>
 
-      {/* Decorative bottom wave */}
-      <motion.div
-        initial={{opacity: 0, y: 20}}
-        animate={isLoaded ? {opacity: 1, y: 0} : {}}
-        transition={{duration: 1, delay: 0.5}}
-        className="absolute bottom-0 left-0 right-0 z-20"
-      >
-        <svg viewBox="0 0 1200 120" className="w-full h-16 md:h-20 text-bone">
-          <path d="M0,0 Q300,50 600,25 T1200,0 L1200,120 L0,120 Z" fill="currentColor" />
-        </svg>
-      </motion.div>
     </section>
   )
 }
@@ -111,7 +80,7 @@ function MusicalNotesBackground() {
       {Array.from({length: 20}).map((_, i) => (
         <motion.div
           key={i}
-          className="absolute text-amber-600/20 text-4xl md:text-6xl"
+          className="absolute text-sky-500/20 text-4xl md:text-6xl"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
@@ -162,7 +131,7 @@ function SpotlightBackground() {
         />
       ))}
       {/* Stage floor glow */}
-      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-amber-600/10 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-sky-500/10 to-transparent" />
     </div>
   )
 }
@@ -180,7 +149,7 @@ function VinylBackground() {
         transition={{duration: 20, repeat: Infinity, ease: 'linear'}}
       >
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-amber-600/30" />
+          <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-sky-500/30" />
         </div>
       </motion.div>
     </div>
@@ -206,7 +175,7 @@ function SheetMusicBackground() {
       {Array.from({length: 15}).map((_, i) => (
         <motion.div
           key={`note-${i}`}
-          className="absolute text-amber-600/20 text-3xl md:text-5xl"
+          className="absolute text-sky-500/20 text-3xl md:text-5xl"
           style={{
             left: `${Math.random() * 90 + 5}%`,
             top: `${15 + Math.random() * 50}%`,

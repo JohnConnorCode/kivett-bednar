@@ -15,11 +15,11 @@ export function Header() {
   ]
 
   return (
-    <header className="bg-charcoal-900 border-b border-amber-600/20 sticky top-0 z-50 backdrop-blur">
+    <header className="bg-charcoal-900 border-b border-sky-500/20 sticky top-0 z-50 backdrop-blur">
       <div className="container mx-auto px-4">
         <div className="flex h-20 items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="text-2xl font-bold text-bone hover:text-amber-600 transition-colors tracking-tight">
+          <Link href="/" className="text-2xl font-bold text-bone hover:text-sky-500 transition-colors tracking-tight">
             KIVETT BEDNAR
           </Link>
 
@@ -29,7 +29,7 @@ export function Header() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-bone/80 hover:text-amber-600 transition-colors font-medium uppercase tracking-wider text-sm"
+                className="text-bone/80 hover:text-sky-500 transition-colors font-medium uppercase tracking-wider text-sm"
               >
                 {item.title}
               </Link>
@@ -61,12 +61,12 @@ export function Header() {
 
         {/* Mobile Navigation */}
         {mobileMenuOpen && (
-          <nav className="md:hidden pb-4 border-t border-amber-600/20 mt-2 pt-4">
+          <nav className="md:hidden pb-4 border-t border-sky-500/20 mt-2 pt-4">
             {navigation.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="block py-3 text-bone/80 hover:text-amber-600 transition-colors font-medium uppercase tracking-wider text-sm"
+                className="block py-3 text-bone/80 hover:text-sky-500 transition-colors font-medium uppercase tracking-wider text-sm"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.title}
