@@ -36,7 +36,7 @@ export default async function ProductPage({params}: Props) {
     notFound()
   }
 
-  const price = (product.priceCents / 100).toFixed(2)
+  const price = product.priceCents ? (product.priceCents / 100).toFixed(2) : '0.00'
 
   // Generate JSON-LD structured data for product
   const productJsonLd = {
@@ -74,14 +74,14 @@ export default async function ProductPage({params}: Props) {
                 <div className="relative aspect-square bg-muted rounded-lg overflow-hidden">
                   <Image
                     src={urlFor(product.images[0].asset).width(800).height(800).url()}
-                    alt={product.images[0].alt || product.title}
+                    alt={product.images[0].alt || product.title || 'Product image'}
                     fill
                     className="object-cover"
                     priority
                   />
                 </div>
               )}
-              {product.images?.length > 1 && (
+              {product.images && product.images.length > 1 && (
                 <div className="grid grid-cols-4 gap-2">
                   {product.images.slice(1, 5).map((img: any, idx: number) => (
                     <div key={idx} className="relative aspect-square bg-muted rounded overflow-hidden">

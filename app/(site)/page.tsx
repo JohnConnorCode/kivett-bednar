@@ -44,9 +44,9 @@ export default async function HomePage() {
     <div className="min-h-screen">
       {/* Hero Slider */}
       <HeroSlider
-        slides={homePage.heroSlides}
-        heading={homePage.heroHeading}
-        subheading={homePage.heroSubheading}
+        slides={homePage.heroSlides || undefined}
+        heading={homePage.heroHeading || undefined}
+        subheading={homePage.heroSubheading || undefined}
         tagline={homePage.heroTagline || 'Gritty Texas Blues meets the heart of the Pacific Northwest'}
       />
 
@@ -102,10 +102,10 @@ export default async function HomePage() {
       </ParallaxImageSection>
 
       {/* Latest Album/Music Section */}
-      {homePage.albumCoverImage?.asset?.url && (
+      {(homePage as any).albumCoverImage?.asset?.url && (
         <SplitScreenImage
-          imageSrc={homePage.albumCoverImage.asset.url}
-          imageAlt={homePage.albumCoverImage?.alt || "Rae Gordon Band - Better Than I Was album cover"}
+          imageSrc={(homePage as any).albumCoverImage.asset.url}
+          imageAlt={(homePage as any).albumCoverImage?.alt || "Rae Gordon Band - Better Than I Was album cover"}
           imagePosition="right"
           darkBg={true}
         >

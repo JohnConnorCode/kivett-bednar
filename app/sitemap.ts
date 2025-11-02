@@ -66,11 +66,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           changeFrequency = 'never'
           url = `${domain}/posts/${p.slug}`
           break
-        case 'event':
-          priority = 0.9
-          changeFrequency = 'daily'
-          url = `${domain}/shows`
-          break
         case 'product':
           priority = 0.8
           changeFrequency = 'weekly'

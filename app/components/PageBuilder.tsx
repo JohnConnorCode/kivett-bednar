@@ -5,12 +5,12 @@ import {useOptimistic} from 'next-sanity/hooks'
 import Link from 'next/link'
 
 import BlockRenderer from '@/app/components/BlockRenderer'
-import {GetPageQueryResult} from '@/sanity.types'
+import {PageBySlugQueryResult} from '@/sanity.types'
 import {dataAttr} from '@/sanity/lib/utils'
 import {studioUrl} from '@/sanity/lib/api'
 
 type PageBuilderPageProps = {
-  page: GetPageQueryResult
+  page: PageBySlugQueryResult
 }
 
 type PageBuilderSection = {
@@ -21,14 +21,14 @@ type PageBuilderSection = {
 type PageData = {
   _id: string
   _type: string
-  pageBuilder?: PageBuilderSection[]
+  modules?: PageBuilderSection[]
 }
 
 /**
  * The PageBuilder component is used to render the blocks from the `pageBuilder` field in the Page type in your Sanity Studio.
  */
 
-function renderSections(pageBuilderSections: PageBuilderSection[], page: GetPageQueryResult) {
+function renderSections(pageBuilderSections: PageBuilderSection[], page: PageBySlugQueryResult) {
   if (!page) {
     return null
   }
@@ -53,7 +53,7 @@ function renderSections(pageBuilderSections: PageBuilderSection[], page: GetPage
   )
 }
 
-function renderEmptyState(page: GetPageQueryResult) {
+function renderEmptyState(page: PageBySlugQueryResult) {
   if (!page) {
     return null
   }
@@ -81,7 +81,7 @@ export default function PageBuilder({page}: PageBuilderPageProps) {
   const pageBuilderSections = useOptimistic<
     PageBuilderSection[] | undefined,
     SanityDocument<PageData>
-  >(page?.pageBuilder || [], (currentSections, action) => {
+  >(page?.modules || [], (currentSections, action) => {
     // The action contains updated document data from Sanity
     // when someone makes an edit in the Studio
 
@@ -91,9 +91,9 @@ export default function PageBuilder({page}: PageBuilderPageProps) {
     }
 
     // If there are sections in the updated document, use them
-    if (action.document.pageBuilder) {
+    if (action.document.modules) {
       // Reconcile References. https://www.sanity.io/docs/enabling-drag-and-drop#ffe728eea8c1
-      return action.document.pageBuilder.map(
+      return action.document.modules.map(
         (section) => currentSections?.find((s) => s._key === section?._key) || section,
       )
     }

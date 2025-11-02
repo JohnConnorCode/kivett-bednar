@@ -23,17 +23,17 @@ export function urlFor(source: any) {
  * Type definitions for Sanity image data
  */
 export interface SanityHotspot {
-  x: number  // 0-1, horizontal focal point
-  y: number  // 0-1, vertical focal point
-  width: number
-  height: number
+  x?: number  // 0-1, horizontal focal point
+  y?: number  // 0-1, vertical focal point
+  width?: number
+  height?: number
 }
 
 export interface SanityCrop {
-  top: number
-  bottom: number
-  left: number
-  right: number
+  top?: number
+  bottom?: number
+  left?: number
+  right?: number
 }
 
 export type PositionValue =
@@ -43,14 +43,14 @@ export type PositionValue =
 
 export interface SanityImageWithPositioning {
   asset?: {
-    url?: string
+    url?: string | null
     _id?: string
-  }
-  hotspot?: SanityHotspot
-  crop?: SanityCrop
-  desktopPosition?: PositionValue
-  mobilePosition?: PositionValue
-  alt?: string
+  } | null
+  hotspot?: SanityHotspot | null
+  crop?: SanityCrop | null
+  desktopPosition?: PositionValue | null
+  mobilePosition?: PositionValue | null
+  alt?: string | null
 }
 
 /**
@@ -76,8 +76,8 @@ function positionValueToCSS(position: PositionValue): string {
  * Hotspot x/y are 0-1 values representing the focal point
  */
 function hotspotToObjectPosition(hotspot: SanityHotspot): string {
-  const x = Math.round(hotspot.x * 100)
-  const y = Math.round(hotspot.y * 100)
+  const x = Math.round((hotspot.x ?? 0.5) * 100)
+  const y = Math.round((hotspot.y ?? 0.5) * 100)
   return `${x}% ${y}%`
 }
 

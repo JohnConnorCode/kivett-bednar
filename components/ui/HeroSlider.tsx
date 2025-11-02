@@ -8,8 +8,8 @@ import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-po
 
 interface HeroSlide {
   _key: string
-  image: SanityImageWithPositioning
-  alt: string
+  image: SanityImageWithPositioning | null
+  alt: string | null
 }
 
 interface HeroSliderProps {

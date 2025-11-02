@@ -83,7 +83,7 @@ export default async function PostPage(props: Props) {
               </div>
               <div className="max-w-3xl flex gap-4 items-center">
                 {post.author && post.author.firstName && post.author.lastName && (
-                  <Avatar person={post.author} date={post.date} />
+                  <Avatar person={post.author} date={post.date || undefined} />
                 )}
               </div>
             </div>

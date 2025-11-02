@@ -303,6 +303,7 @@ const moduleFields = /* groq */ `
 // Pages
 export const pageBySlugQuery = defineQuery(`*[_type == "page" && slug.current == $slug][0]{
   _id,
+  _type,
   name,
   heading,
   subheading,

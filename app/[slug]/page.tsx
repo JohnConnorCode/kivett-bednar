@@ -4,7 +4,7 @@ import Head from 'next/head'
 import PageBuilderPage from '@/app/components/PageBuilder'
 import {client} from '@/sanity/lib/client'
 import {pageBySlugQuery, pagesSlugs} from '@/sanity/lib/queries'
-import {GetPageQueryResult} from '@/sanity.types'
+import {PageBySlugQueryResult} from '@/sanity.types'
 import {PageOnboarding} from '@/app/components/Onboarding'
 
 type Props = {
@@ -80,7 +80,7 @@ export default async function Page(props: Props) {
           </div>
         </div>
       </div>
-      <PageBuilderPage page={page as GetPageQueryResult} />
+      <PageBuilderPage page={page as PageBySlugQueryResult} />
     </div>
   )
 }
