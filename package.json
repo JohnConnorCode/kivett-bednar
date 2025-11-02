@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "prebuild": "npm run extract-schema || true && npm run typegen || true",
+    "prebuild": "npm run extract-schema && npm run typegen",
     "build": "next build",
     "dev": "next dev --turbopack",
     "lint": "next lint",
@@ -11,6 +11,7 @@
     "type-check": "tsc --noEmit",
     "extract-schema": "sanity schema extract",
     "typegen": "sanity typegen generate",
+    "validate": "npm run extract-schema && npm run type-check",
     "test": "playwright test",
     "test:ui": "playwright test --ui"
   },
