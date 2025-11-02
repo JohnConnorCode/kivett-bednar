@@ -63,7 +63,28 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
   albumImage{asset->{_id, url}, alt},
   albumFeatures,
   ctaLessonsHeading,
-  ctaLessonsText
+  ctaLessonsText,
+  parallaxHeading,
+  parallaxSubheading,
+  parallaxImages[]{
+    _key,
+    image{asset->{_id, url}, alt},
+    alt,
+    position,
+    offset
+  },
+  performanceSectionHeading,
+  performanceImage{asset->{_id, url}, alt},
+  gallerySectionHeading,
+  gallerySectionSubheading,
+  galleryImages[]{
+    _key,
+    image{asset->{_id, url}, alt},
+    alt,
+    width,
+    height
+  },
+  upcomingShowsHeading
 }`)
 
 // Lessons Page
@@ -71,8 +92,11 @@ export const lessonsPageQuery = defineQuery(`*[_type == "lessonsPage"][0]{
   _id,
   heroHeading,
   heroSubheading,
+  heroImage{asset->{_id, url}, alt},
   philosophyHeading,
   philosophyText,
+  philosophyImage{asset->{_id, url}, alt},
+  learningItemsHeading,
   learningItems[]{
     _key,
     title,
@@ -80,23 +104,59 @@ export const lessonsPageQuery = defineQuery(`*[_type == "lessonsPage"][0]{
   },
   ctaBoxHeading,
   ctaBoxText,
-  credentials
+  credentials,
+  teachingImage{asset->{_id, url}, alt},
+  performanceImage{asset->{_id, url}, alt}
 }`)
 
 // Contact Page
 export const contactPageQuery = defineQuery(`*[_type == "contactPage"][0]{
   _id,
   heroHeading,
-  heroSubheading
+  heroSubheading,
+  heroImage{asset->{_id, url}, alt},
+  portraitImage{asset->{_id, url}, alt},
+  portraitGallery[]{
+    _key,
+    image{asset->{_id, url}, alt},
+    alt
+  },
+  formHeading,
+  directContactHeading,
+  socialHeading,
+  quickLinksHeading,
+  aboutHeading
 }`)
 
 // Setlist Page
 export const setlistPageQuery = defineQuery(`*[_type == "setlistPage"][0]{
   _id,
   heroHeading,
+  heroImage{asset->{_id, url}, alt},
   introText,
+  performanceImage{asset->{_id, url}, alt},
+  guitarImage{asset->{_id, url}, alt},
   ctaHeading,
   ctaText
+}`)
+
+// Shows Page
+export const showsPageQuery = defineQuery(`*[_type == "showsPage"][0]{
+  _id,
+  heroHeading,
+  heroSubheading,
+  heroImage{asset->{_id, url}, alt},
+  performanceGalleryHeading,
+  performanceGallerySubheading,
+  performanceImages[]{
+    _key,
+    image{asset->{_id, url}, alt},
+    alt,
+    caption
+  },
+  upcomingShowsHeading,
+  emptyStateHeading,
+  emptyStateText
 }`)
 
 // Songs

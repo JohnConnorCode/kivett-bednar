@@ -11,6 +11,7 @@ export const setlistPage = defineType({
   type: 'document',
   icon: DocumentIcon,
   fields: [
+    // Hero Section
     defineField({
       name: 'heroHeading',
       title: 'Hero Heading',
@@ -18,12 +19,69 @@ export const setlistPage = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'heroImage',
+      title: 'Hero Background Image',
+      type: 'image',
+      description: 'Background image for hero section',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+          validation: (rule) => rule.required(),
+        }),
+      ],
+    }),
+
+    // Content Section
+    defineField({
       name: 'introText',
       title: 'Introduction Text',
       type: 'text',
       rows: 3,
       description: 'Text displayed above the song list',
     }),
+
+    // Visual Interest Images
+    defineField({
+      name: 'performanceImage',
+      title: 'Performance Image',
+      type: 'image',
+      description: 'Performance photo for visual interest',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+          validation: (rule) => rule.required(),
+        }),
+      ],
+    }),
+    defineField({
+      name: 'guitarImage',
+      title: 'Guitar Image',
+      type: 'image',
+      description: 'Guitar close-up or detail shot',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+          validation: (rule) => rule.required(),
+        }),
+      ],
+    }),
+
+    // CTA Section
     defineField({
       name: 'ctaHeading',
       title: 'CTA Heading',

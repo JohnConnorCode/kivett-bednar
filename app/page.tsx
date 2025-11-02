@@ -50,8 +50,8 @@ export default async function HomePage() {
 
       {/* About Section - Split Screen with Image */}
       <SplitScreenImage
-        imageSrc="/images/kivett-high-res_magicstudio_ybv1se0lo5i-2.jpg"
-        imageAlt="Kivett Bednar - Musician, Amp Maker, Artist"
+        imageSrc={homePage.aboutImage?.asset?.url || '/images/kivett-high-res_magicstudio_ybv1se0lo5i-2.jpg'}
+        imageAlt={homePage.aboutImage?.alt || "Kivett Bednar - Musician, Amp Maker, Artist"}
         imagePosition="left"
       >
         <h2 className="text-5xl font-bold mb-6 text-charcoal-900">
@@ -63,7 +63,7 @@ export default async function HomePage() {
         <div className="flex gap-4">
           <Link
             href="/setlist"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-midnight-500 text-bone font-semibold rounded-lg hover:bg-indigo-700 hover:text-charcoal-900 transition-all transform hover:scale-105"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-midnight-500 text-bone font-semibold rounded-lg hover:bg-midnight-600 hover:text-charcoal-900 transition-all transform hover:scale-105"
           >
             View Setlist
             <span>→</span>
@@ -73,18 +73,26 @@ export default async function HomePage() {
 
       {/* Parallax Image Section */}
       <ParallaxImageSection
-        images={[
-          {src: '/images/10321709_666559680059075_1761408545473889635_o.jpg', alt: 'Dramatic stage performance', position: 'left'},
-          {src: '/images/10386889_666568380058205_4706124177037425882_o.jpg', alt: 'Guitar craftsmanship detail', position: 'right', offset: 150},
-        ]}
+        images={homePage.parallaxImages && homePage.parallaxImages.length > 0
+          ? homePage.parallaxImages.map((img: any) => ({
+              src: img.image?.asset?.url || '/images/placeholder.jpg',
+              alt: img.alt || img.image?.alt || 'Performance image',
+              position: img.position || 'left',
+              offset: img.offset || 0
+            }))
+          : [
+              {src: '/images/10321709_666559680059075_1761408545473889635_o.jpg', alt: 'Dramatic stage performance', position: 'left'},
+              {src: '/images/10386889_666568380058205_4706124177037425882_o.jpg', alt: 'Guitar craftsmanship detail', position: 'right', offset: 150},
+            ]
+        }
       >
         <div className="text-center py-32">
           <AnimatedSection animation="fadeIn">
             <h2 className="text-6xl font-bold text-charcoal-900 mb-6">
-              Gritty Texas Blues
+              {homePage.parallaxHeading || 'Gritty Texas Blues'}
             </h2>
-            <p className="text-2xl text-indigo-700 font-semibold">
-              Meets the Heart of the Pacific Northwest
+            <p className="text-2xl text-midnight-600 font-semibold">
+              {homePage.parallaxSubheading || 'Meets the Heart of the Pacific Northwest'}
             </p>
           </AnimatedSection>
         </div>
@@ -99,7 +107,7 @@ export default async function HomePage() {
       >
         <h2 className="text-5xl font-bold mb-6">{homePage.albumTitle}</h2>
         {(homePage.albumYear || homePage.albumFormat) && (
-          <p className="text-2xl mb-6 text-indigo-700 font-semibold">
+          <p className="text-2xl mb-6 text-midnight-600 font-semibold">
             {[homePage.albumYear, homePage.albumFormat].filter(Boolean).join(' • ')}
           </p>
         )}
@@ -110,7 +118,7 @@ export default async function HomePage() {
           <div className="space-y-4">
             {homePage.albumFeatures.map((feature: string, index: number) => (
               <div key={index} className="flex items-center gap-3">
-                <div className="w-1 h-1 bg-indigo-700 rounded-full"></div>
+                <div className="w-1 h-1 bg-midnight-600 rounded-full"></div>
                 <span>{feature}</span>
               </div>
             ))}
@@ -124,12 +132,12 @@ export default async function HomePage() {
           <div className="max-w-4xl mx-auto">
             <AnimatedSection animation="fadeIn">
               <h2 className="text-5xl font-bold text-center text-bone mb-12">
-                Live Performances
+                {homePage.performanceSectionHeading || 'Live Performances'}
               </h2>
             </AnimatedSection>
             <ImageRevealScroll
-              imageSrc="/images/performance/orpheum-main.jpg"
-              imageAlt="Performing at the historic Orpheum Theatre"
+              imageSrc={homePage.performanceImage?.asset?.url || '/images/performance/orpheum-main.jpg'}
+              imageAlt={homePage.performanceImage?.alt || "Performing at the historic Orpheum Theatre"}
               direction="up"
             />
           </div>
@@ -141,64 +149,72 @@ export default async function HomePage() {
         <div className="container mx-auto px-4 mb-16">
           <AnimatedSection animation="fadeIn">
             <h2 className="text-5xl font-bold text-center text-bone mb-4">
-              Gallery
+              {homePage.gallerySectionHeading || 'Gallery'}
             </h2>
             <p className="text-xl text-center text-bone/70">
-              Moments from the stage and studio
+              {homePage.gallerySectionSubheading || 'Moments from the stage and studio'}
             </p>
           </AnimatedSection>
         </div>
         <FloatingGallery
-          images={[
-            {
-              src: '/images/10386889_666568380058205_4706124177037425882_o.jpg',
-              alt: 'Guitar craftsmanship and blues tradition',
-              width: 2048,
-              height: 1996,
-            },
-            {
-              src: '/images/37124646_10212749349148811_4768331034854948864_o.jpg',
-              alt: 'Concert energy and stage presence',
-              width: 1952,
-              height: 1952,
-            },
-            {
-              src: '/images/16486991_10208279632410298_2503941337142380558_o.jpg',
-              alt: 'Intimate blues performance',
-              width: 894,
-              height: 1440,
-            },
-            {
-              src: '/images/12345438_10100487099276149_1793184209465297962_n.jpg',
-              alt: 'Live show atmosphere',
-              width: 960,
-              height: 846,
-            },
-            {
-              src: '/images/performance/waltz-brewing-promo.jpg',
-              alt: 'Waltz Brewing performance',
-              width: 1080,
-              height: 1080,
-            },
-            {
-              src: '/images/38518091_10212495556928948_4930564546763948032_o.jpg',
-              alt: 'Stage performance with guitar',
-              width: 1200,
-              height: 1071,
-            },
-            {
-              src: '/images/16487687_1351833004875154_191765266250731543_o.jpg',
-              alt: 'Wide angle stage shot',
-              width: 2048,
-              height: 1366,
-            },
-            {
-              src: '/images/blues-kiv.jpg',
-              alt: 'Classic blues performance',
-              width: 960,
-              height: 741,
-            },
-          ]}
+          images={homePage.galleryImages && homePage.galleryImages.length > 0
+            ? homePage.galleryImages.map((img: any) => ({
+                src: img.image?.asset?.url || '/images/placeholder.jpg',
+                alt: img.alt || img.image?.alt || 'Gallery image',
+                width: img.width || 1200,
+                height: img.height || 800,
+              }))
+            : [
+                {
+                  src: '/images/10386889_666568380058205_4706124177037425882_o.jpg',
+                  alt: 'Guitar craftsmanship and blues tradition',
+                  width: 2048,
+                  height: 1996,
+                },
+                {
+                  src: '/images/37124646_10212749349148811_4768331034854948864_o.jpg',
+                  alt: 'Concert energy and stage presence',
+                  width: 1952,
+                  height: 1952,
+                },
+                {
+                  src: '/images/16486991_10208279632410298_2503941337142380558_o.jpg',
+                  alt: 'Intimate blues performance',
+                  width: 894,
+                  height: 1440,
+                },
+                {
+                  src: '/images/12345438_10100487099276149_1793184209465297962_n.jpg',
+                  alt: 'Live show atmosphere',
+                  width: 960,
+                  height: 846,
+                },
+                {
+                  src: '/images/performance/waltz-brewing-promo.jpg',
+                  alt: 'Waltz Brewing performance',
+                  width: 1080,
+                  height: 1080,
+                },
+                {
+                  src: '/images/38518091_10212495556928948_4930564546763948032_o.jpg',
+                  alt: 'Stage performance with guitar',
+                  width: 1200,
+                  height: 1071,
+                },
+                {
+                  src: '/images/16487687_1351833004875154_191765266250731543_o.jpg',
+                  alt: 'Wide angle stage shot',
+                  width: 2048,
+                  height: 1366,
+                },
+                {
+                  src: '/images/blues-kiv.jpg',
+                  alt: 'Classic blues performance',
+                  width: 960,
+                  height: 741,
+                },
+              ]
+          }
         />
       </section>
 
@@ -209,10 +225,10 @@ export default async function HomePage() {
             <div className="max-w-4xl mx-auto">
               <AnimatedSection animation="fadeIn">
                 <div className="flex justify-between items-end mb-12">
-                  <h2 className="text-5xl font-bold text-charcoal-900">Upcoming Shows</h2>
+                  <h2 className="text-5xl font-bold text-charcoal-900">{homePage.upcomingShowsHeading || 'Upcoming Shows'}</h2>
                   <Link
                     href="/shows"
-                    className="text-midnight-500 font-semibold hover:text-indigo-700 transition-colors"
+                    className="text-midnight-500 font-semibold hover:text-midnight-600 transition-colors"
                   >
                     See all shows →
                   </Link>
@@ -240,7 +256,7 @@ export default async function HomePage() {
             </p>
             <Link
               href="/lessons"
-              className="inline-block px-8 py-4 bg-indigo-700 text-charcoal-900 font-bold rounded-lg hover:bg-indigo-600 transition-all transform hover:scale-105 text-lg"
+              className="inline-block px-8 py-4 bg-midnight-600 text-bone font-bold rounded-lg hover:bg-midnight-700 transition-all transform hover:scale-105 text-lg"
             >
               Schedule Your First Lesson
             </Link>

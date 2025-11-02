@@ -1,6 +1,7 @@
 'use client'
 
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useRef} from 'react'
+import {motion, useScroll, useTransform} from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -28,6 +29,14 @@ export function HeroSlider({
 }: HeroSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  // Parallax effect: background moves at 50% speed
+  const {scrollYProgress} = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 400])
 
   useEffect(() => {
     setIsLoaded(true)
@@ -41,8 +50,15 @@ export function HeroSlider({
   }, [slides.length])
 
   return (
-    <section className="relative h-[90vh] flex items-center justify-center overflow-hidden bg-charcoal-900">
-      {/* Background Slider with Ken Burns effect */}
+    <section
+      ref={sectionRef}
+      className="relative h-screen flex items-center justify-center overflow-hidden bg-charcoal-900"
+      style={{
+        contentVisibility: 'auto',
+        containIntrinsicSize: '100vh',
+      }}
+    >
+      {/* Parallax Background Slider with Ken Burns effect */}
       {slides.length > 0 && slides.map((slide, index) => (
         <div
           key={slide._key || index}
@@ -51,93 +67,103 @@ export function HeroSlider({
           }`}
           style={{
             transition: 'opacity 1500ms cubic-bezier(0.22, 1, 0.36, 1)',
-            backfaceVisibility: 'hidden',
-            transform: 'translateZ(0)',
-            willChange: 'opacity'
           }}
         >
-          <div className={`absolute inset-0 animate-ken-burns-${(index % 3) + 1}`}>
-            {slide.image?.asset?.url && (
-              <Image
-                src={slide.image.asset.url}
-                alt={slide.alt || slide.image.alt || 'Kivett Bednar'}
-                fill
-                className="object-cover"
-                priority={index === 0}
-                quality={95}
-                sizes="100vw"
-              />
-            )}
-          </div>
+          <motion.div
+            style={{y: backgroundY}}
+            className="absolute inset-0"
+          >
+            <div className={`absolute inset-0 animate-ken-burns`}>
+              {slide.image?.asset?.url && (
+                <Image
+                  src={slide.image.asset.url}
+                  alt={slide.alt || slide.image.alt || 'Kivett Bednar'}
+                  fill
+                  className="object-cover object-center"
+                  priority={index === 0}
+                  quality={95}
+                  sizes="100vw"
+                  style={{
+                    objectPosition: 'center 40%'
+                  }}
+                />
+              )}
+            </div>
+          </motion.div>
           {/* Optimal overlay for text readability while showing images */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/55 z-10" />
         </div>
       ))}
 
       {/* Animated Content */}
-      <div className="relative z-20 container mx-auto px-4 text-center">
-        <h1
-          className={`text-7xl md:text-8xl lg:text-9xl font-bold mb-6 tracking-tight text-white transform transition-all duration-1000 ${
-            isLoaded
-              ? 'translate-y-0 opacity-100'
-              : 'translate-y-8 opacity-0'
-          }`}
+      <div className="relative z-30 container mx-auto px-4 text-center">
+        <motion.h1
+          initial={{opacity: 0, y: 50, scale: 0.95}}
+          whileInView={{opacity: 1, y: 0, scale: 1}}
+          viewport={{once: true, amount: 0.3}}
+          transition={{
+            duration: 0.8,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight text-white"
           style={{
-            transitionDelay: '200ms',
-            textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.5)'
+            textShadow: '0 2px 4px rgba(0,0,0,0.5)'
           }}
         >
           {heading}
-        </h1>
-        <p
-          className={`text-3xl md:text-4xl lg:text-5xl mb-8 font-medium tracking-wide text-white transform transition-all duration-1000 ${
-            isLoaded
-              ? 'translate-y-0 opacity-100'
-              : 'translate-y-8 opacity-0'
-          }`}
-          style={{
-            transitionDelay: '400ms',
-            textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.5)'
+        </motion.h1>
+        <motion.p
+          initial={{opacity: 0, y: 30}}
+          whileInView={{opacity: 1, y: 0}}
+          viewport={{once: true, amount: 0.3}}
+          transition={{
+            duration: 0.8,
+            delay: 0.15,
+            ease: [0.22, 1, 0.36, 1],
           }}
+          className="text-2xl md:text-3xl lg:text-4xl mb-8 font-normal tracking-wide text-white"
         >
           {subheading}
-        </p>
+        </motion.p>
         {tagline && (
-          <p
-            className={`text-xl md:text-2xl max-w-3xl mx-auto mb-12 leading-relaxed text-white/95 transform transition-all duration-1000 ${
-              isLoaded
-                ? 'translate-y-0 opacity-100'
-                : 'translate-y-8 opacity-0'
-            }`}
-            style={{
-              transitionDelay: '600ms',
-              textShadow: '0 1px 3px rgba(0,0,0,0.8), 0 2px 6px rgba(0,0,0,0.5)'
+          <motion.p
+            initial={{opacity: 0, y: 20}}
+            whileInView={{opacity: 1, y: 0}}
+            viewport={{once: true, amount: 0.3}}
+            transition={{
+              duration: 0.6,
+              delay: 0.25,
+              ease: [0.22, 1, 0.36, 1],
             }}
+            className="text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed text-white/95 font-light"
           >
             {tagline}
-          </p>
+          </motion.p>
         )}
-        <div
-          className={`flex flex-col sm:flex-row gap-4 justify-center transform transition-all duration-1000 ${
-            isLoaded
-              ? 'translate-y-0 opacity-100'
-              : 'translate-y-8 opacity-0'
-          }`}
-          style={{transitionDelay: '800ms'}}
+        <motion.div
+          initial={{opacity: 0, y: 20}}
+          whileInView={{opacity: 1, y: 0}}
+          viewport={{once: true, amount: 0.3}}
+          transition={{
+            duration: 0.6,
+            delay: 0.35,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <Link
             href="/shows"
-            className="px-10 py-5 bg-blue-600 text-white font-bold rounded-lg text-xl shadow-2xl transform transition-all duration-300 hover:scale-105 hover:bg-blue-700"
+            className="px-10 py-5 bg-midnight-600 text-white font-bold rounded-lg text-xl shadow-2xl transform transition-all duration-200 hover:scale-105 hover:bg-midnight-700"
           >
             See Live Shows
           </Link>
           <Link
             href="/lessons"
-            className="px-10 py-5 border-2 border-white text-white font-bold rounded-lg text-xl backdrop-blur-sm transform transition-all duration-300 hover:scale-105 hover:bg-white/10"
+            className="px-10 py-5 border-2 border-white text-white font-bold rounded-lg text-xl backdrop-blur-sm transform transition-all duration-200 hover:scale-105 hover:bg-white/10"
           >
             Book a Lesson
           </Link>
-        </div>
+        </motion.div>
       </div>
 
     </section>

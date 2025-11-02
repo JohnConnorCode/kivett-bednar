@@ -1,6 +1,7 @@
 import {Metadata} from 'next'
 import {sanityFetch} from '@/sanity/lib/live'
-import {upcomingEventsQuery} from '@/sanity/lib/queries'
+import {upcomingEventsQuery, showsPageQuery} from '@/sanity/lib/queries'
+import {urlFor} from '@/sanity/lib/image'
 import {EventCard} from '@/components/ui/EventCard'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
 import {StaggeredImageGrid} from '@/components/ui/StaggeredImageGrid'
@@ -12,13 +13,16 @@ export const metadata: Metadata = {
 }
 
 export default async function ShowsPage() {
-  const {data: events} = await sanityFetch({
-    query: upcomingEventsQuery,
-    params: {
-      now: new Date().toISOString(),
-      limit: 50,
-    },
-  })
+  const [{data: showsPage}, {data: events}] = await Promise.all([
+    sanityFetch({query: showsPageQuery}),
+    sanityFetch({
+      query: upcomingEventsQuery,
+      params: {
+        now: new Date().toISOString(),
+        limit: 50,
+      },
+    }),
+  ])
 
   // Generate JSON-LD structured data for events
   const eventsJsonLd = events?.map((event: any) => ({
@@ -63,11 +67,11 @@ export default async function ShowsPage() {
 
       {/* Animated Hero with Spotlight Effect */}
       <AnimatedHero
-        title="Live Shows"
-        subtitle="Catch authentic blues performances across the Pacific Northwest"
+        title={showsPage?.heroHeading || 'Live Shows'}
+        subtitle={showsPage?.heroSubheading || 'Catch authentic blues performances across the Pacific Northwest'}
         variant="shows"
-        backgroundImage="/images/hero/performance-orpheum.jpg"
-        backgroundAlt="Kivett Bednar performing live at the Orpheum Theatre"
+        backgroundImage={showsPage?.heroImage?.asset?.url || '/images/hero/performance-orpheum.jpg'}
+        backgroundAlt={showsPage?.heroImage?.alt || 'Kivett Bednar performing live at the Orpheum Theatre'}
       />
 
       {/* Performance Photo Grid */}
@@ -76,45 +80,52 @@ export default async function ShowsPage() {
           <div className="max-w-6xl mx-auto">
             <AnimatedSection animation="fadeIn">
               <h2 className="text-5xl font-bold text-center text-bone mb-4">
-                Live Performances
+                {showsPage?.performanceGalleryHeading || 'Live Performances'}
               </h2>
               <p className="text-xl text-center text-bone/70 mb-16">
-                Moments from the stage
+                {showsPage?.performanceGallerySubheading || 'Moments from the stage'}
               </p>
             </AnimatedSection>
             <StaggeredImageGrid
-              images={[
-                {
-                  src: '/images/performance/orpheum-main.jpg',
-                  alt: 'Historic Orpheum Theatre performance',
-                  caption: 'Orpheum Theatre',
-                },
-                {
-                  src: '/images/382702580_10225110781416892_2823231479166319016_n.jpg',
-                  alt: 'Recent live performance',
-                  caption: 'Live Energy',
-                },
-                {
-                  src: '/images/38696879_10212495556648941_4928380418454978560_o.jpg',
-                  alt: 'Blues performance in action',
-                  caption: 'Blues Power',
-                },
-                {
-                  src: '/images/37124646_10212749349148811_4768331034854948864_o.jpg',
-                  alt: 'Concert energy and presence',
-                  caption: 'Stage Presence',
-                },
-                {
-                  src: '/images/26910150_10211126011331164_9091562930595566163_o.jpg',
-                  alt: 'Guitar-focused performance',
-                  caption: 'Guitar Craft',
-                },
-                {
-                  src: '/images/16487687_1351833004875154_191765266250731543_o.jpg',
-                  alt: 'Wide stage shot blues performance',
-                  caption: 'Pacific Northwest Blues',
-                },
-              ]}
+              images={showsPage?.performanceImages && showsPage.performanceImages.length > 0
+                ? showsPage.performanceImages.map((img: any) => ({
+                    src: img.image?.asset?.url || '/images/placeholder.jpg',
+                    alt: img.alt || img.image?.alt || 'Performance photo',
+                    caption: img.caption || '',
+                  }))
+                : [
+                    {
+                      src: '/images/performance/orpheum-main.jpg',
+                      alt: 'Historic Orpheum Theatre performance',
+                      caption: 'Orpheum Theatre',
+                    },
+                    {
+                      src: '/images/382702580_10225110781416892_2823231479166319016_n.jpg',
+                      alt: 'Recent live performance',
+                      caption: 'Live Energy',
+                    },
+                    {
+                      src: '/images/38696879_10212495556648941_4928380418454978560_o.jpg',
+                      alt: 'Blues performance in action',
+                      caption: 'Blues Power',
+                    },
+                    {
+                      src: '/images/37124646_10212749349148811_4768331034854948864_o.jpg',
+                      alt: 'Concert energy and presence',
+                      caption: 'Stage Presence',
+                    },
+                    {
+                      src: '/images/26910150_10211126011331164_9091562930595566163_o.jpg',
+                      alt: 'Guitar-focused performance',
+                      caption: 'Guitar Craft',
+                    },
+                    {
+                      src: '/images/16487687_1351833004875154_191765266250731543_o.jpg',
+                      alt: 'Wide stage shot blues performance',
+                      caption: 'Pacific Northwest Blues',
+                    },
+                  ]
+              }
               columns={3}
             />
           </div>
@@ -129,7 +140,7 @@ export default async function ShowsPage() {
               <>
                 <AnimatedSection animation="fadeIn">
                   <h2 className="text-4xl font-bold mb-8 text-charcoal-900">
-                    Upcoming Shows
+                    {showsPage?.upcomingShowsHeading || 'Upcoming Shows'}
                   </h2>
                   <p className="text-charcoal-900/60 text-lg mb-8">
                     {events.length} upcoming {events.length === 1 ? 'show' : 'shows'}
@@ -146,15 +157,15 @@ export default async function ShowsPage() {
             ) : (
               <AnimatedSection animation="fadeIn">
                 <h2 className="text-4xl font-bold mb-8 text-charcoal-900">
-                  Upcoming Shows
+                  {showsPage?.upcomingShowsHeading || 'Upcoming Shows'}
                 </h2>
                 <div className="text-center py-16 border-2 border-dashed border-charcoal-900/20 rounded-lg bg-bone">
                   <div className="text-6xl mb-4">🎸</div>
                   <p className="text-charcoal-900/80 text-2xl font-semibold mb-2">
-                    No upcoming shows scheduled
+                    {showsPage?.emptyStateHeading || 'No upcoming shows scheduled'}
                   </p>
                   <p className="text-charcoal-900/60 mt-2">
-                    Check back soon for new dates! Follow on social media for announcements.
+                    {showsPage?.emptyStateText || 'Check back soon for new dates! Follow on social media for announcements.'}
                   </p>
                 </div>
               </AnimatedSection>

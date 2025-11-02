@@ -1,7 +1,7 @@
 'use client'
 
-import {motion} from 'framer-motion'
-import {useEffect, useState} from 'react'
+import {motion, useScroll, useTransform} from 'framer-motion'
+import {useEffect, useState, useRef} from 'react'
 import Image from 'next/image'
 
 interface AnimatedHeroProps {
@@ -14,26 +14,49 @@ interface AnimatedHeroProps {
 
 export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImage, backgroundAlt}: AnimatedHeroProps) {
   const [isLoaded, setIsLoaded] = useState(false)
+  const sectionRef = useRef<HTMLElement>(null)
+
+  // Parallax effect: background moves at 50% speed
+  const {scrollYProgress} = useScroll({
+    target: sectionRef,
+    offset: ['start start', 'end start'],
+  })
+  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 300])
 
   useEffect(() => {
     setIsLoaded(true)
   }, [])
 
   return (
-    <section className="relative h-[70vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-charcoal-900">
-      {/* Background Image (if provided) */}
+    <section
+      ref={sectionRef}
+      className="relative h-[70vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-charcoal-900"
+      style={{
+        contentVisibility: 'auto',
+        containIntrinsicSize: '70vh',
+      }}
+    >
+      {/* Parallax Background Image (if provided) */}
       {backgroundImage && (
-        <div className="absolute inset-0 animate-ken-burns">
-          <Image
-            src={backgroundImage}
-            alt={backgroundAlt || title}
-            fill
-            className="object-cover"
-            priority
-            quality={95}
-            sizes="100vw"
-          />
-        </div>
+        <motion.div
+          style={{y: backgroundY}}
+          className="absolute inset-0"
+        >
+          <div className="absolute inset-0 animate-ken-burns">
+            <Image
+              src={backgroundImage}
+              alt={backgroundAlt || title}
+              fill
+              className="object-cover object-center"
+              priority
+              quality={95}
+              sizes="100vw"
+              style={{
+                objectPosition: 'center 40%'
+              }}
+            />
+          </div>
+        </motion.div>
       )}
 
       {/* Optimal overlay for text readability while showing images */}
@@ -42,12 +65,13 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
       {/* Content */}
       <div className="relative z-20 container mx-auto px-4 text-center">
         <motion.h1
-          initial={{opacity: 0, y: 50, scale: 0.9}}
-          animate={isLoaded ? {opacity: 1, y: 0, scale: 1} : {}}
+          initial={{opacity: 0, y: 50, scale: 0.95}}
+          whileInView={{opacity: 1, y: 0, scale: 1}}
+          viewport={{once: true, amount: 0.3}}
           transition={{duration: 0.8, ease: [0.22, 1, 0.36, 1]}}
-          className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 tracking-tight text-white"
+          className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight text-white"
           style={{
-            textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.5)'
+            textShadow: '0 2px 4px rgba(0,0,0,0.5)'
           }}
         >
           {title}
@@ -56,12 +80,10 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
         {subtitle && (
           <motion.p
             initial={{opacity: 0, y: 30}}
-            animate={isLoaded ? {opacity: 1, y: 0} : {}}
-            transition={{duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1]}}
-            className="text-2xl md:text-3xl lg:text-4xl max-w-4xl mx-auto leading-relaxed text-white/95 font-light"
-            style={{
-              textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.5)'
-            }}
+            whileInView={{opacity: 1, y: 0}}
+            viewport={{once: true, amount: 0.3}}
+            transition={{duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1]}}
+            className="text-xl md:text-2xl lg:text-3xl max-w-3xl mx-auto leading-relaxed text-white/95 font-light"
           >
             {subtitle}
           </motion.p>
@@ -80,7 +102,7 @@ function MusicalNotesBackground() {
       {Array.from({length: 20}).map((_, i) => (
         <motion.div
           key={i}
-          className="absolute text-indigo-700/20 text-4xl md:text-6xl"
+          className="absolute text-midnight-600/20 text-4xl md:text-6xl"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
@@ -131,7 +153,7 @@ function SpotlightBackground() {
         />
       ))}
       {/* Stage floor glow */}
-      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-indigo-700/10 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-midnight-600/10 to-transparent" />
     </div>
   )
 }
@@ -149,7 +171,7 @@ function VinylBackground() {
         transition={{duration: 20, repeat: Infinity, ease: 'linear'}}
       >
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-indigo-700/30" />
+          <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-midnight-600/30" />
         </div>
       </motion.div>
     </div>
@@ -175,7 +197,7 @@ function SheetMusicBackground() {
       {Array.from({length: 15}).map((_, i) => (
         <motion.div
           key={`note-${i}`}
-          className="absolute text-indigo-700/20 text-3xl md:text-5xl"
+          className="absolute text-midnight-600/20 text-3xl md:text-5xl"
           style={{
             left: `${Math.random() * 90 + 5}%`,
             top: `${15 + Math.random() * 50}%`,

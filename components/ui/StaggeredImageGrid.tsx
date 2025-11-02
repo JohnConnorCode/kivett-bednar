@@ -76,7 +76,7 @@ export function StaggeredImageGrid({images, columns = 3}: StaggeredImageGridProp
               {/* Border Glow on Hover */}
               {hoveredIndex === index && (
                 <motion.div
-                  className="absolute inset-0 border-2 border-indigo-700 rounded-xl"
+                  className="absolute inset-0 border-2 border-midnight-600 rounded-xl"
                   initial={{opacity: 0}}
                   animate={{opacity: 1}}
                   transition={{duration: 0.2}}
@@ -87,7 +87,7 @@ export function StaggeredImageGrid({images, columns = 3}: StaggeredImageGridProp
 
           {/* Floating Shadow */}
           <motion.div
-            className="absolute -inset-2 bg-indigo-700/10 rounded-xl blur-xl -z-10"
+            className="absolute -inset-2 bg-midnight-600/10 rounded-xl blur-xl -z-10"
             animate={{
               opacity: hoveredIndex === index ? 0.6 : 0,
             }}

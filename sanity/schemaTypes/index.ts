@@ -8,6 +8,7 @@ import {infoSection} from './objects/infoSection'
 import {settings} from './singletons/settings'
 import {navigation} from './singletons/navigation'
 import {homePage} from './singletons/homePage'
+import {showsPage} from './singletons/showsPage'
 import {lessonsPage} from './singletons/lessonsPage'
 import {contactPage} from './singletons/contactPage'
 import {setlistPage} from './singletons/setlistPage'
@@ -31,6 +32,7 @@ export const schemaTypes = [
   settings,
   navigation,
   homePage,
+  showsPage,
   lessonsPage,
   contactPage,
   setlistPage,

@@ -51,6 +51,9 @@ export function ImageRevealScroll({
           fill
           className="object-cover"
           sizes="100vw"
+          style={{
+            objectPosition: 'center 40%'
+          }}
         />
 
         {/* Gradient Overlay */}
@@ -58,7 +61,7 @@ export function ImageRevealScroll({
 
         {/* Border Glow Effect */}
         <motion.div
-          className="absolute inset-0 border-2 border-indigo-700 rounded-2xl"
+          className="absolute inset-0 border-2 border-midnight-600 rounded-2xl"
           animate={{
             boxShadow: [
               '0 0 20px rgba(217, 119, 6, 0.3)',

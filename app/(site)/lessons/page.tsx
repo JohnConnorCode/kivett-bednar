@@ -33,8 +33,8 @@ export default async function LessonsPage() {
         title={lessonsPage.heroHeading}
         subtitle={lessonsPage.heroSubheading || lessonsPage.credentials}
         variant="lessons"
-        backgroundImage="/images/gallery/guitar-portrait.jpg"
-        backgroundAlt="Kivett Bednar with guitar"
+        backgroundImage={lessonsPage.heroImage?.asset?.url || '/images/gallery/guitar-portrait.jpg'}
+        backgroundAlt={lessonsPage.heroImage?.alt || 'Kivett Bednar with guitar'}
       />
 
       {/* Image Reveal - Teaching */}
@@ -42,8 +42,8 @@ export default async function LessonsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <ImageRevealScroll
-              imageSrc="/images/hero/guitar-red.jpg"
-              imageAlt="Kivett Bednar teaching guitar"
+              imageSrc={lessonsPage.teachingImage?.asset?.url || '/images/hero/guitar-red.jpg'}
+              imageAlt={lessonsPage.teachingImage?.alt || 'Kivett Bednar teaching guitar'}
               direction="left"
             />
           </div>
@@ -52,8 +52,8 @@ export default async function LessonsPage() {
 
       {/* Teaching Philosophy - Split Screen */}
       <SplitScreenImage
-        imageSrc="/images/portraits/guild-shirt.jpg"
-        imageAlt="Kivett with Guild guitar"
+        imageSrc={lessonsPage.philosophyImage?.asset?.url || '/images/portraits/guild-shirt.jpg'}
+        imageAlt={lessonsPage.philosophyImage?.alt || 'Kivett with Guild guitar'}
         imagePosition="right"
         darkBg={false}
       >
@@ -70,8 +70,8 @@ export default async function LessonsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <ImageRevealScroll
-              imageSrc="/images/performance/orpheum-main.jpg"
-              imageAlt="Kivett Bednar live performance"
+              imageSrc={lessonsPage.performanceImage?.asset?.url || '/images/performance/orpheum-main.jpg'}
+              imageAlt={lessonsPage.performanceImage?.alt || 'Kivett Bednar live performance'}
               direction="right"
             />
           </div>
@@ -83,7 +83,7 @@ export default async function LessonsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <AnimatedSection animation="scaleIn">
-              <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-12 text-bone flex flex-col justify-center border-2 border-indigo-700/20">
+              <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-12 text-bone flex flex-col justify-center border-2 border-midnight-600/20">
                 <h3 className="text-3xl font-bold mb-6">{lessonsPage.ctaBoxHeading}</h3>
                 <p className="text-lg mb-8 text-bone/80">
                   {lessonsPage.ctaBoxText}
@@ -92,7 +92,7 @@ export default async function LessonsPage() {
                   {settings?.contactEmail && (
                     <a
                       href={`mailto:${settings.contactEmail}`}
-                      className="block text-center px-8 py-4 rounded-lg bg-indigo-700 text-charcoal-900 font-bold hover:bg-indigo-600 transition-all transform hover:scale-105"
+                      className="block text-center px-8 py-4 rounded-lg bg-midnight-600 text-bone font-bold hover:bg-midnight-700 transition-all transform hover:scale-105"
                     >
                       Email Me
                     </a>
@@ -120,15 +120,15 @@ export default async function LessonsPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <AnimatedSection animation="fadeIn">
-                <div className="bg-midnight-500/30 rounded-2xl p-12 border-2 border-indigo-700/20">
+                <div className="bg-midnight-500/30 rounded-2xl p-12 border-2 border-midnight-600/20">
                   <h2 className="text-4xl font-bold mb-12 text-center text-bone">
-                    What You&apos;ll Learn
+                    {lessonsPage.learningItemsHeading || "What You'll Learn"}
                   </h2>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {lessonsPage.learningItems.map((item: any, index: number) => (
                       <AnimatedSection key={item._key || index} animation="scaleIn" delay={0.15 * index}>
                         <div className="text-center group">
-                          <div className="w-12 h-12 mx-auto mb-4 rounded-full border-2 border-indigo-700/40 flex items-center justify-center text-indigo-700 font-bold text-lg group-hover:border-indigo-600 group-hover:text-indigo-600 transition-colors">
+                          <div className="w-12 h-12 mx-auto mb-4 rounded-full border-2 border-midnight-600/40 flex items-center justify-center text-midnight-600 font-bold text-lg group-hover:border-midnight-700 group-hover:text-midnight-700 transition-colors">
                             {index + 1}
                           </div>
                           <h3 className="text-2xl font-bold mb-3 text-bone">{item.title}</h3>

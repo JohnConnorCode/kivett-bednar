@@ -27,11 +27,17 @@ export function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-charcoal-900 border-b border-blue-600/20 backdrop-blur-lg'
-          : 'bg-transparent'
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
+        isScrolled ? 'shadow-lg' : ''
       }`}
+      style={{
+        backgroundColor: isScrolled
+          ? 'rgba(33, 34, 35, 0.95)' // charcoal-900/95
+          : 'transparent',
+        backdropFilter: isScrolled ? 'blur(12px)' : 'none',
+        WebkitBackdropFilter: isScrolled ? 'blur(12px)' : 'none',
+        borderBottom: isScrolled ? '1px solid rgba(26, 75, 147, 0.2)' : 'none', // midnight-500
+      }}
     >
       <div className="container mx-auto px-4">
         <div className="flex h-20 items-center justify-between">
@@ -40,8 +46,8 @@ export function Header() {
             href="/"
             className={`text-2xl font-bold tracking-tight transition-all duration-300 ${
               isScrolled
-                ? 'text-white hover:text-blue-400'
-                : 'text-white hover:text-blue-300'
+                ? 'text-white hover:text-midnight-400'
+                : 'text-white hover:text-midnight-300'
             }`}
             style={{
               textShadow: isScrolled
@@ -60,8 +66,8 @@ export function Header() {
                 href={item.href}
                 className={`font-medium uppercase tracking-wider text-sm transition-all duration-300 ${
                   isScrolled
-                    ? 'text-white/90 hover:text-blue-400'
-                    : 'text-white hover:text-blue-300'
+                    ? 'text-white/90 hover:text-midnight-400'
+                    : 'text-white hover:text-midnight-300'
                 }`}
                 style={{
                   textShadow: isScrolled
@@ -104,12 +110,12 @@ export function Header() {
 
         {/* Mobile Navigation - Solid background when open */}
         {mobileMenuOpen && (
-          <nav className="md:hidden pb-4 border-t border-blue-600/20 mt-2 pt-4 bg-charcoal-900/95 backdrop-blur-lg -mx-4 px-4">
+          <nav className="md:hidden pb-4 border-t border-midnight-600/20 mt-2 pt-4 bg-charcoal-900/95 backdrop-blur-lg -mx-4 px-4">
             {navigation.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="block py-3 text-white/90 hover:text-blue-400 transition-colors font-medium uppercase tracking-wider text-sm"
+                className="block py-3 text-white/90 hover:text-midnight-400 transition-colors font-medium uppercase tracking-wider text-sm"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.title}

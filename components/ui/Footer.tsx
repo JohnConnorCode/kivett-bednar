@@ -10,7 +10,7 @@ export async function Footer() {
   ]
 
   return (
-    <footer className="bg-charcoal-900 border-t border-indigo-700/20 text-bone">
+    <footer className="bg-charcoal-900 border-t border-midnight-600/20 text-bone">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
@@ -23,13 +23,13 @@ export async function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 text-indigo-700 uppercase tracking-wide">Navigation</h4>
+            <h4 className="text-sm font-semibold mb-4 text-midnight-600 uppercase tracking-wide">Navigation</h4>
             <ul className="space-y-2">
               {navigation.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-bone/70 hover:text-indigo-700 transition-colors"
+                    className="text-sm text-bone/70 hover:text-midnight-600 transition-colors"
                   >
                     {item.title}
                   </Link>
@@ -40,13 +40,13 @@ export async function Footer() {
 
           {/* Social */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 text-indigo-700 uppercase tracking-wide">Connect</h4>
+            <h4 className="text-sm font-semibold mb-4 text-midnight-600 uppercase tracking-wide">Connect</h4>
             <div className="flex flex-col gap-2">
               <a
                 href="https://www.facebook.com/kivettbednar"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-bone/70 hover:text-indigo-700 transition-colors text-sm"
+                className="text-bone/70 hover:text-midnight-600 transition-colors text-sm"
               >
                 Facebook
               </a>
@@ -54,7 +54,7 @@ export async function Footer() {
                 href="https://www.instagram.com/kivettbednar"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-bone/70 hover:text-indigo-700 transition-colors text-sm"
+                className="text-bone/70 hover:text-midnight-600 transition-colors text-sm"
               >
                 Instagram
               </a>
@@ -62,7 +62,7 @@ export async function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-indigo-700/20 text-center text-sm text-bone/50">
+        <div className="mt-8 pt-8 border-t border-midnight-600/20 text-center text-sm text-bone/50">
           <p>&copy; {new Date().getFullYear()} Kivett Bednar. All rights reserved.</p>
         </div>
       </div>

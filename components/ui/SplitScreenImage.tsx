@@ -51,17 +51,20 @@ export function SplitScreenImage({
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
+                style={{
+                  objectPosition: 'center 40%'
+                }}
               />
               {/* Gradient Overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/30 via-transparent to-transparent" />
 
               {/* Decorative Frame */}
-              <div className="absolute inset-0 border-4 border-indigo-700/20 rounded-2xl" />
+              <div className="absolute inset-0 border-4 border-midnight-600/20 rounded-2xl" />
             </div>
 
             {/* Floating Accent */}
             <motion.div
-              className="absolute -top-4 -right-4 w-32 h-32 bg-indigo-700/10 rounded-full blur-3xl"
+              className="absolute -top-4 -right-4 w-32 h-32 bg-midnight-600/10 rounded-full blur-3xl"
               animate={{
                 scale: [1, 1.2, 1],
                 opacity: [0.3, 0.5, 0.3],

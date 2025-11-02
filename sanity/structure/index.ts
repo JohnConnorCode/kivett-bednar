@@ -1,6 +1,7 @@
 import {
   CogIcon,
   HomeIcon,
+  CalendarIcon,
   BookIcon,
   EnvelopeIcon,
   DocumentIcon,
@@ -20,6 +21,7 @@ import pluralize from 'pluralize-esm'
 const SINGLETON_TYPES = [
   'settings',
   'homePage',
+  'showsPage',
   'lessonsPage',
   'contactPage',
   'setlistPage',
@@ -39,6 +41,12 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
         .id('homePage')
         .child(S.document().schemaType('homePage').documentId('homePage'))
         .icon(HomeIcon),
+
+      S.listItem()
+        .title('Shows Page')
+        .id('showsPage')
+        .child(S.document().schemaType('showsPage').documentId('showsPage'))
+        .icon(CalendarIcon),
 
       S.listItem()
         .title('Lessons Page')
