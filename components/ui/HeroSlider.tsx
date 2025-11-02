@@ -73,7 +73,11 @@ export function HeroSlider({
             style={{y: backgroundY}}
             className="absolute inset-0"
           >
-            <div className={`absolute inset-0 animate-ken-burns`}>
+            <div className={`absolute inset-0 ${
+              index % 3 === 0 ? 'animate-ken-burns' :
+              index % 3 === 1 ? 'animate-ken-burns-2' :
+              'animate-ken-burns-3'
+            }`}>
               {slide.image?.asset?.url && (
                 <Image
                   src={slide.image.asset.url}
