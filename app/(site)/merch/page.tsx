@@ -29,7 +29,7 @@ export default async function MerchPage() {
           <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
             Merch
           </h1>
-          <p className="text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed text-sky-500 font-light">
+          <p className="text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed text-indigo-700 font-light">
             Official Kivett Bednar gear and music
           </p>
         </div>
@@ -53,7 +53,7 @@ export default async function MerchPage() {
               </div>
             ) : (
               <div className="text-center py-24">
-                <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-16 max-w-2xl mx-auto border-2 border-sky-500/20">
+                <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-16 max-w-2xl mx-auto border-2 border-indigo-700/20">
                   <h2 className="text-4xl font-bold text-bone mb-4">
                     Merch Store Opening Soon!
                   </h2>
@@ -64,7 +64,7 @@ export default async function MerchPage() {
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link
                       href="/contact"
-                      className="px-8 py-4 rounded-lg bg-sky-500 text-charcoal-900 font-bold hover:bg-sky-400 transition-all transform hover:scale-105"
+                      className="px-8 py-4 rounded-lg bg-indigo-700 text-charcoal-900 font-bold hover:bg-indigo-600 transition-all transform hover:scale-105"
                     >
                       Get Notified
                     </Link>

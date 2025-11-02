@@ -46,7 +46,7 @@ function FloatingImage({image, index, scrollYProgress}: FloatingImageProps) {
       {/* Floating image container with elegant shadow */}
       <div className="relative aspect-[3/4] rounded-2xl overflow-hidden">
         {/* Glow effect on hover */}
-        <div className="absolute inset-0 bg-gradient-to-t from-sky-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+        <div className="absolute inset-0 bg-gradient-to-t from-indigo-700/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
 
         {/* Image */}
         <Image
@@ -58,7 +58,7 @@ function FloatingImage({image, index, scrollYProgress}: FloatingImageProps) {
         />
 
         {/* Elegant border with subtle animation */}
-        <div className="absolute inset-0 border-2 border-sky-500/20 group-hover:border-sky-500/40 transition-colors duration-500 rounded-2xl" />
+        <div className="absolute inset-0 border-2 border-indigo-700/20 group-hover:border-indigo-700/40 transition-colors duration-500 rounded-2xl" />
 
         {/* Floating overlay with info */}
         <motion.div
@@ -93,7 +93,7 @@ export function FloatingGallery({images}: FloatingGalleryProps) {
         {Array.from({length: 8}).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-32 h-32 rounded-full bg-sky-500/5"
+            className="absolute w-32 h-32 rounded-full bg-indigo-700/5"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,

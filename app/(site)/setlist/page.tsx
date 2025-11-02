@@ -66,7 +66,7 @@ export default async function SetlistPage() {
                     delay={0.05 * index}
                   >
                     <div className="group relative">
-                      <div className="flex items-baseline justify-between py-4 border-b-2 border-charcoal-900/10 group-hover:border-sky-500/50 transition-all duration-300">
+                      <div className="flex items-baseline justify-between py-4 border-b-2 border-charcoal-900/10 group-hover:border-indigo-700/50 transition-all duration-300">
                         <div className="flex items-baseline gap-4">
                           <span className="text-charcoal-900/40 font-mono text-sm w-8">
                             {(index + 1).toString().padStart(2, '0')}
@@ -75,7 +75,7 @@ export default async function SetlistPage() {
                             {song.title}
                           </span>
                         </div>
-                        <span className="text-lg font-mono text-sky-500 font-bold ml-4 shrink-0">
+                        <span className="text-lg font-mono text-indigo-700 font-bold ml-4 shrink-0">
                           {song.key}
                         </span>
                       </div>
@@ -107,7 +107,7 @@ export default async function SetlistPage() {
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <AnimatedSection animation="scaleIn">
-                <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-12 text-center text-bone border-2 border-sky-500/20">
+                <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-12 text-center text-bone border-2 border-indigo-700/20">
                   {setlistPage.ctaHeading && (
                     <h2 className="text-4xl font-bold mb-4">
                       {setlistPage.ctaHeading}
@@ -121,7 +121,7 @@ export default async function SetlistPage() {
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link
                       href="/lessons"
-                      className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-sky-500 text-charcoal-900 font-bold hover:bg-sky-400 transition-all transform hover:scale-105"
+                      className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-indigo-700 text-charcoal-900 font-bold hover:bg-indigo-600 transition-all transform hover:scale-105"
                     >
                       Book a Lesson
                     </Link>

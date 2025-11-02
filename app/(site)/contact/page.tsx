@@ -47,11 +47,11 @@ export default async function ContactPage() {
               <div className="space-y-8">
                 {/* Direct Contact */}
                 {settings?.contactEmail && (
-                  <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-8 text-bone border-2 border-sky-500/20">
+                  <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-8 text-bone border-2 border-indigo-700/20">
                     <h2 className="text-2xl font-bold mb-4">Direct Contact</h2>
                     <a
                       href={`mailto:${settings.contactEmail}`}
-                      className="text-sky-500 hover:text-sky-400 transition-colors text-lg font-semibold break-all"
+                      className="text-indigo-700 hover:text-indigo-600 transition-colors text-lg font-semibold break-all"
                     >
                       {settings.contactEmail}
                     </a>
@@ -69,7 +69,7 @@ export default async function ContactPage() {
                           href={link.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-3 text-midnight-500 hover:text-sky-500 transition-colors font-semibold capitalize"
+                          className="flex items-center gap-3 text-midnight-500 hover:text-indigo-700 transition-colors font-semibold capitalize"
                         >
                           <span>→</span>
                           {link.platform}
@@ -85,21 +85,21 @@ export default async function ContactPage() {
                   <div className="space-y-3">
                     <Link
                       href="/shows"
-                      className="flex items-center gap-3 text-midnight-500 hover:text-sky-500 transition-colors font-semibold"
+                      className="flex items-center gap-3 text-midnight-500 hover:text-indigo-700 transition-colors font-semibold"
                     >
                       <span>→</span>
                       Upcoming Shows
                     </Link>
                     <Link
                       href="/lessons"
-                      className="flex items-center gap-3 text-midnight-500 hover:text-sky-500 transition-colors font-semibold"
+                      className="flex items-center gap-3 text-midnight-500 hover:text-indigo-700 transition-colors font-semibold"
                     >
                       <span>→</span>
                       Guitar Lessons
                     </Link>
                     <Link
                       href="/setlist"
-                      className="flex items-center gap-3 text-midnight-500 hover:text-sky-500 transition-colors font-semibold"
+                      className="flex items-center gap-3 text-midnight-500 hover:text-indigo-700 transition-colors font-semibold"
                     >
                       <span>→</span>
                       Blues Setlist

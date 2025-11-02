@@ -80,7 +80,7 @@ function MusicalNotesBackground() {
       {Array.from({length: 20}).map((_, i) => (
         <motion.div
           key={i}
-          className="absolute text-sky-500/20 text-4xl md:text-6xl"
+          className="absolute text-indigo-700/20 text-4xl md:text-6xl"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
@@ -131,7 +131,7 @@ function SpotlightBackground() {
         />
       ))}
       {/* Stage floor glow */}
-      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-sky-500/10 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-indigo-700/10 to-transparent" />
     </div>
   )
 }
@@ -149,7 +149,7 @@ function VinylBackground() {
         transition={{duration: 20, repeat: Infinity, ease: 'linear'}}
       >
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-sky-500/30" />
+          <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-indigo-700/30" />
         </div>
       </motion.div>
     </div>
@@ -175,7 +175,7 @@ function SheetMusicBackground() {
       {Array.from({length: 15}).map((_, i) => (
         <motion.div
           key={`note-${i}`}
-          className="absolute text-sky-500/20 text-3xl md:text-5xl"
+          className="absolute text-indigo-700/20 text-3xl md:text-5xl"
           style={{
             left: `${Math.random() * 90 + 5}%`,
             top: `${15 + Math.random() * 50}%`,
