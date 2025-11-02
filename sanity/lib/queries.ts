@@ -276,7 +276,10 @@ const moduleFields = /* groq */ `
     headline,
     subhead,
     mediaType,
-    image{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
+    image{asset->, hotspot, crop, alt},
+    mobileImage{asset->, hotspot, crop, alt},
+    desktopPosition,
+    mobilePosition,
     video,
     ctas[]{label, href, variant}
   },

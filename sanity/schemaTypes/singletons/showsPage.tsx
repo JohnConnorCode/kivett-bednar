@@ -28,9 +28,9 @@ export const showsPage = defineType({
     }),
     defineField({
       name: 'heroImage',
-      title: 'Hero Background Image',
+      title: 'Hero Desktop Image',
       type: 'image',
-      description: 'Background image for the hero section',
+      description: 'Desktop background image for the hero section',
       options: {
         hotspot: true,
       },
@@ -44,6 +44,62 @@ export const showsPage = defineType({
         }),
       ],
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'heroMobileImage',
+      title: 'Hero Mobile Image (Optional)',
+      type: 'image',
+      description: 'Different image for mobile devices. If not set, desktop image will be used.',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+        }),
+      ],
+    }),
+    defineField({
+      name: 'heroDesktopPosition',
+      title: 'Hero Desktop Position (Optional)',
+      type: 'string',
+      description: 'Override hero image position on desktop screens',
+      options: {
+        list: [
+          {title: 'Top Left', value: 'top-left'},
+          {title: 'Top Center', value: 'top-center'},
+          {title: 'Top Right', value: 'top-right'},
+          {title: 'Center Left', value: 'center-left'},
+          {title: 'Center', value: 'center'},
+          {title: 'Center Right', value: 'center-right'},
+          {title: 'Bottom Left', value: 'bottom-left'},
+          {title: 'Bottom Center', value: 'bottom-center'},
+          {title: 'Bottom Right', value: 'bottom-right'},
+        ],
+        layout: 'dropdown',
+      },
+    }),
+    defineField({
+      name: 'heroMobilePosition',
+      title: 'Hero Mobile Position (Optional)',
+      type: 'string',
+      description: 'Override hero image position on mobile screens',
+      options: {
+        list: [
+          {title: 'Top Left', value: 'top-left'},
+          {title: 'Top Center', value: 'top-center'},
+          {title: 'Top Right', value: 'top-right'},
+          {title: 'Center Left', value: 'center-left'},
+          {title: 'Center', value: 'center'},
+          {title: 'Center Right', value: 'center-right'},
+          {title: 'Bottom Left', value: 'bottom-left'},
+          {title: 'Bottom Center', value: 'bottom-center'},
+          {title: 'Bottom Right', value: 'bottom-right'},
+        ],
+        layout: 'dropdown',
+      },
     }),
 
     // Performance Gallery Section

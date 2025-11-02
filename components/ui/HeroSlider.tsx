@@ -58,8 +58,8 @@ export function HeroSlider({
       const activeImage = isMobile && slide.mobileImage?.asset?.url ? slide.mobileImage : slide.image
       const imageWithPosition = {
         ...activeImage,
-        desktopPosition: slide.desktopPosition,
-        mobilePosition: slide.mobilePosition
+        desktopPosition: slide.desktopPosition as any,
+        mobilePosition: slide.mobilePosition as any
       }
       console.log('Hero Slider Debug:', {
         isMobile,
@@ -117,8 +117,8 @@ export function HeroSlider({
                 // Combine image data with slide-level position settings
                 const imageWithPosition = {
                   ...activeImage,
-                  desktopPosition: slide.desktopPosition,
-                  mobilePosition: slide.mobilePosition
+                  desktopPosition: slide.desktopPosition as any,
+                  mobilePosition: slide.mobilePosition as any
                 }
 
                 return imageUrl ? (

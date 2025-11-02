@@ -34,7 +34,7 @@ export const hero = defineType({
     }),
     defineField({
       name: 'image',
-      title: 'Image',
+      title: 'Desktop Image',
       type: 'image',
       options: {
         hotspot: true,
@@ -47,6 +47,65 @@ export const hero = defineType({
           validation: (Rule) => Rule.required(),
         }),
       ],
+      hidden: ({parent}) => parent?.mediaType !== 'image',
+    }),
+    defineField({
+      name: 'mobileImage',
+      title: 'Mobile Image (Optional)',
+      type: 'image',
+      description: 'Different image for mobile devices. If not set, desktop image will be used.',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+        }),
+      ],
+      hidden: ({parent}) => parent?.mediaType !== 'image',
+    }),
+    defineField({
+      name: 'desktopPosition',
+      title: 'Desktop Position (Optional)',
+      type: 'string',
+      description: 'Override image position on desktop screens',
+      options: {
+        list: [
+          {title: 'Top Left', value: 'top-left'},
+          {title: 'Top Center', value: 'top-center'},
+          {title: 'Top Right', value: 'top-right'},
+          {title: 'Center Left', value: 'center-left'},
+          {title: 'Center', value: 'center'},
+          {title: 'Center Right', value: 'center-right'},
+          {title: 'Bottom Left', value: 'bottom-left'},
+          {title: 'Bottom Center', value: 'bottom-center'},
+          {title: 'Bottom Right', value: 'bottom-right'},
+        ],
+        layout: 'dropdown',
+      },
+      hidden: ({parent}) => parent?.mediaType !== 'image',
+    }),
+    defineField({
+      name: 'mobilePosition',
+      title: 'Mobile Position (Optional)',
+      type: 'string',
+      description: 'Override image position on mobile screens',
+      options: {
+        list: [
+          {title: 'Top Left', value: 'top-left'},
+          {title: 'Top Center', value: 'top-center'},
+          {title: 'Top Right', value: 'top-right'},
+          {title: 'Center Left', value: 'center-left'},
+          {title: 'Center', value: 'center'},
+          {title: 'Center Right', value: 'center-right'},
+          {title: 'Bottom Left', value: 'bottom-left'},
+          {title: 'Bottom Center', value: 'bottom-center'},
+          {title: 'Bottom Right', value: 'bottom-right'},
+        ],
+        layout: 'dropdown',
+      },
       hidden: ({parent}) => parent?.mediaType !== 'image',
     }),
     defineField({
