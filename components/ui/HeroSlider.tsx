@@ -69,51 +69,49 @@ export function HeroSlider({
               />
             )}
           </div>
-          {/* Dark overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/75 z-10" />
+          {/* Optimal overlay for text readability while showing images */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/55 z-10" />
         </div>
       ))}
 
       {/* Animated Content */}
-      <div className="relative z-20 container mx-auto px-4 text-center text-bone">
+      <div className="relative z-20 container mx-auto px-4 text-center">
         <h1
-          className={`text-7xl md:text-8xl lg:text-9xl font-bold mb-6 tracking-tight transform transition-all duration-1000 ${
+          className={`text-7xl md:text-8xl lg:text-9xl font-bold mb-6 tracking-tight text-white transform transition-all duration-1000 ${
             isLoaded
               ? 'translate-y-0 opacity-100'
               : 'translate-y-8 opacity-0'
           }`}
           style={{
             transitionDelay: '200ms',
-            textShadow: '0 2px 8px rgba(0,0,0,0.6), 0 4px 16px rgba(0,0,0,0.4), 0 0 12px rgba(240,200,62,0.15)'
+            textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.5)'
           }}
         >
           {heading}
         </h1>
         <p
-          className={`text-3xl md:text-4xl lg:text-5xl mb-8 font-medium tracking-wide text-blue-300 transform transition-all duration-1000 drop-shadow-xl ${
+          className={`text-3xl md:text-4xl lg:text-5xl mb-8 font-medium tracking-wide text-white transform transition-all duration-1000 ${
             isLoaded
               ? 'translate-y-0 opacity-100'
               : 'translate-y-8 opacity-0'
           }`}
           style={{
             transitionDelay: '400ms',
-            textShadow: '0 2px 8px rgba(0,0,0,0.9), 0 4px 16px rgba(0,0,0,0.7), 0 1px 2px rgba(0,0,0,1)'
+            textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.5)'
           }}
         >
           {subheading}
         </p>
         {tagline && (
           <p
-            className={`text-xl md:text-2xl max-w-3xl mx-auto mb-12 leading-relaxed text-white font-medium transform transition-all duration-1000 ${
+            className={`text-xl md:text-2xl max-w-3xl mx-auto mb-12 leading-relaxed text-white/95 transform transition-all duration-1000 ${
               isLoaded
                 ? 'translate-y-0 opacity-100'
                 : 'translate-y-8 opacity-0'
             }`}
             style={{
               transitionDelay: '600ms',
-              textShadow: '0 3px 10px rgba(0,0,0,1), 0 6px 20px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,1)',
-              fontWeight: 500,
-              color: '#FFFFFF'
+              textShadow: '0 1px 3px rgba(0,0,0,0.8), 0 2px 6px rgba(0,0,0,0.5)'
             }}
           >
             {tagline}
@@ -129,15 +127,15 @@ export function HeroSlider({
         >
           <Link
             href="/shows"
-            className="group relative px-10 py-5 bg-indigo-700 text-bone font-bold rounded-lg overflow-hidden text-xl shadow-2xl transform transition-all duration-300 hover:scale-110 hover:bg-indigo-600"
+            className="px-10 py-5 bg-blue-600 text-white font-bold rounded-lg text-xl shadow-2xl transform transition-all duration-300 hover:scale-105 hover:bg-blue-700"
           >
-            <span className="relative z-10">See Live Shows</span>
+            See Live Shows
           </Link>
           <Link
             href="/lessons"
-            className="group relative px-10 py-5 border-3 border-indigo-700 text-bone font-bold rounded-lg overflow-hidden text-xl backdrop-blur-sm transform transition-all duration-300 hover:scale-110 hover:bg-indigo-700/20"
+            className="px-10 py-5 border-2 border-white text-white font-bold rounded-lg text-xl backdrop-blur-sm transform transition-all duration-300 hover:scale-105 hover:bg-white/10"
           >
-            <span className="relative z-10">Book a Lesson</span>
+            Book a Lesson
           </Link>
         </div>
       </div>

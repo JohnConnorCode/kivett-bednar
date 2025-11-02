@@ -36,18 +36,18 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
         </div>
       )}
 
-      {/* Strong Dark Overlay for Readability */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/75 z-10" />
+      {/* Optimal overlay for text readability while showing images */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/55 z-10" />
 
       {/* Content */}
-      <div className="relative z-20 container mx-auto px-4 text-center text-bone">
+      <div className="relative z-20 container mx-auto px-4 text-center">
         <motion.h1
           initial={{opacity: 0, y: 50, scale: 0.9}}
           animate={isLoaded ? {opacity: 1, y: 0, scale: 1} : {}}
           transition={{duration: 0.8, ease: [0.22, 1, 0.36, 1]}}
-          className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 tracking-tight drop-shadow-2xl"
+          className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 tracking-tight text-white"
           style={{
-            textShadow: '0 4px 12px rgba(0,0,0,0.9), 0 8px 24px rgba(0,0,0,0.7), 0 2px 4px rgba(0,0,0,1)'
+            textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.5)'
           }}
         >
           {title}
@@ -58,9 +58,9 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
             initial={{opacity: 0, y: 30}}
             animate={isLoaded ? {opacity: 1, y: 0} : {}}
             transition={{duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1]}}
-            className="text-2xl md:text-3xl lg:text-4xl max-w-4xl mx-auto leading-relaxed text-blue-300 font-light drop-shadow-xl"
+            className="text-2xl md:text-3xl lg:text-4xl max-w-4xl mx-auto leading-relaxed text-white/95 font-light"
             style={{
-              textShadow: '0 2px 8px rgba(0,0,0,0.9), 0 4px 16px rgba(0,0,0,0.7), 0 1px 2px rgba(0,0,0,1)'
+              textShadow: '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.5)'
             }}
           >
             {subtitle}
