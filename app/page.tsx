@@ -6,6 +6,7 @@ import {upcomingEventsQuery, homePageQuery} from '@/sanity/lib/queries'
 import {EventCard} from '@/components/ui/EventCard'
 import {HeroSlider} from '@/components/ui/HeroSlider'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
+import {FloatingGallery} from '@/components/ui/FloatingGallery'
 
 export const metadata: Metadata = {
   title: 'Kivett Bednar | Blues Guitarist & Musician',
@@ -154,6 +155,50 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
+      </section>
+
+      {/* Floating Image Gallery with Parallax */}
+      <section className="bg-gradient-to-b from-charcoal-900 via-midnight-500/50 to-bone">
+        <FloatingGallery
+          images={[
+            {
+              src: '/images/gallery/hero-stage-compressed.jpg',
+              alt: 'Kivett Bednar performing on stage',
+              width: 1920,
+              height: 1280,
+            },
+            {
+              src: '/images/gallery/orpheum-performance.jpg',
+              alt: 'Live performance at the historic Orpheum Theatre',
+              width: 1200,
+              height: 800,
+            },
+            {
+              src: '/images/gallery/guitar-portrait.jpg',
+              alt: 'Kivett with his vintage Guild guitar',
+              width: 800,
+              height: 1000,
+            },
+            {
+              src: '/images/hero/guitar-red.jpg',
+              alt: 'Red electric guitar close-up',
+              width: 1200,
+              height: 900,
+            },
+            {
+              src: '/images/hero/performance-orpheum.jpg',
+              alt: 'Blues performance at the Orpheum',
+              width: 1510,
+              height: 1249,
+            },
+            {
+              src: '/images/hero/rae-gordon-album-opt.jpg',
+              alt: 'Rae Gordon Band album cover',
+              width: 1000,
+              height: 1000,
+            },
+          ]}
+        />
       </section>
 
       {/* Upcoming Shows Section */}
