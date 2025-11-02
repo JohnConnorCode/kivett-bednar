@@ -24,18 +24,20 @@ export default async function SiteLayout({
 
   return (
     <>
-      <Header siteName={uiText?.siteName} navigation={navigation} />
+      <Header siteName={uiText?.siteName || undefined} navigation={navigation} />
       <main>{children}</main>
       <Footer
         navigation={navigation}
-        siteName={uiText?.siteName}
-        siteTagline={uiText?.siteTagline}
-        navigationHeading={uiText?.footerNavigationHeading}
-        connectHeading={uiText?.footerConnectHeading}
-        socialLinks={settings?.socialLinks}
-        socialFacebookLabel={uiText?.socialFacebook}
-        socialInstagramLabel={uiText?.socialInstagram}
-        copyrightText={uiText?.footerCopyrightText}
+        siteName={uiText?.siteName || undefined}
+        siteTagline={uiText?.siteTagline || undefined}
+        navigationHeading={uiText?.footerNavigationHeading || undefined}
+        connectHeading={uiText?.footerConnectHeading || undefined}
+        socialLinks={(settings?.socialLinks?.filter((link) =>
+          link.platform !== null && link.url !== null
+        ) as Array<{platform: string; url: string}> | undefined) || undefined}
+        socialFacebookLabel={uiText?.socialFacebook || undefined}
+        socialInstagramLabel={uiText?.socialInstagram || undefined}
+        copyrightText={uiText?.footerCopyrightText || undefined}
       />
     </>
   )

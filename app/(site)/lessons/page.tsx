@@ -30,8 +30,8 @@ export default async function LessonsPage() {
     <div className="min-h-screen">
       {/* Animated Hero */}
       <AnimatedHero
-        title={lessonsPage.heroHeading}
-        subtitle={lessonsPage.heroSubheading || lessonsPage.credentials}
+        title={lessonsPage.heroHeading || 'Guitar & Blues Lessons'}
+        subtitle={lessonsPage.heroSubheading || lessonsPage.credentials || undefined}
         variant="lessons"
         backgroundImage={lessonsPage.heroImage?.asset?.url || '/images/gallery/guitar-portrait.jpg'}
         backgroundAlt={lessonsPage.heroImage?.alt || 'Kivett Bednar with guitar'}

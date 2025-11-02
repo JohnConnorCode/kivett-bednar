@@ -126,8 +126,27 @@ export const product = defineType({
             defineField({
               name: 'optionValues',
               title: 'Option Values',
-              type: 'object',
-              description: 'Key-value pairs like {Size: "Medium", Color: "Black"}',
+              type: 'array',
+              description: 'Key-value pairs like Size: Medium, Color: Black',
+              of: [
+                defineArrayMember({
+                  type: 'object',
+                  fields: [
+                    defineField({
+                      name: 'key',
+                      title: 'Option Name',
+                      type: 'string',
+                      description: 'e.g., "Size", "Color"',
+                    }),
+                    defineField({
+                      name: 'value',
+                      title: 'Option Value',
+                      type: 'string',
+                      description: 'e.g., "Medium", "Black"',
+                    }),
+                  ],
+                }),
+              ],
             }),
             defineField({
               name: 'priceCents',
@@ -147,9 +166,9 @@ export const product = defineType({
               priceCents: 'priceCents',
             },
             prepare({optionValues, priceCents}) {
-              const values = optionValues
-                ? Object.entries(optionValues)
-                    .map(([key, value]) => `${key}: ${value}`)
+              const values = optionValues && Array.isArray(optionValues)
+                ? optionValues
+                    .map((opt: {key?: string; value?: string}) => `${opt.key}: ${opt.value}`)
                     .join(', ')
                 : 'No options'
               const price = priceCents ? ` - $${(priceCents / 100).toFixed(2)}` : ''

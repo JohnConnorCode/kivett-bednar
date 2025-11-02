@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import {urlFor} from '@/sanity/lib/image'
+import {urlFor} from '@/lib/image-positioning'
 import {cn} from '@/lib/utils'
 import {useState, useEffect} from 'react'
 import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'

@@ -25,9 +25,9 @@ export default async function ContactPage() {
       {/* Animated Hero with Vinyl Record */}
       <AnimatedHero
         title={contactPage?.heroHeading || 'Get in Touch'}
-        subtitle={contactPage?.heroSubheading}
+        subtitle={contactPage?.heroSubheading || undefined}
         variant="contact"
-        backgroundImage={contactPage?.heroImage?.asset?.url}
+        backgroundImage={contactPage?.heroImage?.asset?.url || undefined}
         backgroundAlt={contactPage?.heroImage?.alt || 'Kivett Bednar on stage'}
       />
 
@@ -41,13 +41,13 @@ export default async function ContactPage() {
                 <div className="bg-white rounded-2xl p-8 md:p-12 border-2 border-charcoal-900/10">
                   <h2 className="text-3xl font-bold mb-8 text-charcoal-900">{contactPage?.formHeading || 'Send a Message'}</h2>
                   <ContactForm
-                    labelName={uiText?.formLabelName}
-                    labelEmail={uiText?.formLabelEmail}
-                    labelSubject={uiText?.formLabelSubject}
-                    labelMessage={uiText?.formLabelMessage}
-                    buttonSubmit={uiText?.formButtonSubmit}
-                    buttonSending={uiText?.formButtonSending}
-                    successMessage={uiText?.formSuccessMessage}
+                    labelName={uiText?.formLabelName || undefined}
+                    labelEmail={uiText?.formLabelEmail || undefined}
+                    labelSubject={uiText?.formLabelSubject || undefined}
+                    labelMessage={uiText?.formLabelMessage || undefined}
+                    buttonSubmit={uiText?.formButtonSubmit || undefined}
+                    buttonSending={uiText?.formButtonSending || undefined}
+                    successMessage={uiText?.formSuccessMessage || undefined}
                   />
                 </div>
               </div>

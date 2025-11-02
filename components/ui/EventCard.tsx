@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import {format} from 'date-fns'
 import {formatInTimeZone} from 'date-fns-tz'
-import {urlFor} from '@/sanity/lib/image'
+import {urlFor} from '@/lib/image-positioning'
 import {useState, useEffect} from 'react'
 import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
 

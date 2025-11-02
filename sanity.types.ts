@@ -13,810 +13,2317 @@
  */
 
 // Source: schema.json
-export type CallToAction = {
-  _type: 'callToAction'
-  heading: string
-  text?: string
-  buttonText?: string
-  link?: Link
-}
+export type MusicEmbed = {
+  _type: "musicEmbed";
+  provider?: "spotify" | "bandcamp" | "youtube";
+  url?: string;
+};
 
-export type Link = {
-  _type: 'link'
-  linkType?: 'href' | 'page' | 'post'
-  href?: string
-  page?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'page'
-  }
-  post?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'post'
-  }
-  openInNewTab?: boolean
-}
+export type VideoEmbed = {
+  _type: "videoEmbed";
+  provider?: "youtube" | "vimeo";
+  url?: string;
+};
 
-export type InfoSection = {
-  _type: 'infoSection'
-  heading?: string
-  subheading?: string
+export type CtaBanner = {
+  _type: "ctaBanner";
+  heading?: string;
+  body?: string;
+  cta?: {
+    label?: string;
+    href?: string;
+  };
+};
+
+export type FeatureGrid = {
+  _type: "featureGrid";
+  items?: Array<{
+    title?: string;
+    body?: string;
+    iconType?: "image" | "icon";
+    icon?: string;
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    };
+    _key: string;
+  }>;
+};
+
+export type ImageGallery = {
+  _type: "imageGallery";
+  images?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
+    _type: "image";
+    _key: string;
+  }>;
+};
+
+export type RichText = {
+  _type: "richText";
   content?: Array<{
     children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
-    listItem?: 'bullet' | 'number'
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
     markDefs?: Array<{
-      linkType?: 'href' | 'page' | 'post'
-      href?: string
+      linkType?: "href" | "page" | "post";
+      href?: string;
       page?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'page'
-      }
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      };
       post?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'post'
-      }
-      openInNewTab?: boolean
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
-}
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      openInNewTab?: boolean;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+};
+
+export type Hero = {
+  _type: "hero";
+  headline?: string;
+  subhead?: string;
+  mediaType?: "image" | "video";
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  video?: string;
+  ctas?: Array<{
+    label?: string;
+    href?: string;
+    variant?: "primary" | "secondary" | "outline";
+    _key: string;
+  }>;
+};
+
+export type CallToAction = {
+  _type: "callToAction";
+  heading?: string;
+  text?: string;
+  buttonText?: string;
+  link?: Link;
+};
+
+export type Link = {
+  _type: "link";
+  linkType?: "href" | "page" | "post";
+  href?: string;
+  page?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "page";
+  };
+  post?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "post";
+  };
+  openInNewTab?: boolean;
+};
+
+export type InfoSection = {
+  _type: "infoSection";
+  heading?: string;
+  subheading?: string;
+  content?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+    listItem?: "bullet" | "number";
+    markDefs?: Array<{
+      linkType?: "href" | "page" | "post";
+      href?: string;
+      page?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      };
+      post?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      openInNewTab?: boolean;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+};
 
 export type BlockContent = Array<{
   children?: Array<{
-    marks?: Array<string>
-    text?: string
-    _type: 'span'
-    _key: string
-  }>
-  style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
-  listItem?: 'bullet' | 'number'
+    marks?: Array<string>;
+    text?: string;
+    _type: "span";
+    _key: string;
+  }>;
+  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
+  listItem?: "bullet" | "number";
   markDefs?: Array<{
-    linkType?: 'href' | 'page' | 'post'
-    href?: string
+    linkType?: "href" | "page" | "post";
+    href?: string;
     page?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'page'
-    }
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "page";
+    };
     post?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'post'
-    }
-    openInNewTab?: boolean
-    _type: 'link'
-    _key: string
-  }>
-  level?: number
-  _type: 'block'
-  _key: string
-}>
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "post";
+    };
+    openInNewTab?: boolean;
+    _type: "link";
+    _key: string;
+  }>;
+  level?: number;
+  _type: "block";
+  _key: string;
+}>;
+
+export type Song = {
+  _id: string;
+  _type: "song";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  key?: string;
+  artist?: string;
+  notes?: string;
+  order?: number;
+};
+
+export type Product = {
+  _id: string;
+  _type: "product";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  description?: BlockContent;
+  images?: Array<{
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  priceCents?: number;
+  currency?: "USD" | "EUR" | "GBP";
+  options?: Array<{
+    name?: string;
+    values?: Array<string>;
+    _key: string;
+  }>;
+  variants?: Array<{
+    optionValues?: Array<{
+      key?: string;
+      value?: string;
+      _key: string;
+    }>;
+    priceCents?: number;
+    sku?: string;
+    _key: string;
+  }>;
+  gelatoProductUid?: string;
+  printAreas?: Array<{
+    areaName?: string;
+    artwork?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    _key: string;
+  }>;
+  shippingNotes?: string;
+  seo?: {
+    title?: string;
+    description?: string;
+    ogImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  };
+};
+
+export type Event = {
+  _id: string;
+  _type: "event";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  startDateTime?: string;
+  endDateTime?: string;
+  timezone?: string;
+  venue?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  country?: string;
+  ticketUrl?: string;
+  description?: BlockContent;
+  coverImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  isCanceled?: boolean;
+  isSoldOut?: boolean;
+};
+
+export type SetlistPage = {
+  _id: string;
+  _type: "setlistPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroHeading?: string;
+  heroImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  introText?: string;
+  performanceImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  guitarImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  ctaHeading?: string;
+  ctaText?: string;
+  ctaBookLessonButtonText?: string;
+  ctaContactButtonText?: string;
+  subtitleSuffix?: string;
+};
+
+export type ContactPage = {
+  _id: string;
+  _type: "contactPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroHeading?: string;
+  heroSubheading?: string;
+  heroImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  portraitImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  portraitGallery?: Array<{
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    alt?: string;
+    _type: "portraitGalleryImage";
+    _key: string;
+  }>;
+  formHeading?: string;
+  directContactHeading?: string;
+  socialHeading?: string;
+  quickLinksHeading?: string;
+  aboutHeading?: string;
+  quickLinkShowsText?: string;
+  quickLinkLessonsText?: string;
+  quickLinkSetlistText?: string;
+};
+
+export type LessonsPage = {
+  _id: string;
+  _type: "lessonsPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroHeading?: string;
+  heroSubheading?: string;
+  heroImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  philosophyHeading?: string;
+  philosophyText?: string;
+  philosophyImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  learningItemsHeading?: string;
+  learningItems?: Array<{
+    title?: string;
+    description?: string;
+    _type: "learningItem";
+    _key: string;
+  }>;
+  ctaBoxHeading?: string;
+  ctaBoxText?: string;
+  credentials?: string;
+  teachingImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  performanceImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  emailButtonText?: string;
+  scheduleButtonText?: string;
+};
+
+export type ShowsPage = {
+  _id: string;
+  _type: "showsPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroHeading?: string;
+  heroSubheading?: string;
+  heroImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  performanceGalleryHeading?: string;
+  performanceGallerySubheading?: string;
+  performanceImages?: Array<{
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    alt?: string;
+    caption?: string;
+    _type: "performanceImage";
+    _key: string;
+  }>;
+  upcomingShowsHeading?: string;
+  emptyStateHeading?: string;
+  emptyStateText?: string;
+  showCountPrefix?: string;
+  showSingular?: string;
+  showPlural?: string;
+};
+
+export type HomePage = {
+  _id: string;
+  _type: "homePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroSlides?: Array<{
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    alt?: string;
+    _type: "slide";
+    _key: string;
+  }>;
+  heroHeading?: string;
+  heroSubheading?: string;
+  heroTagline?: string;
+  aboutHeading?: string;
+  aboutText?: string;
+  aboutImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  albumTitle?: string;
+  albumYear?: string;
+  albumFormat?: string;
+  albumDescription?: string;
+  albumImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  albumFeatures?: Array<string>;
+  ctaLessonsHeading?: string;
+  ctaLessonsText?: string;
+  parallaxHeading?: string;
+  parallaxSubheading?: string;
+  parallaxImages?: Array<{
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    alt?: string;
+    position?: "left" | "right";
+    offset?: number;
+    _type: "parallaxImage";
+    _key: string;
+  }>;
+  performanceSectionHeading?: string;
+  performanceImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  gallerySectionHeading?: string;
+  gallerySectionSubheading?: string;
+  galleryImages?: Array<{
+    image?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    alt?: string;
+    width?: number;
+    height?: number;
+    _type: "galleryImage";
+    _key: string;
+  }>;
+  upcomingShowsHeading?: string;
+  seeAllShowsLinkText?: string;
+  aboutButtonText?: string;
+  ctaLessonsButtonText?: string;
+};
+
+export type UiText = {
+  _id: string;
+  _type: "uiText";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  siteName?: string;
+  siteTagline?: string;
+  navShows?: string;
+  navLessons?: string;
+  navSetlist?: string;
+  navMerch?: string;
+  navContact?: string;
+  footerNavigationHeading?: string;
+  footerConnectHeading?: string;
+  footerCopyrightText?: string;
+  formLabelName?: string;
+  formLabelEmail?: string;
+  formLabelSubject?: string;
+  formLabelMessage?: string;
+  formButtonSubmit?: string;
+  formButtonSending?: string;
+  formSuccessMessage?: string;
+  buttonViewSetlist?: string;
+  buttonScheduleLesson?: string;
+  buttonBookLesson?: string;
+  buttonEmailMe?: string;
+  buttonGetInTouch?: string;
+  linkSeeAllShows?: string;
+  linkUpcomingShows?: string;
+  linkGuitarLessons?: string;
+  linkBluesSetlist?: string;
+  showsCountSingular?: string;
+  showsCountPlural?: string;
+  upcomingPrefix?: string;
+  setlistSubtitleSuffix?: string;
+  socialFacebook?: string;
+  socialInstagram?: string;
+};
+
+export type Navigation = {
+  _id: string;
+  _type: "navigation";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  main?: Array<{
+    title?: string;
+    href?: string;
+    docRef?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "page";
+    };
+    _type: "navItem";
+    _key: string;
+  }>;
+  footer?: Array<{
+    title?: string;
+    href?: string;
+    docRef?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "page";
+    };
+    _type: "footerItem";
+    _key: string;
+  }>;
+};
 
 export type Settings = {
-  _id: string
-  _type: 'settings'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title: string
+  _id: string;
+  _type: "settings";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
   description?: Array<{
     children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'normal'
-    listItem?: never
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: never;
     markDefs?: Array<{
-      linkType?: 'href' | 'page' | 'post'
-      href?: string
+      linkType?: "href" | "page" | "post";
+      href?: string;
       page?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'page'
-      }
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      };
       post?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'post'
-      }
-      openInNewTab?: boolean
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      openInNewTab?: boolean;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
   ogImage?: {
     asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    metadataBase?: string
-    _type: 'image'
-  }
-}
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    metadataBase?: string;
+    _type: "image";
+  };
+  contactEmail?: string;
+  bookingUrl?: string;
+  socialLinks?: Array<{
+    platform?: "facebook" | "instagram" | "youtube" | "twitter" | "spotify" | "soundcloud" | "bandcamp";
+    url?: string;
+    _type: "socialLink";
+    _key: string;
+  }>;
+};
 
 export type Page = {
-  _id: string
-  _type: 'page'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  name: string
-  slug: Slug
-  heading: string
-  subheading?: string
-  pageBuilder?: Array<
-    | ({
-        _key: string
-      } & CallToAction)
-    | ({
-        _key: string
-      } & InfoSection)
-  >
-}
+  _id: string;
+  _type: "page";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  heading?: string;
+  subheading?: string;
+  modules?: Array<{
+    _key: string;
+  } & Hero | {
+    _key: string;
+  } & RichText | {
+    _key: string;
+  } & ImageGallery | {
+    _key: string;
+  } & FeatureGrid | {
+    _key: string;
+  } & CtaBanner | {
+    _key: string;
+  } & VideoEmbed | {
+    _key: string;
+  } & MusicEmbed | {
+    _key: string;
+  } & CallToAction | {
+    _key: string;
+  } & InfoSection>;
+  seo?: {
+    title?: string;
+    description?: string;
+    ogImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  };
+};
 
 export type Post = {
-  _id: string
-  _type: 'post'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title: string
-  slug: Slug
-  content?: BlockContent
-  excerpt?: string
-  coverImage: {
+  _id: string;
+  _type: "post";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  content?: BlockContent;
+  excerpt?: string;
+  coverImage?: {
     asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-  date?: string
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  date?: string;
   author?: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'person'
-  }
-}
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "person";
+  };
+};
 
 export type Person = {
-  _id: string
-  _type: 'person'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  firstName: string
-  lastName: string
-  picture: {
+  _id: string;
+  _type: "person";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  firstName?: string;
+  lastName?: string;
+  picture?: {
     asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-}
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+};
 
 export type SanityAssistInstructionTask = {
-  _type: 'sanity.assist.instructionTask'
-  path?: string
-  instructionKey?: string
-  started?: string
-  updated?: string
-  info?: string
-}
+  _type: "sanity.assist.instructionTask";
+  path?: string;
+  instructionKey?: string;
+  started?: string;
+  updated?: string;
+  info?: string;
+};
 
 export type SanityAssistTaskStatus = {
-  _type: 'sanity.assist.task.status'
-  tasks?: Array<
-    {
-      _key: string
-    } & SanityAssistInstructionTask
-  >
-}
+  _type: "sanity.assist.task.status";
+  tasks?: Array<{
+    _key: string;
+  } & SanityAssistInstructionTask>;
+};
 
 export type SanityAssistSchemaTypeAnnotations = {
-  _type: 'sanity.assist.schemaType.annotations'
-  title?: string
-  fields?: Array<
-    {
-      _key: string
-    } & SanityAssistSchemaTypeField
-  >
-}
+  _type: "sanity.assist.schemaType.annotations";
+  title?: string;
+  fields?: Array<{
+    _key: string;
+  } & SanityAssistSchemaTypeField>;
+};
 
 export type SanityAssistOutputType = {
-  _type: 'sanity.assist.output.type'
-  type?: string
-}
+  _type: "sanity.assist.output.type";
+  type?: string;
+};
 
 export type SanityAssistOutputField = {
-  _type: 'sanity.assist.output.field'
-  path?: string
-}
+  _type: "sanity.assist.output.field";
+  path?: string;
+};
 
 export type SanityAssistInstructionContext = {
-  _type: 'sanity.assist.instruction.context'
-  reference: {
-    _ref: string
-    _type: 'reference'
-    _weak?: boolean
-    [internalGroqTypeReferenceTo]?: 'assist.instruction.context'
-  }
-}
+  _type: "sanity.assist.instruction.context";
+  reference?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "assist.instruction.context";
+  };
+};
 
 export type AssistInstructionContext = {
-  _id: string
-  _type: 'assist.instruction.context'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title?: string
+  _id: string;
+  _type: "assist.instruction.context";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
   context?: Array<{
     children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'normal'
-    listItem?: never
-    markDefs?: null
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
-}
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: never;
+    markDefs?: null;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+};
 
 export type SanityAssistInstructionUserInput = {
-  _type: 'sanity.assist.instruction.userInput'
-  message: string
-  description?: string
-}
+  _type: "sanity.assist.instruction.userInput";
+  message?: string;
+  description?: string;
+};
 
 export type SanityAssistInstructionPrompt = Array<{
-  children?: Array<
-    | {
-        marks?: Array<string>
-        text?: string
-        _type: 'span'
-        _key: string
-      }
-    | ({
-        _key: string
-      } & SanityAssistInstructionFieldRef)
-    | ({
-        _key: string
-      } & SanityAssistInstructionContext)
-    | ({
-        _key: string
-      } & SanityAssistInstructionUserInput)
-  >
-  style?: 'normal'
-  listItem?: never
-  markDefs?: null
-  level?: number
-  _type: 'block'
-  _key: string
-}>
+  children?: Array<{
+    marks?: Array<string>;
+    text?: string;
+    _type: "span";
+    _key: string;
+  } | {
+    _key: string;
+  } & SanityAssistInstructionFieldRef | {
+    _key: string;
+  } & SanityAssistInstructionContext | {
+    _key: string;
+  } & SanityAssistInstructionUserInput>;
+  style?: "normal";
+  listItem?: never;
+  markDefs?: null;
+  level?: number;
+  _type: "block";
+  _key: string;
+}>;
 
 export type SanityAssistInstructionFieldRef = {
-  _type: 'sanity.assist.instruction.fieldRef'
-  path?: string
-}
+  _type: "sanity.assist.instruction.fieldRef";
+  path?: string;
+};
 
 export type SanityAssistInstruction = {
-  _type: 'sanity.assist.instruction'
-  prompt?: SanityAssistInstructionPrompt
-  icon?: string
-  title?: string
-  userId?: string
-  createdById?: string
-  output?: Array<
-    | ({
-        _key: string
-      } & SanityAssistOutputField)
-    | ({
-        _key: string
-      } & SanityAssistOutputType)
-  >
-}
+  _type: "sanity.assist.instruction";
+  prompt?: SanityAssistInstructionPrompt;
+  icon?: string;
+  title?: string;
+  userId?: string;
+  createdById?: string;
+  output?: Array<{
+    _key: string;
+  } & SanityAssistOutputField | {
+    _key: string;
+  } & SanityAssistOutputType>;
+};
 
 export type SanityAssistSchemaTypeField = {
-  _type: 'sanity.assist.schemaType.field'
-  path?: string
-  instructions?: Array<
-    {
-      _key: string
-    } & SanityAssistInstruction
-  >
-}
+  _type: "sanity.assist.schemaType.field";
+  path?: string;
+  instructions?: Array<{
+    _key: string;
+  } & SanityAssistInstruction>;
+};
 
 export type SanityImagePaletteSwatch = {
-  _type: 'sanity.imagePaletteSwatch'
-  background?: string
-  foreground?: string
-  population?: number
-  title?: string
-}
+  _type: "sanity.imagePaletteSwatch";
+  background?: string;
+  foreground?: string;
+  population?: number;
+  title?: string;
+};
 
 export type SanityImagePalette = {
-  _type: 'sanity.imagePalette'
-  darkMuted?: SanityImagePaletteSwatch
-  lightVibrant?: SanityImagePaletteSwatch
-  darkVibrant?: SanityImagePaletteSwatch
-  vibrant?: SanityImagePaletteSwatch
-  dominant?: SanityImagePaletteSwatch
-  lightMuted?: SanityImagePaletteSwatch
-  muted?: SanityImagePaletteSwatch
-}
+  _type: "sanity.imagePalette";
+  darkMuted?: SanityImagePaletteSwatch;
+  lightVibrant?: SanityImagePaletteSwatch;
+  darkVibrant?: SanityImagePaletteSwatch;
+  vibrant?: SanityImagePaletteSwatch;
+  dominant?: SanityImagePaletteSwatch;
+  lightMuted?: SanityImagePaletteSwatch;
+  muted?: SanityImagePaletteSwatch;
+};
 
 export type SanityImageDimensions = {
-  _type: 'sanity.imageDimensions'
-  height?: number
-  width?: number
-  aspectRatio?: number
-}
+  _type: "sanity.imageDimensions";
+  height?: number;
+  width?: number;
+  aspectRatio?: number;
+};
 
 export type SanityImageHotspot = {
-  _type: 'sanity.imageHotspot'
-  x?: number
-  y?: number
-  height?: number
-  width?: number
-}
+  _type: "sanity.imageHotspot";
+  x?: number;
+  y?: number;
+  height?: number;
+  width?: number;
+};
 
 export type SanityImageCrop = {
-  _type: 'sanity.imageCrop'
-  top?: number
-  bottom?: number
-  left?: number
-  right?: number
-}
+  _type: "sanity.imageCrop";
+  top?: number;
+  bottom?: number;
+  left?: number;
+  right?: number;
+};
 
 export type SanityFileAsset = {
-  _id: string
-  _type: 'sanity.fileAsset'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  originalFilename?: string
-  label?: string
-  title?: string
-  description?: string
-  altText?: string
-  sha1hash?: string
-  extension?: string
-  mimeType?: string
-  size?: number
-  assetId?: string
-  uploadId?: string
-  path?: string
-  url?: string
-  source?: SanityAssetSourceData
-}
+  _id: string;
+  _type: "sanity.fileAsset";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  originalFilename?: string;
+  label?: string;
+  title?: string;
+  description?: string;
+  altText?: string;
+  sha1hash?: string;
+  extension?: string;
+  mimeType?: string;
+  size?: number;
+  assetId?: string;
+  uploadId?: string;
+  path?: string;
+  url?: string;
+  source?: SanityAssetSourceData;
+};
 
 export type SanityImageAsset = {
-  _id: string
-  _type: 'sanity.imageAsset'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  originalFilename?: string
-  label?: string
-  title?: string
-  description?: string
-  altText?: string
-  sha1hash?: string
-  extension?: string
-  mimeType?: string
-  size?: number
-  assetId?: string
-  uploadId?: string
-  path?: string
-  url?: string
-  metadata?: SanityImageMetadata
-  source?: SanityAssetSourceData
-}
+  _id: string;
+  _type: "sanity.imageAsset";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  originalFilename?: string;
+  label?: string;
+  title?: string;
+  description?: string;
+  altText?: string;
+  sha1hash?: string;
+  extension?: string;
+  mimeType?: string;
+  size?: number;
+  assetId?: string;
+  uploadId?: string;
+  path?: string;
+  url?: string;
+  metadata?: SanityImageMetadata;
+  source?: SanityAssetSourceData;
+};
 
 export type SanityImageMetadata = {
-  _type: 'sanity.imageMetadata'
-  location?: Geopoint
-  dimensions?: SanityImageDimensions
-  palette?: SanityImagePalette
-  lqip?: string
-  blurHash?: string
-  hasAlpha?: boolean
-  isOpaque?: boolean
-}
+  _type: "sanity.imageMetadata";
+  location?: Geopoint;
+  dimensions?: SanityImageDimensions;
+  palette?: SanityImagePalette;
+  lqip?: string;
+  blurHash?: string;
+  hasAlpha?: boolean;
+  isOpaque?: boolean;
+};
 
 export type Geopoint = {
-  _type: 'geopoint'
-  lat?: number
-  lng?: number
-  alt?: number
-}
+  _type: "geopoint";
+  lat?: number;
+  lng?: number;
+  alt?: number;
+};
 
 export type Slug = {
-  _type: 'slug'
-  current: string
-  source?: string
-}
+  _type: "slug";
+  current?: string;
+  source?: string;
+};
 
 export type SanityAssetSourceData = {
-  _type: 'sanity.assetSourceData'
-  name?: string
-  id?: string
-  url?: string
-}
+  _type: "sanity.assetSourceData";
+  name?: string;
+  id?: string;
+  url?: string;
+};
 
-export type AllSanitySchemaTypes =
-  | CallToAction
-  | Link
-  | InfoSection
-  | BlockContent
-  | Settings
-  | Page
-  | Post
-  | Person
-  | SanityAssistInstructionTask
-  | SanityAssistTaskStatus
-  | SanityAssistSchemaTypeAnnotations
-  | SanityAssistOutputType
-  | SanityAssistOutputField
-  | SanityAssistInstructionContext
-  | AssistInstructionContext
-  | SanityAssistInstructionUserInput
-  | SanityAssistInstructionPrompt
-  | SanityAssistInstructionFieldRef
-  | SanityAssistInstruction
-  | SanityAssistSchemaTypeField
-  | SanityImagePaletteSwatch
-  | SanityImagePalette
-  | SanityImageDimensions
-  | SanityImageHotspot
-  | SanityImageCrop
-  | SanityFileAsset
-  | SanityImageAsset
-  | SanityImageMetadata
-  | Geopoint
-  | Slug
-  | SanityAssetSourceData
-export declare const internalGroqTypeReferenceTo: unique symbol
+export type AllSanitySchemaTypes = MusicEmbed | VideoEmbed | CtaBanner | FeatureGrid | ImageGallery | RichText | Hero | CallToAction | Link | InfoSection | BlockContent | Song | Product | Event | SetlistPage | ContactPage | LessonsPage | ShowsPage | HomePage | UiText | Navigation | Settings | Page | Post | Person | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0]
+// Query: *[_type == "settings"][0]{  _id,  title,  description,  ogImage{    asset->,    alt,    metadataBase  },  contactEmail,  bookingUrl,  socialLinks[]{    platform,    url  }}
 export type SettingsQueryResult = {
-  _id: string
-  _type: 'settings'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title: string
-  description?: Array<{
+  _id: string;
+  title: string | null;
+  description: Array<{
     children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'normal'
-    listItem?: never
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal";
+    listItem?: never;
     markDefs?: Array<{
-      linkType?: 'href' | 'page' | 'post'
-      href?: string
+      linkType?: "href" | "page" | "post";
+      href?: string;
       page?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'page'
-      }
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "page";
+      };
       post?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'post'
-      }
-      openInNewTab?: boolean
-      _type: 'link'
-      _key: string
-    }>
-    level?: number
-    _type: 'block'
-    _key: string
-  }>
-  ogImage?: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    metadataBase?: string
-    _type: 'image'
-  }
-} | null
-// Variable: getPageQuery
-// Query: *[_type == 'page' && slug.current == $slug][0]{    _id,    _type,    name,    slug,    heading,    subheading,    "pageBuilder": pageBuilder[]{      ...,      _type == "callToAction" => {          link {      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }      },      },      _type == "infoSection" => {        content[]{          ...,          markDefs[]{            ...,              _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }          }        }      },    },  }
-export type GetPageQueryResult = {
-  _id: string
-  _type: 'page'
-  name: string
-  slug: Slug
-  heading: string
-  subheading: string | null
-  pageBuilder: Array<
-    | {
-        _key: string
-        _type: 'callToAction'
-        heading: string
-        text?: string
-        buttonText?: string
-        link: {
-          _type: 'link'
-          linkType?: 'href' | 'page' | 'post'
-          href?: string
-          page: string | null
-          post: string | null
-          openInNewTab?: boolean
-        } | null
-      }
-    | {
-        _key: string
-        _type: 'infoSection'
-        heading?: string
-        subheading?: string
-        content: Array<{
-          children?: Array<{
-            marks?: Array<string>
-            text?: string
-            _type: 'span'
-            _key: string
-          }>
-          style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-          listItem?: 'bullet' | 'number'
-          markDefs: Array<{
-            linkType?: 'href' | 'page' | 'post'
-            href?: string
-            page: string | null
-            post: string | null
-            openInNewTab?: boolean
-            _type: 'link'
-            _key: string
-          }> | null
-          level?: number
-          _type: 'block'
-          _key: string
-        }> | null
-      }
-  > | null
-} | null
-// Variable: sitemapData
-// Query: *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {    "slug": slug.current,    _type,    _updatedAt,  }
-export type SitemapDataResult = Array<
-  | {
-      slug: string
-      _type: 'page'
-      _updatedAt: string
-    }
-  | {
-      slug: string
-      _type: 'post'
-      _updatedAt: string
-    }
->
-// Variable: allPostsQuery
-// Query: *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
-export type AllPostsQueryResult = Array<{
-  _id: string
-  status: 'draft' | 'published'
-  title: string
-  slug: string
-  excerpt: string | null
-  coverImage: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-  date: string
-  author: {
-    firstName: string
-    lastName: string
-    picture: {
-      asset?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-      }
-      media?: unknown
-      hotspot?: SanityImageHotspot
-      crop?: SanityImageCrop
-      alt?: string
-      _type: 'image'
-    }
-  } | null
-}>
-// Variable: morePostsQuery
-// Query: *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
-export type MorePostsQueryResult = Array<{
-  _id: string
-  status: 'draft' | 'published'
-  title: string
-  slug: string
-  excerpt: string | null
-  coverImage: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-  date: string
-  author: {
-    firstName: string
-    lastName: string
-    picture: {
-      asset?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-      }
-      media?: unknown
-      hotspot?: SanityImageHotspot
-      crop?: SanityImageCrop
-      alt?: string
-      _type: 'image'
-    }
-  } | null
-}>
-// Variable: postQuery
-// Query: *[_type == "post" && slug.current == $slug] [0] {    content[]{    ...,    markDefs[]{      ...,        _type == "link" => {    "page": page->slug.current,    "post": post->slug.current  }    }  },      _id,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "slug": slug.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
-export type PostQueryResult = {
-  content: Array<{
-    children?: Array<{
-      marks?: Array<string>
-      text?: string
-      _type: 'span'
-      _key: string
-    }>
-    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
-    listItem?: 'bullet' | 'number'
-    markDefs: Array<{
-      linkType?: 'href' | 'page' | 'post'
-      href?: string
-      page: string | null
-      post: string | null
-      openInNewTab?: boolean
-      _type: 'link'
-      _key: string
-    }> | null
-    level?: number
-    _type: 'block'
-    _key: string
-  }> | null
-  _id: string
-  status: 'draft' | 'published'
-  title: string
-  slug: string
-  excerpt: string | null
-  coverImage: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-    }
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-  date: string
-  author: {
-    firstName: string
-    lastName: string
-    picture: {
-      asset?: {
-        _ref: string
-        _type: 'reference'
-        _weak?: boolean
-        [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
-      }
-      media?: unknown
-      hotspot?: SanityImageHotspot
-      crop?: SanityImageCrop
-      alt?: string
-      _type: 'image'
-    }
-  } | null
-} | null
-// Variable: postPagesSlugs
-// Query: *[_type == "post" && defined(slug.current)]  {"slug": slug.current}
-export type PostPagesSlugsResult = Array<{
-  slug: string
-}>
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "post";
+      };
+      openInNewTab?: boolean;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }> | null;
+  ogImage: {
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    alt: string | null;
+    metadataBase: string | null;
+  } | null;
+  contactEmail: string | null;
+  bookingUrl: string | null;
+  socialLinks: Array<{
+    platform: "bandcamp" | "facebook" | "instagram" | "soundcloud" | "spotify" | "twitter" | "youtube" | null;
+    url: string | null;
+  }> | null;
+} | null;
+// Variable: uiTextQuery
+// Query: *[_type == "uiText"][0]{  _id,  siteName,  siteTagline,  navShows,  navLessons,  navSetlist,  navMerch,  navContact,  footerNavigationHeading,  footerConnectHeading,  footerCopyrightText,  formLabelName,  formLabelEmail,  formLabelSubject,  formLabelMessage,  formButtonSubmit,  formButtonSending,  formSuccessMessage,  buttonViewSetlist,  buttonScheduleLesson,  buttonBookLesson,  buttonEmailMe,  buttonGetInTouch,  linkSeeAllShows,  linkUpcomingShows,  linkGuitarLessons,  linkBluesSetlist,  showsCountSingular,  showsCountPlural,  upcomingPrefix,  setlistSubtitleSuffix,  socialFacebook,  socialInstagram}
+export type UiTextQueryResult = {
+  _id: string;
+  siteName: string | null;
+  siteTagline: string | null;
+  navShows: string | null;
+  navLessons: string | null;
+  navSetlist: string | null;
+  navMerch: string | null;
+  navContact: string | null;
+  footerNavigationHeading: string | null;
+  footerConnectHeading: string | null;
+  footerCopyrightText: string | null;
+  formLabelName: string | null;
+  formLabelEmail: string | null;
+  formLabelSubject: string | null;
+  formLabelMessage: string | null;
+  formButtonSubmit: string | null;
+  formButtonSending: string | null;
+  formSuccessMessage: string | null;
+  buttonViewSetlist: string | null;
+  buttonScheduleLesson: string | null;
+  buttonBookLesson: string | null;
+  buttonEmailMe: string | null;
+  buttonGetInTouch: string | null;
+  linkSeeAllShows: string | null;
+  linkUpcomingShows: string | null;
+  linkGuitarLessons: string | null;
+  linkBluesSetlist: string | null;
+  showsCountSingular: string | null;
+  showsCountPlural: string | null;
+  upcomingPrefix: string | null;
+  setlistSubtitleSuffix: string | null;
+  socialFacebook: string | null;
+  socialInstagram: string | null;
+} | null;
+// Variable: navigationQuery
+// Query: *[_type == "navigation"][0]{  _id,  main[]{    title,    href,    docRef->{      _type,      "slug": slug.current    }  },  footer[]{    title,    href,    docRef->{      _type,      "slug": slug.current    }  }}
+export type NavigationQueryResult = {
+  _id: string;
+  main: Array<{
+    title: string | null;
+    href: string | null;
+    docRef: {
+      _type: "page";
+      slug: string | null;
+    } | null;
+  }> | null;
+  footer: Array<{
+    title: string | null;
+    href: string | null;
+    docRef: {
+      _type: "page";
+      slug: string | null;
+    } | null;
+  }> | null;
+} | null;
+// Variable: homePageQuery
+// Query: *[_type == "homePage"][0]{  _id,  heroSlides[]{    _key,    image{      asset->{_id, url},      hotspot,      crop,      desktopPosition,      mobilePosition,      alt    },    alt  },  heroHeading,  heroSubheading,  heroTagline,  aboutHeading,  aboutText,  aboutImage{    asset->{_id, url},    hotspot,    crop,    desktopPosition,    mobilePosition,    alt  },  albumTitle,  albumYear,  albumFormat,  albumDescription,  albumCoverImage{    asset->{_id, url},    hotspot,    crop,    desktopPosition,    mobilePosition,    alt  },  albumFeatures,  ctaLessonsHeading,  ctaLessonsText,  parallaxHeading,  parallaxSubheading,  parallaxImages[]{    _key,    image{      asset->{_id, url},      hotspot,      crop,      desktopPosition,      mobilePosition,      alt    },    alt,    position,    offset  },  performanceSectionHeading,  performanceImage{    asset->{_id, url},    hotspot,    crop,    desktopPosition,    mobilePosition,    alt  },  gallerySectionHeading,  gallerySectionSubheading,  galleryImages[]{    _key,    image{      asset->{_id, url},      hotspot,      crop,      desktopPosition,      mobilePosition,      alt    },    alt,    width,    height  },  upcomingShowsHeading,  seeAllShowsLinkText,  aboutButtonText,  ctaLessonsButtonText}
+export type HomePageQueryResult = {
+  _id: string;
+  heroSlides: Array<{
+    _key: string;
+    image: {
+      asset: {
+        _id: string;
+        url: string | null;
+      } | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      desktopPosition: null;
+      mobilePosition: null;
+      alt: null;
+    } | null;
+    alt: string | null;
+  }> | null;
+  heroHeading: string | null;
+  heroSubheading: string | null;
+  heroTagline: string | null;
+  aboutHeading: string | null;
+  aboutText: string | null;
+  aboutImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  albumTitle: string | null;
+  albumYear: string | null;
+  albumFormat: string | null;
+  albumDescription: string | null;
+  albumCoverImage: null;
+  albumFeatures: Array<string> | null;
+  ctaLessonsHeading: string | null;
+  ctaLessonsText: string | null;
+  parallaxHeading: string | null;
+  parallaxSubheading: string | null;
+  parallaxImages: Array<{
+    _key: string;
+    image: {
+      asset: {
+        _id: string;
+        url: string | null;
+      } | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      desktopPosition: null;
+      mobilePosition: null;
+      alt: null;
+    } | null;
+    alt: string | null;
+    position: "left" | "right" | null;
+    offset: number | null;
+  }> | null;
+  performanceSectionHeading: string | null;
+  performanceImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  gallerySectionHeading: string | null;
+  gallerySectionSubheading: string | null;
+  galleryImages: Array<{
+    _key: string;
+    image: {
+      asset: {
+        _id: string;
+        url: string | null;
+      } | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      desktopPosition: null;
+      mobilePosition: null;
+      alt: null;
+    } | null;
+    alt: string | null;
+    width: number | null;
+    height: number | null;
+  }> | null;
+  upcomingShowsHeading: string | null;
+  seeAllShowsLinkText: string | null;
+  aboutButtonText: string | null;
+  ctaLessonsButtonText: string | null;
+} | null;
+// Variable: lessonsPageQuery
+// Query: *[_type == "lessonsPage"][0]{  _id,  heroHeading,  heroSubheading,  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  philosophyHeading,  philosophyText,  philosophyImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  learningItemsHeading,  learningItems[]{    _key,    title,    description  },  ctaBoxHeading,  ctaBoxText,  credentials,  teachingImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  performanceImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  emailButtonText,  scheduleButtonText}
+export type LessonsPageQueryResult = {
+  _id: string;
+  heroHeading: string | null;
+  heroSubheading: string | null;
+  heroImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  philosophyHeading: string | null;
+  philosophyText: string | null;
+  philosophyImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  learningItemsHeading: string | null;
+  learningItems: Array<{
+    _key: string;
+    title: string | null;
+    description: string | null;
+  }> | null;
+  ctaBoxHeading: string | null;
+  ctaBoxText: string | null;
+  credentials: string | null;
+  teachingImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  performanceImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  emailButtonText: string | null;
+  scheduleButtonText: string | null;
+} | null;
+// Variable: contactPageQuery
+// Query: *[_type == "contactPage"][0]{  _id,  heroHeading,  heroSubheading,  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  portraitImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  portraitGallery[]{    _key,    image{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},    alt  },  formHeading,  directContactHeading,  socialHeading,  quickLinksHeading,  aboutHeading,  quickLinkShowsText,  quickLinkLessonsText,  quickLinkSetlistText}
+export type ContactPageQueryResult = {
+  _id: string;
+  heroHeading: string | null;
+  heroSubheading: string | null;
+  heroImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  portraitImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  portraitGallery: Array<{
+    _key: string;
+    image: {
+      asset: {
+        _id: string;
+        url: string | null;
+      } | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      desktopPosition: null;
+      mobilePosition: null;
+      alt: null;
+    } | null;
+    alt: string | null;
+  }> | null;
+  formHeading: string | null;
+  directContactHeading: string | null;
+  socialHeading: string | null;
+  quickLinksHeading: string | null;
+  aboutHeading: string | null;
+  quickLinkShowsText: string | null;
+  quickLinkLessonsText: string | null;
+  quickLinkSetlistText: string | null;
+} | null;
+// Variable: setlistPageQuery
+// Query: *[_type == "setlistPage"][0]{  _id,  heroHeading,  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  introText,  performanceImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  guitarImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  ctaHeading,  ctaText,  ctaBookLessonButtonText,  ctaContactButtonText,  subtitleSuffix}
+export type SetlistPageQueryResult = {
+  _id: string;
+  heroHeading: string | null;
+  heroImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  introText: string | null;
+  performanceImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  guitarImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  ctaHeading: string | null;
+  ctaText: string | null;
+  ctaBookLessonButtonText: string | null;
+  ctaContactButtonText: string | null;
+  subtitleSuffix: string | null;
+} | null;
+// Variable: showsPageQuery
+// Query: *[_type == "showsPage"][0]{  _id,  heroHeading,  heroSubheading,  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  performanceGalleryHeading,  performanceGallerySubheading,  performanceImages[]{    _key,    image{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},    alt,    caption  },  upcomingShowsHeading,  emptyStateHeading,  emptyStateText,  showCountPrefix,  showSingular,  showPlural}
+export type ShowsPageQueryResult = {
+  _id: string;
+  heroHeading: string | null;
+  heroSubheading: string | null;
+  heroImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  performanceGalleryHeading: string | null;
+  performanceGallerySubheading: string | null;
+  performanceImages: Array<{
+    _key: string;
+    image: {
+      asset: {
+        _id: string;
+        url: string | null;
+      } | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      desktopPosition: null;
+      mobilePosition: null;
+      alt: null;
+    } | null;
+    alt: string | null;
+    caption: string | null;
+  }> | null;
+  upcomingShowsHeading: string | null;
+  emptyStateHeading: string | null;
+  emptyStateText: string | null;
+  showCountPrefix: string | null;
+  showSingular: string | null;
+  showPlural: string | null;
+} | null;
+// Variable: allSongsQuery
+// Query: *[_type == "song"] | order(order asc){  _id,  title,  key,  artist,  notes,  order}
+export type AllSongsQueryResult = Array<{
+  _id: string;
+  title: string | null;
+  key: string | null;
+  artist: string | null;
+  notes: string | null;
+  order: number | null;
+}>;
+// Variable: pageBySlugQuery
+// Query: *[_type == "page" && slug.current == $slug][0]{  _id,  name,  heading,  subheading,  modules[]{      _type,  _key,  _type == "hero" => {    headline,    subhead,    mediaType,    image{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},    video,    ctas[]{label, href, variant}  },  _type == "richText" => {    content  },  _type == "imageGallery" => {    images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt, caption}  },  _type == "featureGrid" => {    items[]{title, body, iconType, icon, image{asset->, hotspot, crop, desktopPosition, mobilePosition}}  },  _type == "ctaBanner" => {    heading,    body,    cta{label, href}  },  _type == "videoEmbed" => {    provider,    url  },  _type == "musicEmbed" => {    provider,    url  },  _type == "callToAction" => @,  _type == "infoSection" => @  },  seo{    title,    description,    ogImage{asset->}  }}
+export type PageBySlugQueryResult = {
+  _id: string;
+  name: string | null;
+  heading: string | null;
+  subheading: string | null;
+  modules: Array<{
+    _type: "callToAction";
+    _key: string;
+    heading?: string;
+    text?: string;
+    buttonText?: string;
+    link?: Link;
+  } | {
+    _type: "ctaBanner";
+    _key: string;
+    heading: string | null;
+    body: string | null;
+    cta: {
+      label: string | null;
+      href: string | null;
+    } | null;
+  } | {
+    _type: "featureGrid";
+    _key: string;
+    items: Array<{
+      title: string | null;
+      body: string | null;
+      iconType: "icon" | "image" | null;
+      icon: string | null;
+      image: {
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+        hotspot: SanityImageHotspot | null;
+        crop: SanityImageCrop | null;
+        desktopPosition: null;
+        mobilePosition: null;
+      } | null;
+    }> | null;
+  } | {
+    _type: "hero";
+    _key: string;
+    headline: string | null;
+    subhead: string | null;
+    mediaType: "image" | "video" | null;
+    image: {
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      desktopPosition: null;
+      mobilePosition: null;
+      alt: string | null;
+    } | null;
+    video: string | null;
+    ctas: Array<{
+      label: string | null;
+      href: string | null;
+      variant: "outline" | "primary" | "secondary" | null;
+    }> | null;
+  } | {
+    _type: "imageGallery";
+    _key: string;
+    images: Array<{
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      desktopPosition: null;
+      mobilePosition: null;
+      alt: string | null;
+      caption: string | null;
+    }> | null;
+  } | {
+    _type: "infoSection";
+    _key: string;
+    heading?: string;
+    subheading?: string;
+    content?: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        linkType?: "href" | "page" | "post";
+        href?: string;
+        page?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        };
+        post?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        openInNewTab?: boolean;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }>;
+  } | {
+    _type: "musicEmbed";
+    _key: string;
+    provider: "bandcamp" | "spotify" | "youtube" | null;
+    url: string | null;
+  } | {
+    _type: "richText";
+    _key: string;
+    content: Array<{
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "normal";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        linkType?: "href" | "page" | "post";
+        href?: string;
+        page?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        };
+        post?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        openInNewTab?: boolean;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }> | null;
+  } | {
+    _type: "videoEmbed";
+    _key: string;
+    provider: "vimeo" | "youtube" | null;
+    url: string | null;
+  }> | null;
+  seo: {
+    title: string | null;
+    description: string | null;
+    ogImage: {
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+    } | null;
+  } | null;
+} | null;
 // Variable: pagesSlugs
-// Query: *[_type == "page" && defined(slug.current)]  {"slug": slug.current}
+// Query: *[_type == "page" && defined(slug.current)]{  "slug": slug.current}
 export type PagesSlugsResult = Array<{
-  slug: string
-}>
+  slug: string | null;
+}>;
+// Variable: upcomingEventsQuery
+// Query: *[_type == "event" && startDateTime >= $now && !isCanceled] | order(startDateTime asc)[0...$limit]{  _id,  title,  startDateTime,  endDateTime,  timezone,  venue,  address,  city,  state,  country,  ticketUrl,  description,  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},  isCanceled,  isSoldOut}
+export type UpcomingEventsQueryResult = Array<{
+  _id: string;
+  title: string | null;
+  startDateTime: string | null;
+  endDateTime: string | null;
+  timezone: string | null;
+  venue: string | null;
+  address: string | null;
+  city: string | null;
+  state: string | null;
+  country: string | null;
+  ticketUrl: string | null;
+  description: BlockContent | null;
+  coverImage: {
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  isCanceled: boolean | null;
+  isSoldOut: boolean | null;
+}>;
+// Variable: pastEventsQuery
+// Query: *[_type == "event" && startDateTime < $now] | order(startDateTime desc)[$offset...$limit]{  _id,  title,  startDateTime,  timezone,  venue,  city,  state,  country,  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt}}
+export type PastEventsQueryResult = Array<{
+  _id: string;
+  title: string | null;
+  startDateTime: string | null;
+  timezone: string | null;
+  venue: string | null;
+  city: string | null;
+  state: string | null;
+  country: string | null;
+  coverImage: {
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+}>;
+// Variable: eventsByMonthQuery
+// Query: *[_type == "event" && dateTime(startDateTime) >= dateTime($startOfMonth) && dateTime(startDateTime) < dateTime($endOfMonth)] | order(startDateTime asc){  _id,  title,  startDateTime,  timezone,  venue,  city,  ticketUrl,  isCanceled,  isSoldOut}
+export type EventsByMonthQueryResult = Array<{
+  _id: string;
+  title: string | null;
+  startDateTime: string | null;
+  timezone: string | null;
+  venue: string | null;
+  city: string | null;
+  ticketUrl: string | null;
+  isCanceled: boolean | null;
+  isSoldOut: boolean | null;
+}>;
+// Variable: allProductsQuery
+// Query: *[_type == "product"] | order(_createdAt desc){  _id,  title,  "slug": slug.current,  images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},  priceCents,  currency}
+export type AllProductsQueryResult = Array<{
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  images: {
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  priceCents: number | null;
+  currency: "EUR" | "GBP" | "USD" | null;
+}>;
+// Variable: productBySlugQuery
+// Query: *[_type == "product" && slug.current == $slug][0]{  _id,  title,  description,  images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},  priceCents,  currency,  options[]{name, values},  variants[]{optionValues, priceCents, sku},  gelatoProductUid,  printAreas[]{areaName, artwork{asset->}},  shippingNotes,  seo{title, description, ogImage{asset->}}}
+export type ProductBySlugQueryResult = {
+  _id: string;
+  title: string | null;
+  description: BlockContent | null;
+  images: Array<{
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  }> | null;
+  priceCents: number | null;
+  currency: "EUR" | "GBP" | "USD" | null;
+  options: Array<{
+    name: string | null;
+    values: Array<string> | null;
+  }> | null;
+  variants: Array<{
+    optionValues: Array<{
+      key?: string;
+      value?: string;
+      _key: string;
+    }> | null;
+    priceCents: number | null;
+    sku: string | null;
+  }> | null;
+  gelatoProductUid: string | null;
+  printAreas: Array<{
+    areaName: string | null;
+    artwork: {
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+    } | null;
+  }> | null;
+  shippingNotes: string | null;
+  seo: {
+    title: string | null;
+    description: string | null;
+    ogImage: {
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+    } | null;
+  } | null;
+} | null;
+// Variable: productSlugsQuery
+// Query: *[_type == "product" && defined(slug.current)]{  "slug": slug.current}
+export type ProductSlugsQueryResult = Array<{
+  slug: string | null;
+}>;
+// Variable: featuredProductsQuery
+// Query: *[_type == "product"] | order(_createdAt desc)[0...$limit]{  _id,  title,  "slug": slug.current,  images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},  priceCents,  currency}
+export type FeaturedProductsQueryResult = Array<{
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  images: {
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  priceCents: number | null;
+  currency: "EUR" | "GBP" | "USD" | null;
+}>;
+// Variable: postQuery
+// Query: *[_type == "post" && slug.current == $slug][0]{  _id,  title,  "slug": slug.current,  excerpt,  content,  date,  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},  author->{firstName, lastName, picture{asset->}}}
+export type PostQueryResult = {
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  excerpt: string | null;
+  content: BlockContent | null;
+  date: string | null;
+  coverImage: {
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  author: {
+    firstName: string | null;
+    lastName: string | null;
+    picture: {
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+    } | null;
+  } | null;
+} | null;
+// Variable: postPagesSlugs
+// Query: *[_type == "post" && defined(slug.current)]{  "slug": slug.current}
+export type PostPagesSlugsResult = Array<{
+  slug: string | null;
+}>;
+// Variable: allPostsQuery
+// Query: *[_type == "post"] | order(date desc){  _id,  title,  "slug": slug.current,  excerpt,  date,  author->{firstName, lastName}}
+export type AllPostsQueryResult = Array<{
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  excerpt: string | null;
+  date: string | null;
+  author: {
+    firstName: string | null;
+    lastName: string | null;
+  } | null;
+}>;
+// Variable: morePostsQuery
+// Query: *[_type == "post" && _id != $skip] | order(date desc)[0...$limit]{  _id,  title,  "slug": slug.current,  excerpt,  date,  author->{firstName, lastName}}
+export type MorePostsQueryResult = Array<{
+  _id: string;
+  title: string | null;
+  slug: string | null;
+  excerpt: string | null;
+  date: string | null;
+  author: {
+    firstName: string | null;
+    lastName: string | null;
+  } | null;
+}>;
+// Variable: sitemapQuery
+// Query: *[_type in ["page", "product", "post"] && defined(slug.current)] | order(_type asc){  "slug": slug.current,  _type,  _updatedAt}
+export type SitemapQueryResult = Array<{
+  slug: string | null;
+  _type: "page";
+  _updatedAt: string;
+} | {
+  slug: string | null;
+  _type: "post";
+  _updatedAt: string;
+} | {
+  slug: string | null;
+  _type: "product";
+  _updatedAt: string;
+}>;
 
 // Query TypeMap
-import '@sanity/client'
-declare module '@sanity/client' {
+import "@sanity/client";
+declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "settings"][0]': SettingsQueryResult
-    '\n  *[_type == \'page\' && slug.current == $slug][0]{\n    _id,\n    _type,\n    name,\n    slug,\n    heading,\n    subheading,\n    "pageBuilder": pageBuilder[]{\n      ...,\n      _type == "callToAction" => {\n        \n  link {\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n      }\n,\n      },\n      _type == "infoSection" => {\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n          }\n        }\n      },\n    },\n  }\n': GetPageQueryResult
-    '\n  *[_type == "page" || _type == "post" && defined(slug.current)] | order(_type asc) {\n    "slug": slug.current,\n    _type,\n    _updatedAt,\n  }\n': SitemapDataResult
-    '\n  *[_type == "post" && defined(slug.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': AllPostsQueryResult
-    '\n  *[_type == "post" && _id != $skip && defined(slug.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': MorePostsQueryResult
-    '\n  *[_type == "post" && slug.current == $slug] [0] {\n    content[]{\n    ...,\n    markDefs[]{\n      ...,\n      \n  _type == "link" => {\n    "page": page->slug.current,\n    "post": post->slug.current\n  }\n\n    }\n  },\n    \n  _id,\n  "status": select(_originalId in path("drafts.**") => "draft", "published"),\n  "title": coalesce(title, "Untitled"),\n  "slug": slug.current,\n  excerpt,\n  coverImage,\n  "date": coalesce(date, _updatedAt),\n  "author": author->{firstName, lastName, picture},\n\n  }\n': PostQueryResult
-    '\n  *[_type == "post" && defined(slug.current)]\n  {"slug": slug.current}\n': PostPagesSlugsResult
-    '\n  *[_type == "page" && defined(slug.current)]\n  {"slug": slug.current}\n': PagesSlugsResult
+    "*[_type == \"settings\"][0]{\n  _id,\n  title,\n  description,\n  ogImage{\n    asset->,\n    alt,\n    metadataBase\n  },\n  contactEmail,\n  bookingUrl,\n  socialLinks[]{\n    platform,\n    url\n  }\n}": SettingsQueryResult;
+    "*[_type == \"uiText\"][0]{\n  _id,\n  siteName,\n  siteTagline,\n  navShows,\n  navLessons,\n  navSetlist,\n  navMerch,\n  navContact,\n  footerNavigationHeading,\n  footerConnectHeading,\n  footerCopyrightText,\n  formLabelName,\n  formLabelEmail,\n  formLabelSubject,\n  formLabelMessage,\n  formButtonSubmit,\n  formButtonSending,\n  formSuccessMessage,\n  buttonViewSetlist,\n  buttonScheduleLesson,\n  buttonBookLesson,\n  buttonEmailMe,\n  buttonGetInTouch,\n  linkSeeAllShows,\n  linkUpcomingShows,\n  linkGuitarLessons,\n  linkBluesSetlist,\n  showsCountSingular,\n  showsCountPlural,\n  upcomingPrefix,\n  setlistSubtitleSuffix,\n  socialFacebook,\n  socialInstagram\n}": UiTextQueryResult;
+    "*[_type == \"navigation\"][0]{\n  _id,\n  main[]{\n    title,\n    href,\n    docRef->{\n      _type,\n      \"slug\": slug.current\n    }\n  },\n  footer[]{\n    title,\n    href,\n    docRef->{\n      _type,\n      \"slug\": slug.current\n    }\n  }\n}": NavigationQueryResult;
+    "*[_type == \"homePage\"][0]{\n  _id,\n  heroSlides[]{\n    _key,\n    image{\n      asset->{_id, url},\n      hotspot,\n      crop,\n      desktopPosition,\n      mobilePosition,\n      alt\n    },\n    alt\n  },\n  heroHeading,\n  heroSubheading,\n  heroTagline,\n  aboutHeading,\n  aboutText,\n  aboutImage{\n    asset->{_id, url},\n    hotspot,\n    crop,\n    desktopPosition,\n    mobilePosition,\n    alt\n  },\n  albumTitle,\n  albumYear,\n  albumFormat,\n  albumDescription,\n  albumCoverImage{\n    asset->{_id, url},\n    hotspot,\n    crop,\n    desktopPosition,\n    mobilePosition,\n    alt\n  },\n  albumFeatures,\n  ctaLessonsHeading,\n  ctaLessonsText,\n  parallaxHeading,\n  parallaxSubheading,\n  parallaxImages[]{\n    _key,\n    image{\n      asset->{_id, url},\n      hotspot,\n      crop,\n      desktopPosition,\n      mobilePosition,\n      alt\n    },\n    alt,\n    position,\n    offset\n  },\n  performanceSectionHeading,\n  performanceImage{\n    asset->{_id, url},\n    hotspot,\n    crop,\n    desktopPosition,\n    mobilePosition,\n    alt\n  },\n  gallerySectionHeading,\n  gallerySectionSubheading,\n  galleryImages[]{\n    _key,\n    image{\n      asset->{_id, url},\n      hotspot,\n      crop,\n      desktopPosition,\n      mobilePosition,\n      alt\n    },\n    alt,\n    width,\n    height\n  },\n  upcomingShowsHeading,\n  seeAllShowsLinkText,\n  aboutButtonText,\n  ctaLessonsButtonText\n}": HomePageQueryResult;
+    "*[_type == \"lessonsPage\"][0]{\n  _id,\n  heroHeading,\n  heroSubheading,\n  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  philosophyHeading,\n  philosophyText,\n  philosophyImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  learningItemsHeading,\n  learningItems[]{\n    _key,\n    title,\n    description\n  },\n  ctaBoxHeading,\n  ctaBoxText,\n  credentials,\n  teachingImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  performanceImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  emailButtonText,\n  scheduleButtonText\n}": LessonsPageQueryResult;
+    "*[_type == \"contactPage\"][0]{\n  _id,\n  heroHeading,\n  heroSubheading,\n  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  portraitImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  portraitGallery[]{\n    _key,\n    image{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n    alt\n  },\n  formHeading,\n  directContactHeading,\n  socialHeading,\n  quickLinksHeading,\n  aboutHeading,\n  quickLinkShowsText,\n  quickLinkLessonsText,\n  quickLinkSetlistText\n}": ContactPageQueryResult;
+    "*[_type == \"setlistPage\"][0]{\n  _id,\n  heroHeading,\n  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  introText,\n  performanceImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  guitarImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  ctaHeading,\n  ctaText,\n  ctaBookLessonButtonText,\n  ctaContactButtonText,\n  subtitleSuffix\n}": SetlistPageQueryResult;
+    "*[_type == \"showsPage\"][0]{\n  _id,\n  heroHeading,\n  heroSubheading,\n  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  performanceGalleryHeading,\n  performanceGallerySubheading,\n  performanceImages[]{\n    _key,\n    image{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n    alt,\n    caption\n  },\n  upcomingShowsHeading,\n  emptyStateHeading,\n  emptyStateText,\n  showCountPrefix,\n  showSingular,\n  showPlural\n}": ShowsPageQueryResult;
+    "*[_type == \"song\"] | order(order asc){\n  _id,\n  title,\n  key,\n  artist,\n  notes,\n  order\n}": AllSongsQueryResult;
+    "*[_type == \"page\" && slug.current == $slug][0]{\n  _id,\n  name,\n  heading,\n  subheading,\n  modules[]{\n    \n  _type,\n  _key,\n  _type == \"hero\" => {\n    headline,\n    subhead,\n    mediaType,\n    image{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n    video,\n    ctas[]{label, href, variant}\n  },\n  _type == \"richText\" => {\n    content\n  },\n  _type == \"imageGallery\" => {\n    images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt, caption}\n  },\n  _type == \"featureGrid\" => {\n    items[]{title, body, iconType, icon, image{asset->, hotspot, crop, desktopPosition, mobilePosition}}\n  },\n  _type == \"ctaBanner\" => {\n    heading,\n    body,\n    cta{label, href}\n  },\n  _type == \"videoEmbed\" => {\n    provider,\n    url\n  },\n  _type == \"musicEmbed\" => {\n    provider,\n    url\n  },\n  _type == \"callToAction\" => @,\n  _type == \"infoSection\" => @\n\n  },\n  seo{\n    title,\n    description,\n    ogImage{asset->}\n  }\n}": PageBySlugQueryResult;
+    "*[_type == \"page\" && defined(slug.current)]{\n  \"slug\": slug.current\n}": PagesSlugsResult;
+    "*[_type == \"event\" && startDateTime >= $now && !isCanceled] | order(startDateTime asc)[0...$limit]{\n  _id,\n  title,\n  startDateTime,\n  endDateTime,\n  timezone,\n  venue,\n  address,\n  city,\n  state,\n  country,\n  ticketUrl,\n  description,\n  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n  isCanceled,\n  isSoldOut\n}": UpcomingEventsQueryResult;
+    "*[_type == \"event\" && startDateTime < $now] | order(startDateTime desc)[$offset...$limit]{\n  _id,\n  title,\n  startDateTime,\n  timezone,\n  venue,\n  city,\n  state,\n  country,\n  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt}\n}": PastEventsQueryResult;
+    "*[_type == \"event\" && dateTime(startDateTime) >= dateTime($startOfMonth) && dateTime(startDateTime) < dateTime($endOfMonth)] | order(startDateTime asc){\n  _id,\n  title,\n  startDateTime,\n  timezone,\n  venue,\n  city,\n  ticketUrl,\n  isCanceled,\n  isSoldOut\n}": EventsByMonthQueryResult;
+    "*[_type == \"product\"] | order(_createdAt desc){\n  _id,\n  title,\n  \"slug\": slug.current,\n  images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n  priceCents,\n  currency\n}": AllProductsQueryResult;
+    "*[_type == \"product\" && slug.current == $slug][0]{\n  _id,\n  title,\n  description,\n  images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n  priceCents,\n  currency,\n  options[]{name, values},\n  variants[]{optionValues, priceCents, sku},\n  gelatoProductUid,\n  printAreas[]{areaName, artwork{asset->}},\n  shippingNotes,\n  seo{title, description, ogImage{asset->}}\n}": ProductBySlugQueryResult;
+    "*[_type == \"product\" && defined(slug.current)]{\n  \"slug\": slug.current\n}": ProductSlugsQueryResult;
+    "*[_type == \"product\"] | order(_createdAt desc)[0...$limit]{\n  _id,\n  title,\n  \"slug\": slug.current,\n  images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n  priceCents,\n  currency\n}": FeaturedProductsQueryResult;
+    "*[_type == \"post\" && slug.current == $slug][0]{\n  _id,\n  title,\n  \"slug\": slug.current,\n  excerpt,\n  content,\n  date,\n  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n  author->{firstName, lastName, picture{asset->}}\n}": PostQueryResult;
+    "*[_type == \"post\" && defined(slug.current)]{\n  \"slug\": slug.current\n}": PostPagesSlugsResult;
+    "*[_type == \"post\"] | order(date desc){\n  _id,\n  title,\n  \"slug\": slug.current,\n  excerpt,\n  date,\n  author->{firstName, lastName}\n}": AllPostsQueryResult;
+    "*[_type == \"post\" && _id != $skip] | order(date desc)[0...$limit]{\n  _id,\n  title,\n  \"slug\": slug.current,\n  excerpt,\n  date,\n  author->{firstName, lastName}\n}": MorePostsQueryResult;
+    "*[_type in [\"page\", \"product\", \"post\"] && defined(slug.current)] | order(_type asc){\n  \"slug\": slug.current,\n  _type,\n  _updatedAt\n}": SitemapQueryResult;
   }
 }

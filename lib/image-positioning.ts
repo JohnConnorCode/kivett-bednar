@@ -3,6 +3,22 @@
  * Can be used in both client and server components
  */
 
+import createImageUrlBuilder from '@sanity/image-url'
+
+// Client-safe configuration from public env vars
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET!
+
+const builder = createImageUrlBuilder({projectId, dataset})
+
+/**
+ * Client-safe URL builder for Sanity images
+ * Uses public environment variables only
+ */
+export function urlFor(source: any) {
+  return builder.image(source)
+}
+
 /**
  * Type definitions for Sanity image data
  */
