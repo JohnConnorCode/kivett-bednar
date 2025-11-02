@@ -48,6 +48,21 @@ export function HeroSlider({
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
+  // Debug: Log positioning data
+  useEffect(() => {
+    if (slides.length > 0) {
+      console.log('Hero Slider Debug:', {
+        isMobile,
+        slide0: slides[0] ? {
+          desktopPosition: slides[0].image?.desktopPosition,
+          mobilePosition: slides[0].image?.mobilePosition,
+          hotspot: slides[0].image?.hotspot,
+          calculatedPosition: getObjectPosition(slides[0].image, isMobile)
+        } : null
+      })
+    }
+  }, [slides, isMobile])
+
   useEffect(() => {
     setIsLoaded(true)
     if (slides.length > 0) {
