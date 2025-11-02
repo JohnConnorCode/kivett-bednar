@@ -12,7 +12,8 @@ import {Footer} from '@/components/ui/Footer'
 import {Header} from '@/components/ui/Header'
 import {GrainOverlay} from '@/components/ui/GrainOverlay'
 import * as demo from '@/sanity/lib/demo'
-import {sanityFetch, SanityLive} from '@/sanity/lib/live'
+import {client} from '@/sanity/lib/client'
+import {SanityLive} from '@/sanity/lib/live'
 import {settingsQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
 import {handleError} from './client-utils'
@@ -22,11 +23,14 @@ import {handleError} from './client-utils'
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function
  */
 export async function generateMetadata(): Promise<Metadata> {
-  const {data: settings} = await sanityFetch({
-    query: settingsQuery,
-    // Metadata should never contain stega
-    stega: false,
-  })
+  const settings = await client.fetch(
+    settingsQuery,
+    {},
+    {
+      // Metadata should never contain stega
+      next: {revalidate: 60}
+    }
+  )
   const title = settings?.title || demo.title
   const description = settings?.description || demo.description
 

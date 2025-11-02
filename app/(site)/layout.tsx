@@ -1,5 +1,5 @@
 import {type ReactNode} from 'react'
-import {sanityFetch} from '@/sanity/lib/live'
+import {client} from '@/sanity/lib/client'
 import {settingsQuery, uiTextQuery} from '@/sanity/lib/queries'
 import {Header} from '@/components/ui/Header'
 import {Footer} from '@/components/ui/Footer'
@@ -9,9 +9,9 @@ export default async function SiteLayout({
 }: {
   children: ReactNode
 }) {
-  const [{data: settings}, {data: uiText}] = await Promise.all([
-    sanityFetch({query: settingsQuery}),
-    sanityFetch({query: uiTextQuery}),
+  const [settings, uiText] = await Promise.all([
+    client.fetch(settingsQuery, {}, {next: {revalidate: 60}}),
+    client.fetch(uiTextQuery, {}, {next: {revalidate: 60}}),
   ])
 
   const navigation = [

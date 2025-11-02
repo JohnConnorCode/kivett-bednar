@@ -1,11 +1,9 @@
 import Link from 'next/link'
 import {settingsQuery} from '@/sanity/lib/queries'
-import {sanityFetch} from '@/sanity/lib/live'
+import {client} from '@/sanity/lib/client'
 
 export default async function Header() {
-  const {data: settings} = await sanityFetch({
-    query: settingsQuery,
-  })
+  const settings = await client.fetch(settingsQuery, {}, {next: {revalidate: 60}})
 
   return (
     <header className="fixed z-50 h-24 inset-0 bg-white/80 flex items-center backdrop-blur-lg">

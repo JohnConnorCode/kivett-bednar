@@ -7,7 +7,7 @@ import Avatar from '@/app/components/Avatar'
 import CoverImage from '@/app/components/CoverImage'
 import {MorePosts} from '@/app/components/Posts'
 import PortableText from '@/app/components/PortableText'
-import {sanityFetch} from '@/sanity/lib/live'
+import {client} from '@/sanity/lib/client'
 import {postPagesSlugs, postQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
 
@@ -20,12 +20,15 @@ type Props = {
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-static-params
  */
 export async function generateStaticParams() {
-  const {data} = await sanityFetch({
-    query: postPagesSlugs,
-    // Use the published perspective in generateStaticParams
-    perspective: 'published',
-    stega: false,
-  })
+  const data = await client.fetch(
+    postPagesSlugs,
+    {},
+    {
+      // Use the published perspective in generateStaticParams
+      perspective: 'published',
+      next: {revalidate: 60}
+    }
+  )
   return data
 }
 
@@ -35,12 +38,14 @@ export async function generateStaticParams() {
  */
 export async function generateMetadata(props: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const params = await props.params
-  const {data: post} = await sanityFetch({
-    query: postQuery,
+  const post = await client.fetch(
+    postQuery,
     params,
-    // Metadata should never contain stega
-    stega: false,
-  })
+    {
+      // Metadata should never contain stega
+      next: {revalidate: 60}
+    }
+  )
   const previousImages = (await parent).openGraph?.images || []
   const ogImage = resolveOpenGraphImage(post?.coverImage)
 
@@ -59,7 +64,7 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
 
 export default async function PostPage(props: Props) {
   const params = await props.params
-  const [{data: post}] = await Promise.all([sanityFetch({query: postQuery, params})])
+  const [post] = await Promise.all([client.fetch(postQuery, params, {next: {revalidate: 60}})])
 
   if (!post?._id) {
     return notFound()

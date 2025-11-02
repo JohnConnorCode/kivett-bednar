@@ -2,7 +2,7 @@ import type {Metadata} from 'next'
 import Head from 'next/head'
 
 import PageBuilderPage from '@/app/components/PageBuilder'
-import {sanityFetch} from '@/sanity/lib/live'
+import {client} from '@/sanity/lib/client'
 import {pageBySlugQuery, pagesSlugs} from '@/sanity/lib/queries'
 import {GetPageQueryResult} from '@/sanity.types'
 import {PageOnboarding} from '@/app/components/Onboarding'
@@ -16,12 +16,15 @@ type Props = {
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-static-params
  */
 export async function generateStaticParams() {
-  const {data} = await sanityFetch({
-    query: pagesSlugs,
-    // // Use the published perspective in generateStaticParams
-    perspective: 'published',
-    stega: false,
-  })
+  const data = await client.fetch(
+    pagesSlugs,
+    {},
+    {
+      // Use the published perspective in generateStaticParams
+      perspective: 'published',
+      next: {revalidate: 60}
+    }
+  )
   return data
 }
 
@@ -31,12 +34,14 @@ export async function generateStaticParams() {
  */
 export async function generateMetadata(props: Props): Promise<Metadata> {
   const params = await props.params
-  const {data: page} = await sanityFetch({
-    query: pageBySlugQuery,
+  const page = await client.fetch(
+    pageBySlugQuery,
     params,
-    // Metadata should never contain stega
-    stega: false,
-  })
+    {
+      // Metadata should never contain stega
+      next: {revalidate: 60}
+    }
+  )
 
   return {
     title: page?.name,
@@ -46,7 +51,7 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function Page(props: Props) {
   const params = await props.params
-  const [{data: page}] = await Promise.all([sanityFetch({query: pageBySlugQuery, params})])
+  const [page] = await Promise.all([client.fetch(pageBySlugQuery, params, {next: {revalidate: 60}})])
 
   if (!page?._id) {
     return (

@@ -1,7 +1,7 @@
 import {Metadata} from 'next'
 import {notFound} from 'next/navigation'
 import Image from 'next/image'
-import {sanityFetch} from '@/sanity/lib/live'
+import {client} from '@/sanity/lib/client'
 import {productBySlugQuery} from '@/sanity/lib/queries'
 import {urlFor} from '@/sanity/lib/image'
 import {PortableText} from '@portabletext/react'
@@ -12,10 +12,11 @@ type Props = {
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {
   const {slug} = await params
-  const {data: product} = await sanityFetch({
-    query: productBySlugQuery,
-    params: {slug},
-  })
+  const product = await client.fetch(
+    productBySlugQuery,
+    {slug},
+    {next: {revalidate: 60}}
+  )
 
   return {
     title: product?.title ? `${product.title} | Kivett Bednar` : 'Product | Kivett Bednar',
@@ -25,10 +26,11 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 
 export default async function ProductPage({params}: Props) {
   const {slug} = await params
-  const {data: product} = await sanityFetch({
-    query: productBySlugQuery,
-    params: {slug},
-  })
+  const product = await client.fetch(
+    productBySlugQuery,
+    {slug},
+    {next: {revalidate: 60}}
+  )
 
   if (!product) {
     notFound()

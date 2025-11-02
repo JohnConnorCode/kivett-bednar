@@ -1,6 +1,6 @@
 import {Metadata} from 'next'
 import Link from 'next/link'
-import {sanityFetch} from '@/sanity/lib/live'
+import {client} from '@/sanity/lib/client'
 import {allProductsQuery} from '@/sanity/lib/queries'
 import {ProductCard} from '@/components/ui/ProductCard'
 
@@ -10,9 +10,7 @@ export const metadata: Metadata = {
 }
 
 export default async function MerchPage() {
-  const {data: products} = await sanityFetch({
-    query: allProductsQuery,
-  })
+  const products = await client.fetch(allProductsQuery, {}, {next: {revalidate: 60}})
 
   return (
     <div className="min-h-screen">

@@ -1,5 +1,5 @@
 import {Metadata} from 'next'
-import {sanityFetch} from '@/sanity/lib/live'
+import {client} from '@/sanity/lib/client'
 import {upcomingEventsQuery, showsPageQuery} from '@/sanity/lib/queries'
 import {urlFor} from '@/sanity/lib/image'
 import {EventCard} from '@/components/ui/EventCard'
@@ -13,15 +13,16 @@ export const metadata: Metadata = {
 }
 
 export default async function ShowsPage() {
-  const [{data: showsPage}, {data: events}] = await Promise.all([
-    sanityFetch({query: showsPageQuery}),
-    sanityFetch({
-      query: upcomingEventsQuery,
-      params: {
+  const [showsPage, events] = await Promise.all([
+    client.fetch(showsPageQuery, {}, {next: {revalidate: 60}}),
+    client.fetch(
+      upcomingEventsQuery,
+      {
         now: new Date().toISOString(),
         limit: 50,
       },
-    }),
+      {next: {revalidate: 60}}
+    ),
   ])
 
   // Generate JSON-LD structured data for events

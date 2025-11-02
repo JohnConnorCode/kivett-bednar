@@ -1,7 +1,7 @@
 import {Metadata} from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import {sanityFetch} from '@/sanity/lib/live'
+import {client} from '@/sanity/lib/client'
 import {upcomingEventsQuery, homePageQuery, uiTextQuery} from '@/sanity/lib/queries'
 import {EventCard} from '@/components/ui/EventCard'
 import {HeroSlider} from '@/components/ui/HeroSlider'
@@ -18,16 +18,17 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   // Fetch home page content and upcoming shows
-  const [{data: homePage}, {data: events}, {data: uiText}] = await Promise.all([
-    sanityFetch({query: homePageQuery}),
-    sanityFetch({
-      query: upcomingEventsQuery,
-      params: {
+  const [homePage, events, uiText] = await Promise.all([
+    client.fetch(homePageQuery, {}, {next: {revalidate: 60}}),
+    client.fetch(
+      upcomingEventsQuery,
+      {
         now: new Date().toISOString(),
         limit: 3,
       },
-    }),
-    sanityFetch({query: uiTextQuery}),
+      {next: {revalidate: 60}}
+    ),
+    client.fetch(uiTextQuery, {}, {next: {revalidate: 60}}),
   ])
 
   // Fallback if no content in Sanity yet

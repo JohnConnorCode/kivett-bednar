@@ -1,5 +1,5 @@
 import {MetadataRoute} from 'next'
-import {sanityFetch} from '@/sanity/lib/live'
+import {client} from '@/sanity/lib/client'
 import {sitemapQuery} from '@/sanity/lib/queries'
 import {headers} from 'next/headers'
 
@@ -9,9 +9,7 @@ import {headers} from 'next/headers'
  */
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const allPostsAndPages = await sanityFetch({
-    query: sitemapQuery,
-  })
+  const allPostsAndPages = await client.fetch(sitemapQuery, {}, {next: {revalidate: 60}})
   const headersList = await headers()
   const sitemap: MetadataRoute.Sitemap = []
   const domain: String = headersList.get('host') as string
@@ -43,7 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   })
 
   // Dynamic pages from Sanity
-  if (allPostsAndPages != null && allPostsAndPages.data.length != 0) {
+  if (allPostsAndPages != null && allPostsAndPages.length != 0) {
     let priority: number
     let changeFrequency:
       | 'monthly'
@@ -56,7 +54,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       | undefined
     let url: string
 
-    for (const p of allPostsAndPages.data) {
+    for (const p of allPostsAndPages) {
       switch (p._type) {
         case 'page':
           priority = 0.8
