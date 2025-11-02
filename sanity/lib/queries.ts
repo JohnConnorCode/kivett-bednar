@@ -174,10 +174,10 @@ export const lessonsPageQuery = defineQuery(`*[_type == "lessonsPage"][0]{
   _id,
   heroHeading,
   heroSubheading,
-  heroImage{asset->{_id, url}, alt},
+  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},
   philosophyHeading,
   philosophyText,
-  philosophyImage{asset->{_id, url}, alt},
+  philosophyImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},
   learningItemsHeading,
   learningItems[]{
     _key,
@@ -187,8 +187,8 @@ export const lessonsPageQuery = defineQuery(`*[_type == "lessonsPage"][0]{
   ctaBoxHeading,
   ctaBoxText,
   credentials,
-  teachingImage{asset->{_id, url}, alt},
-  performanceImage{asset->{_id, url}, alt},
+  teachingImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},
+  performanceImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},
   emailButtonText,
   scheduleButtonText
 }`)
@@ -198,11 +198,11 @@ export const contactPageQuery = defineQuery(`*[_type == "contactPage"][0]{
   _id,
   heroHeading,
   heroSubheading,
-  heroImage{asset->{_id, url}, alt},
-  portraitImage{asset->{_id, url}, alt},
+  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},
+  portraitImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},
   portraitGallery[]{
     _key,
-    image{asset->{_id, url}, alt},
+    image{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},
     alt
   },
   formHeading,
@@ -219,10 +219,10 @@ export const contactPageQuery = defineQuery(`*[_type == "contactPage"][0]{
 export const setlistPageQuery = defineQuery(`*[_type == "setlistPage"][0]{
   _id,
   heroHeading,
-  heroImage{asset->{_id, url}, alt},
+  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},
   introText,
-  performanceImage{asset->{_id, url}, alt},
-  guitarImage{asset->{_id, url}, alt},
+  performanceImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},
+  guitarImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},
   ctaHeading,
   ctaText,
   ctaBookLessonButtonText,
@@ -235,12 +235,12 @@ export const showsPageQuery = defineQuery(`*[_type == "showsPage"][0]{
   _id,
   heroHeading,
   heroSubheading,
-  heroImage{asset->{_id, url}, alt},
+  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},
   performanceGalleryHeading,
   performanceGallerySubheading,
   performanceImages[]{
     _key,
-    image{asset->{_id, url}, alt},
+    image{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},
     alt,
     caption
   },
@@ -270,7 +270,7 @@ const moduleFields = /* groq */ `
     headline,
     subhead,
     mediaType,
-    image{asset->, alt},
+    image{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
     video,
     ctas[]{label, href, variant}
   },
@@ -278,10 +278,10 @@ const moduleFields = /* groq */ `
     content
   },
   _type == "imageGallery" => {
-    images[]{asset->, alt, caption}
+    images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt, caption}
   },
   _type == "featureGrid" => {
-    items[]{title, body, iconType, icon, image{asset->}}
+    items[]{title, body, iconType, icon, image{asset->, hotspot, crop, desktopPosition, mobilePosition}}
   },
   _type == "ctaBanner" => {
     heading,
@@ -334,7 +334,7 @@ export const upcomingEventsQuery = defineQuery(`*[_type == "event" && startDateT
   country,
   ticketUrl,
   description,
-  coverImage{asset->, alt},
+  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
   isCanceled,
   isSoldOut
 }`)
@@ -348,7 +348,7 @@ export const pastEventsQuery = defineQuery(`*[_type == "event" && startDateTime 
   city,
   state,
   country,
-  coverImage{asset->, alt}
+  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt}
 }`)
 
 export const eventsByMonthQuery = defineQuery(`*[_type == "event" && dateTime(startDateTime) >= dateTime($startOfMonth) && dateTime(startDateTime) < dateTime($endOfMonth)] | order(startDateTime asc){
@@ -368,7 +368,7 @@ export const allProductsQuery = defineQuery(`*[_type == "product"] | order(_crea
   _id,
   title,
   "slug": slug.current,
-  images[0]{asset->, alt},
+  images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
   priceCents,
   currency
 }`)
@@ -377,7 +377,7 @@ export const productBySlugQuery = defineQuery(`*[_type == "product" && slug.curr
   _id,
   title,
   description,
-  images[]{asset->, alt},
+  images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
   priceCents,
   currency,
   options[]{name, values},
@@ -396,7 +396,7 @@ export const featuredProductsQuery = defineQuery(`*[_type == "product"] | order(
   _id,
   title,
   "slug": slug.current,
-  images[0]{asset->, alt},
+  images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
   priceCents,
   currency
 }`)
@@ -409,7 +409,7 @@ export const postQuery = defineQuery(`*[_type == "post" && slug.current == $slug
   excerpt,
   content,
   date,
-  coverImage{asset->, alt},
+  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
   author->{firstName, lastName, picture{asset->}}
 }`)
 
