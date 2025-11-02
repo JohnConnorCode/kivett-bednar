@@ -127,6 +127,29 @@ export const contactPage = defineType({
       type: 'string',
       description: 'Heading for about/bio section',
     }),
+
+    // Quick Links Labels
+    defineField({
+      name: 'quickLinkShowsText',
+      title: 'Quick Link: Shows Text',
+      type: 'string',
+      description: 'Text for "Upcoming Shows" quick link',
+      initialValue: 'Upcoming Shows',
+    }),
+    defineField({
+      name: 'quickLinkLessonsText',
+      title: 'Quick Link: Lessons Text',
+      type: 'string',
+      description: 'Text for "Guitar Lessons" quick link',
+      initialValue: 'Guitar Lessons',
+    }),
+    defineField({
+      name: 'quickLinkSetlistText',
+      title: 'Quick Link: Setlist Text',
+      type: 'string',
+      description: 'Text for "Blues Setlist" quick link',
+      initialValue: 'Blues Setlist',
+    }),
   ],
   preview: {
     prepare() {

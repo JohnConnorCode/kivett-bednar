@@ -175,6 +175,22 @@ export const lessonsPage = defineType({
         }),
       ],
     }),
+
+    // Button Labels
+    defineField({
+      name: 'emailButtonText',
+      title: 'Email Button Text',
+      type: 'string',
+      description: 'Text for email button in CTA box',
+      initialValue: 'Email Me',
+    }),
+    defineField({
+      name: 'scheduleButtonText',
+      title: 'Schedule Button Text',
+      type: 'string',
+      description: 'Text for schedule button in CTA box',
+      initialValue: 'Schedule a Lesson',
+    }),
   ],
   preview: {
     prepare() {

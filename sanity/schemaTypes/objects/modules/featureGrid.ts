@@ -53,6 +53,15 @@ export const featureGrid = defineType({
               options: {
                 hotspot: true,
               },
+              fields: [
+                defineField({
+                  name: 'alt',
+                  title: 'Alt Text',
+                  type: 'string',
+                  description: 'Describe the image for accessibility',
+                  validation: (Rule) => Rule.required(),
+                }),
+              ],
               hidden: ({parent}) => parent?.iconType !== 'image',
             }),
           ],

@@ -22,6 +22,43 @@ export const settingsQuery = defineQuery(`*[_type == "settings"][0]{
   }
 }`)
 
+// UI Text & Labels
+export const uiTextQuery = defineQuery(`*[_type == "uiText"][0]{
+  _id,
+  siteName,
+  siteTagline,
+  navShows,
+  navLessons,
+  navSetlist,
+  navMerch,
+  navContact,
+  footerNavigationHeading,
+  footerConnectHeading,
+  footerCopyrightText,
+  formLabelName,
+  formLabelEmail,
+  formLabelSubject,
+  formLabelMessage,
+  formButtonSubmit,
+  formButtonSending,
+  formSuccessMessage,
+  buttonViewSetlist,
+  buttonScheduleLesson,
+  buttonBookLesson,
+  buttonEmailMe,
+  buttonGetInTouch,
+  linkSeeAllShows,
+  linkUpcomingShows,
+  linkGuitarLessons,
+  linkBluesSetlist,
+  showsCountSingular,
+  showsCountPlural,
+  upcomingPrefix,
+  setlistSubtitleSuffix,
+  socialFacebook,
+  socialInstagram
+}`)
+
 export const navigationQuery = defineQuery(`*[_type == "navigation"][0]{
   _id,
   main[]{
@@ -84,7 +121,10 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
     width,
     height
   },
-  upcomingShowsHeading
+  upcomingShowsHeading,
+  seeAllShowsLinkText,
+  aboutButtonText,
+  ctaLessonsButtonText
 }`)
 
 // Lessons Page
@@ -106,7 +146,9 @@ export const lessonsPageQuery = defineQuery(`*[_type == "lessonsPage"][0]{
   ctaBoxText,
   credentials,
   teachingImage{asset->{_id, url}, alt},
-  performanceImage{asset->{_id, url}, alt}
+  performanceImage{asset->{_id, url}, alt},
+  emailButtonText,
+  scheduleButtonText
 }`)
 
 // Contact Page
@@ -125,7 +167,10 @@ export const contactPageQuery = defineQuery(`*[_type == "contactPage"][0]{
   directContactHeading,
   socialHeading,
   quickLinksHeading,
-  aboutHeading
+  aboutHeading,
+  quickLinkShowsText,
+  quickLinkLessonsText,
+  quickLinkSetlistText
 }`)
 
 // Setlist Page
@@ -137,7 +182,10 @@ export const setlistPageQuery = defineQuery(`*[_type == "setlistPage"][0]{
   performanceImage{asset->{_id, url}, alt},
   guitarImage{asset->{_id, url}, alt},
   ctaHeading,
-  ctaText
+  ctaText,
+  ctaBookLessonButtonText,
+  ctaContactButtonText,
+  subtitleSuffix
 }`)
 
 // Shows Page
@@ -156,7 +204,10 @@ export const showsPageQuery = defineQuery(`*[_type == "showsPage"][0]{
   },
   upcomingShowsHeading,
   emptyStateHeading,
-  emptyStateText
+  emptyStateText,
+  showCountPrefix,
+  showSingular,
+  showPlural
 }`)
 
 // Songs

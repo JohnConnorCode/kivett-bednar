@@ -350,6 +350,29 @@ export const homePage = defineType({
       description: 'Heading for upcoming shows section',
       validation: (rule) => rule.required(),
     }),
+    defineField({
+      name: 'seeAllShowsLinkText',
+      title: 'See All Shows Link Text',
+      type: 'string',
+      description: 'Link text for viewing all shows',
+      initialValue: 'See all shows →',
+    }),
+
+    // Button Labels
+    defineField({
+      name: 'aboutButtonText',
+      title: 'About Section Button Text',
+      type: 'string',
+      description: 'Button text in about section (links to setlist)',
+      initialValue: 'View Setlist',
+    }),
+    defineField({
+      name: 'ctaLessonsButtonText',
+      title: 'Lessons CTA Button Text',
+      type: 'string',
+      description: 'Button text for lessons call-to-action',
+      initialValue: 'Schedule Your First Lesson',
+    }),
   ],
   preview: {
     prepare() {

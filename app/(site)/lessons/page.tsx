@@ -70,8 +70,8 @@ export default async function LessonsPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <ImageRevealScroll
-              imageSrc={lessonsPage.performanceImage?.asset?.url || '/images/performance/orpheum-main.jpg'}
-              imageAlt={lessonsPage.performanceImage?.alt || 'Kivett Bednar live performance'}
+              imageSrc={lessonsPage.performanceImage?.asset?.url || '/images/26910150_10211126011331164_9091562930595566163_o.jpg'}
+              imageAlt={lessonsPage.performanceImage?.alt || 'Kivett Bednar live blues performance'}
               direction="right"
             />
           </div>
@@ -94,7 +94,7 @@ export default async function LessonsPage() {
                       href={`mailto:${settings.contactEmail}`}
                       className="block text-center px-8 py-4 rounded-lg bg-midnight-600 text-bone font-bold hover:bg-midnight-700 transition-all transform hover:scale-105"
                     >
-                      Email Me
+                      {lessonsPage.emailButtonText || 'Email Me'}
                     </a>
                   )}
                   {settings?.bookingUrl && (
@@ -104,7 +104,7 @@ export default async function LessonsPage() {
                       rel="noopener noreferrer"
                       className="block text-center px-8 py-4 rounded-lg border-2 border-bone text-bone font-semibold hover:bg-bone/10 transition-all"
                     >
-                      Schedule a Lesson
+                      {lessonsPage.scheduleButtonText || 'Schedule a Lesson'}
                     </a>
                   )}
                 </div>

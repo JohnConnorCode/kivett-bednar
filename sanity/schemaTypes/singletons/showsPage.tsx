@@ -34,6 +34,15 @@ export const showsPage = defineType({
       options: {
         hotspot: true,
       },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+          description: 'Describe the image for accessibility',
+          validation: (rule) => rule.required(),
+        }),
+      ],
       validation: (rule) => rule.required(),
     }),
 
@@ -117,6 +126,31 @@ export const showsPage = defineType({
       title: 'No Shows - Message',
       type: 'text',
       description: 'Message displayed when no upcoming shows are scheduled',
+      validation: (rule) => rule.required(),
+    }),
+
+    // Dynamic Count Text
+    defineField({
+      name: 'showCountPrefix',
+      title: 'Show Count Prefix',
+      type: 'string',
+      description: 'Text prefix before show count (e.g., " upcoming")',
+      initialValue: ' upcoming',
+    }),
+    defineField({
+      name: 'showSingular',
+      title: 'Show: Singular Form',
+      type: 'string',
+      description: 'Singular form (e.g., "show")',
+      initialValue: 'show',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'showPlural',
+      title: 'Show: Plural Form',
+      type: 'string',
+      description: 'Plural form (e.g., "shows")',
+      initialValue: 'shows',
       validation: (rule) => rule.required(),
     }),
   ],

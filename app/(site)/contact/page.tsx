@@ -2,8 +2,7 @@ import {Metadata} from 'next'
 import Link from 'next/link'
 import {ContactForm} from '@/components/ui/ContactForm'
 import {sanityFetch} from '@/sanity/lib/live'
-import {contactPageQuery, settingsQuery} from '@/sanity/lib/queries'
-import {urlFor} from '@/sanity/lib/image'
+import {contactPageQuery, settingsQuery, uiTextQuery} from '@/sanity/lib/queries'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
 import {ImageRevealScroll} from '@/components/ui/ImageRevealScroll'
 import {StaggeredImageGrid} from '@/components/ui/StaggeredImageGrid'
@@ -15,9 +14,10 @@ export const metadata: Metadata = {
 }
 
 export default async function ContactPage() {
-  const [{data: contactPage}, {data: settings}] = await Promise.all([
+  const [{data: contactPage}, {data: settings}, {data: uiText}] = await Promise.all([
     sanityFetch({query: contactPageQuery}),
     sanityFetch({query: settingsQuery}),
+    sanityFetch({query: uiTextQuery}),
   ])
 
   return (
@@ -40,7 +40,15 @@ export default async function ContactPage() {
               <div className="lg:col-span-2">
                 <div className="bg-white rounded-2xl p-8 md:p-12 border-2 border-charcoal-900/10">
                   <h2 className="text-3xl font-bold mb-8 text-charcoal-900">{contactPage?.formHeading || 'Send a Message'}</h2>
-                  <ContactForm />
+                  <ContactForm
+                    labelName={uiText?.formLabelName}
+                    labelEmail={uiText?.formLabelEmail}
+                    labelSubject={uiText?.formLabelSubject}
+                    labelMessage={uiText?.formLabelMessage}
+                    buttonSubmit={uiText?.formButtonSubmit}
+                    buttonSending={uiText?.formButtonSending}
+                    successMessage={uiText?.formSuccessMessage}
+                  />
                 </div>
               </div>
 
@@ -89,21 +97,21 @@ export default async function ContactPage() {
                       className="flex items-center gap-3 text-midnight-500 hover:text-midnight-600 transition-colors font-semibold"
                     >
                       <span>→</span>
-                      Upcoming Shows
+                      {contactPage?.quickLinkShowsText || 'Upcoming Shows'}
                     </Link>
                     <Link
                       href="/lessons"
                       className="flex items-center gap-3 text-midnight-500 hover:text-midnight-600 transition-colors font-semibold"
                     >
                       <span>→</span>
-                      Guitar Lessons
+                      {contactPage?.quickLinkLessonsText || 'Guitar Lessons'}
                     </Link>
                     <Link
                       href="/setlist"
                       className="flex items-center gap-3 text-midnight-500 hover:text-midnight-600 transition-colors font-semibold"
                     >
                       <span>→</span>
-                      Blues Setlist
+                      {contactPage?.quickLinkSetlistText || 'Blues Setlist'}
                     </Link>
                   </div>
                 </div>
@@ -159,7 +167,7 @@ export default async function ContactPage() {
                       caption: 'Live Performer',
                     },
                     {
-                      src: '/images/performance/stage-main.png',
+                      src: '/images/performance/stage-main.jpg',
                       alt: 'On stage',
                       caption: 'Pacific Northwest Blues',
                     },

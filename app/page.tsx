@@ -2,7 +2,7 @@ import {Metadata} from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import {sanityFetch} from '@/sanity/lib/live'
-import {upcomingEventsQuery, homePageQuery} from '@/sanity/lib/queries'
+import {upcomingEventsQuery, homePageQuery, uiTextQuery} from '@/sanity/lib/queries'
 import {EventCard} from '@/components/ui/EventCard'
 import {HeroSlider} from '@/components/ui/HeroSlider'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export default async function HomePage() {
   // Fetch home page content and upcoming shows
-  const [{data: homePage}, {data: events}] = await Promise.all([
+  const [{data: homePage}, {data: events}, {data: uiText}] = await Promise.all([
     sanityFetch({query: homePageQuery}),
     sanityFetch({
       query: upcomingEventsQuery,
@@ -27,6 +27,7 @@ export default async function HomePage() {
         limit: 3,
       },
     }),
+    sanityFetch({query: uiTextQuery}),
   ])
 
   // Fallback if no content in Sanity yet
@@ -50,8 +51,8 @@ export default async function HomePage() {
 
       {/* About Section - Split Screen with Image */}
       <SplitScreenImage
-        imageSrc={homePage.aboutImage?.asset?.url || '/images/kivett-high-res_magicstudio_ybv1se0lo5i-2.jpg'}
-        imageAlt={homePage.aboutImage?.alt || "Kivett Bednar - Musician, Amp Maker, Artist"}
+        imageSrc={homePage.aboutImage?.asset?.url || '/images/10386889_666568380058205_4706124177037425882_o.jpg'}
+        imageAlt={homePage.aboutImage?.alt || "Kivett Bednar with guitar - blues musician and performer"}
         imagePosition="left"
       >
         <h2 className="text-5xl font-bold mb-6 text-charcoal-900">
@@ -65,7 +66,7 @@ export default async function HomePage() {
             href="/setlist"
             className="inline-flex items-center gap-2 px-6 py-3 bg-midnight-500 text-bone font-semibold rounded-lg hover:bg-midnight-600 hover:text-charcoal-900 transition-all transform hover:scale-105"
           >
-            View Setlist
+            {homePage.aboutButtonText || 'View Setlist'}
             <span>→</span>
           </Link>
         </div>
@@ -230,7 +231,7 @@ export default async function HomePage() {
                     href="/shows"
                     className="text-midnight-500 font-semibold hover:text-midnight-600 transition-colors"
                   >
-                    See all shows →
+                    {homePage.seeAllShowsLinkText || 'See all shows →'}
                   </Link>
                 </div>
               </AnimatedSection>
@@ -258,7 +259,7 @@ export default async function HomePage() {
               href="/lessons"
               className="inline-block px-8 py-4 bg-midnight-600 text-bone font-bold rounded-lg hover:bg-midnight-700 transition-all transform hover:scale-105 text-lg"
             >
-              Schedule Your First Lesson
+              {homePage.ctaLessonsButtonText || 'Schedule Your First Lesson'}
             </Link>
           </AnimatedSection>
         </div>

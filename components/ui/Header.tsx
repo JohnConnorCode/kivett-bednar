@@ -3,17 +3,25 @@
 import Link from 'next/link'
 import {useState, useEffect} from 'react'
 
-export function Header() {
+interface HeaderProps {
+  siteName?: string
+  navigation?: Array<{title: string; href: string}>
+}
+
+export function Header({siteName, navigation}: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
 
-  const navigation = [
+  // Fallback navigation if not provided from CMS
+  const navItems = navigation || [
     {title: 'Shows', href: '/shows'},
     {title: 'Lessons', href: '/lessons'},
     {title: 'Setlist', href: '/setlist'},
     {title: 'Merch', href: '/merch'},
     {title: 'Contact', href: '/contact'},
   ]
+
+  const logoText = siteName || 'KIVETT BEDNAR'
 
   // Detect scroll position
   useEffect(() => {
@@ -55,12 +63,12 @@ export function Header() {
                 : '0 2px 4px rgba(0,0,0,0.8), 0 4px 8px rgba(0,0,0,0.5)'
             }}
           >
-            KIVETT BEDNAR
+            {logoText}
           </Link>
 
           {/* Desktop Navigation - Adaptive text color */}
           <nav className="hidden md:flex items-center gap-8">
-            {navigation.map((item) => (
+            {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
@@ -111,7 +119,7 @@ export function Header() {
         {/* Mobile Navigation - Solid background when open */}
         {mobileMenuOpen && (
           <nav className="md:hidden pb-4 border-t border-midnight-600/20 mt-2 pt-4 bg-charcoal-900/95 backdrop-blur-lg -mx-4 px-4">
-            {navigation.map((item) => (
+            {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}

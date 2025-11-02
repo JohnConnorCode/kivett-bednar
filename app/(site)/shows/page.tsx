@@ -143,7 +143,7 @@ export default async function ShowsPage() {
                     {showsPage?.upcomingShowsHeading || 'Upcoming Shows'}
                   </h2>
                   <p className="text-charcoal-900/60 text-lg mb-8">
-                    {events.length} upcoming {events.length === 1 ? 'show' : 'shows'}
+                    {events.length}{showsPage?.showCountPrefix || ' upcoming'} {events.length === 1 ? (showsPage?.showSingular || 'show') : (showsPage?.showPlural || 'shows')}
                   </p>
                 </AnimatedSection>
                 <div className="grid gap-8">

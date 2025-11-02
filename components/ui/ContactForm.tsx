@@ -2,7 +2,25 @@
 
 import {useState} from 'react'
 
-export function ContactForm() {
+interface ContactFormProps {
+  labelName?: string
+  labelEmail?: string
+  labelSubject?: string
+  labelMessage?: string
+  buttonSubmit?: string
+  buttonSending?: string
+  successMessage?: string
+}
+
+export function ContactForm({
+  labelName = 'Name',
+  labelEmail = 'Email',
+  labelSubject = 'Subject',
+  labelMessage = 'Message',
+  buttonSubmit = 'Send Message',
+  buttonSending = 'Sending...',
+  successMessage = 'Thank you! Your message has been sent successfully.',
+}: ContactFormProps = {}) {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -50,7 +68,7 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-6">
       <div>
         <label htmlFor="name" className="block text-sm font-medium mb-2">
-          Name
+          {labelName}
         </label>
         <input
           type="text"
@@ -65,7 +83,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="email" className="block text-sm font-medium mb-2">
-          Email
+          {labelEmail}
         </label>
         <input
           type="email"
@@ -80,7 +98,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="subject" className="block text-sm font-medium mb-2">
-          Subject
+          {labelSubject}
         </label>
         <input
           type="text"
@@ -95,7 +113,7 @@ export function ContactForm() {
 
       <div>
         <label htmlFor="message" className="block text-sm font-medium mb-2">
-          Message
+          {labelMessage}
         </label>
         <textarea
           id="message"
@@ -110,9 +128,7 @@ export function ContactForm() {
 
       {status === 'success' && (
         <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-          <p className="text-green-800">
-            Thank you! Your message has been sent successfully.
-          </p>
+          <p className="text-green-800">{successMessage}</p>
         </div>
       )}
 
@@ -127,7 +143,7 @@ export function ContactForm() {
         disabled={status === 'loading'}
         className="w-full px-6 py-3 bg-primary text-primary-foreground font-semibold rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
       >
-        {status === 'loading' ? 'Sending...' : 'Send Message'}
+        {status === 'loading' ? buttonSending : buttonSubmit}
       </button>
     </form>
   )

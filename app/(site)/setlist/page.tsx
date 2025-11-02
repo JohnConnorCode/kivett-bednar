@@ -2,7 +2,6 @@ import {Metadata} from 'next'
 import Link from 'next/link'
 import {sanityFetch} from '@/sanity/lib/live'
 import {setlistPageQuery, allSongsQuery} from '@/sanity/lib/queries'
-import {urlFor} from '@/sanity/lib/image'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
 import {ImageRevealScroll} from '@/components/ui/ImageRevealScroll'
@@ -23,7 +22,7 @@ export default async function SetlistPage() {
       {/* Animated Hero with Sheet Music */}
       <AnimatedHero
         title={setlistPage?.heroHeading || 'Blues Setlist'}
-        subtitle={songs && songs.length > 0 ? `${songs.length} timeless classics from the great American songbook` : undefined}
+        subtitle={songs && songs.length > 0 ? `${songs.length}${setlistPage?.subtitleSuffix || ' timeless classics from the great American songbook'}` : undefined}
         variant="setlist"
         backgroundImage={setlistPage?.heroImage?.asset?.url || '/images/gallery/orpheum-performance.jpg'}
         backgroundAlt={setlistPage?.heroImage?.alt || 'Kivett Bednar performing blues classics'}
@@ -34,7 +33,7 @@ export default async function SetlistPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <ImageRevealScroll
-              imageSrc={setlistPage?.performanceImage?.asset?.url || '/images/performance/orpheum-main.jpg'}
+              imageSrc={setlistPage?.performanceImage?.asset?.url || '/images/382702580_10225110781416892_2823231479166319016_n.jpg'}
               imageAlt={setlistPage?.performanceImage?.alt || 'Kivett performing blues classics'}
               direction="right"
             />
@@ -94,8 +93,8 @@ export default async function SetlistPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <ImageRevealScroll
-              imageSrc={setlistPage?.guitarImage?.asset?.url || '/images/portraits/guild-shirt.jpg'}
-              imageAlt={setlistPage?.guitarImage?.alt || 'Kivett with Guild guitar'}
+              imageSrc={setlistPage?.guitarImage?.asset?.url || '/images/16487687_1351833004875154_191765266250731543_o.jpg'}
+              imageAlt={setlistPage?.guitarImage?.alt || 'Kivett performing on stage'}
               direction="left"
             />
           </div>
@@ -124,13 +123,13 @@ export default async function SetlistPage() {
                       href="/lessons"
                       className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-midnight-600 text-bone font-bold hover:bg-midnight-700 transition-all transform hover:scale-105"
                     >
-                      Book a Lesson
+                      {setlistPage?.ctaBookLessonButtonText || 'Book a Lesson'}
                     </Link>
                     <Link
                       href="/contact"
                       className="inline-flex items-center justify-center px-8 py-4 rounded-lg border-2 border-bone text-bone font-semibold hover:bg-bone/10 transition-all"
                     >
-                      Get in Touch
+                      {setlistPage?.ctaContactButtonText || 'Get in Touch'}
                     </Link>
                   </div>
                 </div>

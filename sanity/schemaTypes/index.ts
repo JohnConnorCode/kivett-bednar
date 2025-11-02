@@ -12,6 +12,7 @@ import {showsPage} from './singletons/showsPage'
 import {lessonsPage} from './singletons/lessonsPage'
 import {contactPage} from './singletons/contactPage'
 import {setlistPage} from './singletons/setlistPage'
+import {uiText} from './singletons/uiText'
 import {song} from './documents/song'
 import {link} from './objects/link'
 import {blockContent} from './objects/blockContent'
@@ -31,6 +32,7 @@ export const schemaTypes = [
   // Singletons
   settings,
   navigation,
+  uiText,
   homePage,
   showsPage,
   lessonsPage,

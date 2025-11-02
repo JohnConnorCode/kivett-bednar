@@ -95,6 +95,31 @@ export const setlistPage = defineType({
       rows: 2,
       description: 'Text for call-to-action at bottom',
     }),
+
+    // Button Labels
+    defineField({
+      name: 'ctaBookLessonButtonText',
+      title: 'CTA: Book Lesson Button Text',
+      type: 'string',
+      description: 'Text for "Book a Lesson" button in CTA',
+      initialValue: 'Book a Lesson',
+    }),
+    defineField({
+      name: 'ctaContactButtonText',
+      title: 'CTA: Contact Button Text',
+      type: 'string',
+      description: 'Text for "Get in Touch" button in CTA',
+      initialValue: 'Get in Touch',
+    }),
+
+    // Dynamic Text
+    defineField({
+      name: 'subtitleSuffix',
+      title: 'Subtitle Suffix',
+      type: 'string',
+      description: 'Text appended to song count in hero subtitle (e.g., "32 [timeless classics...]")',
+      initialValue: ' timeless classics from the great American songbook',
+    }),
   ],
   preview: {
     prepare() {
