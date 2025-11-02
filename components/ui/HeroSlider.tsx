@@ -4,7 +4,7 @@ import {useState, useEffect, useRef} from 'react'
 import {motion, useScroll, useTransform} from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
-import {getObjectPosition, type SanityImageWithPositioning} from '@/sanity/lib/image'
+import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
 
 interface HeroSlide {
   _key: string
