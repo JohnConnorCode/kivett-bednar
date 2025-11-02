@@ -50,8 +50,8 @@ export default async function HomePage() {
 
       {/* About Section - Split Screen with Image */}
       <SplitScreenImage
-        imageSrc="/images/performance/waltz-brewing-promo.jpg"
-        imageAlt="Kivett Bednar performing blues music"
+        imageSrc="/images/hero/background-1.jpg"
+        imageAlt="Kivett Bednar blues musician"
         imagePosition="left"
       >
         <h2 className="text-5xl font-bold mb-6 text-charcoal-900">
@@ -74,8 +74,8 @@ export default async function HomePage() {
       {/* Parallax Image Section */}
       <ParallaxImageSection
         images={[
-          {src: '/images/hero/guitar-red.jpg', alt: 'Kivett performing with red guitar', position: 'left'},
-          {src: '/images/portraits/guild-shirt.jpg', alt: 'Kivett with Guild guitar', position: 'right', offset: 150},
+          {src: '/images/hero/hero-slide.jpg', alt: 'Kivett performing blues', position: 'left'},
+          {src: '/images/portraits/traced-portrait.png', alt: 'Kivett artistic portrait', position: 'right', offset: 150},
         ]}
       >
         <div className="text-center py-32">
@@ -128,8 +128,8 @@ export default async function HomePage() {
               </h2>
             </AnimatedSection>
             <ImageRevealScroll
-              imageSrc="/images/performance/stage-main.png"
-              imageAlt="Kivett Bednar live on stage"
+              imageSrc="/images/gallery/hero-performance.jpg"
+              imageAlt="Kivett Bednar live performance"
               direction="up"
             />
           </div>
@@ -157,32 +157,32 @@ export default async function HomePage() {
               height: 1280,
             },
             {
-              src: '/images/gallery/orpheum-performance.jpg',
-              alt: 'Live performance at the historic Orpheum Theatre',
-              width: 1200,
-              height: 800,
+              src: '/images/hero/rae-gordon-album.jpg',
+              alt: 'Rae Gordon Band collaboration',
+              width: 1000,
+              height: 1000,
             },
             {
               src: '/images/gallery/guitar-portrait.jpg',
-              alt: 'Kivett with his vintage Guild guitar',
+              alt: 'Kivett with guitar',
               width: 800,
               height: 1000,
             },
             {
-              src: '/images/hero/guitar-red.jpg',
-              alt: 'Performance with dramatic red lighting',
+              src: '/images/performance/stage-main.png',
+              alt: 'Professional stage performance',
               width: 1200,
               height: 900,
             },
             {
-              src: '/images/performance/orpheum-main.jpg',
-              alt: 'Blues performance at the Orpheum',
+              src: '/images/gallery/orpheum-performance.jpg',
+              alt: 'Historic Orpheum Theatre',
               width: 1510,
               height: 1249,
             },
             {
-              src: '/images/performance/waltz-brewing-promo.jpg',
-              alt: 'Professional promo shot',
+              src: '/images/hero/guitar-red.jpg',
+              alt: 'Red guitar blues performance',
               width: 1200,
               height: 1200,
             },
