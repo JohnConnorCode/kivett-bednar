@@ -3,6 +3,7 @@ import Link from 'next/link'
 import {ContactForm} from '@/components/ui/ContactForm'
 import {sanityFetch} from '@/sanity/lib/live'
 import {contactPageQuery, settingsQuery} from '@/sanity/lib/queries'
+import {AnimatedHero} from '@/components/ui/AnimatedHero'
 
 export const metadata: Metadata = {
   title: 'Contact | Kivett Bednar',
@@ -17,32 +18,12 @@ export default async function ContactPage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[50vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-midnight-500 via-charcoal-900 to-midnight-500">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(240,200,62,0.15) 1px, transparent 0)',
-            backgroundSize: '40px 40px'
-          }} />
-        </div>
-
-        <div className="relative z-10 container mx-auto px-4 text-center text-bone">
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
-            {contactPage?.heroHeading || 'Get in Touch'}
-          </h1>
-          {contactPage?.heroSubheading && (
-            <p className="text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed text-bone/90">
-              {contactPage.heroSubheading}
-            </p>
-          )}
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1200 120" className="w-full h-12 text-bone">
-            <path d="M0,0 Q300,40 600,20 T1200,0 L1200,120 L0,120 Z" fill="currentColor" />
-          </svg>
-        </div>
-      </section>
+      {/* Animated Hero with Vinyl Record */}
+      <AnimatedHero
+        title={contactPage?.heroHeading || 'Get in Touch'}
+        subtitle={contactPage?.heroSubheading}
+        variant="contact"
+      />
 
       {/* Content */}
       <div className="bg-bone py-24">

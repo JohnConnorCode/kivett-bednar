@@ -2,6 +2,7 @@ import {Metadata} from 'next'
 import {sanityFetch} from '@/sanity/lib/live'
 import {lessonsPageQuery, settingsQuery} from '@/sanity/lib/queries'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
+import {AnimatedHero} from '@/components/ui/AnimatedHero'
 
 export const metadata: Metadata = {
   title: 'Lessons | Kivett Bednar',
@@ -25,37 +26,12 @@ export default async function LessonsPage() {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[60vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-midnight-500 via-charcoal-900 to-midnight-500">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(240,200,62,0.15) 1px, transparent 0)',
-            backgroundSize: '40px 40px'
-          }} />
-        </div>
-
-        <div className="relative z-10 container mx-auto px-4 text-center text-bone">
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
-            {lessonsPage.heroHeading}
-          </h1>
-          {lessonsPage.heroSubheading && (
-            <p className="text-2xl md:text-3xl max-w-3xl mx-auto leading-relaxed text-amber-600 font-light mb-8">
-              {lessonsPage.heroSubheading}
-            </p>
-          )}
-          {lessonsPage.credentials && (
-            <p className="text-xl text-bone/80 max-w-2xl mx-auto">
-              {lessonsPage.credentials}
-            </p>
-          )}
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1200 120" className="w-full h-12 text-bone">
-            <path d="M0,0 Q300,40 600,20 T1200,0 L1200,120 L0,120 Z" fill="currentColor" />
-          </svg>
-        </div>
-      </section>
+      {/* Animated Hero */}
+      <AnimatedHero
+        title={lessonsPage.heroHeading}
+        subtitle={lessonsPage.heroSubheading || lessonsPage.credentials}
+        variant="lessons"
+      />
 
       {/* Main Content */}
       <div className="bg-bone py-24">
