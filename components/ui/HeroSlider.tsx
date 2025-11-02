@@ -9,6 +9,7 @@ import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-po
 interface HeroSlide {
   _key: string
   image: SanityImageWithPositioning | null
+  mobileImage?: SanityImageWithPositioning | null
   alt: string | null
 }
 
@@ -99,20 +100,26 @@ export function HeroSlider({
             className="absolute inset-0"
           >
             <div className="absolute inset-0 animate-ken-burns">
-              {slide.image?.asset?.url && (
-                <Image
-                  src={slide.image.asset.url}
-                  alt={slide.alt || slide.image.alt || 'Kivett Bednar'}
-                  fill
-                  className="object-cover"
-                  priority={index === 0}
-                  quality={95}
-                  sizes="100vw"
-                  style={{
-                    objectPosition: getObjectPosition(slide.image, isMobile)
-                  }}
-                />
-              )}
+              {(() => {
+                // Use mobile image if available and on mobile, otherwise use desktop image
+                const activeImage = isMobile && slide.mobileImage?.asset?.url ? slide.mobileImage : slide.image
+                const imageUrl = activeImage?.asset?.url
+
+                return imageUrl ? (
+                  <Image
+                    src={imageUrl}
+                    alt={slide.alt || activeImage.alt || 'Kivett Bednar'}
+                    fill
+                    className="object-cover"
+                    priority={index === 0}
+                    quality={95}
+                    sizes="100vw"
+                    style={{
+                      objectPosition: getObjectPosition(activeImage, isMobile)
+                    }}
+                  />
+                ) : null
+              })()}
             </div>
           </motion.div>
           {/* Optimal overlay for text readability while showing images */}

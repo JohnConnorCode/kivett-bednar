@@ -24,12 +24,21 @@ export const homePage = defineType({
           fields: [
             defineField({
               name: 'image',
-              title: 'Image',
+              title: 'Desktop Image',
               type: 'image',
               options: {
                 hotspot: true,
               },
               validation: (rule) => rule.required(),
+            }),
+            defineField({
+              name: 'mobileImage',
+              title: 'Mobile Image (Optional)',
+              type: 'image',
+              description: 'Different image for mobile devices. If not set, desktop image will be used.',
+              options: {
+                hotspot: true,
+              },
             }),
             defineField({
               name: 'alt',

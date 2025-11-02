@@ -92,6 +92,12 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
       mobilePosition,
       alt
     },
+    mobileImage{
+      asset->{_id, url},
+      hotspot,
+      crop,
+      alt
+    },
     alt
   },
   heroHeading,
