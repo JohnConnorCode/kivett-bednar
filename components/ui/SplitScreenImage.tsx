@@ -1,11 +1,12 @@
 'use client'
 
-import {useRef} from 'react'
+import {useRef, useState, useEffect} from 'react'
 import {motion, useScroll, useTransform} from 'framer-motion'
 import Image from 'next/image'
+import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
 
 interface SplitScreenImageProps {
-  imageSrc: string
+  imageSrc: SanityImageWithPositioning | string
   imageAlt: string
   imagePosition?: 'left' | 'right'
   children: React.ReactNode
@@ -19,6 +20,7 @@ export function SplitScreenImage({
   children,
   darkBg = false,
 }: SplitScreenImageProps) {
+  const [isMobile, setIsMobile] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
   const {scrollYProgress} = useScroll({
     target: containerRef,
@@ -29,6 +31,16 @@ export function SplitScreenImage({
   const contentY = useTransform(scrollYProgress, [0, 1], [-30, 30])
 
   const isLeft = imagePosition === 'left'
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   return (
     <div
@@ -46,13 +58,15 @@ export function SplitScreenImage({
           >
             <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
               <Image
-                src={imageSrc}
+                src={typeof imageSrc === 'string' ? imageSrc : imageSrc.asset?.url || ''}
                 alt={imageAlt}
                 fill
                 className="object-cover"
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 style={{
-                  objectPosition: 'center 40%'
+                  objectPosition: typeof imageSrc === 'string'
+                    ? 'center 40%'
+                    : getObjectPosition(imageSrc, isMobile)
                 }}
               />
               {/* Gradient Overlay */}
