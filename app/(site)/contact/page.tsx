@@ -27,7 +27,7 @@ export default async function ContactPage() {
         title={contactPage?.heroHeading || 'Get in Touch'}
         subtitle={contactPage?.heroSubheading}
         variant="contact"
-        backgroundImage={contactPage?.heroImage?.asset?.url || '/images/gallery/hero-stage-compressed.jpg'}
+        backgroundImage={contactPage?.heroImage?.asset?.url}
         backgroundAlt={contactPage?.heroImage?.alt || 'Kivett Bednar on stage'}
       />
 
@@ -130,11 +130,13 @@ export default async function ContactPage() {
                 {contactPage?.aboutHeading || 'About Kivett'}
               </h2>
             </AnimatedSection>
-            <ImageRevealScroll
-              imageSrc={contactPage?.portraitImage?.asset?.url || '/images/performance/waltz-brewing-promo.jpg'}
-              imageAlt={contactPage?.portraitImage?.alt || 'Kivett Bednar portrait'}
-              direction="up"
-            />
+            {contactPage?.portraitImage?.asset?.url && (
+              <ImageRevealScroll
+                imageSrc={contactPage.portraitImage.asset.url}
+                imageAlt={contactPage.portraitImage?.alt || 'Kivett Bednar portrait'}
+                direction="up"
+              />
+            )}
           </div>
         </div>
       </section>
@@ -143,38 +145,19 @@ export default async function ContactPage() {
       <section className="bg-charcoal-900 py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
-            <StaggeredImageGrid
-              images={contactPage?.portraitGallery && contactPage.portraitGallery.length > 0
-                ? contactPage.portraitGallery.map((img: any) => ({
-                    src: img.image?.asset?.url || '/images/placeholder.jpg',
+            {contactPage?.portraitGallery && contactPage.portraitGallery.length > 0 && (
+              <StaggeredImageGrid
+                images={contactPage.portraitGallery
+                  .filter((img: any) => img.image?.asset?.url)
+                  .map((img: any) => ({
+                    src: img.image.asset.url,
                     alt: img.alt || img.image?.alt || 'Portrait photo',
                     caption: img.caption || '',
                   }))
-                : [
-                    {
-                      src: '/images/portraits/guild-shirt.jpg',
-                      alt: 'Kivett with Guild guitar',
-                      caption: 'Blues Musician',
-                    },
-                    {
-                      src: '/images/gallery/guitar-portrait.jpg',
-                      alt: 'Portrait with guitar',
-                      caption: 'Guitar Teacher',
-                    },
-                    {
-                      src: '/images/hero/guitar-red.jpg',
-                      alt: 'Performance shot',
-                      caption: 'Live Performer',
-                    },
-                    {
-                      src: '/images/performance/stage-main.jpg',
-                      alt: 'On stage',
-                      caption: 'Pacific Northwest Blues',
-                    },
-                  ]
-              }
-              columns={2}
-            />
+                }
+                columns={2}
+              />
+            )}
           </div>
         </div>
       </section>

@@ -51,11 +51,12 @@ export default async function HomePage() {
       />
 
       {/* About Section - Split Screen with Image */}
-      <SplitScreenImage
-        imageSrc={homePage.aboutImage?.asset?.url || '/images/10386889_666568380058205_4706124177037425882_o.jpg'}
-        imageAlt={homePage.aboutImage?.alt || "Kivett Bednar with guitar - blues musician and performer"}
-        imagePosition="left"
-      >
+      {homePage.aboutImage?.asset?.url && (
+        <SplitScreenImage
+          imageSrc={homePage.aboutImage.asset.url}
+          imageAlt={homePage.aboutImage?.alt || "Kivett Bednar with guitar - blues musician and performer"}
+          imagePosition="left"
+        >
         <h2 className="text-5xl font-bold mb-6 text-charcoal-900">
           {homePage.aboutHeading}
         </h2>
@@ -71,21 +72,21 @@ export default async function HomePage() {
             <span>→</span>
           </Link>
         </div>
-      </SplitScreenImage>
+        </SplitScreenImage>
+      )}
 
       {/* Parallax Image Section */}
       <ParallaxImageSection
         images={homePage.parallaxImages && homePage.parallaxImages.length > 0
-          ? homePage.parallaxImages.map((img: any) => ({
-              src: img.image?.asset?.url || '/images/placeholder.jpg',
-              alt: img.alt || img.image?.alt || 'Performance image',
-              position: img.position || 'left',
-              offset: img.offset || 0
-            }))
-          : [
-              {src: '/images/10321709_666559680059075_1761408545473889635_o.jpg', alt: 'Dramatic stage performance', position: 'left'},
-              {src: '/images/10386889_666568380058205_4706124177037425882_o.jpg', alt: 'Guitar craftsmanship detail', position: 'right', offset: 150},
-            ]
+          ? homePage.parallaxImages
+              .filter((img: any) => img.image?.asset?.url)
+              .map((img: any) => ({
+                src: img.image.asset.url,
+                alt: img.alt || img.image?.alt || 'Performance image',
+                position: img.position || 'left',
+                offset: img.offset || 0
+              }))
+          : []
         }
       >
         <div className="text-center py-32">
@@ -101,12 +102,13 @@ export default async function HomePage() {
       </ParallaxImageSection>
 
       {/* Latest Album/Music Section */}
-      <SplitScreenImage
-        imageSrc="/images/details/album-cover.jpg"
-        imageAlt="Rae Gordon Band - Better Than I Was album cover"
-        imagePosition="right"
-        darkBg={true}
-      >
+      {homePage.albumCoverImage?.asset?.url && (
+        <SplitScreenImage
+          imageSrc={homePage.albumCoverImage.asset.url}
+          imageAlt={homePage.albumCoverImage?.alt || "Rae Gordon Band - Better Than I Was album cover"}
+          imagePosition="right"
+          darkBg={true}
+        >
         <h2 className="text-5xl font-bold mb-6">{homePage.albumTitle}</h2>
         {(homePage.albumYear || homePage.albumFormat) && (
           <p className="text-2xl mb-6 text-midnight-600 font-semibold">
@@ -126,7 +128,8 @@ export default async function HomePage() {
             ))}
           </div>
         )}
-      </SplitScreenImage>
+        </SplitScreenImage>
+      )}
 
       {/* Performance Image Reveal */}
       <section className="py-24 bg-gradient-to-b from-charcoal-900 to-midnight-500">
@@ -137,11 +140,13 @@ export default async function HomePage() {
                 {homePage.performanceSectionHeading || 'Live Performances'}
               </h2>
             </AnimatedSection>
-            <ImageRevealScroll
-              imageSrc={homePage.performanceImage?.asset?.url || '/images/performance/orpheum-main.jpg'}
-              imageAlt={homePage.performanceImage?.alt || "Performing at the historic Orpheum Theatre"}
-              direction="up"
-            />
+            {homePage.performanceImage?.asset?.url && (
+              <ImageRevealScroll
+                imageSrc={homePage.performanceImage.asset.url}
+                imageAlt={homePage.performanceImage?.alt || "Performing at the historic Orpheum Theatre"}
+                direction="up"
+              />
+            )}
           </div>
         </div>
       </section>
@@ -158,66 +163,19 @@ export default async function HomePage() {
             </p>
           </AnimatedSection>
         </div>
-        <FloatingGallery
-          images={homePage.galleryImages && homePage.galleryImages.length > 0
-            ? homePage.galleryImages.map((img: any) => ({
-                src: img.image?.asset?.url || '/images/placeholder.jpg',
+        {homePage.galleryImages && homePage.galleryImages.length > 0 && (
+          <FloatingGallery
+            images={homePage.galleryImages
+              .filter((img: any) => img.image?.asset?.url)
+              .map((img: any) => ({
+                src: img.image.asset.url,
                 alt: img.alt || img.image?.alt || 'Gallery image',
                 width: img.width || 1200,
                 height: img.height || 800,
               }))
-            : [
-                {
-                  src: '/images/10386889_666568380058205_4706124177037425882_o.jpg',
-                  alt: 'Guitar craftsmanship and blues tradition',
-                  width: 2048,
-                  height: 1996,
-                },
-                {
-                  src: '/images/37124646_10212749349148811_4768331034854948864_o.jpg',
-                  alt: 'Concert energy and stage presence',
-                  width: 1952,
-                  height: 1952,
-                },
-                {
-                  src: '/images/16486991_10208279632410298_2503941337142380558_o.jpg',
-                  alt: 'Intimate blues performance',
-                  width: 894,
-                  height: 1440,
-                },
-                {
-                  src: '/images/12345438_10100487099276149_1793184209465297962_n.jpg',
-                  alt: 'Live show atmosphere',
-                  width: 960,
-                  height: 846,
-                },
-                {
-                  src: '/images/performance/waltz-brewing-promo.jpg',
-                  alt: 'Waltz Brewing performance',
-                  width: 1080,
-                  height: 1080,
-                },
-                {
-                  src: '/images/38518091_10212495556928948_4930564546763948032_o.jpg',
-                  alt: 'Stage performance with guitar',
-                  width: 1200,
-                  height: 1071,
-                },
-                {
-                  src: '/images/16487687_1351833004875154_191765266250731543_o.jpg',
-                  alt: 'Wide angle stage shot',
-                  width: 2048,
-                  height: 1366,
-                },
-                {
-                  src: '/images/blues-kiv.jpg',
-                  alt: 'Classic blues performance',
-                  width: 960,
-                  height: 741,
-                },
-              ]
-          }
-        />
+            }
+          />
+        )}
       </section>
 
       {/* Upcoming Shows Section */}

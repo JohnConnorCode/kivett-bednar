@@ -44,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.02em;
 }
 
-@keyframes ken-burns-1 {
+@keyframes ken-burns {
   0% {
     transform: scale(1) translate(0, 0);
   }
@@ -53,38 +53,8 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-@keyframes ken-burns-2 {
-  0% {
-    transform: scale(1) translate(0, 0);
-  }
-  100% {
-    transform: scale(1.18) translate(2%, -1%);
-  }
-}
-
-@keyframes ken-burns-3 {
-  0% {
-    transform: scale(1) translate(0, 0);
-  }
-  100% {
-    transform: scale(1.22) translate(-1%, 2%);
-  }
-}
-
 .animate-ken-burns {
-  animation: ken-burns-1 20s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
-
-.animate-ken-burns-2 {
-  animation: ken-burns-2 22s linear forwards;
-  backface-visibility: hidden;
-  perspective: 1000px;
-}
-
-.animate-ken-burns-3 {
-  animation: ken-burns-3 18s cubic-bezier(0, 0, 0.58, 1) forwards;
+  animation: ken-burns 20s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
   backface-visibility: hidden;
   perspective: 1000px;
 }
