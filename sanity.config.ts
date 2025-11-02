@@ -67,7 +67,7 @@ export default defineConfig({
         mainDocuments: defineDocuments([
           {
             route: '/',
-            filter: `_type == "settings" && _id == "siteSettings"`,
+            filter: `_type == "homePage" || _type == "settings" && _id == "siteSettings"`,
           },
           {
             route: '/:slug',
@@ -80,6 +80,11 @@ export default defineConfig({
         ]),
         // Locations Resolver API allows you to define where data is being used in your application. https://www.sanity.io/docs/presentation-resolver-api#8d8bca7bfcd7
         locations: {
+          homePage: defineLocations({
+            locations: [homeLocation],
+            message: 'This is the home page content',
+            tone: 'positive',
+          }),
           settings: defineLocations({
             locations: [homeLocation],
             message: 'This document is used on all pages',
