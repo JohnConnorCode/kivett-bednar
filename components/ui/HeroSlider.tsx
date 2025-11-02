@@ -50,11 +50,7 @@ export function HeroSlider({
             index === currentSlide ? 'opacity-100' : 'opacity-0'
           }`}
         >
-          <div
-            className={`absolute inset-0 ${
-              index === currentSlide ? 'animate-ken-burns' : ''
-            }`}
-          >
+          <div className="absolute inset-0 animate-ken-burns">
             {slide.image?.asset?.url && (
               <Image
                 src={slide.image.asset.url}
@@ -83,8 +79,7 @@ export function HeroSlider({
           }`}
           style={{
             transitionDelay: '200ms',
-            textShadow: '0 0 40px rgba(240,200,62,0.5), 0 4px 20px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.8), 0 8px 40px rgba(0,0,0,0.6)',
-            filter: 'drop-shadow(0 0 30px rgba(240,200,62,0.3))'
+            textShadow: '0 2px 15px rgba(0,0,0,0.9), 0 0 20px rgba(240,200,62,0.2)'
           }}
         >
           {heading}
@@ -97,8 +92,7 @@ export function HeroSlider({
           }`}
           style={{
             transitionDelay: '400ms',
-            textShadow: '0 0 30px rgba(240,200,62,0.6), 0 2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.7)',
-            filter: 'drop-shadow(0 0 20px rgba(240,200,62,0.4))'
+            textShadow: '0 2px 12px rgba(0,0,0,0.9), 0 0 15px rgba(240,200,62,0.25)'
           }}
         >
           {subheading}
@@ -128,8 +122,7 @@ export function HeroSlider({
             href="/shows"
             className="group relative px-10 py-5 bg-amber-600 text-black font-bold rounded-lg overflow-hidden text-xl shadow-2xl transform transition-all duration-300 hover:scale-110"
             style={{
-              boxShadow: '0 0 40px rgba(240,200,62,0.5), 0 10px 30px rgba(0,0,0,0.5)',
-              filter: 'drop-shadow(0 0 20px rgba(240,200,62,0.4))'
+              boxShadow: '0 0 20px rgba(240,200,62,0.3), 0 10px 30px rgba(0,0,0,0.5)'
             }}
           >
             <span className="relative z-10">See Live Shows</span>
@@ -139,8 +132,7 @@ export function HeroSlider({
             href="/lessons"
             className="group relative px-10 py-5 border-3 border-amber-600 text-bone font-bold rounded-lg overflow-hidden text-xl backdrop-blur-sm transform transition-all duration-300 hover:scale-110"
             style={{
-              boxShadow: '0 0 30px rgba(240,200,62,0.3), 0 10px 30px rgba(0,0,0,0.5)',
-              filter: 'drop-shadow(0 0 15px rgba(240,200,62,0.2))'
+              boxShadow: '0 0 15px rgba(240,200,62,0.2), 0 10px 30px rgba(0,0,0,0.5)'
             }}
           >
             <span className="relative z-10">Book a Lesson</span>

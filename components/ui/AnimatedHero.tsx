@@ -2,14 +2,17 @@
 
 import {motion} from 'framer-motion'
 import {useEffect, useState} from 'react'
+import Image from 'next/image'
 
 interface AnimatedHeroProps {
   title: string
   subtitle?: string
   variant?: 'lessons' | 'shows' | 'contact' | 'setlist'
+  backgroundImage?: string
+  backgroundAlt?: string
 }
 
-export function AnimatedHero({title, subtitle, variant = 'shows'}: AnimatedHeroProps) {
+export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImage, backgroundAlt}: AnimatedHeroProps) {
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
@@ -34,11 +37,26 @@ export function AnimatedHero({title, subtitle, variant = 'shows'}: AnimatedHeroP
 
   return (
     <section className="relative h-[70vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-charcoal-900">
-      {/* Animated Background */}
-      {renderBackground()}
+      {/* Background Image (if provided) */}
+      {backgroundImage && (
+        <div className="absolute inset-0 animate-ken-burns">
+          <Image
+            src={backgroundImage}
+            alt={backgroundAlt || title}
+            fill
+            className="object-cover"
+            priority
+            quality={95}
+            sizes="100vw"
+          />
+        </div>
+      )}
+
+      {/* Animated Background (decorative overlay) */}
+      {!backgroundImage && renderBackground()}
 
       {/* Gradient Overlays for depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80 z-10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/90 z-10" />
       <div className="absolute inset-0 bg-gradient-to-r from-midnight-500/20 via-transparent to-amber-600/10 z-10" />
 
       {/* Content */}
@@ -49,8 +67,7 @@ export function AnimatedHero({title, subtitle, variant = 'shows'}: AnimatedHeroP
           transition={{duration: 0.8, ease: [0.22, 1, 0.36, 1]}}
           className="text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold mb-6 tracking-tight"
           style={{
-            textShadow: '0 0 60px rgba(240,200,62,0.6), 0 4px 30px rgba(0,0,0,0.9), 0 8px 50px rgba(0,0,0,0.7)',
-            filter: 'drop-shadow(0 0 40px rgba(240,200,62,0.4))'
+            textShadow: '0 2px 20px rgba(0,0,0,0.9), 0 0 25px rgba(240,200,62,0.25)'
           }}
         >
           {title}
@@ -63,8 +80,7 @@ export function AnimatedHero({title, subtitle, variant = 'shows'}: AnimatedHeroP
             transition={{duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1]}}
             className="text-2xl md:text-3xl lg:text-4xl max-w-4xl mx-auto leading-relaxed text-amber-400 font-light"
             style={{
-              textShadow: '0 0 30px rgba(240,200,62,0.5), 0 2px 15px rgba(0,0,0,0.9)',
-              filter: 'drop-shadow(0 0 20px rgba(240,200,62,0.3))'
+              textShadow: '0 2px 15px rgba(0,0,0,0.9), 0 0 18px rgba(240,200,62,0.2)'
             }}
           >
             {subtitle}

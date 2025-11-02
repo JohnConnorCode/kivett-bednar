@@ -3,6 +3,8 @@ import {sanityFetch} from '@/sanity/lib/live'
 import {upcomingEventsQuery} from '@/sanity/lib/queries'
 import {EventCard} from '@/components/ui/EventCard'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
+import {StaggeredImageGrid} from '@/components/ui/StaggeredImageGrid'
+import {AnimatedSection} from '@/components/animations/AnimatedSection'
 
 export const metadata: Metadata = {
   title: 'Shows | Kivett Bednar',
@@ -64,7 +66,60 @@ export default async function ShowsPage() {
         title="Live Shows"
         subtitle="Catch authentic blues performances across the Pacific Northwest"
         variant="shows"
+        backgroundImage="/images/hero/performance-orpheum.jpg"
+        backgroundAlt="Kivett Bednar performing live at the Orpheum Theatre"
       />
+
+      {/* Performance Photo Grid */}
+      <section className="bg-gradient-to-b from-charcoal-900 to-midnight-500 py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <AnimatedSection animation="fadeIn">
+              <h2 className="text-5xl font-bold text-center text-bone mb-4">
+                Live Performances
+              </h2>
+              <p className="text-xl text-center text-bone/70 mb-16">
+                Moments from the stage
+              </p>
+            </AnimatedSection>
+            <StaggeredImageGrid
+              images={[
+                {
+                  src: '/images/performance/stage-main.png',
+                  alt: 'Kivett performing at venue',
+                  caption: 'Blues Performance',
+                },
+                {
+                  src: '/images/performance/orpheum-main.jpg',
+                  alt: 'Orpheum Theatre performance',
+                  caption: 'Orpheum Theatre',
+                },
+                {
+                  src: '/images/gallery/hero-stage-compressed.jpg',
+                  alt: 'Main stage performance',
+                  caption: 'Live on Stage',
+                },
+                {
+                  src: '/images/hero/guitar-red.jpg',
+                  alt: 'Performance with red lighting',
+                  caption: 'Guitar Solo',
+                },
+                {
+                  src: '/images/gallery/orpheum-performance.jpg',
+                  alt: 'Orpheum show',
+                  caption: 'Historic Venue',
+                },
+                {
+                  src: '/images/performance/waltz-brewing-promo.jpg',
+                  alt: 'Waltz Brewing performance',
+                  caption: 'Waltz Brewing',
+                },
+              ]}
+              columns={3}
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Shows Content */}
       <div className="bg-bone py-16">
@@ -72,27 +127,37 @@ export default async function ShowsPage() {
           <div className="max-w-4xl mx-auto">
             {events && events.length > 0 ? (
               <>
-                <div className="mb-8">
-                  <p className="text-charcoal-900/60 text-lg">
+                <AnimatedSection animation="fadeIn">
+                  <h2 className="text-4xl font-bold mb-8 text-charcoal-900">
+                    Upcoming Shows
+                  </h2>
+                  <p className="text-charcoal-900/60 text-lg mb-8">
                     {events.length} upcoming {events.length === 1 ? 'show' : 'shows'}
                   </p>
-                </div>
+                </AnimatedSection>
                 <div className="grid gap-8">
-                  {events.map((event: any) => (
-                    <EventCard key={event._id} event={event} />
+                  {events.map((event: any, index: number) => (
+                    <AnimatedSection key={event._id} animation="fadeUp" delay={0.1 * index}>
+                      <EventCard event={event} />
+                    </AnimatedSection>
                   ))}
                 </div>
               </>
             ) : (
-              <div className="text-center py-16 border-2 border-dashed border-charcoal-900/20 rounded-lg bg-bone">
-                <div className="text-6xl mb-4">🎸</div>
-                <p className="text-charcoal-900/80 text-2xl font-semibold mb-2">
-                  No upcoming shows scheduled
-                </p>
-                <p className="text-charcoal-900/60 mt-2">
-                  Check back soon for new dates! Follow on social media for announcements.
-                </p>
-              </div>
+              <AnimatedSection animation="fadeIn">
+                <h2 className="text-4xl font-bold mb-8 text-charcoal-900">
+                  Upcoming Shows
+                </h2>
+                <div className="text-center py-16 border-2 border-dashed border-charcoal-900/20 rounded-lg bg-bone">
+                  <div className="text-6xl mb-4">🎸</div>
+                  <p className="text-charcoal-900/80 text-2xl font-semibold mb-2">
+                    No upcoming shows scheduled
+                  </p>
+                  <p className="text-charcoal-900/60 mt-2">
+                    Check back soon for new dates! Follow on social media for announcements.
+                  </p>
+                </div>
+              </AnimatedSection>
             )}
           </div>
         </div>

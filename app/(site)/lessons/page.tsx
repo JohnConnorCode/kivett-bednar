@@ -3,6 +3,8 @@ import {sanityFetch} from '@/sanity/lib/live'
 import {lessonsPageQuery, settingsQuery} from '@/sanity/lib/queries'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
+import {ImageRevealScroll} from '@/components/ui/ImageRevealScroll'
+import {SplitScreenImage} from '@/components/ui/SplitScreenImage'
 
 export const metadata: Metadata = {
   title: 'Lessons | Kivett Bednar',
@@ -31,25 +33,57 @@ export default async function LessonsPage() {
         title={lessonsPage.heroHeading}
         subtitle={lessonsPage.heroSubheading || lessonsPage.credentials}
         variant="lessons"
+        backgroundImage="/images/gallery/guitar-portrait.jpg"
+        backgroundAlt="Kivett Bednar with guitar"
       />
 
-      {/* Main Content */}
-      <div className="bg-bone py-24">
+      {/* Image Reveal - Teaching */}
+      <section className="bg-gradient-to-b from-bone to-charcoal-900/5 py-16">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            {/* Teaching Philosophy */}
-            <div className="grid lg:grid-cols-2 gap-16 mb-24">
-              <AnimatedSection animation="slideLeft">
-                <h2 className="text-5xl font-bold mb-8 text-charcoal-900">
-                  {lessonsPage.philosophyHeading}
-                </h2>
-                <div className="space-y-6 text-xl text-charcoal-900/80 leading-relaxed whitespace-pre-wrap">
-                  {lessonsPage.philosophyText}
-                </div>
-              </AnimatedSection>
+          <div className="max-w-4xl mx-auto">
+            <ImageRevealScroll
+              imageSrc="/images/hero/guitar-red.jpg"
+              imageAlt="Kivett Bednar teaching guitar"
+              direction="left"
+            />
+          </div>
+        </div>
+      </section>
 
-              <AnimatedSection animation="slideRight" delay={0.2}>
-                <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-12 text-bone flex flex-col justify-center border-2 border-amber-600/20">
+      {/* Teaching Philosophy - Split Screen */}
+      <SplitScreenImage
+        imageSrc="/images/portraits/guild-shirt.jpg"
+        imageAlt="Kivett with Guild guitar"
+        imagePosition="right"
+        darkBg={false}
+      >
+        <h2 className="text-5xl font-bold mb-8 text-charcoal-900">
+          {lessonsPage.philosophyHeading}
+        </h2>
+        <div className="space-y-6 text-xl text-charcoal-900/80 leading-relaxed whitespace-pre-wrap">
+          {lessonsPage.philosophyText}
+        </div>
+      </SplitScreenImage>
+
+      {/* Image Reveal - Performance */}
+      <section className="bg-gradient-to-b from-bone to-midnight-500/10 py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <ImageRevealScroll
+              imageSrc="/images/performance/orpheum-main.jpg"
+              imageAlt="Kivett Bednar live performance"
+              direction="right"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Box */}
+      <section className="bg-bone py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto">
+            <AnimatedSection animation="scaleIn">
+              <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-12 text-bone flex flex-col justify-center border-2 border-amber-600/20">
                 <h3 className="text-3xl font-bold mb-6">{lessonsPage.ctaBoxHeading}</h3>
                 <p className="text-lg mb-8 text-bone/80">
                   {lessonsPage.ctaBoxText}
@@ -74,36 +108,41 @@ export default async function LessonsPage() {
                     </a>
                   )}
                 </div>
-                </div>
-              </AnimatedSection>
-            </div>
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
 
-            {/* What You'll Learn */}
-            {lessonsPage.learningItems && lessonsPage.learningItems.length > 0 && (
+      {/* What You'll Learn */}
+      {lessonsPage.learningItems && lessonsPage.learningItems.length > 0 && (
+        <section className="bg-charcoal-900 py-24">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
               <AnimatedSection animation="fadeIn">
-                <div className="bg-white rounded-2xl p-12 border-2 border-charcoal-900/10">
-                  <h2 className="text-4xl font-bold mb-12 text-center text-charcoal-900">
+                <div className="bg-midnight-500/30 rounded-2xl p-12 border-2 border-amber-600/20">
+                  <h2 className="text-4xl font-bold mb-12 text-center text-bone">
                     What You&apos;ll Learn
                   </h2>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {lessonsPage.learningItems.map((item: any, index: number) => (
                       <AnimatedSection key={item._key || index} animation="scaleIn" delay={0.15 * index}>
                         <div className="text-center group">
-                          <div className="w-12 h-12 mx-auto mb-4 rounded-full border-2 border-midnight-500/20 flex items-center justify-center text-midnight-500 font-bold text-lg group-hover:border-amber-600 group-hover:text-amber-600 transition-colors">
+                          <div className="w-12 h-12 mx-auto mb-4 rounded-full border-2 border-amber-600/40 flex items-center justify-center text-amber-600 font-bold text-lg group-hover:border-amber-500 group-hover:text-amber-500 transition-colors">
                             {index + 1}
                           </div>
-                          <h3 className="text-2xl font-bold mb-3 text-charcoal-900">{item.title}</h3>
-                          <p className="text-charcoal-900/70 leading-relaxed">{item.description}</p>
+                          <h3 className="text-2xl font-bold mb-3 text-bone">{item.title}</h3>
+                          <p className="text-bone/70 leading-relaxed">{item.description}</p>
                         </div>
                       </AnimatedSection>
                     ))}
                   </div>
                 </div>
               </AnimatedSection>
-            )}
+            </div>
           </div>
-        </div>
-      </div>
+        </section>
+      )}
     </div>
   )
 }

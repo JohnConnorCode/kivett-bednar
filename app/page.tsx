@@ -7,6 +7,9 @@ import {EventCard} from '@/components/ui/EventCard'
 import {HeroSlider} from '@/components/ui/HeroSlider'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
 import {FloatingGallery} from '@/components/ui/FloatingGallery'
+import {SplitScreenImage} from '@/components/ui/SplitScreenImage'
+import {ParallaxImageSection} from '@/components/ui/ParallaxImageSection'
+import {ImageRevealScroll} from '@/components/ui/ImageRevealScroll'
 
 export const metadata: Metadata = {
   title: 'Kivett Bednar | Blues Guitarist & Musician',
@@ -45,120 +48,106 @@ export default async function HomePage() {
         tagline={homePage.heroTagline}
       />
 
-      {/* About Section */}
-      <section className="py-24 bg-bone">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <AnimatedSection animation="slideLeft">
-                <h2 className="text-5xl font-bold mb-6 text-charcoal-900">
-                  {homePage.aboutHeading}
-                </h2>
-                <p className="text-xl mb-6 leading-relaxed text-charcoal-900/80">
-                  {homePage.aboutText}
-                </p>
-                <div className="flex gap-4">
-                  <Link
-                    href="/setlist"
-                    className="text-midnight-500 font-semibold hover:text-amber-600 transition-colors flex items-center gap-2"
-                  >
-                    View Setlist
-                    <span>→</span>
-                  </Link>
-                </div>
-              </AnimatedSection>
-              <AnimatedSection animation="slideRight" delay={0.2}>
-                {homePage.aboutImage?.asset?.url ? (
-                  <div className="relative rounded-lg aspect-square overflow-hidden border border-amber-600/20">
-                    <Image
-                      src={homePage.aboutImage.asset.url}
-                      alt={homePage.aboutImage.alt || 'Kivett Bednar'}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                  </div>
-                ) : (
-                  <div className="relative bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-lg aspect-square flex items-center justify-center overflow-hidden border border-amber-600/20">
-                    <div className="absolute inset-0 opacity-20">
-                      <div className="absolute inset-0" style={{
-                        backgroundImage: 'linear-gradient(45deg, transparent 45%, rgba(240,200,62,0.1) 50%, transparent 55%)',
-                        backgroundSize: '20px 20px'
-                      }} />
-                    </div>
-                    <div className="text-center p-8 relative z-10">
-                      <div className="text-bone/40 text-sm uppercase tracking-widest">Photo</div>
-                    </div>
-                  </div>
-                )}
-              </AnimatedSection>
-            </div>
-          </div>
+      {/* About Section - Split Screen with Image */}
+      <SplitScreenImage
+        imageSrc="/images/performance/waltz-brewing-promo.jpg"
+        imageAlt="Kivett Bednar performing blues music"
+        imagePosition="left"
+      >
+        <h2 className="text-5xl font-bold mb-6 text-charcoal-900">
+          {homePage.aboutHeading}
+        </h2>
+        <p className="text-xl mb-6 leading-relaxed text-charcoal-900/80">
+          {homePage.aboutText}
+        </p>
+        <div className="flex gap-4">
+          <Link
+            href="/setlist"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-midnight-500 text-bone font-semibold rounded-lg hover:bg-amber-600 hover:text-charcoal-900 transition-all transform hover:scale-105"
+          >
+            View Setlist
+            <span>→</span>
+          </Link>
         </div>
-      </section>
+      </SplitScreenImage>
+
+      {/* Parallax Image Section */}
+      <ParallaxImageSection
+        images={[
+          {src: '/images/hero/guitar-red.jpg', alt: 'Kivett performing with red guitar', position: 'left'},
+          {src: '/images/portraits/guild-shirt.jpg', alt: 'Kivett with Guild guitar', position: 'right', offset: 150},
+        ]}
+      >
+        <div className="text-center py-32">
+          <AnimatedSection animation="fadeIn">
+            <h2 className="text-6xl font-bold text-charcoal-900 mb-6">
+              Gritty Texas Blues
+            </h2>
+            <p className="text-2xl text-amber-600 font-semibold">
+              Meets the Heart of the Pacific Northwest
+            </p>
+          </AnimatedSection>
+        </div>
+      </ParallaxImageSection>
 
       {/* Latest Album/Music Section */}
-      <section className="py-24 bg-charcoal-900 text-bone">
+      <SplitScreenImage
+        imageSrc="/images/details/album-cover.jpg"
+        imageAlt="Rae Gordon Band - Better Than I Was album cover"
+        imagePosition="right"
+        darkBg={true}
+      >
+        <h2 className="text-5xl font-bold mb-6">{homePage.albumTitle}</h2>
+        {(homePage.albumYear || homePage.albumFormat) && (
+          <p className="text-2xl mb-6 text-amber-600 font-semibold">
+            {[homePage.albumYear, homePage.albumFormat].filter(Boolean).join(' • ')}
+          </p>
+        )}
+        <p className="text-lg mb-8 leading-relaxed text-bone/80">
+          {homePage.albumDescription}
+        </p>
+        {homePage.albumFeatures && homePage.albumFeatures.length > 0 && (
+          <div className="space-y-4">
+            {homePage.albumFeatures.map((feature: string, index: number) => (
+              <div key={index} className="flex items-center gap-3">
+                <div className="w-1 h-1 bg-amber-600 rounded-full"></div>
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </SplitScreenImage>
+
+      {/* Performance Image Reveal */}
+      <section className="py-24 bg-gradient-to-b from-charcoal-900 to-midnight-500">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <AnimatedSection animation="fadeIn">
-              <h2 className="text-5xl font-bold mb-12 text-center">{homePage.albumTitle}</h2>
+              <h2 className="text-5xl font-bold text-center text-bone mb-12">
+                Live Performances
+              </h2>
             </AnimatedSection>
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <AnimatedSection animation="scaleIn" delay={0.2}>
-                {homePage.albumImage?.asset?.url ? (
-                  <div className="relative rounded-lg aspect-square overflow-hidden border-2 border-amber-600/30">
-                    <Image
-                      src={homePage.albumImage.asset.url}
-                      alt={homePage.albumImage.alt || homePage.albumTitle}
-                      fill
-                      className="object-cover"
-                      sizes="(max-width: 768px) 100vw, 50vw"
-                    />
-                  </div>
-                ) : (
-                  <div className="relative bg-midnight-500/30 rounded-lg aspect-square flex items-center justify-center border-2 border-amber-600/30 overflow-hidden">
-                    <div className="absolute inset-0">
-                      <div className="absolute inset-0" style={{
-                        backgroundImage: 'radial-gradient(circle at center, rgba(240,200,62,0.05) 0%, transparent 70%)',
-                      }} />
-                    </div>
-                    <div className="text-center p-8 relative z-10">
-                      <div className="w-32 h-32 mx-auto border-2 border-bone/20 rounded-full flex items-center justify-center mb-4">
-                        <div className="text-bone/40 text-sm uppercase tracking-widest">Vinyl</div>
-                      </div>
-                      <p className="text-bone/60 text-sm uppercase tracking-wide">{homePage.albumTitle}</p>
-                    </div>
-                  </div>
-                )}
-              </AnimatedSection>
-              <AnimatedSection animation="slideRight" delay={0.3}>
-                {(homePage.albumYear || homePage.albumFormat) && (
-                  <p className="text-2xl mb-6 text-amber-600 font-semibold">
-                    {[homePage.albumYear, homePage.albumFormat].filter(Boolean).join(' • ')}
-                  </p>
-                )}
-                <p className="text-lg mb-8 leading-relaxed text-bone/80">
-                  {homePage.albumDescription}
-                </p>
-                {homePage.albumFeatures && homePage.albumFeatures.length > 0 && (
-                  <div className="space-y-4">
-                    {homePage.albumFeatures.map((feature: string, index: number) => (
-                      <div key={index} className="flex items-center gap-3">
-                        <div className="w-1 h-1 bg-amber-600 rounded-full"></div>
-                        <span>{feature}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </AnimatedSection>
-            </div>
+            <ImageRevealScroll
+              imageSrc="/images/performance/stage-main.png"
+              imageAlt="Kivett Bednar live on stage"
+              direction="up"
+            />
           </div>
         </div>
       </section>
 
       {/* Floating Image Gallery with Parallax */}
-      <section className="bg-gradient-to-b from-charcoal-900 via-midnight-500/50 to-bone">
+      <section className="bg-gradient-to-b from-midnight-500 via-charcoal-900/50 to-bone py-32">
+        <div className="container mx-auto px-4 mb-16">
+          <AnimatedSection animation="fadeIn">
+            <h2 className="text-5xl font-bold text-center text-bone mb-4">
+              Gallery
+            </h2>
+            <p className="text-xl text-center text-bone/70">
+              Moments from the stage and studio
+            </p>
+          </AnimatedSection>
+        </div>
         <FloatingGallery
           images={[
             {
@@ -181,21 +170,21 @@ export default async function HomePage() {
             },
             {
               src: '/images/hero/guitar-red.jpg',
-              alt: 'Red electric guitar close-up',
+              alt: 'Performance with dramatic red lighting',
               width: 1200,
               height: 900,
             },
             {
-              src: '/images/hero/performance-orpheum.jpg',
+              src: '/images/performance/orpheum-main.jpg',
               alt: 'Blues performance at the Orpheum',
               width: 1510,
               height: 1249,
             },
             {
-              src: '/images/hero/rae-gordon-album-opt.jpg',
-              alt: 'Rae Gordon Band album cover',
-              width: 1000,
-              height: 1000,
+              src: '/images/performance/waltz-brewing-promo.jpg',
+              alt: 'Professional promo shot',
+              width: 1200,
+              height: 1200,
             },
           ]}
         />

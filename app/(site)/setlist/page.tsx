@@ -4,6 +4,7 @@ import {sanityFetch} from '@/sanity/lib/live'
 import {setlistPageQuery, allSongsQuery} from '@/sanity/lib/queries'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
+import {ImageRevealScroll} from '@/components/ui/ImageRevealScroll'
 
 export const metadata: Metadata = {
   title: 'Blues Set List | Kivett Bednar',
@@ -23,7 +24,22 @@ export default async function SetlistPage() {
         title={setlistPage?.heroHeading || 'Blues Setlist'}
         subtitle={songs && songs.length > 0 ? `${songs.length} timeless classics from the great American songbook` : undefined}
         variant="setlist"
+        backgroundImage="/images/gallery/orpheum-performance.jpg"
+        backgroundAlt="Kivett Bednar performing blues classics"
       />
+
+      {/* Image Reveal - Blues Performance */}
+      <section className="bg-gradient-to-b from-bone to-charcoal-900/5 py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <ImageRevealScroll
+              imageSrc="/images/performance/orpheum-main.jpg"
+              imageAlt="Kivett performing blues classics"
+              direction="right"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Content Section */}
       <div className="bg-bone py-24">
@@ -32,9 +48,11 @@ export default async function SetlistPage() {
             {/* Intro text */}
             {setlistPage?.introText && (
               <div className="max-w-3xl mx-auto text-center mb-16">
-                <p className="text-2xl text-charcoal-900/80 leading-relaxed whitespace-pre-wrap">
-                  {setlistPage.introText}
-                </p>
+                <AnimatedSection animation="fadeIn">
+                  <p className="text-2xl text-charcoal-900/80 leading-relaxed whitespace-pre-wrap">
+                    {setlistPage.introText}
+                  </p>
+                </AnimatedSection>
               </div>
             )}
 
@@ -66,10 +84,29 @@ export default async function SetlistPage() {
                 ))}
               </div>
             )}
+          </div>
+        </div>
+      </div>
 
-            {/* CTA Section */}
-            {(setlistPage?.ctaHeading || setlistPage?.ctaText) && (
-              <div className="mt-24 relative">
+      {/* Image Reveal - Guitar */}
+      <section className="bg-gradient-to-b from-bone to-midnight-500/10 py-16">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto">
+            <ImageRevealScroll
+              imageSrc="/images/portraits/guild-shirt.jpg"
+              imageAlt="Kivett with Guild guitar"
+              direction="left"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      {(setlistPage?.ctaHeading || setlistPage?.ctaText) && (
+        <section className="bg-gradient-to-b from-midnight-500/10 to-charcoal-900 py-24">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <AnimatedSection animation="scaleIn">
                 <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-12 text-center text-bone border-2 border-amber-600/20">
                   {setlistPage.ctaHeading && (
                     <h2 className="text-4xl font-bold mb-4">
@@ -96,11 +133,11 @@ export default async function SetlistPage() {
                     </Link>
                   </div>
                 </div>
-              </div>
-            )}
+              </AnimatedSection>
+            </div>
           </div>
-        </div>
-      </div>
+        </section>
+      )}
     </div>
   )
 }

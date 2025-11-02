@@ -4,6 +4,9 @@ import {ContactForm} from '@/components/ui/ContactForm'
 import {sanityFetch} from '@/sanity/lib/live'
 import {contactPageQuery, settingsQuery} from '@/sanity/lib/queries'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
+import {ImageRevealScroll} from '@/components/ui/ImageRevealScroll'
+import {StaggeredImageGrid} from '@/components/ui/StaggeredImageGrid'
+import {AnimatedSection} from '@/components/animations/AnimatedSection'
 
 export const metadata: Metadata = {
   title: 'Contact | Kivett Bednar',
@@ -23,6 +26,8 @@ export default async function ContactPage() {
         title={contactPage?.heroHeading || 'Get in Touch'}
         subtitle={contactPage?.heroSubheading}
         variant="contact"
+        backgroundImage="/images/gallery/hero-stage-compressed.jpg"
+        backgroundAlt="Kivett Bednar on stage"
       />
 
       {/* Content */}
@@ -106,6 +111,57 @@ export default async function ContactPage() {
           </div>
         </div>
       </div>
+
+      {/* Portrait Image Section */}
+      <section className="bg-gradient-to-b from-bone to-charcoal-900 py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto mb-16">
+            <AnimatedSection animation="fadeIn">
+              <h2 className="text-5xl font-bold text-center text-bone mb-16">
+                About Kivett
+              </h2>
+            </AnimatedSection>
+            <ImageRevealScroll
+              imageSrc="/images/performance/waltz-brewing-promo.jpg"
+              imageAlt="Kivett Bednar portrait"
+              direction="up"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Portrait Grid */}
+      <section className="bg-charcoal-900 py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <StaggeredImageGrid
+              images={[
+                {
+                  src: '/images/portraits/guild-shirt.jpg',
+                  alt: 'Kivett with Guild guitar',
+                  caption: 'Blues Musician',
+                },
+                {
+                  src: '/images/gallery/guitar-portrait.jpg',
+                  alt: 'Portrait with guitar',
+                  caption: 'Guitar Teacher',
+                },
+                {
+                  src: '/images/hero/guitar-red.jpg',
+                  alt: 'Performance shot',
+                  caption: 'Live Performer',
+                },
+                {
+                  src: '/images/performance/stage-main.png',
+                  alt: 'On stage',
+                  caption: 'Pacific Northwest Blues',
+                },
+              ]}
+              columns={2}
+            />
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
