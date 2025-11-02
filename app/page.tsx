@@ -5,7 +5,7 @@ import {sanityFetch} from '@/sanity/lib/live'
 import {upcomingEventsQuery, homePageQuery} from '@/sanity/lib/queries'
 import {EventCard} from '@/components/ui/EventCard'
 import {HeroSlider} from '@/components/ui/HeroSlider'
-import {urlFor} from '@/sanity/lib/utils'
+import {AnimatedSection} from '@/components/animations/AnimatedSection'
 
 export const metadata: Metadata = {
   title: 'Kivett Bednar | Blues Guitarist & Musician',
@@ -49,7 +49,7 @@ export default async function HomePage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
+              <AnimatedSection animation="slideLeft">
                 <h2 className="text-5xl font-bold mb-6 text-charcoal-900">
                   {homePage.aboutHeading}
                 </h2>
@@ -65,30 +65,32 @@ export default async function HomePage() {
                     <span>→</span>
                   </Link>
                 </div>
-              </div>
-              {homePage.aboutImage?.asset ? (
-                <div className="relative rounded-lg aspect-square overflow-hidden border border-amber-600/20">
-                  <Image
-                    src={urlFor(homePage.aboutImage.asset).width(600).height(600).url()}
-                    alt={homePage.aboutImage.alt || 'Kivett Bednar'}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-              ) : (
-                <div className="relative bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-lg aspect-square flex items-center justify-center overflow-hidden border border-amber-600/20">
-                  <div className="absolute inset-0 opacity-20">
-                    <div className="absolute inset-0" style={{
-                      backgroundImage: 'linear-gradient(45deg, transparent 45%, rgba(240,200,62,0.1) 50%, transparent 55%)',
-                      backgroundSize: '20px 20px'
-                    }} />
+              </AnimatedSection>
+              <AnimatedSection animation="slideRight" delay={0.2}>
+                {homePage.aboutImage?.asset?.url ? (
+                  <div className="relative rounded-lg aspect-square overflow-hidden border border-amber-600/20">
+                    <Image
+                      src={homePage.aboutImage.asset.url}
+                      alt={homePage.aboutImage.alt || 'Kivett Bednar'}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
                   </div>
-                  <div className="text-center p-8 relative z-10">
-                    <div className="text-bone/40 text-sm uppercase tracking-widest">Photo</div>
+                ) : (
+                  <div className="relative bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-lg aspect-square flex items-center justify-center overflow-hidden border border-amber-600/20">
+                    <div className="absolute inset-0 opacity-20">
+                      <div className="absolute inset-0" style={{
+                        backgroundImage: 'linear-gradient(45deg, transparent 45%, rgba(240,200,62,0.1) 50%, transparent 55%)',
+                        backgroundSize: '20px 20px'
+                      }} />
+                    </div>
+                    <div className="text-center p-8 relative z-10">
+                      <div className="text-bone/40 text-sm uppercase tracking-widest">Photo</div>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </AnimatedSection>
             </div>
           </div>
         </div>
@@ -98,34 +100,38 @@ export default async function HomePage() {
       <section className="py-24 bg-charcoal-900 text-bone">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-5xl font-bold mb-12 text-center">{homePage.albumTitle}</h2>
+            <AnimatedSection animation="fadeIn">
+              <h2 className="text-5xl font-bold mb-12 text-center">{homePage.albumTitle}</h2>
+            </AnimatedSection>
             <div className="grid md:grid-cols-2 gap-12 items-center">
-              {homePage.albumImage?.asset ? (
-                <div className="relative rounded-lg aspect-square overflow-hidden border-2 border-amber-600/30">
-                  <Image
-                    src={urlFor(homePage.albumImage.asset).width(600).height(600).url()}
-                    alt={homePage.albumImage.alt || homePage.albumTitle}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
-                </div>
-              ) : (
-                <div className="relative bg-midnight-500/30 rounded-lg aspect-square flex items-center justify-center border-2 border-amber-600/30 overflow-hidden">
-                  <div className="absolute inset-0">
-                    <div className="absolute inset-0" style={{
-                      backgroundImage: 'radial-gradient(circle at center, rgba(240,200,62,0.05) 0%, transparent 70%)',
-                    }} />
+              <AnimatedSection animation="scaleIn" delay={0.2}>
+                {homePage.albumImage?.asset?.url ? (
+                  <div className="relative rounded-lg aspect-square overflow-hidden border-2 border-amber-600/30">
+                    <Image
+                      src={homePage.albumImage.asset.url}
+                      alt={homePage.albumImage.alt || homePage.albumTitle}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
                   </div>
-                  <div className="text-center p-8 relative z-10">
-                    <div className="w-32 h-32 mx-auto border-2 border-bone/20 rounded-full flex items-center justify-center mb-4">
-                      <div className="text-bone/40 text-sm uppercase tracking-widest">Vinyl</div>
+                ) : (
+                  <div className="relative bg-midnight-500/30 rounded-lg aspect-square flex items-center justify-center border-2 border-amber-600/30 overflow-hidden">
+                    <div className="absolute inset-0">
+                      <div className="absolute inset-0" style={{
+                        backgroundImage: 'radial-gradient(circle at center, rgba(240,200,62,0.05) 0%, transparent 70%)',
+                      }} />
                     </div>
-                    <p className="text-bone/60 text-sm uppercase tracking-wide">{homePage.albumTitle}</p>
+                    <div className="text-center p-8 relative z-10">
+                      <div className="w-32 h-32 mx-auto border-2 border-bone/20 rounded-full flex items-center justify-center mb-4">
+                        <div className="text-bone/40 text-sm uppercase tracking-widest">Vinyl</div>
+                      </div>
+                      <p className="text-bone/60 text-sm uppercase tracking-wide">{homePage.albumTitle}</p>
+                    </div>
                   </div>
-                </div>
-              )}
-              <div>
+                )}
+              </AnimatedSection>
+              <AnimatedSection animation="slideRight" delay={0.3}>
                 {(homePage.albumYear || homePage.albumFormat) && (
                   <p className="text-2xl mb-6 text-amber-600 font-semibold">
                     {[homePage.albumYear, homePage.albumFormat].filter(Boolean).join(' • ')}
@@ -144,7 +150,7 @@ export default async function HomePage() {
                     ))}
                   </div>
                 )}
-              </div>
+              </AnimatedSection>
             </div>
           </div>
         </div>
@@ -155,18 +161,22 @@ export default async function HomePage() {
         <section className="py-24 bg-bone">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <div className="flex justify-between items-end mb-12">
-                <h2 className="text-5xl font-bold text-charcoal-900">Upcoming Shows</h2>
-                <Link
-                  href="/shows"
-                  className="text-midnight-500 font-semibold hover:text-amber-600 transition-colors"
-                >
-                  See all shows →
-                </Link>
-              </div>
+              <AnimatedSection animation="fadeIn">
+                <div className="flex justify-between items-end mb-12">
+                  <h2 className="text-5xl font-bold text-charcoal-900">Upcoming Shows</h2>
+                  <Link
+                    href="/shows"
+                    className="text-midnight-500 font-semibold hover:text-amber-600 transition-colors"
+                  >
+                    See all shows →
+                  </Link>
+                </div>
+              </AnimatedSection>
               <div className="grid gap-8">
-                {events.slice(0, 3).map((event: any) => (
-                  <EventCard key={event._id} event={event} />
+                {events.slice(0, 3).map((event: any, index: number) => (
+                  <AnimatedSection key={event._id} animation="fadeUp" delay={0.1 * index}>
+                    <EventCard event={event} />
+                  </AnimatedSection>
                 ))}
               </div>
             </div>
@@ -177,16 +187,18 @@ export default async function HomePage() {
       {/* CTA Section */}
       <section className="py-24 bg-gradient-to-br from-midnight-500 to-charcoal-900 text-bone">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-5xl font-bold mb-6">{homePage.ctaLessonsHeading}</h2>
-          <p className="text-xl mb-12 max-w-2xl mx-auto text-bone/80">
-            {homePage.ctaLessonsText}
-          </p>
-          <Link
-            href="/lessons"
-            className="inline-block px-8 py-4 bg-amber-600 text-charcoal-900 font-bold rounded-lg hover:bg-amber-500 transition-all transform hover:scale-105 text-lg"
-          >
-            Schedule Your First Lesson
-          </Link>
+          <AnimatedSection animation="fadeUp">
+            <h2 className="text-5xl font-bold mb-6">{homePage.ctaLessonsHeading}</h2>
+            <p className="text-xl mb-12 max-w-2xl mx-auto text-bone/80">
+              {homePage.ctaLessonsText}
+            </p>
+            <Link
+              href="/lessons"
+              className="inline-block px-8 py-4 bg-amber-600 text-charcoal-900 font-bold rounded-lg hover:bg-amber-500 transition-all transform hover:scale-105 text-lg"
+            >
+              Schedule Your First Lesson
+            </Link>
+          </AnimatedSection>
         </div>
       </section>
     </div>

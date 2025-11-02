@@ -2,6 +2,7 @@ import {Metadata} from 'next'
 import Link from 'next/link'
 import {sanityFetch} from '@/sanity/lib/live'
 import {setlistPageQuery, allSongsQuery} from '@/sanity/lib/queries'
+import {AnimatedSection} from '@/components/animations/AnimatedSection'
 
 export const metadata: Metadata = {
   title: 'Blues Set List | Kivett Bednar',
@@ -60,24 +61,27 @@ export default async function SetlistPage() {
             {songs && songs.length > 0 && (
               <div className="grid md:grid-cols-2 gap-x-16 gap-y-6">
                 {songs.map((song: any, index: number) => (
-                  <div
+                  <AnimatedSection
                     key={song._id}
-                    className="group relative"
+                    animation="fadeUp"
+                    delay={0.05 * index}
                   >
-                    <div className="flex items-baseline justify-between py-4 border-b-2 border-charcoal-900/10 group-hover:border-amber-600/50 transition-all duration-300">
-                      <div className="flex items-baseline gap-4">
-                        <span className="text-charcoal-900/40 font-mono text-sm w-8">
-                          {(index + 1).toString().padStart(2, '0')}
-                        </span>
-                        <span className="text-xl font-semibold text-charcoal-900 group-hover:text-midnight-500 transition-colors">
-                          {song.title}
+                    <div className="group relative">
+                      <div className="flex items-baseline justify-between py-4 border-b-2 border-charcoal-900/10 group-hover:border-amber-600/50 transition-all duration-300">
+                        <div className="flex items-baseline gap-4">
+                          <span className="text-charcoal-900/40 font-mono text-sm w-8">
+                            {(index + 1).toString().padStart(2, '0')}
+                          </span>
+                          <span className="text-xl font-semibold text-charcoal-900 group-hover:text-midnight-500 transition-colors">
+                            {song.title}
+                          </span>
+                        </div>
+                        <span className="text-lg font-mono text-amber-600 font-bold ml-4 shrink-0">
+                          {song.key}
                         </span>
                       </div>
-                      <span className="text-lg font-mono text-amber-600 font-bold ml-4 shrink-0">
-                        {song.key}
-                      </span>
                     </div>
-                  </div>
+                  </AnimatedSection>
                 ))}
               </div>
             )}

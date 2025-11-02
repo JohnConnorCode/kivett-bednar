@@ -3,7 +3,6 @@
 import {useState, useEffect} from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import {urlFor} from '@/sanity/lib/utils'
 
 interface HeroSlide {
   _key: string
@@ -56,9 +55,9 @@ export function HeroSlider({
               index === currentSlide ? 'animate-ken-burns' : ''
             }`}
           >
-            {slide.image?.asset && (
+            {slide.image?.asset?.url && (
               <Image
-                src={urlFor(slide.image.asset).width(1920).height(1080).url()}
+                src={slide.image.asset.url}
                 alt={slide.alt || slide.image.alt || 'Kivett Bednar'}
                 fill
                 className="object-cover"
@@ -68,36 +67,38 @@ export function HeroSlider({
               />
             )}
           </div>
-          {/* Strong dark overlay for readability */}
-          <div className="absolute inset-0 bg-gradient-to-b from-charcoal-900/90 via-charcoal-900/75 to-charcoal-900/95" />
-          <div className="absolute inset-0 bg-charcoal-900/40" />
+          {/* Dramatic overlays for readability and atmosphere */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-midnight-500/30 via-transparent to-amber-600/20" />
         </div>
       ))}
 
       {/* Animated Content */}
       <div className="relative z-10 container mx-auto px-4 text-center text-bone">
         <h1
-          className={`text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight transform transition-all duration-1000 ${
+          className={`text-7xl md:text-8xl lg:text-9xl font-bold mb-6 tracking-tight transform transition-all duration-1000 ${
             isLoaded
               ? 'translate-y-0 opacity-100'
               : 'translate-y-8 opacity-0'
           }`}
           style={{
             transitionDelay: '200ms',
-            textShadow: '0 4px 20px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.8), 0 8px 40px rgba(0,0,0,0.6)'
+            textShadow: '0 0 40px rgba(240,200,62,0.5), 0 4px 20px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.8), 0 8px 40px rgba(0,0,0,0.6)',
+            filter: 'drop-shadow(0 0 30px rgba(240,200,62,0.3))'
           }}
         >
           {heading}
         </h1>
         <p
-          className={`text-2xl md:text-3xl lg:text-4xl mb-8 font-light tracking-wide text-amber-500 transform transition-all duration-1000 ${
+          className={`text-3xl md:text-4xl lg:text-5xl mb-8 font-medium tracking-wide text-amber-400 transform transition-all duration-1000 ${
             isLoaded
               ? 'translate-y-0 opacity-100'
               : 'translate-y-8 opacity-0'
           }`}
           style={{
             transitionDelay: '400ms',
-            textShadow: '0 2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.7)'
+            textShadow: '0 0 30px rgba(240,200,62,0.6), 0 2px 10px rgba(0,0,0,0.9), 0 4px 20px rgba(0,0,0,0.7)',
+            filter: 'drop-shadow(0 0 20px rgba(240,200,62,0.4))'
           }}
         >
           {subheading}
@@ -125,17 +126,25 @@ export function HeroSlider({
         >
           <Link
             href="/shows"
-            className="group relative px-8 py-4 bg-amber-600 text-charcoal-900 font-bold rounded-lg overflow-hidden text-lg shadow-2xl transform transition-all duration-300 hover:scale-105 hover:shadow-amber-600/50"
+            className="group relative px-10 py-5 bg-amber-600 text-black font-bold rounded-lg overflow-hidden text-xl shadow-2xl transform transition-all duration-300 hover:scale-110"
+            style={{
+              boxShadow: '0 0 40px rgba(240,200,62,0.5), 0 10px 30px rgba(0,0,0,0.5)',
+              filter: 'drop-shadow(0 0 20px rgba(240,200,62,0.4))'
+            }}
           >
             <span className="relative z-10">See Live Shows</span>
             <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-amber-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </Link>
           <Link
             href="/lessons"
-            className="group relative px-8 py-4 border-2 border-bone text-bone font-semibold rounded-lg overflow-hidden text-lg backdrop-blur-sm transform transition-all duration-300 hover:scale-105"
+            className="group relative px-10 py-5 border-3 border-amber-600 text-bone font-bold rounded-lg overflow-hidden text-xl backdrop-blur-sm transform transition-all duration-300 hover:scale-110"
+            style={{
+              boxShadow: '0 0 30px rgba(240,200,62,0.3), 0 10px 30px rgba(0,0,0,0.5)',
+              filter: 'drop-shadow(0 0 15px rgba(240,200,62,0.2))'
+            }}
           >
             <span className="relative z-10">Book a Lesson</span>
-            <div className="absolute inset-0 bg-bone/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-amber-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </Link>
         </div>
       </div>

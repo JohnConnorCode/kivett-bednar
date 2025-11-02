@@ -47,7 +47,7 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
   _id,
   heroSlides[]{
     _key,
-    image{asset->, alt},
+    image{asset->{_id, url}, alt},
     alt
   },
   heroHeading,
@@ -55,12 +55,12 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
   heroTagline,
   aboutHeading,
   aboutText,
-  aboutImage{asset->, alt},
+  aboutImage{asset->{_id, url}, alt},
   albumTitle,
   albumYear,
   albumFormat,
   albumDescription,
-  albumImage{asset->, alt},
+  albumImage{asset->{_id, url}, alt},
   albumFeatures,
   ctaLessonsHeading,
   ctaLessonsText

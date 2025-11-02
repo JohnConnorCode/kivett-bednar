@@ -70,13 +70,13 @@ async function populateContent() {
     // 2. HOME PAGE
     console.log('📝 Creating Home Page document...')
 
-    // Upload hero images
+    // Upload hero images (optimized versions)
     console.log('  Uploading hero images...')
     const heroImages = [
-      '/Users/johnconnor/Documents/GitHub/Kivett2/public/images/hero/background-1.png',
+      '/Users/johnconnor/Documents/GitHub/Kivett2/public/images/hero/background-1.jpg',
       '/Users/johnconnor/Documents/GitHub/Kivett2/public/images/hero/performance-orpheum.jpg',
       '/Users/johnconnor/Documents/GitHub/Kivett2/public/images/hero/guitar-red.jpg',
-      '/Users/johnconnor/Documents/GitHub/Kivett2/public/images/hero/rae-gordon-album.jpg',
+      '/Users/johnconnor/Documents/GitHub/Kivett2/public/images/hero/rae-gordon-album-opt.jpg',
     ]
 
     const uploadedImages = []

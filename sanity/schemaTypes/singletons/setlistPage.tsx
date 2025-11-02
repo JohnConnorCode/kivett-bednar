@@ -1,4 +1,4 @@
-import {BulletListIcon} from '@sanity/icons'
+import {DocumentIcon} from '@sanity/icons'
 import {defineField, defineType} from 'sanity'
 
 /**
@@ -9,7 +9,7 @@ export const setlistPage = defineType({
   name: 'setlistPage',
   title: 'Setlist Page',
   type: 'document',
-  icon: BulletListIcon,
+  icon: DocumentIcon,
   fields: [
     defineField({
       name: 'heroHeading',

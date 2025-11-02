@@ -180,6 +180,7 @@ export default {
       fontFamily: {
         sans: ['var(--font-inter)'],
         display: ['var(--font-display)', 'serif'],
+        heading: ['var(--font-oswald)', 'sans-serif'],
       },
       borderRadius: {
         lg: 'var(--radius)',

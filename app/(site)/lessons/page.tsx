@@ -1,6 +1,7 @@
 import {Metadata} from 'next'
 import {sanityFetch} from '@/sanity/lib/live'
 import {lessonsPageQuery, settingsQuery} from '@/sanity/lib/queries'
+import {AnimatedSection} from '@/components/animations/AnimatedSection'
 
 export const metadata: Metadata = {
   title: 'Lessons | Kivett Bednar',
@@ -62,16 +63,17 @@ export default async function LessonsPage() {
           <div className="max-w-6xl mx-auto">
             {/* Teaching Philosophy */}
             <div className="grid lg:grid-cols-2 gap-16 mb-24">
-              <div>
+              <AnimatedSection animation="slideLeft">
                 <h2 className="text-5xl font-bold mb-8 text-charcoal-900">
                   {lessonsPage.philosophyHeading}
                 </h2>
                 <div className="space-y-6 text-xl text-charcoal-900/80 leading-relaxed whitespace-pre-wrap">
                   {lessonsPage.philosophyText}
                 </div>
-              </div>
+              </AnimatedSection>
 
-              <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-12 text-bone flex flex-col justify-center border-2 border-amber-600/20">
+              <AnimatedSection animation="slideRight" delay={0.2}>
+                <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-12 text-bone flex flex-col justify-center border-2 border-amber-600/20">
                 <h3 className="text-3xl font-bold mb-6">{lessonsPage.ctaBoxHeading}</h3>
                 <p className="text-lg mb-8 text-bone/80">
                   {lessonsPage.ctaBoxText}
@@ -96,27 +98,32 @@ export default async function LessonsPage() {
                     </a>
                   )}
                 </div>
-              </div>
+                </div>
+              </AnimatedSection>
             </div>
 
             {/* What You'll Learn */}
             {lessonsPage.learningItems && lessonsPage.learningItems.length > 0 && (
-              <div className="bg-white rounded-2xl p-12 border-2 border-charcoal-900/10">
-                <h2 className="text-4xl font-bold mb-12 text-center text-charcoal-900">
-                  What You&apos;ll Learn
-                </h2>
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {lessonsPage.learningItems.map((item: any, index: number) => (
-                    <div key={item._key || index} className="text-center group">
-                      <div className="w-12 h-12 mx-auto mb-4 rounded-full border-2 border-midnight-500/20 flex items-center justify-center text-midnight-500 font-bold text-lg group-hover:border-amber-600 group-hover:text-amber-600 transition-colors">
-                        {index + 1}
-                      </div>
-                      <h3 className="text-2xl font-bold mb-3 text-charcoal-900">{item.title}</h3>
-                      <p className="text-charcoal-900/70 leading-relaxed">{item.description}</p>
-                    </div>
-                  ))}
+              <AnimatedSection animation="fadeIn">
+                <div className="bg-white rounded-2xl p-12 border-2 border-charcoal-900/10">
+                  <h2 className="text-4xl font-bold mb-12 text-center text-charcoal-900">
+                    What You&apos;ll Learn
+                  </h2>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {lessonsPage.learningItems.map((item: any, index: number) => (
+                      <AnimatedSection key={item._key || index} animation="scaleIn" delay={0.15 * index}>
+                        <div className="text-center group">
+                          <div className="w-12 h-12 mx-auto mb-4 rounded-full border-2 border-midnight-500/20 flex items-center justify-center text-midnight-500 font-bold text-lg group-hover:border-amber-600 group-hover:text-amber-600 transition-colors">
+                            {index + 1}
+                          </div>
+                          <h3 className="text-2xl font-bold mb-3 text-charcoal-900">{item.title}</h3>
+                          <p className="text-charcoal-900/70 leading-relaxed">{item.description}</p>
+                        </div>
+                      </AnimatedSection>
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </AnimatedSection>
             )}
           </div>
         </div>
