@@ -14,7 +14,7 @@
   --color-text-muted: #888888;
 
   /* Accent Colors - Strategic bright colors */
-  --color-accent-primary: #F0C419; /* Gold - sparingly */
+  --color-accent-primary: #D4AF37; /* Metallic Gold - authentic gold color */
   --color-accent-secondary: #4a9eff; /* Electric blue */
   --color-accent-red: #a71a19; /* Deep red option */
 
@@ -32,18 +32,18 @@
   --color-card-foreground: #ffffff;
   --color-popover: #1a1a1a;
   --color-popover-foreground: #ffffff;
-  --color-primary: #F0C419;
+  --color-primary: #D4AF37;
   --color-primary-foreground: #000000;
   --color-secondary: #26262e;
   --color-secondary-foreground: #ffffff;
   --color-muted: #26262e;
   --color-muted-foreground: #888888;
-  --color-accent: #F0C419;
+  --color-accent: #D4AF37;
   --color-accent-foreground: #000000;
   --color-destructive: #a71a19;
   --color-destructive-foreground: #ffffff;
   --color-input: #26262e;
-  --color-ring: #F0C419;
+  --color-ring: #D4AF37;
 
   --default-transition-duration: 300ms;
   --radius: 0;
