@@ -51,7 +51,7 @@ async function populateContent() {
         },
       ],
       contactEmail: 'kivettbednar@gmail.com',
-      bookingUrl: 'https://helpwith.co',
+      bookingUrl: '',
       socialLinks: [
         {
           _key: 'facebook',

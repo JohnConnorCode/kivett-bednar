@@ -34,6 +34,8 @@ export default async function LessonsPage() {
         variant="lessons"
         backgroundImage={lessonsPage.heroImage?.asset?.url || '/images/gallery/guitar-portrait.jpg'}
         backgroundAlt={lessonsPage.heroImage?.alt || 'Kivett Bednar with guitar'}
+        desktopPosition={lessonsPage.heroImage?.desktopPosition}
+        mobilePosition={lessonsPage.heroImage?.mobilePosition}
       />
 
       {/* Teaching Philosophy - Split Screen */}

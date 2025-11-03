@@ -116,7 +116,7 @@ Not just a musician—builds custom tube amps, creates visual art, and keeps the
         ],
 
         ctaLessonsHeading: 'Learn Authentic Blues Guitar',
-        ctaLessonsText: 'Twenty years teaching experience. Berklee College of Music, magna cum laude. Build solid foundations in blues techniques, theory, and improvisation. Lessons via helpwith.co or direct contact.',
+        ctaLessonsText: 'Twenty years teaching experience. Berklee College of Music, magna cum laude. Build solid foundations in blues techniques, theory, and improvisation.',
 
         // New parallax section
         parallaxHeading: 'Gritty Texas Blues',

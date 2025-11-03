@@ -11,6 +11,8 @@ interface AnimatedHeroProps {
   variant?: 'lessons' | 'shows' | 'contact' | 'setlist'
   backgroundImage?: SanityImageWithPositioning | string
   backgroundAlt?: string
+  desktopPosition?: string
+  mobilePosition?: string
 }
 
 export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImage, backgroundAlt}: AnimatedHeroProps) {

@@ -103,6 +103,7 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
   heroHeading,
   heroSubheading,
   heroTagline,
+  heroButtonText,
   aboutHeading,
   aboutText,
   aboutImage{
@@ -173,9 +174,26 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
   seeAllShowsLinkText,
   aboutButtonText,
   ctaLessonsButtonText,
+  featuredVideoHeading,
+  featuredVideoSubheading,
   featuredVideoUrl,
+  bookingSectionHeading,
+  bookingSectionIntro,
+  bookingInquiriesHeading,
+  bookingInquiriesText,
+  bookingInquiryListHeading,
+  bookingInquiryItems,
+  bookingPerfectForHeading,
+  bookingEventTypes,
+  bookingTestimonialQuote,
+  bookingTestimonialAttribution,
+  studioSectionHeading,
+  studioSectionSubheading,
   studioVideo1Url,
-  studioVideo2Url
+  studioVideo2Url,
+  newsletterHeading,
+  newsletterText,
+  heroButtonText
 }`)
 
 // Lessons Page
@@ -216,12 +234,16 @@ export const contactPageQuery = defineQuery(`*[_type == "contactPage"][0]{
   },
   formHeading,
   directContactHeading,
+  directContactDescription,
   socialHeading,
   quickLinksHeading,
   aboutHeading,
   quickLinkShowsText,
   quickLinkLessonsText,
-  quickLinkSetlistText
+  quickLinkSetlistText,
+  ctaSectionHeading,
+  ctaSectionText,
+  ctaSectionButtonText
 }`)
 
 // Setlist Page
@@ -259,6 +281,22 @@ export const showsPageQuery = defineQuery(`*[_type == "showsPage"][0]{
   showCountPrefix,
   showSingular,
   showPlural
+}`)
+
+// Merch Page
+export const merchPageQuery = defineQuery(`*[_type == "merchPage"][0]{
+  _id,
+  heroHeading,
+  heroSubheading,
+  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},
+  emptyStateHeading,
+  emptyStateText,
+  emptyStateButton1Text,
+  emptyStateButton1Link,
+  emptyStateButton2Text,
+  emptyStateButton2Link,
+  contentHeading,
+  contentSubheading
 }`)
 
 // Songs

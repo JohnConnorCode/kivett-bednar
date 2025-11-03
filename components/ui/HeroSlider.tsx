@@ -28,6 +28,7 @@ export function HeroSlider({
   heading = 'Kivett Bednar',
   subheading = 'Blues • Guitar • Portland',
   tagline = 'Gritty Texas Blues meets the heart of the Pacific Northwest',
+  buttonText = 'See Live Shows',
 }: HeroSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -205,7 +206,7 @@ export function HeroSlider({
             href="/shows"
             className="btn-primary text-xl px-10 py-5"
           >
-            See Live Shows
+            {buttonText}
           </Link>
         </motion.div>
       </div>

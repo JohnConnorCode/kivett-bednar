@@ -3007,6 +3007,279 @@
     }
   },
   {
+    "name": "merchPage",
+    "type": "document",
+    "attributes": {
+      "_id": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_type": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string",
+          "value": "merchPage"
+        }
+      },
+      "_createdAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_updatedAt": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "_rev": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        }
+      },
+      "heroHeading": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "heroSubheading": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "heroImage": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "object",
+          "attributes": {
+            "asset": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "object",
+                "attributes": {
+                  "_ref": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string"
+                    }
+                  },
+                  "_type": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "string",
+                      "value": "reference"
+                    }
+                  },
+                  "_weak": {
+                    "type": "objectAttribute",
+                    "value": {
+                      "type": "boolean"
+                    },
+                    "optional": true
+                  }
+                },
+                "dereferencesTo": "sanity.imageAsset"
+              },
+              "optional": true
+            },
+            "media": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "unknown"
+              },
+              "optional": true
+            },
+            "hotspot": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageHotspot"
+              },
+              "optional": true
+            },
+            "crop": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "inline",
+                "name": "sanity.imageCrop"
+              },
+              "optional": true
+            },
+            "alt": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string"
+              },
+              "optional": true
+            },
+            "desktopPosition": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "union",
+                "of": [
+                  {
+                    "type": "string",
+                    "value": "top-left"
+                  },
+                  {
+                    "type": "string",
+                    "value": "top-center"
+                  },
+                  {
+                    "type": "string",
+                    "value": "top-right"
+                  },
+                  {
+                    "type": "string",
+                    "value": "center-left"
+                  },
+                  {
+                    "type": "string",
+                    "value": "center"
+                  },
+                  {
+                    "type": "string",
+                    "value": "center-right"
+                  },
+                  {
+                    "type": "string",
+                    "value": "bottom-left"
+                  },
+                  {
+                    "type": "string",
+                    "value": "bottom-center"
+                  },
+                  {
+                    "type": "string",
+                    "value": "bottom-right"
+                  }
+                ]
+              },
+              "optional": true
+            },
+            "mobilePosition": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "union",
+                "of": [
+                  {
+                    "type": "string",
+                    "value": "top-left"
+                  },
+                  {
+                    "type": "string",
+                    "value": "top-center"
+                  },
+                  {
+                    "type": "string",
+                    "value": "top-right"
+                  },
+                  {
+                    "type": "string",
+                    "value": "center-left"
+                  },
+                  {
+                    "type": "string",
+                    "value": "center"
+                  },
+                  {
+                    "type": "string",
+                    "value": "center-right"
+                  },
+                  {
+                    "type": "string",
+                    "value": "bottom-left"
+                  },
+                  {
+                    "type": "string",
+                    "value": "bottom-center"
+                  },
+                  {
+                    "type": "string",
+                    "value": "bottom-right"
+                  }
+                ]
+              },
+              "optional": true
+            },
+            "_type": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "string",
+                "value": "image"
+              }
+            }
+          }
+        },
+        "optional": true
+      },
+      "emptyStateHeading": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "emptyStateText": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "emptyStateButton1Text": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "emptyStateButton1Link": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "emptyStateButton2Text": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "emptyStateButton2Link": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "contentHeading": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "contentSubheading": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      }
+    }
+  },
+  {
     "name": "setlistPage",
     "type": "document",
     "attributes": {
@@ -3641,6 +3914,13 @@
         },
         "optional": true
       },
+      "directContactDescription": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "socialHeading": {
         "type": "objectAttribute",
         "value": {
@@ -3677,6 +3957,27 @@
         "optional": true
       },
       "quickLinkSetlistText": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "ctaSectionHeading": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "ctaSectionText": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "ctaSectionButtonText": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
@@ -3796,6 +4097,96 @@
               "type": "objectAttribute",
               "value": {
                 "type": "string"
+              },
+              "optional": true
+            },
+            "desktopPosition": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "union",
+                "of": [
+                  {
+                    "type": "string",
+                    "value": "top-left"
+                  },
+                  {
+                    "type": "string",
+                    "value": "top-center"
+                  },
+                  {
+                    "type": "string",
+                    "value": "top-right"
+                  },
+                  {
+                    "type": "string",
+                    "value": "center-left"
+                  },
+                  {
+                    "type": "string",
+                    "value": "center"
+                  },
+                  {
+                    "type": "string",
+                    "value": "center-right"
+                  },
+                  {
+                    "type": "string",
+                    "value": "bottom-left"
+                  },
+                  {
+                    "type": "string",
+                    "value": "bottom-center"
+                  },
+                  {
+                    "type": "string",
+                    "value": "bottom-right"
+                  }
+                ]
+              },
+              "optional": true
+            },
+            "mobilePosition": {
+              "type": "objectAttribute",
+              "value": {
+                "type": "union",
+                "of": [
+                  {
+                    "type": "string",
+                    "value": "top-left"
+                  },
+                  {
+                    "type": "string",
+                    "value": "top-center"
+                  },
+                  {
+                    "type": "string",
+                    "value": "top-right"
+                  },
+                  {
+                    "type": "string",
+                    "value": "center-left"
+                  },
+                  {
+                    "type": "string",
+                    "value": "center"
+                  },
+                  {
+                    "type": "string",
+                    "value": "center-right"
+                  },
+                  {
+                    "type": "string",
+                    "value": "bottom-left"
+                  },
+                  {
+                    "type": "string",
+                    "value": "bottom-center"
+                  },
+                  {
+                    "type": "string",
+                    "value": "bottom-right"
+                  }
+                ]
               },
               "optional": true
             },
@@ -5516,7 +5907,111 @@
         },
         "optional": true
       },
+      "featuredVideoHeading": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "featuredVideoSubheading": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "featuredVideoUrl": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "bookingSectionHeading": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "bookingSectionIntro": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "bookingInquiriesHeading": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "bookingInquiriesText": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "bookingInquiryListHeading": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "bookingInquiryItems": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "string"
+          }
+        },
+        "optional": true
+      },
+      "bookingPerfectForHeading": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "bookingEventTypes": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "array",
+          "of": {
+            "type": "string"
+          }
+        },
+        "optional": true
+      },
+      "bookingTestimonialQuote": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "bookingTestimonialAttribution": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "studioSectionHeading": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "studioSectionSubheading": {
         "type": "objectAttribute",
         "value": {
           "type": "string"
@@ -5531,6 +6026,27 @@
         "optional": true
       },
       "studioVideo2Url": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "newsletterHeading": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "newsletterText": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "heroButtonText": {
         "type": "objectAttribute",
         "value": {
           "type": "string"

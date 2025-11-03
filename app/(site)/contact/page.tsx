@@ -47,7 +47,7 @@ export default async function ContactPage() {
                         {settings.contactEmail}
                       </a>
                       <p className="text-text-secondary text-sm">
-                        Whether you&apos;re booking a show, inquiring about lessons, or just want to say hello — I&apos;d love to hear from you.
+                        {contactPage?.directContactDescription || "Whether you're booking a show, inquiring about lessons, or just want to say hello — I'd love to hear from you."}
                       </p>
                     </div>
                   </AnimatedSection>
@@ -79,15 +79,17 @@ export default async function ContactPage() {
               {/* Call to Action */}
               <AnimatedSection animation="fadeUp" delay={0.4}>
                 <div className="bg-surface rounded-2xl p-8 border-2 border-accent-primary/20 text-center shadow-2xl">
-                  <h3 className="text-2xl font-bold mb-4 text-text-primary">Looking for Live Blues?</h3>
+                  <h3 className="text-2xl font-bold mb-4 text-text-primary">
+                    {contactPage?.ctaSectionHeading || 'Looking for Live Blues?'}
+                  </h3>
                   <p className="mb-6 text-text-secondary">
-                    Check out my upcoming shows and experience gritty Texas Blues meets the heart of the Pacific Northwest.
+                    {contactPage?.ctaSectionText || 'Check out my upcoming shows and experience gritty Texas Blues meets the heart of the Pacific Northwest.'}
                   </p>
                   <Link
                     href="/shows"
                     className="btn-primary"
                   >
-                    View Upcoming Shows →
+                    {contactPage?.ctaSectionButtonText || 'View Upcoming Shows'} →
                   </Link>
                 </div>
               </AnimatedSection>
@@ -97,30 +99,33 @@ export default async function ContactPage() {
       </div>
 
       {/* Single Gallery Section - Replaces redundant portrait sections */}
-      {contactPage?.portraitGallery && contactPage.portraitGallery.length > 0 && (
-        <section className="bg-background py-24">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <AnimatedSection animation="fadeIn">
-                <h2 className="text-5xl font-bold text-center text-text-primary mb-16">
-                  {contactPage?.aboutHeading || 'Behind the Music'}
-                </h2>
-              </AnimatedSection>
-              <StaggeredImageGrid
-                images={contactPage.portraitGallery
-                  .filter((img: any) => img.image?.asset?.url)
-                  .map((img: any) => ({
-                    src: img.image.asset.url,
-                    alt: img.alt || img.image?.alt || 'Portrait photo',
-                    caption: img.caption || '',
-                  }))
-                }
-                columns={2}
-              />
+      {(() => {
+        const validImages = contactPage?.portraitGallery
+          ?.filter((img: any) => img.image?.asset?.url)
+          .map((img: any) => ({
+            src: img.image.asset.url,
+            alt: img.alt || img.image?.alt || 'Portrait photo',
+            caption: img.caption || '',
+          })) || []
+
+        return validImages.length > 0 ? (
+          <section className="bg-background py-24">
+            <div className="container mx-auto px-4">
+              <div className="max-w-6xl mx-auto">
+                <AnimatedSection animation="fadeIn">
+                  <h2 className="text-5xl font-bold text-center text-text-primary mb-16">
+                    {contactPage?.aboutHeading || 'Behind the Music'}
+                  </h2>
+                </AnimatedSection>
+                <StaggeredImageGrid
+                  images={validImages}
+                  columns={2}
+                />
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+          </section>
+        ) : null
+      })()}
     </div>
   )
 }

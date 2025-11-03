@@ -407,12 +407,149 @@ export const homePage = defineType({
       initialValue: 'See all shows →',
     }),
 
-    // Video URLs
+    // Featured Video Section
+    defineField({
+      name: 'featuredVideoHeading',
+      title: 'Featured Video Section Heading',
+      type: 'string',
+      description: 'Heading for featured video section (e.g., "Live Performance")',
+      initialValue: 'Live Performance',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'featuredVideoSubheading',
+      title: 'Featured Video Section Subheading',
+      type: 'string',
+      description: 'Subheading for featured video section',
+      initialValue: 'Experience the authentic blues sound',
+      validation: (rule) => rule.required(),
+    }),
     defineField({
       name: 'featuredVideoUrl',
       title: 'Featured Video URL',
       type: 'url',
       description: 'YouTube video ID or full URL for the featured "Live Performance" video (e.g., https://www.youtube.com/watch?v=75M50Bfksa0 or just 75M50Bfksa0)',
+      validation: (rule) => rule.required(),
+    }),
+
+    // Booking Section
+    defineField({
+      name: 'bookingSectionHeading',
+      title: 'Booking Section Heading',
+      type: 'string',
+      description: 'Main heading for booking section',
+      initialValue: 'Book Kivett for Your Event',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'bookingSectionIntro',
+      title: 'Booking Section Introduction',
+      type: 'text',
+      rows: 2,
+      description: 'Introduction text for booking section',
+      initialValue: 'Available for festivals, private events, and venue bookings. Professional blues performance with authentic Texas style meets Pacific Northwest soul.',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'bookingInquiriesHeading',
+      title: 'Booking Inquiries Heading',
+      type: 'string',
+      description: 'Heading for booking inquiries box',
+      initialValue: 'Booking Inquiries',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'bookingInquiriesText',
+      title: 'Booking Inquiries Text',
+      type: 'text',
+      rows: 2,
+      description: 'Instructional text for booking inquiries',
+      initialValue: 'For booking inquiries, please contact Kivett directly via email:',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'bookingInquiryListHeading',
+      title: 'Booking Inquiry List Heading',
+      type: 'string',
+      description: 'Heading for inquiry requirements list',
+      initialValue: 'Include in Your Inquiry:',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'bookingInquiryItems',
+      title: 'Booking Inquiry Items',
+      type: 'array',
+      description: 'List of items to include in booking inquiry',
+      of: [
+        defineArrayMember({
+          type: 'string',
+        }),
+      ],
+      initialValue: [
+        'Event date and location',
+        'Type of event (festival, private party, venue, etc.)',
+        'Expected audience size',
+        'Performance duration needed',
+      ],
+    }),
+    defineField({
+      name: 'bookingPerfectForHeading',
+      title: 'Booking "Perfect For" Heading',
+      type: 'string',
+      description: 'Heading for event types list',
+      initialValue: 'Perfect For',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'bookingEventTypes',
+      title: 'Booking Event Types',
+      type: 'array',
+      description: 'List of event types suitable for booking',
+      of: [
+        defineArrayMember({
+          type: 'string',
+        }),
+      ],
+      initialValue: [
+        'Blues Festivals & Music Events',
+        'Private Parties & Celebrations',
+        'Corporate Events',
+        'Venue Residencies',
+      ],
+    }),
+    defineField({
+      name: 'bookingTestimonialQuote',
+      title: 'Booking Testimonial Quote',
+      type: 'text',
+      rows: 3,
+      description: 'Testimonial quote for booking section',
+      initialValue: 'Kivett brings authentic blues energy that connects with every audience. His performance at our festival was unforgettable.',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'bookingTestimonialAttribution',
+      title: 'Booking Testimonial Attribution',
+      type: 'string',
+      description: 'Attribution for testimonial',
+      initialValue: '— Festival Organizer',
+      validation: (rule) => rule.required(),
+    }),
+
+    // Studio Section
+    defineField({
+      name: 'studioSectionHeading',
+      title: 'Studio Section Heading',
+      type: 'string',
+      description: 'Heading for studio videos section',
+      initialValue: 'In The Studio',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'studioSectionSubheading',
+      title: 'Studio Section Subheading',
+      type: 'string',
+      description: 'Subheading for studio videos section',
+      initialValue: 'Behind the scenes of creating authentic Texas blues',
       validation: (rule) => rule.required(),
     }),
     defineField({
@@ -430,7 +567,33 @@ export const homePage = defineType({
       validation: (rule) => rule.required(),
     }),
 
+    // Newsletter Section
+    defineField({
+      name: 'newsletterHeading',
+      title: 'Newsletter Section Heading',
+      type: 'string',
+      description: 'Heading for newsletter signup section',
+      initialValue: 'Stay Connected',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'newsletterText',
+      title: 'Newsletter Section Text',
+      type: 'text',
+      rows: 2,
+      description: 'Description text for newsletter signup',
+      initialValue: 'Get the latest show announcements, new music releases, and exclusive content delivered to your inbox.',
+      validation: (rule) => rule.required(),
+    }),
+
     // Button Labels
+    defineField({
+      name: 'heroButtonText',
+      title: 'Hero Button Text',
+      type: 'string',
+      description: 'Button text in hero slider (links to shows page)',
+      initialValue: 'See Live Shows',
+    }),
     defineField({
       name: 'aboutButtonText',
       title: 'About Section Button Text',

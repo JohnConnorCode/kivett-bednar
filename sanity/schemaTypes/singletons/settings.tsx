@@ -162,7 +162,7 @@ export const settings = defineType({
       name: 'bookingUrl',
       title: 'Booking/Scheduling URL',
       type: 'url',
-      description: 'URL for lesson booking or scheduling (e.g., helpwith.co link)',
+      description: 'Optional URL for lesson booking or scheduling',
     }),
     defineField({
       name: 'socialLinks',

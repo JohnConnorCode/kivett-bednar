@@ -428,6 +428,39 @@ export type Event = {
   isSoldOut?: boolean;
 };
 
+export type MerchPage = {
+  _id: string;
+  _type: "merchPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  heroHeading?: string;
+  heroSubheading?: string;
+  heroImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    desktopPosition?: "top-left" | "top-center" | "top-right" | "center-left" | "center" | "center-right" | "bottom-left" | "bottom-center" | "bottom-right";
+    mobilePosition?: "top-left" | "top-center" | "top-right" | "center-left" | "center" | "center-right" | "bottom-left" | "bottom-center" | "bottom-right";
+    _type: "image";
+  };
+  emptyStateHeading?: string;
+  emptyStateText?: string;
+  emptyStateButton1Text?: string;
+  emptyStateButton1Link?: string;
+  emptyStateButton2Text?: string;
+  emptyStateButton2Link?: string;
+  contentHeading?: string;
+  contentSubheading?: string;
+};
+
 export type SetlistPage = {
   _id: string;
   _type: "setlistPage";
@@ -535,12 +568,16 @@ export type ContactPage = {
   }>;
   formHeading?: string;
   directContactHeading?: string;
+  directContactDescription?: string;
   socialHeading?: string;
   quickLinksHeading?: string;
   aboutHeading?: string;
   quickLinkShowsText?: string;
   quickLinkLessonsText?: string;
   quickLinkSetlistText?: string;
+  ctaSectionHeading?: string;
+  ctaSectionText?: string;
+  ctaSectionButtonText?: string;
 };
 
 export type LessonsPage = {
@@ -562,6 +599,8 @@ export type LessonsPage = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    desktopPosition?: "top-left" | "top-center" | "top-right" | "center-left" | "center" | "center-right" | "bottom-left" | "bottom-center" | "bottom-right";
+    mobilePosition?: "top-left" | "top-center" | "top-right" | "center-left" | "center" | "center-right" | "bottom-left" | "bottom-center" | "bottom-right";
     _type: "image";
   };
   philosophyHeading?: string;
@@ -816,9 +855,26 @@ export type HomePage = {
   }>;
   upcomingShowsHeading?: string;
   seeAllShowsLinkText?: string;
+  featuredVideoHeading?: string;
+  featuredVideoSubheading?: string;
   featuredVideoUrl?: string;
+  bookingSectionHeading?: string;
+  bookingSectionIntro?: string;
+  bookingInquiriesHeading?: string;
+  bookingInquiriesText?: string;
+  bookingInquiryListHeading?: string;
+  bookingInquiryItems?: Array<string>;
+  bookingPerfectForHeading?: string;
+  bookingEventTypes?: Array<string>;
+  bookingTestimonialQuote?: string;
+  bookingTestimonialAttribution?: string;
+  studioSectionHeading?: string;
+  studioSectionSubheading?: string;
   studioVideo1Url?: string;
   studioVideo2Url?: string;
+  newsletterHeading?: string;
+  newsletterText?: string;
+  heroButtonText?: string;
   aboutButtonText?: string;
   ctaLessonsButtonText?: string;
 };
@@ -1299,7 +1355,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = MusicEmbed | VideoEmbed | CtaBanner | FeatureGrid | ImageGallery | RichText | Hero | CallToAction | Link | InfoSection | BlockContent | NewsletterSubscriber | Song | Product | Event | SetlistPage | ContactPage | LessonsPage | ShowsPage | HomePage | UiText | Navigation | Settings | Page | Post | Person | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = MusicEmbed | VideoEmbed | CtaBanner | FeatureGrid | ImageGallery | RichText | Hero | CallToAction | Link | InfoSection | BlockContent | NewsletterSubscriber | Song | Product | Event | MerchPage | SetlistPage | ContactPage | LessonsPage | ShowsPage | HomePage | UiText | Navigation | Settings | Page | Post | Person | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery
@@ -1553,8 +1609,8 @@ export type LessonsPageQueryResult = {
     } | null;
     hotspot: SanityImageHotspot | null;
     crop: SanityImageCrop | null;
-    desktopPosition: null;
-    mobilePosition: null;
+    desktopPosition: "bottom-center" | "bottom-left" | "bottom-right" | "center-left" | "center-right" | "center" | "top-center" | "top-left" | "top-right" | null;
+    mobilePosition: "bottom-center" | "bottom-left" | "bottom-right" | "center-left" | "center-right" | "center" | "top-center" | "top-left" | "top-right" | null;
     alt: string | null;
   } | null;
   philosophyHeading: string | null;
@@ -1605,7 +1661,7 @@ export type LessonsPageQueryResult = {
   scheduleButtonText: string | null;
 } | null;
 // Variable: contactPageQuery
-// Query: *[_type == "contactPage"][0]{  _id,  heroHeading,  heroSubheading,  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  portraitImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  portraitGallery[]{    _key,    image{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},    alt  },  formHeading,  directContactHeading,  socialHeading,  quickLinksHeading,  aboutHeading,  quickLinkShowsText,  quickLinkLessonsText,  quickLinkSetlistText}
+// Query: *[_type == "contactPage"][0]{  _id,  heroHeading,  heroSubheading,  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  portraitImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  portraitGallery[]{    _key,    image{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},    alt  },  formHeading,  directContactHeading,  directContactDescription,  socialHeading,  quickLinksHeading,  aboutHeading,  quickLinkShowsText,  quickLinkLessonsText,  quickLinkSetlistText,  ctaSectionHeading,  ctaSectionText,  ctaSectionButtonText}
 export type ContactPageQueryResult = {
   _id: string;
   heroHeading: string | null;
@@ -1649,12 +1705,16 @@ export type ContactPageQueryResult = {
   }> | null;
   formHeading: string | null;
   directContactHeading: string | null;
+  directContactDescription: string | null;
   socialHeading: string | null;
   quickLinksHeading: string | null;
   aboutHeading: string | null;
   quickLinkShowsText: string | null;
   quickLinkLessonsText: string | null;
   quickLinkSetlistText: string | null;
+  ctaSectionHeading: string | null;
+  ctaSectionText: string | null;
+  ctaSectionButtonText: string | null;
 } | null;
 // Variable: setlistPageQuery
 // Query: *[_type == "setlistPage"][0]{  _id,  heroHeading,  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  introText,  performanceImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  guitarImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  ctaHeading,  ctaText,  ctaBookLessonButtonText,  ctaContactButtonText,  subtitleSuffix}
@@ -1742,6 +1802,32 @@ export type ShowsPageQueryResult = {
   showCountPrefix: string | null;
   showSingular: string | null;
   showPlural: string | null;
+} | null;
+// Variable: merchPageQuery
+// Query: *[_type == "merchPage"][0]{  _id,  heroHeading,  heroSubheading,  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  emptyStateHeading,  emptyStateText,  emptyStateButton1Text,  emptyStateButton1Link,  emptyStateButton2Text,  emptyStateButton2Link,  contentHeading,  contentSubheading}
+export type MerchPageQueryResult = {
+  _id: string;
+  heroHeading: string | null;
+  heroSubheading: string | null;
+  heroImage: {
+    asset: {
+      _id: string;
+      url: string | null;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: "bottom-center" | "bottom-left" | "bottom-right" | "center-left" | "center-right" | "center" | "top-center" | "top-left" | "top-right" | null;
+    mobilePosition: "bottom-center" | "bottom-left" | "bottom-right" | "center-left" | "center-right" | "center" | "top-center" | "top-left" | "top-right" | null;
+    alt: string | null;
+  } | null;
+  emptyStateHeading: string | null;
+  emptyStateText: string | null;
+  emptyStateButton1Text: string | null;
+  emptyStateButton1Link: string | null;
+  emptyStateButton2Text: string | null;
+  emptyStateButton2Link: string | null;
+  contentHeading: string | null;
+  contentSubheading: string | null;
 } | null;
 // Variable: allSongsQuery
 // Query: *[_type == "song"] | order(order asc){  _id,  title,  key,  artist,  notes,  order}
@@ -2563,9 +2649,10 @@ declare module "@sanity/client" {
     "*[_type == \"navigation\"][0]{\n  _id,\n  main[]{\n    title,\n    href,\n    docRef->{\n      _type,\n      \"slug\": slug.current\n    }\n  },\n  footer[]{\n    title,\n    href,\n    docRef->{\n      _type,\n      \"slug\": slug.current\n    }\n  }\n}": NavigationQueryResult;
     "*[_type == \"homePage\"][0]{\n  _id,\n  heroSlides[]{\n    _key,\n    image{\n      asset->{_id, url},\n      hotspot,\n      crop,\n      alt\n    },\n    mobileImage{\n      asset->{_id, url},\n      hotspot,\n      crop,\n      alt\n    },\n    alt,\n    desktopPosition,\n    mobilePosition\n  },\n  heroHeading,\n  heroSubheading,\n  heroTagline,\n  aboutHeading,\n  aboutText,\n  aboutImage{\n    asset->{_id, url},\n    hotspot,\n    crop,\n    desktopPosition,\n    mobilePosition,\n    alt\n  },\n  albumTitle,\n  albumYear,\n  albumFormat,\n  albumDescription,\n  albumCoverImage{\n    asset->{_id, url},\n    hotspot,\n    crop,\n    desktopPosition,\n    mobilePosition,\n    alt\n  },\n  albumFeatures,\n  ctaLessonsHeading,\n  ctaLessonsText,\n  parallaxHeading,\n  parallaxSubheading,\n  parallaxImages[]{\n    _key,\n    image{\n      asset->{_id, url},\n      hotspot,\n      crop,\n      desktopPosition,\n      mobilePosition,\n      alt\n    },\n    alt,\n    position,\n    offset\n  },\n  performanceSectionHeading,\n  performanceImage{\n    asset->{_id, url},\n    hotspot,\n    crop,\n    desktopPosition,\n    mobilePosition,\n    alt\n  },\n  gallerySectionHeading,\n  gallerySectionSubheading,\n  galleryImages[]{\n    _key,\n    image{\n      asset->{_id, url},\n      hotspot,\n      crop,\n      desktopPosition,\n      mobilePosition,\n      alt\n    },\n    alt,\n    width,\n    height\n  },\n  upcomingShowsHeading,\n  seeAllShowsLinkText,\n  aboutButtonText,\n  ctaLessonsButtonText,\n  featuredVideoUrl,\n  studioVideo1Url,\n  studioVideo2Url\n}": HomePageQueryResult;
     "*[_type == \"lessonsPage\"][0]{\n  _id,\n  heroHeading,\n  heroSubheading,\n  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  philosophyHeading,\n  philosophyText,\n  philosophyImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  learningItemsHeading,\n  learningItems[]{\n    _key,\n    title,\n    description\n  },\n  ctaBoxHeading,\n  ctaBoxText,\n  credentials,\n  teachingImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  performanceImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  emailButtonText,\n  scheduleButtonText\n}": LessonsPageQueryResult;
-    "*[_type == \"contactPage\"][0]{\n  _id,\n  heroHeading,\n  heroSubheading,\n  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  portraitImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  portraitGallery[]{\n    _key,\n    image{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n    alt\n  },\n  formHeading,\n  directContactHeading,\n  socialHeading,\n  quickLinksHeading,\n  aboutHeading,\n  quickLinkShowsText,\n  quickLinkLessonsText,\n  quickLinkSetlistText\n}": ContactPageQueryResult;
+    "*[_type == \"contactPage\"][0]{\n  _id,\n  heroHeading,\n  heroSubheading,\n  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  portraitImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  portraitGallery[]{\n    _key,\n    image{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n    alt\n  },\n  formHeading,\n  directContactHeading,\n  directContactDescription,\n  socialHeading,\n  quickLinksHeading,\n  aboutHeading,\n  quickLinkShowsText,\n  quickLinkLessonsText,\n  quickLinkSetlistText,\n  ctaSectionHeading,\n  ctaSectionText,\n  ctaSectionButtonText\n}": ContactPageQueryResult;
     "*[_type == \"setlistPage\"][0]{\n  _id,\n  heroHeading,\n  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  introText,\n  performanceImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  guitarImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  ctaHeading,\n  ctaText,\n  ctaBookLessonButtonText,\n  ctaContactButtonText,\n  subtitleSuffix\n}": SetlistPageQueryResult;
     "*[_type == \"showsPage\"][0]{\n  _id,\n  heroHeading,\n  heroSubheading,\n  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  performanceGalleryHeading,\n  performanceGallerySubheading,\n  performanceImages[]{\n    _key,\n    image{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n    alt,\n    caption\n  },\n  upcomingShowsHeading,\n  emptyStateHeading,\n  emptyStateText,\n  showCountPrefix,\n  showSingular,\n  showPlural\n}": ShowsPageQueryResult;
+    "*[_type == \"merchPage\"][0]{\n  _id,\n  heroHeading,\n  heroSubheading,\n  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  emptyStateHeading,\n  emptyStateText,\n  emptyStateButton1Text,\n  emptyStateButton1Link,\n  emptyStateButton2Text,\n  emptyStateButton2Link,\n  contentHeading,\n  contentSubheading\n}": MerchPageQueryResult;
     "*[_type == \"song\"] | order(order asc){\n  _id,\n  title,\n  key,\n  artist,\n  notes,\n  order\n}": AllSongsQueryResult;
     "*[_type == \"page\" && slug.current == $slug][0]{\n  _id,\n  _type,\n  name,\n  heading,\n  subheading,\n  modules[]{\n    \n  _type,\n  _key,\n  _type == \"hero\" => {\n    headline,\n    subhead,\n    mediaType,\n    image{asset->, hotspot, crop, alt},\n    mobileImage{asset->, hotspot, crop, alt},\n    desktopPosition,\n    mobilePosition,\n    video,\n    ctas[]{label, href, variant}\n  },\n  _type == \"richText\" => {\n    content\n  },\n  _type == \"imageGallery\" => {\n    images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt, caption}\n  },\n  _type == \"featureGrid\" => {\n    items[]{title, body, iconType, icon, image{asset->, hotspot, crop, desktopPosition, mobilePosition}}\n  },\n  _type == \"ctaBanner\" => {\n    heading,\n    body,\n    cta{label, href}\n  },\n  _type == \"videoEmbed\" => {\n    provider,\n    url\n  },\n  _type == \"musicEmbed\" => {\n    provider,\n    url\n  },\n  _type == \"callToAction\" => @,\n  _type == \"infoSection\" => @\n\n  },\n  seo{\n    title,\n    description,\n    ogImage{asset->}\n  }\n}": PageBySlugQueryResult;
     "*[_type == \"page\" && defined(slug.current)]{\n  \"slug\": slug.current\n}": PagesSlugsResult;

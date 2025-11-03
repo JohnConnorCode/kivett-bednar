@@ -71,6 +71,7 @@ export default async function HomePage() {
         heading={homePage.heroHeading || undefined}
         subheading={homePage.heroSubheading || undefined}
         tagline={homePage.heroTagline || 'Gritty Texas Blues meets the heart of the Pacific Northwest'}
+        buttonText={homePage.heroButtonText || undefined}
       />
 
       {/* Featured Video Section */}
@@ -79,9 +80,11 @@ export default async function HomePage() {
           <div className="max-w-6xl mx-auto">
             <AnimatedSection animation="fadeIn">
               <div className="text-center mb-12">
-                <h2 className="text-5xl font-bold text-text-primary mb-4">Live Performance</h2>
+                <h2 className="text-5xl font-bold text-text-primary mb-4">
+                  {homePage.featuredVideoHeading || 'Live Performance'}
+                </h2>
                 <p className="text-xl text-text-secondary">
-                  Experience the authentic blues sound
+                  {homePage.featuredVideoSubheading || 'Experience the authentic blues sound'}
                 </p>
               </div>
             </AnimatedSection>
@@ -107,21 +110,27 @@ export default async function HomePage() {
           imageAlt={homePage.aboutImage?.alt || "Kivett Bednar with guitar - blues musician and performer"}
           imagePosition="left"
         >
-        <h2 className="text-5xl font-bold mb-6 text-text-primary">
-          {homePage.aboutHeading}
-        </h2>
-        <p className="text-xl mb-6 leading-relaxed text-text-secondary">
-          {homePage.aboutText}
-        </p>
-        <div className="flex gap-4">
-          <Link
-            href="/setlist"
-            className="btn-primary"
-          >
-            {homePage.aboutButtonText || 'View Setlist'}
-            <span>→</span>
-          </Link>
-        </div>
+        <AnimatedSection animation="fadeUp">
+          <h2 className="text-5xl font-bold mb-6 text-text-primary">
+            {homePage.aboutHeading}
+          </h2>
+        </AnimatedSection>
+        <AnimatedSection animation="fadeUp" delay={0.15}>
+          <p className="text-xl mb-6 leading-relaxed text-text-secondary">
+            {homePage.aboutText}
+          </p>
+        </AnimatedSection>
+        <AnimatedSection animation="fadeUp" delay={0.3}>
+          <div className="flex gap-4">
+            <Link
+              href="/setlist"
+              className="btn-primary"
+            >
+              {homePage.aboutButtonText || 'View Setlist'}
+              <span>→</span>
+            </Link>
+          </div>
+        </AnimatedSection>
         </SplitScreenImage>
       )}
 
@@ -153,25 +162,29 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Booking Section - NEW */}
+      {/* Booking Section */}
       <section className="py-24 bg-surface">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <AnimatedSection animation="fadeIn">
               <div className="text-center mb-12">
-                <h2 className="text-5xl font-bold text-text-primary mb-6">Book Kivett for Your Event</h2>
+                <h2 className="text-5xl font-bold text-text-primary mb-6">
+                  {homePage.bookingSectionHeading || 'Book Kivett for Your Event'}
+                </h2>
                 <p className="text-xl text-text-secondary max-w-2xl mx-auto">
-                  Available for festivals, private events, and venue bookings. Professional blues performance with authentic Texas style meets Pacific Northwest soul.
+                  {homePage.bookingSectionIntro || 'Available for festivals, private events, and venue bookings. Professional blues performance with authentic Texas style meets Pacific Northwest soul.'}
                 </p>
               </div>
             </AnimatedSection>
             <div className="grid md:grid-cols-2 gap-12">
               <AnimatedSection animation="fadeUp" delay={0.2}>
                 <div className="bg-gradient-to-br from-surface to-surface-elevated p-8 rounded-lg shadow-lg text-text-primary">
-                  <h3 className="text-2xl font-bold mb-6 text-accent-primary">Booking Inquiries</h3>
+                  <h3 className="text-2xl font-bold mb-6 text-accent-primary">
+                    {homePage.bookingInquiriesHeading || 'Booking Inquiries'}
+                  </h3>
                   <div className="space-y-6">
                     <p className="text-lg">
-                      For booking inquiries, please contact Kivett directly via email:
+                      {homePage.bookingInquiriesText || 'For booking inquiries, please contact Kivett directly via email:'}
                     </p>
                     <a
                       href="mailto:kivettbednar@gmail.com"
@@ -180,24 +193,21 @@ export default async function HomePage() {
                       kivettbednar@gmail.com
                     </a>
                     <div className="border-t border-border pt-6 mt-6">
-                      <h4 className="font-bold text-accent-primary mb-3">Include in Your Inquiry:</h4>
+                      <h4 className="font-bold text-accent-primary mb-3">
+                        {homePage.bookingInquiryListHeading || 'Include in Your Inquiry:'}
+                      </h4>
                       <ul className="space-y-2 text-text-secondary">
-                        <li className="flex items-start gap-3">
-                          <span className="text-accent-primary mt-1">→</span>
-                          <span>Event date and location</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                          <span className="text-accent-primary mt-1">→</span>
-                          <span>Type of event (festival, private party, venue, etc.)</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                          <span className="text-accent-primary mt-1">→</span>
-                          <span>Expected audience size</span>
-                        </li>
-                        <li className="flex items-start gap-3">
-                          <span className="text-accent-primary mt-1">→</span>
-                          <span>Performance duration needed</span>
-                        </li>
+                        {(homePage.bookingInquiryItems || [
+                          'Event date and location',
+                          'Type of event (festival, private party, venue, etc.)',
+                          'Expected audience size',
+                          'Performance duration needed',
+                        ]).map((item: string, index: number) => (
+                          <li key={index} className="flex items-start gap-3">
+                            <span className="text-accent-primary mt-1">→</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
                       </ul>
                     </div>
                   </div>
@@ -206,31 +216,30 @@ export default async function HomePage() {
               <AnimatedSection animation="fadeUp" delay={0.3}>
                 <div className="space-y-6">
                   <div className="bg-surface-elevated p-8 rounded-lg text-text-primary">
-                    <h4 className="text-xl font-bold mb-4 text-accent-primary">Perfect For</h4>
+                    <h4 className="text-xl font-bold mb-4 text-accent-primary">
+                      {homePage.bookingPerfectForHeading || 'Perfect For'}
+                    </h4>
                     <ul className="space-y-3">
-                      <li className="flex items-center gap-3">
-                        <span className="text-accent-primary">→</span>
-                        <span>Blues Festivals & Music Events</span>
-                      </li>
-                      <li className="flex items-center gap-3">
-                        <span className="text-accent-primary">→</span>
-                        <span>Private Parties & Celebrations</span>
-                      </li>
-                      <li className="flex items-center gap-3">
-                        <span className="text-accent-primary">→</span>
-                        <span>Corporate Events</span>
-                      </li>
-                      <li className="flex items-center gap-3">
-                        <span className="text-accent-primary">→</span>
-                        <span>Venue Residencies</span>
-                      </li>
+                      {(homePage.bookingEventTypes || [
+                        'Blues Festivals & Music Events',
+                        'Private Parties & Celebrations',
+                        'Corporate Events',
+                        'Venue Residencies',
+                      ]).map((eventType: string, index: number) => (
+                        <li key={index} className="flex items-center gap-3">
+                          <span className="text-accent-primary">→</span>
+                          <span>{eventType}</span>
+                        </li>
+                      ))}
                     </ul>
                   </div>
                   <div className="bg-surface p-8 rounded-lg shadow-lg border-2 border-accent-primary/20">
                     <p className="text-lg italic text-text-secondary mb-4">
-                      &ldquo;Kivett brings authentic blues energy that connects with every audience. His performance at our festival was unforgettable.&rdquo;
+                      &ldquo;{homePage.bookingTestimonialQuote || 'Kivett brings authentic blues energy that connects with every audience. His performance at our festival was unforgettable.'}&rdquo;
                     </p>
-                    <p className="font-semibold text-text-primary">— Festival Organizer</p>
+                    <p className="font-semibold text-text-primary">
+                      {homePage.bookingTestimonialAttribution || '— Festival Organizer'}
+                    </p>
                   </div>
                 </div>
               </AnimatedSection>
@@ -266,15 +275,17 @@ export default async function HomePage() {
         )}
       </section>
 
-      {/* Additional Video Section - Studio Performance */}
+      {/* Studio Video Section */}
       <section className="py-24 bg-surface">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection animation="fadeIn">
               <div className="text-center mb-12">
-                <h2 className="text-5xl font-bold text-text-primary mb-4">In The Studio</h2>
+                <h2 className="text-5xl font-bold text-text-primary mb-4">
+                  {homePage.studioSectionHeading || 'In The Studio'}
+                </h2>
                 <p className="text-xl text-text-secondary">
-                  Behind the scenes of creating authentic Texas blues
+                  {homePage.studioSectionSubheading || 'Behind the scenes of creating authentic Texas blues'}
                 </p>
               </div>
             </AnimatedSection>
@@ -306,14 +317,18 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Newsletter Signup - NEW */}
+      {/* Newsletter Signup */}
       <section className="py-24 bg-surface">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <AnimatedSection animation="fadeUp">
               <div className="bg-gradient-to-br from-surface to-surface-elevated p-12 rounded-2xl border-4 border-accent-primary/30 text-center">
-                <h2 className="text-4xl font-bold text-text-primary mb-4">Stay Connected</h2>
-                <p className="text-xl text-text-secondary mb-8">Get the latest show announcements, new music releases, and exclusive content delivered to your inbox.</p>
+                <h2 className="text-4xl font-bold text-text-primary mb-4">
+                  {homePage.newsletterHeading || 'Stay Connected'}
+                </h2>
+                <p className="text-xl text-text-secondary mb-8">
+                  {homePage.newsletterText || 'Get the latest show announcements, new music releases, and exclusive content delivered to your inbox.'}
+                </p>
                 <NewsletterForm />
               </div>
             </AnimatedSection>

@@ -1,8 +1,10 @@
 import {Metadata} from 'next'
 import Link from 'next/link'
 import {client} from '@/sanity/lib/client'
-import {allProductsQuery} from '@/sanity/lib/queries'
+import {allProductsQuery, merchPageQuery} from '@/sanity/lib/queries'
 import {ProductCard} from '@/components/ui/ProductCard'
+import {AnimatedHero} from '@/components/ui/AnimatedHero'
+import {AnimatedSection} from '@/components/animations/AnimatedSection'
 
 export const metadata: Metadata = {
   title: 'Merch | Kivett Bednar',
@@ -10,71 +12,93 @@ export const metadata: Metadata = {
 }
 
 export default async function MerchPage() {
-  const products = await client.fetch(allProductsQuery, {}, {next: {revalidate: 60}})
+  const [products, merchPage] = await Promise.all([
+    client.fetch(allProductsQuery, {}, {next: {revalidate: 60}}),
+    client.fetch(merchPageQuery, {}, {next: {revalidate: 60}}),
+  ])
+
+  // Fallback if no content in Sanity yet
+  if (!merchPage) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-xl">Loading merch page content from Sanity Studio...</p>
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[50vh] flex items-center justify-center overflow-hidden bg-gradient-to-br from-surface to-surface-elevated">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(240,196,25,0.15) 1px, transparent 0)',
-            backgroundSize: '40px 40px'
-          }} />
-        </div>
-
-        <div className="relative z-10 container mx-auto px-4 text-center text-text-primary">
-          <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight">
-            Merch
-          </h1>
-          <p className="text-xl md:text-2xl max-w-2xl mx-auto leading-relaxed text-text-secondary font-light">
-            Official Kivett Bednar gear and music
-          </p>
-        </div>
-
-        <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1200 120" className="w-full h-12 text-surface">
-            <path d="M0,0 Q300,40 600,20 T1200,0 L1200,120 L0,120 Z" fill="currentColor" />
-          </svg>
-        </div>
-      </section>
+      <AnimatedHero
+        title={merchPage.heroHeading || 'Merch'}
+        subtitle={merchPage.heroSubheading || 'Official Kivett Bednar gear and music'}
+        variant="merch"
+        backgroundImage={merchPage.heroImage?.asset?.url}
+        backgroundAlt={merchPage.heroImage?.alt || 'Kivett Bednar merchandise'}
+        desktopPosition={merchPage.heroImage?.desktopPosition}
+        mobilePosition={merchPage.heroImage?.mobilePosition}
+      />
 
       {/* Content */}
       <div className="bg-surface py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             {products && products.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {products.map((product: any) => (
-                  <ProductCard key={product._id} product={product} />
-                ))}
-              </div>
+              <>
+                {/* Content Heading */}
+                {(merchPage.contentHeading || merchPage.contentSubheading) && (
+                  <AnimatedSection animation="fadeIn">
+                    <div className="text-center mb-16">
+                      {merchPage.contentHeading && (
+                        <h2 className="text-5xl font-bold text-text-primary mb-4">
+                          {merchPage.contentHeading}
+                        </h2>
+                      )}
+                      {merchPage.contentSubheading && (
+                        <p className="text-xl text-text-secondary">
+                          {merchPage.contentSubheading}
+                        </p>
+                      )}
+                    </div>
+                  </AnimatedSection>
+                )}
+
+                {/* Products Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {products.map((product: any, index: number) => (
+                    <AnimatedSection key={product._id} animation="fadeUp" delay={0.1 * index}>
+                      <ProductCard product={product} />
+                    </AnimatedSection>
+                  ))}
+                </div>
+              </>
             ) : (
-              <div className="text-center py-24">
-                <div className="bg-gradient-to-br from-surface-elevated to-background rounded-2xl p-16 max-w-2xl mx-auto border-2 border-border">
-                  <h2 className="text-4xl font-bold text-text-primary mb-4">
-                    Merch Store Opening Soon!
-                  </h2>
-                  <p className="text-xl text-text-secondary mb-8">
-                    T-shirts, vinyl records, and exclusive gear coming your way.
-                    Check back for updates or follow on social media for the launch announcement.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Link
-                      href="/contact"
-                      className="btn-primary"
-                    >
-                      Get Notified
-                    </Link>
-                    <Link
-                      href="/shows"
-                      className="btn-secondary"
-                    >
-                      See Live Shows
-                    </Link>
+              <AnimatedSection animation="fadeUp">
+                <div className="text-center py-24">
+                  <div className="bg-gradient-to-br from-surface-elevated to-background rounded-2xl p-16 max-w-2xl mx-auto border-2 border-border">
+                    <h2 className="text-4xl font-bold text-text-primary mb-4">
+                      {merchPage.emptyStateHeading || 'Merch Store Opening Soon!'}
+                    </h2>
+                    <p className="text-xl text-text-secondary mb-8">
+                      {merchPage.emptyStateText || 'T-shirts, vinyl records, and exclusive gear coming your way. Check back for updates or follow on social media for the launch announcement.'}
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                      <Link
+                        href={merchPage.emptyStateButton1Link || '/contact'}
+                        className="btn-primary"
+                      >
+                        {merchPage.emptyStateButton1Text || 'Get Notified'}
+                      </Link>
+                      <Link
+                        href={merchPage.emptyStateButton2Link || '/shows'}
+                        className="btn-secondary"
+                      >
+                        {merchPage.emptyStateButton2Text || 'See Live Shows'}
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </div>
+              </AnimatedSection>
             )}
           </div>
         </div>

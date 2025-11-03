@@ -110,6 +110,14 @@ export const contactPage = defineType({
       description: 'Heading for direct contact info section',
     }),
     defineField({
+      name: 'directContactDescription',
+      title: 'Direct Contact Description',
+      type: 'text',
+      rows: 2,
+      description: 'Description text for direct contact section',
+      initialValue: 'For booking inquiries, press questions, or guitar lessons, reach out directly:',
+    }),
+    defineField({
       name: 'socialHeading',
       title: 'Social Links Heading',
       type: 'string',
@@ -149,6 +157,30 @@ export const contactPage = defineType({
       type: 'string',
       description: 'Text for "Blues Setlist" quick link',
       initialValue: 'Blues Setlist',
+    }),
+
+    // CTA Section
+    defineField({
+      name: 'ctaSectionHeading',
+      title: 'CTA Section Heading',
+      type: 'string',
+      description: 'Heading for "Looking for Live Blues?" CTA section',
+      initialValue: 'Looking for Live Blues?',
+    }),
+    defineField({
+      name: 'ctaSectionText',
+      title: 'CTA Section Text',
+      type: 'text',
+      rows: 2,
+      description: 'Description text for shows CTA section',
+      initialValue: 'Check out upcoming performances and get your tickets before they sell out.',
+    }),
+    defineField({
+      name: 'ctaSectionButtonText',
+      title: 'CTA Section Button Text',
+      type: 'string',
+      description: 'Button text for shows CTA',
+      initialValue: 'See Upcoming Shows',
     }),
   ],
   preview: {

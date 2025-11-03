@@ -51,7 +51,7 @@ Not just a musician—builds custom tube amps, creates visual art, and keeps the
         ],
 
         ctaLessonsHeading: 'Learn Authentic Blues Guitar',
-        ctaLessonsText: 'Twenty years teaching experience. Berklee College of Music, magna cum laude. Build solid foundations in blues techniques, theory, and improvisation. Lessons via helpwith.co or direct contact.',
+        ctaLessonsText: 'Twenty years teaching experience. Berklee College of Music, magna cum laude. Build solid foundations in blues techniques, theory, and improvisation.',
       })
       .commit()
 
@@ -114,7 +114,7 @@ The goal: intentionality in your artistic creation. Understanding why something 
         ],
 
         ctaBoxHeading: 'Ready to Start Learning?',
-        ctaBoxText: `Contact me directly at kivettbednar@gmail.com or through my profile on helpwith.co. Let's build your blues foundation.`,
+        ctaBoxText: `Contact me directly at kivettbednar@gmail.com. Let's build your blues foundation.`,
 
         credentials: 'Twenty years teaching experience • Berklee College of Music, magna cum laude • International Blues Competition placement',
       })

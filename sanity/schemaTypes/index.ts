@@ -13,6 +13,7 @@ import {showsPage} from './singletons/showsPage'
 import {lessonsPage} from './singletons/lessonsPage'
 import {contactPage} from './singletons/contactPage'
 import {setlistPage} from './singletons/setlistPage'
+import {merchPage} from './singletons/merchPage'
 import {uiText} from './singletons/uiText'
 import {song} from './documents/song'
 import {link} from './objects/link'
@@ -39,6 +40,7 @@ export const schemaTypes = [
   lessonsPage,
   contactPage,
   setlistPage,
+  merchPage,
   // Documents
   page,
   post,

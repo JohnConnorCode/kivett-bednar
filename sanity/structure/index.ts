@@ -7,6 +7,7 @@ import {
   DocumentIcon,
   ComponentIcon,
   UserIcon,
+  BasketIcon,
 } from '@sanity/icons'
 import type {StructureBuilder, StructureResolver} from 'sanity/structure'
 import pluralize from 'pluralize-esm'
@@ -25,6 +26,7 @@ const SINGLETON_TYPES = [
   'lessonsPage',
   'contactPage',
   'setlistPage',
+  'merchPage',
   'navigation',
   'assist.instruction.context',
 ]
@@ -65,6 +67,12 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
         .id('setlistPage')
         .child(S.document().schemaType('setlistPage').documentId('setlistPage'))
         .icon(DocumentIcon),
+
+      S.listItem()
+        .title('Merch Page')
+        .id('merchPage')
+        .child(S.document().schemaType('merchPage').documentId('merchPage'))
+        .icon(BasketIcon),
 
       S.listItem()
         .title('Navigation')
