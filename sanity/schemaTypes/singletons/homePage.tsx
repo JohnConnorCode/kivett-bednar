@@ -105,6 +105,42 @@ export const homePage = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'heroHeadingDesktopSize',
+      title: 'Hero Heading Size (Desktop)',
+      type: 'string',
+      description: 'Text size for hero heading on desktop screens',
+      initialValue: 'text-8xl',
+      options: {
+        list: [
+          {title: 'Extra Small (4xl)', value: 'text-4xl'},
+          {title: 'Small (5xl)', value: 'text-5xl'},
+          {title: 'Medium (6xl)', value: 'text-6xl'},
+          {title: 'Large (7xl)', value: 'text-7xl'},
+          {title: 'Extra Large (8xl)', value: 'text-8xl'},
+          {title: 'Huge (9xl)', value: 'text-9xl'},
+        ],
+        layout: 'dropdown',
+      },
+    }),
+    defineField({
+      name: 'heroHeadingMobileSize',
+      title: 'Hero Heading Size (Mobile)',
+      type: 'string',
+      description: 'Text size for hero heading on mobile screens',
+      initialValue: 'text-5xl',
+      options: {
+        list: [
+          {title: 'Extra Small (2xl)', value: 'text-2xl'},
+          {title: 'Small (3xl)', value: 'text-3xl'},
+          {title: 'Medium (4xl)', value: 'text-4xl'},
+          {title: 'Large (5xl)', value: 'text-5xl'},
+          {title: 'Extra Large (6xl)', value: 'text-6xl'},
+          {title: 'Huge (7xl)', value: 'text-7xl'},
+        ],
+        layout: 'dropdown',
+      },
+    }),
+    defineField({
       name: 'heroSubheading',
       title: 'Hero Subheading',
       type: 'string',

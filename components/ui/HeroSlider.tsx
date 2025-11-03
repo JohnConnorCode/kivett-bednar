@@ -21,6 +21,8 @@ interface HeroSliderProps {
   subheading?: string
   tagline?: string
   buttonText?: string
+  headingDesktopSize?: string
+  headingMobileSize?: string
 }
 
 export function HeroSlider({
@@ -29,6 +31,8 @@ export function HeroSlider({
   subheading = 'Blues • Guitar • Portland',
   tagline = 'Gritty Texas Blues meets the heart of the Pacific Northwest',
   buttonText = 'See Live Shows',
+  headingDesktopSize = 'text-8xl',
+  headingMobileSize = 'text-5xl',
 }: HeroSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -155,7 +159,7 @@ export function HeroSlider({
             duration: 0.8,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="hero-title text-white mb-6"
+          className={`${headingMobileSize} md:${headingDesktopSize} font-bold text-white mb-6 leading-none tracking-tight`}
           style={{
             textShadow: '0 4px 8px rgba(0,0,0,0.8)',
             fontFamily: 'var(--font-bebas), system-ui, sans-serif'

@@ -72,6 +72,8 @@ export default async function HomePage() {
         subheading={homePage.heroSubheading || undefined}
         tagline={homePage.heroTagline || 'Gritty Texas Blues meets the heart of the Pacific Northwest'}
         buttonText={homePage.heroButtonText || undefined}
+        headingDesktopSize={homePage.heroHeadingDesktopSize}
+        headingMobileSize={homePage.heroHeadingMobileSize}
       />
 
       {/* Featured Video Section */}

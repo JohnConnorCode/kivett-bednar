@@ -101,6 +101,8 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
     mobilePosition
   },
   heroHeading,
+  heroHeadingDesktopSize,
+  heroHeadingMobileSize,
   heroSubheading,
   heroTagline,
   heroButtonText,
