@@ -41,7 +41,7 @@ export const event = defineType({
       name: 'slug',
       title: 'Slug',
       type: 'slug',
-      description: 'URL-friendly identifier for the event page',
+      description: 'URL-friendly identifier for the event page (auto-generated from title)',
       group: 'details',
       options: {
         source: 'title',

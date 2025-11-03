@@ -16,11 +16,10 @@ type Props = {
 
 export async function generateStaticParams() {
   const slugs = await client.fetch(eventsSlugs)
-  return slugs
-    .filter((item: {slug: string | null}) => item.slug !== null)
-    .map((item: {slug: string | null}) => ({
-      slug: item.slug as string,
-    }))
+  // Query now returns slug if available, or _id as fallback
+  return slugs.map((item: {slug: string}) => ({
+    slug: item.slug,
+  }))
 }
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {

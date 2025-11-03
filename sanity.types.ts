@@ -2130,7 +2130,7 @@ export type EventsByMonthQueryResult = Array<{
   isSoldOut: boolean | null;
 }>;
 // Variable: eventBySlugQuery
-// Query: *[_type == "event" && slug.current == $slug][0]{  _id,  title,  "slug": slug.current,  excerpt,  startDateTime,  endDateTime,  timezone,  venue,  address,  city,  state,  country,  ticketUrl,  description,  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},  heroImage{asset->, hotspot, crop, desktopPosition, alt},  heroImageMobile{asset->, hotspot, crop, mobilePosition, alt},  lineup[]{name, role, bio},  specialNotes,  isCanceled,  isSoldOut}
+// Query: *[_type == "event" && (slug.current == $slug || _id == $slug)][0]{  _id,  title,  "slug": slug.current,  excerpt,  startDateTime,  endDateTime,  timezone,  venue,  address,  city,  state,  country,  ticketUrl,  description,  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},  heroImage{asset->, hotspot, crop, desktopPosition, alt},  heroImageMobile{asset->, hotspot, crop, mobilePosition, alt},  lineup[]{name, role, bio},  specialNotes,  isCanceled,  isSoldOut}
 export type EventBySlugQueryResult = {
   _id: string;
   title: string | null;
@@ -2241,9 +2241,9 @@ export type EventBySlugQueryResult = {
   isSoldOut: boolean | null;
 } | null;
 // Variable: eventsSlugs
-// Query: *[_type == "event" && defined(slug.current)]{  "slug": slug.current}
+// Query: *[_type == "event"]{  "slug": coalesce(slug.current, _id)}
 export type EventsSlugsResult = Array<{
-  slug: string | null;
+  slug: string;
 }>;
 // Variable: allProductsQuery
 // Query: *[_type == "product"] | order(_createdAt desc){  _id,  title,  "slug": slug.current,  images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},  priceCents,  currency}
@@ -2566,8 +2566,8 @@ declare module "@sanity/client" {
     "*[_type == \"event\" && startDateTime >= $now && !isCanceled] | order(startDateTime asc)[0...$limit]{\n  _id,\n  title,\n  \"slug\": slug.current,\n  excerpt,\n  startDateTime,\n  endDateTime,\n  timezone,\n  venue,\n  address,\n  city,\n  state,\n  country,\n  ticketUrl,\n  description,\n  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n  isCanceled,\n  isSoldOut\n}": UpcomingEventsQueryResult;
     "*[_type == \"event\" && startDateTime < $now] | order(startDateTime desc)[$offset...$limit]{\n  _id,\n  title,\n  startDateTime,\n  timezone,\n  venue,\n  city,\n  state,\n  country,\n  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt}\n}": PastEventsQueryResult;
     "*[_type == \"event\" && dateTime(startDateTime) >= dateTime($startOfMonth) && dateTime(startDateTime) < dateTime($endOfMonth)] | order(startDateTime asc){\n  _id,\n  title,\n  startDateTime,\n  timezone,\n  venue,\n  city,\n  ticketUrl,\n  isCanceled,\n  isSoldOut\n}": EventsByMonthQueryResult;
-    "*[_type == \"event\" && slug.current == $slug][0]{\n  _id,\n  title,\n  \"slug\": slug.current,\n  excerpt,\n  startDateTime,\n  endDateTime,\n  timezone,\n  venue,\n  address,\n  city,\n  state,\n  country,\n  ticketUrl,\n  description,\n  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n  heroImage{asset->, hotspot, crop, desktopPosition, alt},\n  heroImageMobile{asset->, hotspot, crop, mobilePosition, alt},\n  lineup[]{name, role, bio},\n  specialNotes,\n  isCanceled,\n  isSoldOut\n}": EventBySlugQueryResult;
-    "*[_type == \"event\" && defined(slug.current)]{\n  \"slug\": slug.current\n}": EventsSlugsResult;
+    "*[_type == \"event\" && (slug.current == $slug || _id == $slug)][0]{\n  _id,\n  title,\n  \"slug\": slug.current,\n  excerpt,\n  startDateTime,\n  endDateTime,\n  timezone,\n  venue,\n  address,\n  city,\n  state,\n  country,\n  ticketUrl,\n  description,\n  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n  heroImage{asset->, hotspot, crop, desktopPosition, alt},\n  heroImageMobile{asset->, hotspot, crop, mobilePosition, alt},\n  lineup[]{name, role, bio},\n  specialNotes,\n  isCanceled,\n  isSoldOut\n}": EventBySlugQueryResult;
+    "*[_type == \"event\"]{\n  \"slug\": coalesce(slug.current, _id)\n}": EventsSlugsResult;
     "*[_type == \"product\"] | order(_createdAt desc){\n  _id,\n  title,\n  \"slug\": slug.current,\n  images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n  priceCents,\n  currency\n}": AllProductsQueryResult;
     "*[_type == \"product\" && slug.current == $slug][0]{\n  _id,\n  title,\n  description,\n  images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n  priceCents,\n  currency,\n  options[]{name, values},\n  variants[]{optionValues, priceCents, sku},\n  gelatoProductUid,\n  printAreas[]{areaName, artwork{asset->}},\n  shippingNotes,\n  seo{title, description, ogImage{asset->}}\n}": ProductBySlugQueryResult;
     "*[_type == \"product\" && defined(slug.current)]{\n  \"slug\": slug.current\n}": ProductSlugsQueryResult;

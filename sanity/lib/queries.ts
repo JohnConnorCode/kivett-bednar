@@ -376,7 +376,8 @@ export const eventsByMonthQuery = defineQuery(`*[_type == "event" && dateTime(st
 }`)
 
 // Event detail pages
-export const eventBySlugQuery = defineQuery(`*[_type == "event" && slug.current == $slug][0]{
+// Note: This query handles both slugs and IDs as fallback for events without slugs
+export const eventBySlugQuery = defineQuery(`*[_type == "event" && (slug.current == $slug || _id == $slug)][0]{
   _id,
   title,
   "slug": slug.current,
@@ -400,8 +401,9 @@ export const eventBySlugQuery = defineQuery(`*[_type == "event" && slug.current 
   isSoldOut
 }`)
 
-export const eventsSlugs = defineQuery(`*[_type == "event" && defined(slug.current)]{
-  "slug": slug.current
+// Returns slugs for events that have them, and _id as fallback for events without slugs
+export const eventsSlugs = defineQuery(`*[_type == "event"]{
+  "slug": coalesce(slug.current, _id)
 }`)
 
 // Products

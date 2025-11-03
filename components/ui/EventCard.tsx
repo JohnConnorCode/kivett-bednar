@@ -46,7 +46,13 @@ export function EventCard({event}: {event: Event}) {
     'h:mm a'
   )
 
-  const eventLink = event.slug ? `/shows/${event.slug}` : null
+  // Use slug if available, otherwise fallback to _id for events without slugs
+  const eventLink = event.slug ? `/shows/${event.slug}` : event._id ? `/shows/${event._id}` : null
+
+  // Log warning in development for events missing slugs
+  if (!event.slug && event._id && process.env.NODE_ENV === 'development') {
+    console.warn(`Event "${event.title}" (${event._id}) is missing a slug. Using ID as fallback. Please generate a slug in Sanity Studio.`)
+  }
 
   const cardContent = (
     <>
