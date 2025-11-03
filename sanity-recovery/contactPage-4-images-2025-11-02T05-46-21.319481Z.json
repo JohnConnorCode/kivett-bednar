@@ -1,0 +1,68 @@
+{
+  "_createdAt": "2025-11-01T15:45:12Z",
+  "_id": "contactPage",
+  "_rev": "T0zY3vaSb7fEMNaeV19YUy",
+  "_type": "contactPage",
+  "_updatedAt": "2025-11-02T05:20:19Z",
+  "aboutHeading": "About Kivett",
+  "directContactHeading": "Direct Contact",
+  "formHeading": "Send a Message",
+  "heroHeading": "Get in Touch",
+  "heroImage": {
+    "_type": "image",
+    "alt": "Contact Kivett Bednar",
+    "asset": {
+      "_ref": "image-8e4b4f0c5f381a179aa1902c194c66db4395828b-1920x1152-jpg",
+      "_type": "reference"
+    }
+  },
+  "heroSubheading": "(I will really get back to you.)\n\nBooking inquiries, lesson scheduling, collaborations, or just to say hello.",
+  "portraitGallery": [
+    {
+      "_key": "portrait-1",
+      "_type": "image",
+      "alt": "With Guild guitar",
+      "asset": {
+        "_ref": "image-803277270d9373d58b0c53a48491f9ef67b82039-892x830-jpg",
+        "_type": "reference"
+      }
+    },
+    {
+      "_key": "portrait-2",
+      "_type": "image",
+      "alt": "Artistic portrait",
+      "asset": {
+        "_ref": "image-89f30414e75139fdb10d5f015540e55870a05b0f-596x711-png",
+        "_type": "reference"
+      }
+    },
+    {
+      "_key": "portrait-3",
+      "_type": "image",
+      "alt": "Live performance",
+      "asset": {
+        "_ref": "image-bba95d0e1cb684d423219883dee769fbcc6ebb29-1510x1249-jpg",
+        "_type": "reference"
+      }
+    },
+    {
+      "_key": "portrait-4",
+      "_type": "image",
+      "alt": "Guitar detail",
+      "asset": {
+        "_ref": "image-803277270d9373d58b0c53a48491f9ef67b82039-892x830-jpg",
+        "_type": "reference"
+      }
+    }
+  ],
+  "portraitImage": {
+    "_type": "image",
+    "alt": "Kivett Bednar portrait",
+    "asset": {
+      "_ref": "image-418d42236dbd40bce225d925931046ea55fc4aba-1080x1080-jpg",
+      "_type": "reference"
+    }
+  },
+  "quickLinksHeading": "Quick Links",
+  "socialHeading": "Follow Along"
+}

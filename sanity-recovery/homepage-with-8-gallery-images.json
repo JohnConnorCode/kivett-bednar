@@ -1,0 +1,288 @@
+{
+  "_createdAt": "2025-11-01T15:45:10Z",
+  "_id": "homePage",
+  "_rev": "SREve7bOUfTqn6uTH1WQLa",
+  "_type": "homePage",
+  "_updatedAt": "2025-11-02T08:17:30Z",
+  "aboutButtonText": "View Setlist",
+  "aboutHeading": "Musician, Amp Maker, Artist",
+  "aboutImage": {
+    "_type": "image",
+    "alt": "Kivett Bednar portrait",
+    "asset": {
+      "_ref": "image-7b0c18ed3066b1838125fe4f3394551d7630eec5-2980x2001-jpg",
+      "_type": "reference"
+    }
+  },
+  "aboutText": "Grew up in Austin's blues scene, sneaking into Antone's to hear the legends. Now based in Portland, bringing that same raw energy to the Pacific Northwest.\n\nThird place out of 400 bands at the 2017 International Blues Competition in Memphis. Berklee College of Music, magna cum laude. Twenty years teaching experience.\n\nNot just a musician—builds custom tube amps, creates visual art, and keeps the blues alive through teaching and performing.",
+  "albumDescription": "Collaboration with Anthony Pausic (drums). Blending blues traditions with guitar tones from heavier influences like doom and stoner-rock. Raw, authentic, and distinctly Pacific Northwest.",
+  "albumFeatures": [
+    "Blues standards and original compositions",
+    "Live-recorded energy and authenticity",
+    "Red vinyl limited to 500 copies"
+  ],
+  "albumFormat": "Limited Edition Red Vinyl (500 copies)",
+  "albumTitle": "Land of the Living",
+  "albumYear": "2014",
+  "ctaLessonsButtonText": "Schedule Your First Lesson",
+  "ctaLessonsHeading": "Learn Authentic Blues Guitar",
+  "ctaLessonsText": "Twenty years teaching experience. Berklee College of Music, magna cum laude. Build solid foundations in blues techniques, theory, and improvisation. Lessons via helpwith.co or direct contact.",
+  "galleryImages": [
+    {
+      "_key": "gallery-1",
+      "alt": "Guitar craftsmanship and blues tradition",
+      "height": 1996,
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-492368684a18eec9770075f8d1045ab31cbfa37a-2048x1996-jpg",
+          "_type": "reference"
+        }
+      },
+      "width": 2048
+    },
+    {
+      "_key": "gallery-2",
+      "alt": "Concert energy and stage presence",
+      "height": 1952,
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-021be207c1aef2e02019a840586fba49249bc994-1952x1952-jpg",
+          "_type": "reference"
+        }
+      },
+      "width": 1952
+    },
+    {
+      "_key": "gallery-3",
+      "alt": "Intimate blues performance",
+      "height": 1440,
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-bad8dc94709b242b4df768eb4871a5901114ac91-894x1440-jpg",
+          "_type": "reference"
+        }
+      },
+      "width": 894
+    },
+    {
+      "_key": "gallery-4",
+      "alt": "Live show atmosphere",
+      "height": 846,
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-4768ec02539e5a3aba263d05a885c2aff62ebefc-960x846-jpg",
+          "_type": "reference"
+        }
+      },
+      "width": 960
+    },
+    {
+      "_key": "gallery-5",
+      "alt": "Waltz Brewing performance",
+      "height": 1080,
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-418d42236dbd40bce225d925931046ea55fc4aba-1080x1080-jpg",
+          "_type": "reference"
+        }
+      },
+      "width": 1080
+    },
+    {
+      "_key": "gallery-6",
+      "alt": "Stage performance with guitar",
+      "height": 1071,
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-6b49735c0c260218eb9ef1ba400d8ceb7600838c-1200x1071-jpg",
+          "_type": "reference"
+        }
+      },
+      "width": 1200
+    },
+    {
+      "_key": "gallery-7",
+      "alt": "Wide angle stage shot",
+      "height": 1366,
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-ef5385756135b9edaa709af9369634abcf391800-2048x1366-jpg",
+          "_type": "reference"
+        }
+      },
+      "width": 2048
+    },
+    {
+      "_key": "gallery-8",
+      "alt": "Classic blues performance",
+      "height": 741,
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-946481b759a9e6e156153c18f113d812755db25c-960x741-jpg",
+          "_type": "reference"
+        }
+      },
+      "width": 960
+    }
+  ],
+  "gallerySectionHeading": "Gallery",
+  "gallerySectionSubheading": "Moments from the stage and studio",
+  "heroHeading": "Kivett Bednar",
+  "heroSlides": [
+    {
+      "_key": "hero-1",
+      "_type": "object",
+      "alt": "Kivett Bednar - Portland blues guitarist and musician",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-7b0c18ed3066b1838125fe4f3394551d7630eec5-2980x2001-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "hero-2",
+      "_type": "object",
+      "alt": "Performing at the historic Orpheum Theatre",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-bba95d0e1cb684d423219883dee769fbcc6ebb29-1510x1249-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "hero-3",
+      "_type": "object",
+      "alt": "Kivett performing gritty Texas blues",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-946481b759a9e6e156153c18f113d812755db25c-960x741-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "hero-4",
+      "_type": "object",
+      "alt": "Recent live performance",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-f5a80b3637d1a90c2003cd4c3485a51bb31b3c48-1800x1799-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "hero-5",
+      "_type": "object",
+      "alt": "Featured in Memphis Flyer",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-5d00c0eea03d0d45e3a3cce04e214eebdb2a92fd-1400x933-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "hero-6",
+      "_type": "object",
+      "alt": "Live blues performance",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-f1742d6f0944e2dbfe484abdfcfe54fadf79eaec-2048x1366-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "hero-7",
+      "_type": "object",
+      "alt": "Live performance energy",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-3f91e71cac703f26ceb5d8b46c3c0730f9fd1791-1200x997-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "hero-8",
+      "_type": "object",
+      "alt": "Guitar performance detail",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-7271c3b4fc924a8943b74d0f8c77399e2b192ee0-1000x973-jpg",
+          "_type": "reference"
+        }
+      }
+    },
+    {
+      "_key": "hero-9",
+      "_type": "object",
+      "alt": "Blues guitarist in action",
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-46fd9566049235ae7e1131de99873d5fe0688094-960x960-jpg",
+          "_type": "reference"
+        }
+      }
+    }
+  ],
+  "heroSubheading": "Blues Guitarist • Austin, TX • Portland, OR",
+  "heroTagline": "Gritty Texas Blues meets the heart of the Pacific Northwest",
+  "parallaxHeading": "Gritty Texas Blues",
+  "parallaxImages": [
+    {
+      "_key": "parallax-1",
+      "_type": "image",
+      "alt": "Red guitar detail",
+      "asset": {
+        "_ref": "image-803277270d9373d58b0c53a48491f9ef67b82039-892x830-jpg",
+        "_type": "reference"
+      },
+      "offset": 0,
+      "position": "left"
+    },
+    {
+      "_key": "parallax-2",
+      "_type": "image",
+      "alt": "Kivett with Guild guitar",
+      "asset": {
+        "_ref": "image-803277270d9373d58b0c53a48491f9ef67b82039-892x830-jpg",
+        "_type": "reference"
+      },
+      "offset": 100,
+      "position": "right"
+    }
+  ],
+  "parallaxSubheading": "Meets the Heart of the Pacific Northwest",
+  "performanceImage": {
+    "_type": "image",
+    "alt": "Kivett performing at the Orpheum",
+    "asset": {
+      "_ref": "image-bba95d0e1cb684d423219883dee769fbcc6ebb29-1510x1249-jpg",
+      "_type": "reference"
+    }
+  },
+  "performanceSectionHeading": "Live Performances",
+  "seeAllShowsLinkText": "See all shows →",
+  "upcomingShowsHeading": "Upcoming Shows"
+}
