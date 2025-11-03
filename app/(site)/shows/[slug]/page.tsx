@@ -118,9 +118,9 @@ export default async function EventPage({params}: Props) {
       <div className="min-h-screen">
         {/* Hero Section */}
         {heroImageDesktop?.asset?.url && (
-          <div className="relative h-[60vh] md:h-[70vh] overflow-hidden bg-background">
+          <div className="relative h-[60vh] md:h-[75vh] overflow-hidden bg-background">
             {/* Vintage grain overlay */}
-            <div className="absolute inset-0 z-10 pointer-events-none opacity-20 mix-blend-overlay vintage-grain" />
+            <div className="absolute inset-0 z-10 pointer-events-none opacity-30 mix-blend-overlay vintage-grain" />
 
             {/* Desktop Image */}
             <div className="hidden md:block absolute inset-0">
@@ -152,8 +152,9 @@ export default async function EventPage({params}: Props) {
               </div>
             )}
 
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent z-10" />
+            {/* Gradient Overlay - Enhanced for dramatic effect */}
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-black/30 z-10" />
+            <div className="absolute inset-0 bg-gradient-to-r from-background/40 to-transparent z-10" />
 
             {/* Event Status Badges */}
             {event.isCanceled && (
@@ -186,7 +187,13 @@ export default async function EventPage({params}: Props) {
         )}
 
         {/* Event Details */}
-        <section className="bg-gradient-to-b from-surface via-surface-elevated to-surface py-16 md:py-24">
+        <section className="bg-gradient-to-b from-background via-surface to-surface-elevated py-16 md:py-24 relative overflow-hidden">
+          {/* Decorative background elements */}
+          <div className="absolute inset-0 opacity-5 pointer-events-none">
+            <div className="absolute top-0 right-0 w-96 h-96 bg-accent-primary rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent-secondary rounded-full blur-3xl" />
+          </div>
+          <div className="relative z-10">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="grid lg:grid-cols-3 gap-12">
@@ -195,9 +202,12 @@ export default async function EventPage({params}: Props) {
                   {/* Excerpt */}
                   {event.excerpt && (
                     <AnimatedSection animation="fadeUp">
-                      <p className="text-2xl text-text-secondary leading-relaxed border-l-4 border-accent-primary pl-6">
-                        {event.excerpt}
-                      </p>
+                      <div className="relative">
+                        <div className="absolute -left-2 top-0 bottom-0 w-1 bg-gradient-to-b from-accent-primary to-accent-secondary rounded-full" />
+                        <p className="text-2xl text-text-primary leading-relaxed border-l-4 border-accent-primary pl-8 py-6 bg-surface-elevated/30 rounded-r-xl shadow-lg">
+                          {event.excerpt}
+                        </p>
+                      </div>
                     </AnimatedSection>
                   )}
 
@@ -268,7 +278,10 @@ export default async function EventPage({params}: Props) {
                 <div className="space-y-6">
                   {/* Event Info Card */}
                   <AnimatedSection animation="fadeUp" delay={0.2}>
-                    <div className="bg-gradient-to-br from-surface to-surface-elevated rounded-2xl p-8 text-text-primary border-4 border-accent-primary/30 shadow-2xl sticky top-8">
+                    <div className="bg-gradient-to-br from-surface to-surface-elevated rounded-2xl p-8 text-text-primary border-4 border-accent-primary/40 shadow-2xl sticky top-8 relative overflow-hidden">
+                      {/* Decorative corner accent */}
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-accent-primary/10 rounded-bl-full" />
+                      <div className="relative z-10">
                       <h2 className="text-2xl font-bold text-accent-primary mb-6">Event Details</h2>
 
                       <div className="space-y-4 mb-8">
@@ -293,6 +306,7 @@ export default async function EventPage({params}: Props) {
                           <p className="font-semibold">This event has been canceled</p>
                         </div>
                       )}
+                      </div>
                     </div>
                   </AnimatedSection>
 
@@ -308,6 +322,7 @@ export default async function EventPage({params}: Props) {
                 </div>
               </div>
             </div>
+          </div>
           </div>
         </section>
       </div>
