@@ -47,11 +47,11 @@ export function Header({siteName, navigation}: HeaderProps) {
         isScrolled ? 'shadow-lg shadow-black/50' : ''
       }`}
       style={{
-        backgroundColor: 'rgba(10, 10, 10, 0.3)',
-        backdropFilter: 'blur(16px) saturate(180%)',
-        WebkitBackdropFilter: 'blur(16px) saturate(180%)',
-        borderBottom: isScrolled ? '1px solid rgba(212, 175, 55, 0.2)' : '1px solid rgba(255, 255, 255, 0.1)',
-        isolation: 'isolate',
+        backgroundColor: isScrolled ? 'rgba(10, 10, 10, 0.3)' : 'transparent',
+        backdropFilter: isScrolled ? 'blur(16px) saturate(180%)' : 'none',
+        WebkitBackdropFilter: isScrolled ? 'blur(16px) saturate(180%)' : 'none',
+        borderBottom: isScrolled ? '1px solid rgba(212, 175, 55, 0.2)' : 'none',
+        isolation: isScrolled ? 'isolate' : 'auto',
       }}
     >
       <div className="container mx-auto px-4">

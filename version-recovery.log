@@ -1,0 +1,94 @@
+🔍 FETCHING ALL DOCUMENT VERSIONS
+
+======================================================================
+
+Fetching version from 2025-11-02T04:01:26.613207Z...
+   → 6 hero slides
+Fetching version from 2025-11-02T04:07:04.379156Z...
+   → 9 hero slides
+Fetching version from 2025-11-02T04:07:05.642716Z...
+   → 9 hero slides
+Fetching version from 2025-11-02T04:56:01.794573Z...
+   → 9 hero slides
+Fetching version from 2025-11-02T05:19:38.994105Z...
+   → 9 hero slides
+Fetching version from 2025-11-02T05:46:21.319481Z...
+   → 9 hero slides
+Fetching version from 2025-11-02T08:17:30.265370Z...
+   → 9 hero slides
+Fetching version from 2025-11-02T08:30:07.906640Z...
+   → 9 hero slides
+Fetching version from 2025-11-02T14:19:12.086566Z...
+   → 8 hero slides
+Fetching version from 2025-11-02T14:28:26.943720Z...
+   → 8 hero slides
+Fetching version from 2025-11-02T14:32:32.780986Z...
+   → 8 hero slides
+Fetching version from 2025-11-02T16:00:42.568938Z...
+   → 8 hero slides
+Fetching version from 2025-11-01T16:17:21.759708Z...
+   → 4 hero slides
+Fetching version from 2025-11-01T15:58:32.748271Z...
+   → 4 hero slides
+Fetching version from 2025-11-01T15:45:10.431622Z...
+   → 4 hero slides
+
+======================================================================
+
+📊 ALL VERSIONS:
+
+1. 2025-11-02T04:07:04.379156Z - 9 slides
+2. 2025-11-02T04:07:05.642716Z - 9 slides
+3. 2025-11-02T04:56:01.794573Z - 9 slides
+4. 2025-11-02T05:19:38.994105Z - 9 slides
+5. 2025-11-02T05:46:21.319481Z - 9 slides
+6. 2025-11-02T08:17:30.265370Z - 9 slides
+7. 2025-11-02T08:30:07.906640Z - 9 slides
+8. 2025-11-02T14:19:12.086566Z - 8 slides
+9. 2025-11-02T14:28:26.943720Z - 8 slides
+10. 2025-11-02T14:32:32.780986Z - 8 slides
+11. 2025-11-02T16:00:42.568938Z - 8 slides
+12. 2025-11-02T04:01:26.613207Z - 6 slides
+13. 2025-11-01T16:17:21.759708Z - 4 slides
+14. 2025-11-01T15:58:32.748271Z - 4 slides
+15. 2025-11-01T15:45:10.431622Z - 4 slides
+
+======================================================================
+
+✅ BEST VERSION FOUND!
+
+   Date: 2025-11-02T04:07:04.379156Z
+   Hero slides: 9
+   Transaction: uU5Y9pmGe5l1IKNuwo9OUB
+
+📁 Saved to: /Users/johnconnor/Documents/GitHub/Kivett2/sanity-recovery/homepage-9-slides-2025-11-02T04-07-04.379156Z.json
+
+Hero Slides:
+
+  1. Kivett Bednar - Portland blues guitarist and musician
+     Image ref: image-7b0c18ed3066b1838125fe4f3394551d7630eec5-2980x2001-jpg
+  2. Performing at the historic Orpheum Theatre
+     Image ref: image-bba95d0e1cb684d423219883dee769fbcc6ebb29-1510x1249-jpg
+  3. Kivett performing gritty Texas blues
+     Image ref: image-946481b759a9e6e156153c18f113d812755db25c-960x741-jpg
+  4. Recent live performance
+     Image ref: image-f5a80b3637d1a90c2003cd4c3485a51bb31b3c48-1800x1799-jpg
+  5. Featured in Memphis Flyer
+     Image ref: image-5d00c0eea03d0d45e3a3cce04e214eebdb2a92fd-1400x933-jpg
+  6. Live blues performance
+     Image ref: image-f1742d6f0944e2dbfe484abdfcfe54fadf79eaec-2048x1366-jpg
+  7. Live performance energy
+     Image ref: image-3f91e71cac703f26ceb5d8b46c3c0730f9fd1791-1200x997-jpg
+  8. Guitar performance detail
+     Image ref: image-7271c3b4fc924a8943b74d0f8c77399e2b192ee0-1000x973-jpg
+  9. Blues guitarist in action
+     Image ref: image-46fd9566049235ae7e1131de99873d5fe0688094-960x960-jpg
+
+======================================================================
+
+🔧 TO RESTORE THIS VERSION:
+
+   npx tsx scripts/restore-from-backup.ts "/Users/johnconnor/Documents/GitHub/Kivett2/sanity-recovery/homepage-9-slides-2025-11-02T04-07-04.379156Z.json"
+
+   This will restore ALL hero slides with their images and positioning!
+
