@@ -19,9 +19,7 @@ export const settings = defineType({
       description: 'This field is the title of your blog.',
       title: 'Title',
       type: 'string',
-      initialValue: demo.title,
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: demo.title,    }),
     defineField({
       name: 'description',
       description: 'Used on the Homepage',
@@ -155,9 +153,7 @@ export const settings = defineType({
       name: 'contactEmail',
       title: 'Contact Email',
       type: 'string',
-      description: 'Primary contact email address',
-      validation: (rule) => rule.email(),
-    }),
+      description: 'Primary contact email address',    }),
     defineField({
       name: 'bookingUrl',
       title: 'Booking/Scheduling URL',
@@ -189,9 +185,7 @@ export const settings = defineType({
                   {title: 'Bandcamp', value: 'bandcamp'},
                 ],
                 layout: 'dropdown',
-              },
-              validation: (rule) => rule.required(),
-            }),
+              },            }),
             defineField({
               name: 'url',
               title: 'URL',

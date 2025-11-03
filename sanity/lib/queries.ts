@@ -103,6 +103,10 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
   heroHeading,
   heroHeadingDesktopSize,
   heroHeadingMobileSize,
+  heroHeadingTracking,
+  heroHeadingLineHeight,
+  heroSubheadingTracking,
+  heroSubheadingLineHeight,
   heroSubheading,
   heroTagline,
   heroButtonText,
@@ -325,20 +329,32 @@ const moduleFields = /* groq */ `
   _key,
   _type == "hero" => {
     headline,
+    headlineDesktopSize,
+    headlineMobileSize,
+    headlineTracking,
+    headlineLineHeight,
     subhead,
+    subheadTracking,
+    subheadLineHeight,
     mediaType,
     image{asset->, hotspot, crop, alt},
     mobileImage{asset->, hotspot, crop, alt},
     desktopPosition,
     mobilePosition,
     video,
+    backgroundVariant,
+    sectionPadding,
     ctas[]{label, href, variant}
   },
   _type == "richText" => {
-    content
+    content,
+    backgroundVariant,
+    sectionPadding
   },
   _type == "imageGallery" => {
-    images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt, caption}
+    images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt, caption},
+    backgroundVariant,
+    sectionPadding
   },
   _type == "featureGrid" => {
     items[]{title, body, iconType, icon, image{asset->, hotspot, crop, desktopPosition, mobilePosition}}
@@ -355,6 +371,22 @@ const moduleFields = /* groq */ `
   _type == "musicEmbed" => {
     provider,
     url
+  },
+  _type == "testimonials" => {
+    heading,
+    items[]{
+      name,
+      role,
+      quote,
+      image{asset->, hotspot, crop, alt}
+    }
+  },
+  _type == "faq" => {
+    heading,
+    items[]{
+      question,
+      answer
+    }
   },
   _type == "callToAction" => @,
   _type == "infoSection" => @

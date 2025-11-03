@@ -10,9 +10,7 @@ export const ctaBanner = defineType({
     defineField({
       name: 'heading',
       title: 'Heading',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
+      type: 'string',    }),
     defineField({
       name: 'body',
       title: 'Body',
@@ -27,15 +25,11 @@ export const ctaBanner = defineType({
         defineField({
           name: 'label',
           title: 'Label',
-          type: 'string',
-          validation: (Rule) => Rule.required(),
-        }),
+          type: 'string',        }),
         defineField({
           name: 'href',
           title: 'URL',
-          type: 'string',
-          validation: (Rule) => Rule.required(),
-        }),
+          type: 'string',        }),
       ],
     }),
   ],

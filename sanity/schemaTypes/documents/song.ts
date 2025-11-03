@@ -14,16 +14,12 @@ export const song = defineType({
     defineField({
       name: 'title',
       title: 'Song Title',
-      type: 'string',
-      validation: (rule) => rule.required(),
-    }),
+      type: 'string',    }),
     defineField({
       name: 'key',
       title: 'Key',
       type: 'string',
-      description: 'Musical key (e.g., "C", "Am", "G7")',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Musical key (e.g., "C", "Am", "G7")',    }),
     defineField({
       name: 'artist',
       title: 'Artist/Composer',
@@ -41,9 +37,7 @@ export const song = defineType({
       name: 'order',
       title: 'Order',
       type: 'number',
-      description: 'Display order in setlist',
-      validation: (rule) => rule.required().integer().min(1),
-    }),
+      description: 'Display order in setlist',    }),
   ],
   orderings: [
     {

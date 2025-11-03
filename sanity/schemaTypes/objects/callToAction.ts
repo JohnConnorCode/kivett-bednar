@@ -24,9 +24,7 @@ export const callToAction = defineType({
     defineField({
       name: 'heading',
       title: 'Heading',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
+      type: 'string',    }),
     defineField({
       name: 'text',
       title: 'Text',

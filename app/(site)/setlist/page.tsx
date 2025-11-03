@@ -1,6 +1,6 @@
 import {Metadata} from 'next'
 import Link from 'next/link'
-import {client} from '@/sanity/lib/client'
+import {sanityFetch} from '@/sanity/lib/live'
 import {setlistPageQuery, allSongsQuery} from '@/sanity/lib/queries'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 
 export default async function SetlistPage() {
   const [setlistPage, songs] = await Promise.all([
-    client.fetch(setlistPageQuery, {}, {next: {revalidate: 60}}),
-    client.fetch(allSongsQuery, {}, {next: {revalidate: 60}}),
+    sanityFetch({query: setlistPageQuery}).then((r) => r.data),
+    sanityFetch({query: allSongsQuery}).then((r) => r.data),
   ])
 
   return (

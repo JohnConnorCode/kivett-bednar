@@ -29,4 +29,12 @@ export const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2025-09
 /**
  * Used to configure edit intent links, for Presentation Mode, as well as to configure where the Studio is mounted in the router.
  */
-export const studioUrl = process.env.NEXT_PUBLIC_SANITY_STUDIO_URL || 'http://localhost:3333'
+/**
+ * Base URL to the embedded Studio. Prefer NEXT_PUBLIC_SANITY_STUDIO_URL when provided,
+ * otherwise derive it from NEXT_PUBLIC_BASE_URL and the /studio mount.
+ */
+export const studioUrl =
+  process.env.NEXT_PUBLIC_SANITY_STUDIO_URL ||
+  (process.env.NEXT_PUBLIC_BASE_URL
+    ? `${process.env.NEXT_PUBLIC_BASE_URL.replace(/\/$/, '')}/studio`
+    : 'http://localhost:3000/studio')

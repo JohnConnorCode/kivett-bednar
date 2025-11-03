@@ -17,18 +17,14 @@ export const merchPage = defineType({
       title: 'Hero Heading',
       type: 'string',
       description: 'Main heading for merch page (e.g., "Merch")',
-      initialValue: 'Merch',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'Merch',    }),
     defineField({
       name: 'heroSubheading',
       title: 'Hero Subheading',
       type: 'text',
       rows: 2,
       description: 'Subtitle for merch page (e.g., "Official Kivett Bednar gear and music")',
-      initialValue: 'Official Kivett Bednar gear and music',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'Official Kivett Bednar gear and music',    }),
     defineField({
       name: 'heroImage',
       title: 'Hero Background Image (Optional)',
@@ -42,6 +38,7 @@ export const merchPage = defineType({
           name: 'alt',
           title: 'Alt Text',
           type: 'string',
+              initialValue: 'Kivett Bednar merchandise',
         }),
         defineField({
           name: 'desktopPosition',
@@ -92,9 +89,7 @@ export const merchPage = defineType({
       title: 'Empty State Heading',
       type: 'string',
       description: 'Heading shown when no products are available',
-      initialValue: 'Merch Store Opening Soon!',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'Merch Store Opening Soon!',    }),
     defineField({
       name: 'emptyStateText',
       title: 'Empty State Text',
@@ -102,9 +97,7 @@ export const merchPage = defineType({
       rows: 3,
       description: 'Message shown when no products are available',
       initialValue:
-        'T-shirts, vinyl records, and other official merchandise coming soon. Be the first to know when our store launches!',
-      validation: (rule) => rule.required(),
-    }),
+        'T-shirts, vinyl records, and other official merchandise coming soon. Be the first to know when our store launches!',    }),
     defineField({
       name: 'emptyStateButton1Text',
       title: 'Empty State Button 1 Text',

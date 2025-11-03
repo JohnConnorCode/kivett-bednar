@@ -1,3 +1,4 @@
+import 'server-only'
 import {createClient} from 'next-sanity'
 
 import {apiVersion, dataset, projectId, studioUrl} from '@/sanity/lib/api'
@@ -7,7 +8,7 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true,
+  useCdn: false, // Disable CDN for instant content updates
   perspective: 'published',
   token, // Required if you have a private dataset
   stega: {

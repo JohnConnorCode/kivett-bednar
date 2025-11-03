@@ -2,6 +2,7 @@ import {Metadata} from 'next'
 import {notFound} from 'next/navigation'
 import Image from 'next/image'
 import {client} from '@/sanity/lib/client'
+import {sanityFetch} from '@/sanity/lib/live'
 import {productBySlugQuery} from '@/sanity/lib/queries'
 import {urlFor} from '@/sanity/lib/image'
 import {PortableText} from '@portabletext/react'
@@ -26,11 +27,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 
 export default async function ProductPage({params}: Props) {
   const {slug} = await params
-  const product = await client.fetch(
-    productBySlugQuery,
-    {slug},
-    {next: {revalidate: 60}}
-  )
+  const product = await sanityFetch({query: productBySlugQuery, params: {slug}}).then((r) => r.data)
 
   if (!product) {
     notFound()
@@ -77,6 +74,7 @@ export default async function ProductPage({params}: Props) {
                     alt={product.images[0].alt || product.title || 'Product image'}
                     fill
                     className="object-cover"
+                    sizes="(min-width: 768px) 50vw, 100vw"
                     priority
                   />
                 </div>
@@ -90,6 +88,7 @@ export default async function ProductPage({params}: Props) {
                         alt={img.alt || ''}
                         fill
                         className="object-cover"
+                        sizes="(min-width: 768px) 12vw, 25vw"
                       />
                     </div>
                   ))}

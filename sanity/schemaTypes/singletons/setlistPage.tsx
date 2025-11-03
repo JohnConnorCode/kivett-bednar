@@ -15,9 +15,7 @@ export const setlistPage = defineType({
     defineField({
       name: 'heroHeading',
       title: 'Hero Heading',
-      type: 'string',
-      validation: (rule) => rule.required(),
-    }),
+      type: 'string',    }),
     defineField({
       name: 'heroImage',
       title: 'Hero Background Image',
@@ -31,8 +29,7 @@ export const setlistPage = defineType({
           name: 'alt',
           title: 'Alt Text',
           type: 'string',
-          validation: (rule) => rule.required(),
-        }),
+              initialValue: 'Kivett Bednar blues setlist',        }),
       ],
     }),
 
@@ -59,8 +56,7 @@ export const setlistPage = defineType({
           name: 'alt',
           title: 'Alt Text',
           type: 'string',
-          validation: (rule) => rule.required(),
-        }),
+              initialValue: 'Kivett Bednar blues setlist',        }),
       ],
     }),
     defineField({
@@ -76,8 +72,7 @@ export const setlistPage = defineType({
           name: 'alt',
           title: 'Alt Text',
           type: 'string',
-          validation: (rule) => rule.required(),
-        }),
+              initialValue: 'Kivett Bednar blues setlist',        }),
       ],
     }),
 

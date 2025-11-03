@@ -1,6 +1,6 @@
 import {Metadata} from 'next'
 import Link from 'next/link'
-import {client} from '@/sanity/lib/client'
+import {sanityFetch} from '@/sanity/lib/live'
 import {allProductsQuery, merchPageQuery} from '@/sanity/lib/queries'
 import {ProductCard} from '@/components/ui/ProductCard'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 
 export default async function MerchPage() {
   const [products, merchPage] = await Promise.all([
-    client.fetch(allProductsQuery, {}, {next: {revalidate: 60}}),
-    client.fetch(merchPageQuery, {}, {next: {revalidate: 60}}),
+    sanityFetch({query: allProductsQuery}).then((r) => r.data),
+    sanityFetch({query: merchPageQuery}).then((r) => r.data),
   ])
 
   // Fallback if no content in Sanity yet

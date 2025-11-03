@@ -41,6 +41,7 @@ export function ProductCard({product}: {product: Product}) {
             alt={product.images[0].alt || product.title}
             fill
             className="object-cover group-hover:scale-105 transition-transform"
+            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
             style={{
               objectPosition: getObjectPosition(product.images[0], isMobile)
             }}

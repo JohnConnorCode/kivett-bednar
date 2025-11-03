@@ -5,6 +5,8 @@ import {FeatureGrid} from './FeatureGrid'
 import {CtaBanner} from './CtaBanner'
 import {VideoEmbed} from './VideoEmbed'
 import {MusicEmbed} from './MusicEmbed'
+import {Testimonials} from './Testimonials'
+import {FAQ} from './FAQ'
 
 type Module = {
   _type: string
@@ -37,11 +39,15 @@ export function ModuleRenderer({modules}: Props) {
             return <CtaBanner key={module._key} {...(module as any)} />
           case 'videoEmbed':
             return <VideoEmbed key={module._key} {...(module as any)} />
-          case 'musicEmbed':
-            return <MusicEmbed key={module._key} {...(module as any)} />
-          default:
-            console.warn(`Unknown module type: ${module._type}`)
-            return null
+      case 'musicEmbed':
+        return <MusicEmbed key={module._key} {...(module as any)} />
+      case 'testimonials':
+        return <Testimonials key={module._key} {...(module as any)} />
+      case 'faq':
+        return <FAQ key={module._key} {...(module as any)} />
+      default:
+        console.warn(`Unknown module type: ${module._type}`)
+        return null
         }
       })}
     </div>

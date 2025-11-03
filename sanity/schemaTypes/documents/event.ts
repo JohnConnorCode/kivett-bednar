@@ -34,9 +34,7 @@ export const event = defineType({
       name: 'title',
       title: 'Event Title',
       type: 'string',
-      group: 'details',
-      validation: (Rule) => Rule.required(),
-    }),
+      group: 'details',    }),
     defineField({
       name: 'slug',
       title: 'Slug',
@@ -47,9 +45,7 @@ export const event = defineType({
         source: 'title',
         maxLength: 96,
         isUnique: (value, context) => context.defaultIsUnique(value, context),
-      },
-      validation: (Rule) => Rule.required(),
-    }),
+      },    }),
     defineField({
       name: 'excerpt',
       title: 'Short Description',
@@ -62,9 +58,7 @@ export const event = defineType({
       name: 'startDateTime',
       title: 'Start Date & Time',
       type: 'datetime',
-      group: 'details',
-      validation: (Rule) => Rule.required(),
-      options: {
+      group: 'details',      options: {
         dateFormat: 'YYYY-MM-DD',
         timeFormat: 'HH:mm',
         timeStep: 15,
@@ -88,16 +82,12 @@ export const event = defineType({
       type: 'string',
       group: 'details',
       description: 'IANA timezone (e.g., America/Los_Angeles)',
-      initialValue: 'America/Los_Angeles',
-      validation: (Rule) => Rule.required(),
-    }),
+      initialValue: 'America/Los_Angeles',    }),
     defineField({
       name: 'venue',
       title: 'Venue Name',
       type: 'string',
-      group: 'location',
-      validation: (Rule) => Rule.required(),
-    }),
+      group: 'location',    }),
     defineField({
       name: 'address',
       title: 'Street Address',
@@ -108,9 +98,7 @@ export const event = defineType({
       name: 'city',
       title: 'City',
       type: 'string',
-      group: 'location',
-      validation: (Rule) => Rule.required(),
-    }),
+      group: 'location',    }),
     defineField({
       name: 'state',
       title: 'State/Province',
@@ -122,9 +110,7 @@ export const event = defineType({
       title: 'Country',
       type: 'string',
       group: 'location',
-      initialValue: 'USA',
-      validation: (Rule) => Rule.required(),
-    }),
+      initialValue: 'USA',    }),
     defineField({
       name: 'ticketUrl',
       title: 'Ticket URL',
@@ -279,9 +265,7 @@ export const event = defineType({
             defineField({
               name: 'name',
               title: 'Name',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-            }),
+              type: 'string',            }),
             defineField({
               name: 'role',
               title: 'Role',

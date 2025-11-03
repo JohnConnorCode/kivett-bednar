@@ -15,15 +15,11 @@ export const person = defineType({
     defineField({
       name: 'firstName',
       title: 'First Name',
-      type: 'string',
-      validation: (rule) => rule.required(),
-    }),
+      type: 'string',    }),
     defineField({
       name: 'lastName',
       title: 'Last Name',
-      type: 'string',
-      validation: (rule) => rule.required(),
-    }),
+      type: 'string',    }),
     defineField({
       name: 'picture',
       title: 'Picture',
@@ -50,9 +46,7 @@ export const person = defineType({
         aiAssist: {
           imageDescriptionField: 'alt',
         },
-      },
-      validation: (rule) => rule.required(),
-    }),
+      },    }),
   ],
   // List preview configuration. https://www.sanity.io/docs/previews-list-views
   preview: {

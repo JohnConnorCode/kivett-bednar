@@ -7,6 +7,7 @@ import Avatar from '@/app/components/Avatar'
 import CoverImage from '@/app/components/CoverImage'
 import {MorePosts} from '@/app/components/Posts'
 import PortableText from '@/app/components/PortableText'
+import {sanityFetch} from '@/sanity/lib/live'
 import {client} from '@/sanity/lib/client'
 import {postPagesSlugs, postQuery} from '@/sanity/lib/queries'
 import {resolveOpenGraphImage} from '@/sanity/lib/utils'
@@ -64,7 +65,9 @@ export async function generateMetadata(props: Props, parent: ResolvingMetadata):
 
 export default async function PostPage(props: Props) {
   const params = await props.params
-  const [post] = await Promise.all([client.fetch(postQuery, params, {next: {revalidate: 60}})])
+  const [post] = await Promise.all([
+    sanityFetch({query: postQuery, params}).then((r) => r.data),
+  ])
 
   if (!post?._id) {
     return notFound()

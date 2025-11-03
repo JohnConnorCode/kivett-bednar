@@ -1,7 +1,7 @@
 import type {Metadata} from 'next'
-import Head from 'next/head'
 
 import PageBuilderPage from '@/app/components/PageBuilder'
+import {sanityFetch} from '@/sanity/lib/live'
 import {client} from '@/sanity/lib/client'
 import {pageBySlugQuery, pagesSlugs} from '@/sanity/lib/queries'
 import {PageBySlugQueryResult} from '@/sanity.types'
@@ -51,7 +51,9 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
 export default async function Page(props: Props) {
   const params = await props.params
-  const [page] = await Promise.all([client.fetch(pageBySlugQuery, params, {next: {revalidate: 60}})])
+  const [page] = await Promise.all([
+    sanityFetch({query: pageBySlugQuery, params}).then((r) => r.data),
+  ])
 
   if (!page?._id) {
     return (
@@ -63,9 +65,6 @@ export default async function Page(props: Props) {
 
   return (
     <div className="my-12 lg:my-24">
-      <Head>
-        <title>{page.heading}</title>
-      </Head>
       <div className="">
         <div className="container">
           <div className="pb-6 border-b border-gray-100">

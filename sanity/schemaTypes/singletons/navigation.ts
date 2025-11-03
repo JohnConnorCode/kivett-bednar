@@ -22,9 +22,7 @@ export const navigation = defineType({
             defineField({
               name: 'title',
               title: 'Title',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-            }),
+              type: 'string',            }),
             defineField({
               name: 'href',
               title: 'URL',
@@ -66,9 +64,7 @@ export const navigation = defineType({
             defineField({
               name: 'title',
               title: 'Title',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-            }),
+              type: 'string',            }),
             defineField({
               name: 'href',
               title: 'URL',

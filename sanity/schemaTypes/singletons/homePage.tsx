@@ -1,3 +1,4 @@
+import React from 'react'
 import {HomeIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
 
@@ -15,9 +16,7 @@ export const homePage = defineType({
       name: 'heroSlides',
       title: 'Hero Slider Images',
       type: 'array',
-      description: 'Images for the hero slider (recommended: 4-6 high-quality images)',
-      validation: (rule) => rule.required().min(1).max(10),
-      of: [
+      description: 'Images for the hero slider (recommended: 4-6 high-quality images)',      of: [
         defineArrayMember({
           type: 'object',
           name: 'slide',
@@ -28,9 +27,7 @@ export const homePage = defineType({
               type: 'image',
               options: {
                 hotspot: true,
-              },
-              validation: (rule) => rule.required(),
-            }),
+              },            }),
             defineField({
               name: 'mobileImage',
               title: 'Mobile Image (Optional)',
@@ -44,8 +41,8 @@ export const homePage = defineType({
               name: 'alt',
               title: 'Alt Text',
               type: 'string',
-              description: 'Describe the image for accessibility',
-              validation: (rule) => rule.required(),
+              description: 'Describe the image for accessibility (optional - defaults to "Kivett Bednar blues musician")',
+              initialValue: 'Kivett Bednar blues musician',
             }),
             defineField({
               name: 'desktopPosition',
@@ -101,9 +98,7 @@ export const homePage = defineType({
       name: 'heroHeading',
       title: 'Hero Heading',
       type: 'string',
-      description: 'Main heading text (e.g., "Kivett Bednar")',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Main heading text (e.g., "Kivett Bednar")',    }),
     defineField({
       name: 'heroHeadingDesktopSize',
       title: 'Hero Heading Size (Desktop)',
@@ -120,6 +115,28 @@ export const homePage = defineType({
           {title: 'Huge (9xl)', value: 'text-9xl'},
         ],
         layout: 'dropdown',
+      },
+      components: {
+        input: (props) => {
+          const value = (props.value as string) || 'text-8xl'
+          const pxMap: Record<string, number> = {
+            'text-4xl': 36,
+            'text-5xl': 48,
+            'text-6xl': 60,
+            'text-7xl': 72,
+            'text-8xl': 96,
+            'text-9xl': 128,
+          }
+          const fontSize = pxMap[value] || 96
+          return (
+            <div>
+              {props.renderDefault(props)}
+              <div style={{marginTop: 8, padding: 8, background: '#f7f7f7', borderRadius: 6}}>
+                <div style={{fontSize, lineHeight: 1.1, fontWeight: 700}}>Desktop preview size</div>
+              </div>
+            </div>
+          )
+        },
       },
     }),
     defineField({
@@ -139,37 +156,160 @@ export const homePage = defineType({
         ],
         layout: 'dropdown',
       },
+      components: {
+        input: (props) => {
+          const value = (props.value as string) || 'text-5xl'
+          const pxMap: Record<string, number> = {
+            'text-2xl': 24,
+            'text-3xl': 30,
+            'text-4xl': 36,
+            'text-5xl': 48,
+            'text-6xl': 60,
+            'text-7xl': 72,
+          }
+          const fontSize = pxMap[value] || 48
+          return (
+            <div>
+              {props.renderDefault(props)}
+              <div style={{marginTop: 8, padding: 8, background: '#f7f7f7', borderRadius: 6}}>
+                <div style={{fontSize, lineHeight: 1.1, fontWeight: 700}}>Mobile preview size</div>
+              </div>
+            </div>
+          )
+        },
+      },
+    }),
+    defineField({
+      name: 'heroHeadingTracking',
+      title: 'Hero Heading Letter Spacing',
+      type: 'string',
+      initialValue: 'tracking-tight',
+      options: {
+        list: [
+          {title: 'Tighter', value: 'tracking-tighter'},
+          {title: 'Tight', value: 'tracking-tight'},
+          {title: 'Normal', value: 'tracking-normal'},
+          {title: 'Wide', value: 'tracking-wide'},
+          {title: 'Wider', value: 'tracking-wider'},
+          {title: 'Widest', value: 'tracking-widest'},
+        ],
+        layout: 'dropdown',
+      },
+      components: {
+        input: (props) => {
+          const value = (props.value as string) || 'tracking-tight'
+          const letterSpacingMap: Record<string, string> = {
+            'tracking-tighter': '-0.05em',
+            'tracking-tight': '-0.025em',
+            'tracking-normal': '0',
+            'tracking-wide': '0.025em',
+            'tracking-wider': '0.05em',
+            'tracking-widest': '0.1em',
+          }
+          const letterSpacing = letterSpacingMap[value] || '-0.025em'
+          return (
+            <div>
+              {props.renderDefault(props)}
+              <div style={{marginTop: 8, padding: 8, background: '#f7f7f7', borderRadius: 6}}>
+                <div style={{fontSize: 32, letterSpacing, fontWeight: 700}}>Letter spacing preview</div>
+              </div>
+            </div>
+          )
+        },
+      },
+    }),
+    defineField({
+      name: 'heroHeadingLineHeight',
+      title: 'Hero Heading Line Height',
+      type: 'string',
+      initialValue: 'leading-none',
+      options: {
+        list: [
+          {title: 'None', value: 'leading-none'},
+          {title: 'Tight', value: 'leading-tight'},
+          {title: 'Snug', value: 'leading-snug'},
+          {title: 'Normal', value: 'leading-normal'},
+          {title: 'Relaxed', value: 'leading-relaxed'},
+        ],
+        layout: 'dropdown',
+      },
+      components: {
+        input: (props) => {
+          const value = (props.value as string) || 'leading-none'
+          const lineHeightMap: Record<string, number> = {
+            'leading-none': 1,
+            'leading-tight': 1.25,
+            'leading-snug': 1.375,
+            'leading-normal': 1.5,
+            'leading-relaxed': 1.625,
+          }
+          const lineHeight = lineHeightMap[value] || 1
+          return (
+            <div>
+              {props.renderDefault(props)}
+              <div style={{marginTop: 8, padding: 8, background: '#f7f7f7', borderRadius: 6}}>
+                <div style={{fontSize: 28, lineHeight, fontWeight: 700}}>Line height preview (two lines)\nSecond line here</div>
+              </div>
+            </div>
+          )
+        },
+      },
     }),
     defineField({
       name: 'heroSubheading',
       title: 'Hero Subheading',
       type: 'string',
-      description: 'Subheading text (e.g., "Blues • Guitar • Portland")',
-      validation: (rule) => rule.required(),
+      description: 'Subheading text (e.g., "Blues • Guitar • Portland")',    }),
+    defineField({
+      name: 'heroSubheadingTracking',
+      title: 'Hero Subheading Letter Spacing',
+      type: 'string',
+      initialValue: 'tracking-normal',
+      options: {
+        list: [
+          {title: 'Tighter', value: 'tracking-tighter'},
+          {title: 'Tight', value: 'tracking-tight'},
+          {title: 'Normal', value: 'tracking-normal'},
+          {title: 'Wide', value: 'tracking-wide'},
+          {title: 'Wider', value: 'tracking-wider'},
+          {title: 'Widest', value: 'tracking-widest'},
+        ],
+        layout: 'dropdown',
+      },
+    }),
+    defineField({
+      name: 'heroSubheadingLineHeight',
+      title: 'Hero Subheading Line Height',
+      type: 'string',
+      initialValue: 'leading-normal',
+      options: {
+        list: [
+          {title: 'None', value: 'leading-none'},
+          {title: 'Tight', value: 'leading-tight'},
+          {title: 'Snug', value: 'leading-snug'},
+          {title: 'Normal', value: 'leading-normal'},
+          {title: 'Relaxed', value: 'leading-relaxed'},
+        ],
+        layout: 'dropdown',
+      },
     }),
     defineField({
       name: 'heroTagline',
       title: 'Hero Tagline',
       type: 'text',
       rows: 2,
-      description: 'Short tagline below subheading',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Short tagline below subheading',    }),
     defineField({
       name: 'aboutHeading',
       title: 'About Section Heading',
       type: 'string',
-      description: 'Heading for the about section',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Heading for the about section',    }),
     defineField({
       name: 'aboutText',
       title: 'About Section Text',
       type: 'text',
       rows: 4,
-      description: 'Bio/description text',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Bio/description text',    }),
     defineField({
       name: 'aboutImage',
       title: 'About Section Image',
@@ -182,7 +322,8 @@ export const homePage = defineType({
           name: 'alt',
           title: 'Alt Text',
           type: 'string',
-          validation: (rule) => rule.required(),
+          description: 'Optional - defaults to "Kivett Bednar with guitar"',
+          initialValue: 'Kivett Bednar with guitar',
         }),
       ],
     }),
@@ -190,9 +331,7 @@ export const homePage = defineType({
       name: 'albumTitle',
       title: 'Featured Album Title',
       type: 'string',
-      description: 'Title of featured album',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Title of featured album',    }),
     defineField({
       name: 'albumYear',
       title: 'Album Year',
@@ -210,9 +349,7 @@ export const homePage = defineType({
       title: 'Album Description',
       type: 'text',
       rows: 3,
-      description: 'Description of the album',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Description of the album',    }),
     defineField({
       name: 'albumImage',
       title: 'Album Cover Image',
@@ -225,7 +362,8 @@ export const homePage = defineType({
           name: 'alt',
           title: 'Alt Text',
           type: 'string',
-          validation: (rule) => rule.required(),
+          description: 'Optional - defaults to album title',
+          initialValue: 'Album cover',
         }),
       ],
     }),
@@ -244,40 +382,30 @@ export const homePage = defineType({
       name: 'ctaLessonsHeading',
       title: 'Lessons CTA Heading',
       type: 'string',
-      description: 'Heading for lessons call-to-action section',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Heading for lessons call-to-action section',    }),
     defineField({
       name: 'ctaLessonsText',
       title: 'Lessons CTA Text',
       type: 'text',
       rows: 2,
-      description: 'Text for lessons call-to-action',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Text for lessons call-to-action',    }),
 
     // Parallax Section
     defineField({
       name: 'parallaxHeading',
       title: 'Parallax Section Heading',
       type: 'string',
-      description: 'Main heading for parallax section (e.g., "Gritty Texas Blues")',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Main heading for parallax section (e.g., "Gritty Texas Blues")',    }),
     defineField({
       name: 'parallaxSubheading',
       title: 'Parallax Section Subheading',
       type: 'string',
-      description: 'Subheading for parallax section',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Subheading for parallax section',    }),
     defineField({
       name: 'parallaxImages',
       title: 'Parallax Background Images',
       type: 'array',
-      description: 'Images for parallax section (recommended: 2 images)',
-      validation: (rule) => rule.required().min(1).max(3),
-      of: [
+      description: 'Images for parallax section (recommended: 2 images)',      of: [
         defineArrayMember({
           type: 'object',
           name: 'parallaxImage',
@@ -288,14 +416,13 @@ export const homePage = defineType({
               type: 'image',
               options: {
                 hotspot: true,
-              },
-              validation: (rule) => rule.required(),
-            }),
+              },            }),
             defineField({
               name: 'alt',
               title: 'Alt Text',
               type: 'string',
-              validation: (rule) => rule.required(),
+              description: 'Optional - defaults to "Kivett Bednar performing"',
+              initialValue: 'Kivett Bednar performing',
             }),
             defineField({
               name: 'position',
@@ -306,9 +433,7 @@ export const homePage = defineType({
                   {title: 'Left', value: 'left'},
                   {title: 'Right', value: 'right'},
                 ],
-              },
-              validation: (rule) => rule.required(),
-            }),
+              },            }),
             defineField({
               name: 'offset',
               title: 'Vertical Offset (optional)',
@@ -332,9 +457,7 @@ export const homePage = defineType({
       name: 'performanceSectionHeading',
       title: 'Performance Section Heading',
       type: 'string',
-      description: 'Heading for live performances section',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Heading for live performances section',    }),
     defineField({
       name: 'performanceImage',
       title: 'Performance Image',
@@ -343,13 +466,13 @@ export const homePage = defineType({
       options: {
         hotspot: true,
       },
-      validation: (rule) => rule.required(),
       fields: [
         defineField({
           name: 'alt',
           title: 'Alt Text',
           type: 'string',
-          validation: (rule) => rule.required(),
+          description: 'Optional - defaults to "Kivett Bednar live performance"',
+          initialValue: 'Kivett Bednar live performance',
         }),
       ],
     }),
@@ -359,9 +482,7 @@ export const homePage = defineType({
       name: 'gallerySectionHeading',
       title: 'Gallery Section Heading',
       type: 'string',
-      description: 'Main heading for gallery section',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Main heading for gallery section',    }),
     defineField({
       name: 'gallerySectionSubheading',
       title: 'Gallery Section Subheading',
@@ -373,7 +494,6 @@ export const homePage = defineType({
       title: 'Gallery Images',
       type: 'array',
       description: 'Floating gallery images (recommended: 6-8 images)',
-      validation: (rule) => rule.required().min(4).max(12),
       of: [
         defineArrayMember({
           type: 'object',
@@ -386,28 +506,27 @@ export const homePage = defineType({
               options: {
                 hotspot: true,
               },
-              validation: (rule) => rule.required(),
             }),
             defineField({
               name: 'alt',
-              title: 'Alt Text',
+              title: 'Alt Text (Optional)',
               type: 'string',
-              description: 'Describe the image',
-              validation: (rule) => rule.required(),
+              description: 'Defaults to "Kivett Bednar - gallery image"',
+              initialValue: 'Kivett Bednar - gallery image',
             }),
             defineField({
               name: 'width',
-              title: 'Image Width',
+              title: 'Image Width (Optional)',
               type: 'number',
-              description: 'Original image width in pixels',
-              validation: (rule) => rule.required().min(100),
+              description: 'Defaults to 1200',
+              initialValue: 1200,
             }),
             defineField({
               name: 'height',
-              title: 'Image Height',
+              title: 'Image Height (Optional)',
               type: 'number',
-              description: 'Original image height in pixels',
-              validation: (rule) => rule.required().min(100),
+              description: 'Defaults to 800',
+              initialValue: 800,
             }),
           ],
           preview: {
@@ -432,9 +551,7 @@ export const homePage = defineType({
       name: 'upcomingShowsHeading',
       title: 'Upcoming Shows Heading',
       type: 'string',
-      description: 'Heading for upcoming shows section',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Heading for upcoming shows section',    }),
     defineField({
       name: 'seeAllShowsLinkText',
       title: 'See All Shows Link Text',
@@ -449,24 +566,18 @@ export const homePage = defineType({
       title: 'Featured Video Section Heading',
       type: 'string',
       description: 'Heading for featured video section (e.g., "Live Performance")',
-      initialValue: 'Live Performance',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'Live Performance',    }),
     defineField({
       name: 'featuredVideoSubheading',
       title: 'Featured Video Section Subheading',
       type: 'string',
       description: 'Subheading for featured video section',
-      initialValue: 'Experience the authentic blues sound',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'Experience the authentic blues sound',    }),
     defineField({
       name: 'featuredVideoUrl',
       title: 'Featured Video URL',
       type: 'url',
-      description: 'YouTube video ID or full URL for the featured "Live Performance" video (e.g., https://www.youtube.com/watch?v=75M50Bfksa0 or just 75M50Bfksa0)',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'YouTube video ID or full URL for the featured "Live Performance" video (e.g., https://www.youtube.com/watch?v=75M50Bfksa0 or just 75M50Bfksa0)',    }),
 
     // Booking Section
     defineField({
@@ -474,43 +585,33 @@ export const homePage = defineType({
       title: 'Booking Section Heading',
       type: 'string',
       description: 'Main heading for booking section',
-      initialValue: 'Book Kivett for Your Event',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'Book Kivett for Your Event',    }),
     defineField({
       name: 'bookingSectionIntro',
       title: 'Booking Section Introduction',
       type: 'text',
       rows: 2,
       description: 'Introduction text for booking section',
-      initialValue: 'Available for festivals, private events, and venue bookings. Professional blues performance with authentic Texas style meets Pacific Northwest soul.',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'Available for festivals, private events, and venue bookings. Professional blues performance with authentic Texas style meets Pacific Northwest soul.',    }),
     defineField({
       name: 'bookingInquiriesHeading',
       title: 'Booking Inquiries Heading',
       type: 'string',
       description: 'Heading for booking inquiries box',
-      initialValue: 'Booking Inquiries',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'Booking Inquiries',    }),
     defineField({
       name: 'bookingInquiriesText',
       title: 'Booking Inquiries Text',
       type: 'text',
       rows: 2,
       description: 'Instructional text for booking inquiries',
-      initialValue: 'For booking inquiries, please contact Kivett directly via email:',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'For booking inquiries, please contact Kivett directly via email:',    }),
     defineField({
       name: 'bookingInquiryListHeading',
       title: 'Booking Inquiry List Heading',
       type: 'string',
       description: 'Heading for inquiry requirements list',
-      initialValue: 'Include in Your Inquiry:',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'Include in Your Inquiry:',    }),
     defineField({
       name: 'bookingInquiryItems',
       title: 'Booking Inquiry Items',
@@ -533,9 +634,7 @@ export const homePage = defineType({
       title: 'Booking "Perfect For" Heading',
       type: 'string',
       description: 'Heading for event types list',
-      initialValue: 'Perfect For',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'Perfect For',    }),
     defineField({
       name: 'bookingEventTypes',
       title: 'Booking Event Types',
@@ -559,17 +658,13 @@ export const homePage = defineType({
       type: 'text',
       rows: 3,
       description: 'Testimonial quote for booking section',
-      initialValue: 'Kivett brings authentic blues energy that connects with every audience. His performance at our festival was unforgettable.',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'Kivett brings authentic blues energy that connects with every audience. His performance at our festival was unforgettable.',    }),
     defineField({
       name: 'bookingTestimonialAttribution',
       title: 'Booking Testimonial Attribution',
       type: 'string',
       description: 'Attribution for testimonial',
-      initialValue: '— Festival Organizer',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: '— Festival Organizer',    }),
 
     // Studio Section
     defineField({
@@ -577,31 +672,23 @@ export const homePage = defineType({
       title: 'Studio Section Heading',
       type: 'string',
       description: 'Heading for studio videos section',
-      initialValue: 'In The Studio',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'In The Studio',    }),
     defineField({
       name: 'studioSectionSubheading',
       title: 'Studio Section Subheading',
       type: 'string',
       description: 'Subheading for studio videos section',
-      initialValue: 'Behind the scenes of creating authentic Texas blues',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'Behind the scenes of creating authentic Texas blues',    }),
     defineField({
       name: 'studioVideo1Url',
       title: 'Studio Video 1 URL',
       type: 'url',
-      description: 'YouTube video ID or full URL for first studio session video',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'YouTube video ID or full URL for first studio session video',    }),
     defineField({
       name: 'studioVideo2Url',
       title: 'Studio Video 2 URL',
       type: 'url',
-      description: 'YouTube video ID or full URL for second studio session video',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'YouTube video ID or full URL for second studio session video',    }),
 
     // Newsletter Section
     defineField({
@@ -609,18 +696,14 @@ export const homePage = defineType({
       title: 'Newsletter Section Heading',
       type: 'string',
       description: 'Heading for newsletter signup section',
-      initialValue: 'Stay Connected',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'Stay Connected',    }),
     defineField({
       name: 'newsletterText',
       title: 'Newsletter Section Text',
       type: 'text',
       rows: 2,
       description: 'Description text for newsletter signup',
-      initialValue: 'Get the latest show announcements, new music releases, and exclusive content delivered to your inbox.',
-      validation: (rule) => rule.required(),
-    }),
+      initialValue: 'Get the latest show announcements, new music releases, and exclusive content delivered to your inbox.',    }),
 
     // Button Labels
     defineField({

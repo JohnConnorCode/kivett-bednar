@@ -10,9 +10,27 @@ type ImageGalleryProps = {
     alt: string
     caption?: string
   }>
+  backgroundVariant?: string
+  sectionPadding?: string
 }
 
-export function ImageGallery({images}: ImageGalleryProps) {
+function sectionClasses(variant?: string, pad?: string) {
+  const bg =
+    variant === 'surface' ? 'bg-surface' :
+    variant === 'surface-elevated' ? 'bg-surface-elevated' :
+    variant === 'dark-gradient' ? 'bg-gradient-to-b from-background via-surface to-surface-elevated' :
+    ''
+  const py =
+    pad === 'none' ? 'py-0' :
+    pad === 'sm' ? 'py-8' :
+    pad === 'md' ? 'py-16' :
+    pad === 'lg' ? 'py-24' :
+    pad === 'xl' ? 'py-32' :
+    'py-16'
+  return `${bg} ${py}`.trim()
+}
+
+export function ImageGallery({images, backgroundVariant, sectionPadding}: ImageGalleryProps) {
   const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
@@ -25,7 +43,7 @@ export function ImageGallery({images}: ImageGalleryProps) {
   if (!images || images.length === 0) return null
 
   return (
-    <section className="container mx-auto px-4 py-8">
+    <section className={`container mx-auto px-4 ${sectionClasses(backgroundVariant, sectionPadding)}`}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {images.map((image, idx) => (
           <div key={idx} className="group relative aspect-[4/3] overflow-hidden rounded-lg">
@@ -34,6 +52,7 @@ export function ImageGallery({images}: ImageGalleryProps) {
               alt={image.alt || ''}
               fill
               className="object-cover transition-transform group-hover:scale-105"
+              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
               style={{
                 objectPosition: getObjectPosition(image, isMobile)
               }}

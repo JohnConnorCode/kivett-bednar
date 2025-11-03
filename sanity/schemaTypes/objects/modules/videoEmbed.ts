@@ -18,16 +18,12 @@ export const videoEmbed = defineType({
         ],
         layout: 'radio',
       },
-      initialValue: 'youtube',
-      validation: (Rule) => Rule.required(),
-    }),
+      initialValue: 'youtube',    }),
     defineField({
       name: 'url',
       title: 'Video URL',
       type: 'url',
-      description: 'Full URL or embed code',
-      validation: (Rule) => Rule.required(),
-    }),
+      description: 'Full URL or embed code',    }),
   ],
   preview: {
     select: {

@@ -16,9 +16,7 @@ export const post = defineType({
     defineField({
       name: 'title',
       title: 'Title',
-      type: 'string',
-      validation: (rule) => rule.required(),
-    }),
+      type: 'string',    }),
     defineField({
       name: 'slug',
       title: 'Slug',
@@ -28,9 +26,7 @@ export const post = defineType({
         source: 'title',
         maxLength: 96,
         isUnique: (value, context) => context.defaultIsUnique(value, context),
-      },
-      validation: (rule) => rule.required(),
-    }),
+      },    }),
     defineField({
       name: 'content',
       title: 'Content',
@@ -67,9 +63,7 @@ export const post = defineType({
             })
           },
         },
-      ],
-      validation: (rule) => rule.required(),
-    }),
+      ],    }),
     defineField({
       name: 'date',
       title: 'Date',

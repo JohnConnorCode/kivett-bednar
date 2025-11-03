@@ -12,11 +12,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allPostsAndPages = await client.fetch(sitemapQuery, {}, {next: {revalidate: 60}})
   const headersList = await headers()
   const sitemap: MetadataRoute.Sitemap = []
-  const domain: String = headersList.get('host') as string
+  const host = headersList.get('host') || ''
+  const envBase = process.env.NEXT_PUBLIC_BASE_URL?.replace(/\/$/, '')
+  const baseUrl = envBase || (host ? `https://${host}` : '')
 
   // Homepage
   sitemap.push({
-    url: domain as string,
+    url: baseUrl,
     lastModified: new Date(),
     priority: 1,
     changeFrequency: 'monthly',
@@ -33,7 +35,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   staticPages.forEach(({path, priority, changeFrequency}) => {
     sitemap.push({
-      url: `${domain}${path}`,
+      url: `${baseUrl}${path}`,
       lastModified: new Date(),
       priority,
       changeFrequency,
@@ -59,17 +61,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         case 'page':
           priority = 0.8
           changeFrequency = 'monthly'
-          url = `${domain}/${p.slug}`
+          url = `${baseUrl}/${p.slug}`
           break
         case 'post':
           priority = 0.5
           changeFrequency = 'never'
-          url = `${domain}/posts/${p.slug}`
+          url = `${baseUrl}/posts/${p.slug}`
           break
         case 'product':
           priority = 0.8
           changeFrequency = 'weekly'
-          url = `${domain}/merch/${p.slug}`
+          url = `${baseUrl}/merch/${p.slug}`
           break
         default:
           continue

@@ -15,9 +15,7 @@ export const contactPage = defineType({
     defineField({
       name: 'heroHeading',
       title: 'Hero Heading',
-      type: 'string',
-      validation: (rule) => rule.required(),
-    }),
+      type: 'string',    }),
     defineField({
       name: 'heroSubheading',
       title: 'Hero Subheading',
@@ -37,8 +35,7 @@ export const contactPage = defineType({
           name: 'alt',
           title: 'Alt Text',
           type: 'string',
-          validation: (rule) => rule.required(),
-        }),
+              initialValue: 'Kivett Bednar',        }),
       ],
     }),
 
@@ -56,8 +53,7 @@ export const contactPage = defineType({
           name: 'alt',
           title: 'Alt Text',
           type: 'string',
-          validation: (rule) => rule.required(),
-        }),
+              initialValue: 'Kivett Bednar',        }),
       ],
     }),
     defineField({
@@ -76,15 +72,12 @@ export const contactPage = defineType({
               type: 'image',
               options: {
                 hotspot: true,
-              },
-              validation: (rule) => rule.required(),
-            }),
+              },            }),
             defineField({
               name: 'alt',
               title: 'Alt Text',
               type: 'string',
-              validation: (rule) => rule.required(),
-            }),
+              initialValue: 'Kivett Bednar',            }),
           ],
           preview: {
             select: {

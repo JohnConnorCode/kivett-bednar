@@ -14,9 +14,7 @@ export const product = defineType({
     defineField({
       name: 'title',
       title: 'Product Title',
-      type: 'string',
-      validation: (Rule) => Rule.required(),
-    }),
+      type: 'string',    }),
     defineField({
       name: 'slug',
       title: 'Slug',
@@ -24,9 +22,7 @@ export const product = defineType({
       options: {
         source: 'title',
         maxLength: 96,
-      },
-      validation: (Rule) => Rule.required(),
-    }),
+      },    }),
     defineField({
       name: 'description',
       title: 'Description',
@@ -46,21 +42,15 @@ export const product = defineType({
             defineField({
               name: 'alt',
               title: 'Alt Text',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-            }),
+              type: 'string',            }),
           ],
         }),
-      ],
-      validation: (Rule) => Rule.required().min(1),
-    }),
+      ],    }),
     defineField({
       name: 'priceCents',
       title: 'Price (cents)',
       type: 'number',
-      description: 'Price in cents (e.g., 2500 = $25.00)',
-      validation: (Rule) => Rule.required().min(0),
-    }),
+      description: 'Price in cents (e.g., 2500 = $25.00)',    }),
     defineField({
       name: 'currency',
       title: 'Currency',
@@ -87,17 +77,13 @@ export const product = defineType({
               name: 'name',
               title: 'Option Name',
               type: 'string',
-              description: 'e.g., "Size", "Color"',
-              validation: (Rule) => Rule.required(),
-            }),
+              description: 'e.g., "Size", "Color"',            }),
             defineField({
               name: 'values',
               title: 'Values',
               type: 'array',
               of: [{type: 'string'}],
-              description: 'e.g., ["Small", "Medium", "Large"]',
-              validation: (Rule) => Rule.required().min(1),
-            }),
+              description: 'e.g., ["Small", "Medium", "Large"]',            }),
           ],
           preview: {
             select: {
@@ -185,9 +171,7 @@ export const product = defineType({
       name: 'gelatoProductUid',
       title: 'Gelato Product UID',
       type: 'string',
-      description: 'Gelato product identifier for fulfillment',
-      validation: (Rule) => Rule.required(),
-    }),
+      description: 'Gelato product identifier for fulfillment',    }),
     defineField({
       name: 'printAreas',
       title: 'Print Areas',
@@ -201,16 +185,12 @@ export const product = defineType({
               name: 'areaName',
               title: 'Area Name',
               type: 'string',
-              description: 'e.g., "front", "back"',
-              validation: (Rule) => Rule.required(),
-            }),
+              description: 'e.g., "front", "back"',            }),
             defineField({
               name: 'artwork',
               title: 'Artwork',
               type: 'image',
-              description: 'High-resolution artwork for this print area',
-              validation: (Rule) => Rule.required(),
-            }),
+              description: 'High-resolution artwork for this print area',            }),
           ],
           preview: {
             select: {
@@ -225,9 +205,7 @@ export const product = defineType({
             },
           },
         }),
-      ],
-      validation: (Rule) => Rule.required().min(1),
-    }),
+      ],    }),
     defineField({
       name: 'shippingNotes',
       title: 'Shipping Notes',

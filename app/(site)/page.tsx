@@ -1,7 +1,7 @@
 import {Metadata} from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
-import {client} from '@/sanity/lib/client'
+import {sanityFetch} from '@/sanity/lib/live'
 import {upcomingEventsQuery, homePageQuery, uiTextQuery} from '@/sanity/lib/queries'
 import {EventCard} from '@/components/ui/EventCard'
 import {HeroSlider} from '@/components/ui/HeroSlider'
@@ -40,18 +40,14 @@ export const metadata: Metadata = {
 }
 
 export default async function HomePage() {
-  // Fetch home page content and upcoming shows
+  // Fetch home page content and upcoming shows using live-enabled queries
   const [homePage, events, uiText] = await Promise.all([
-    client.fetch(homePageQuery, {}, {next: {revalidate: 60}}),
-    client.fetch(
-      upcomingEventsQuery,
-      {
-        now: new Date().toISOString(),
-        limit: 3,
-      },
-      {next: {revalidate: 60}}
-    ),
-    client.fetch(uiTextQuery, {}, {next: {revalidate: 60}}),
+    sanityFetch({query: homePageQuery}).then((r) => r.data),
+    sanityFetch({
+      query: upcomingEventsQuery,
+      params: {now: new Date().toISOString(), limit: 3},
+    }).then((r) => r.data),
+    sanityFetch({query: uiTextQuery}).then((r) => r.data),
   ])
 
   // Fallback if no content in Sanity yet
@@ -70,10 +66,16 @@ export default async function HomePage() {
         slides={homePage.heroSlides || undefined}
         heading={homePage.heroHeading || undefined}
         subheading={homePage.heroSubheading || undefined}
+        headingTracking={homePage.heroHeadingTracking || undefined}
+        headingLineHeight={homePage.heroHeadingLineHeight || undefined}
+        // Subheading typography
+        
         tagline={homePage.heroTagline || 'Gritty Texas Blues meets the heart of the Pacific Northwest'}
         buttonText={homePage.heroButtonText || undefined}
         headingDesktopSize={homePage.heroHeadingDesktopSize || undefined}
         headingMobileSize={homePage.heroHeadingMobileSize || undefined}
+        subheadingTracking={homePage.heroSubheadingTracking || undefined as any}
+        subheadingLineHeight={homePage.heroSubheadingLineHeight || undefined as any}
       />
 
       {/* Featured Video Section */}
@@ -170,7 +172,7 @@ export default async function HomePage() {
           <div className="max-w-5xl mx-auto">
             <AnimatedSection animation="fadeIn">
               <div className="text-center mb-12">
-                <h2 className="text-5xl font-bold text-text-primary mb-6">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-text-primary mb-6">
                   {homePage.bookingSectionHeading || 'Book Kivett for Your Event'}
                 </h2>
                 <p className="text-xl text-text-secondary max-w-2xl mx-auto">
@@ -190,7 +192,7 @@ export default async function HomePage() {
                     </p>
                     <a
                       href="mailto:kivettbednar@gmail.com"
-                      className="btn-primary w-full text-center text-xl"
+                      className="btn-primary w-full text-center text-base sm:text-lg md:text-xl break-all"
                     >
                       kivettbednar@gmail.com
                     </a>

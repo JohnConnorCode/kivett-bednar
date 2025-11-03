@@ -18,9 +18,7 @@ export const featureGrid = defineType({
             defineField({
               name: 'title',
               title: 'Title',
-              type: 'string',
-              validation: (Rule) => Rule.required(),
-            }),
+              type: 'string',            }),
             defineField({
               name: 'body',
               title: 'Body',
@@ -58,9 +56,7 @@ export const featureGrid = defineType({
                   name: 'alt',
                   title: 'Alt Text',
                   type: 'string',
-                  description: 'Describe the image for accessibility',
-                  validation: (Rule) => Rule.required(),
-                }),
+                  description: 'Describe the image for accessibility',                }),
               ],
               hidden: ({parent}) => parent?.iconType !== 'image',
             }),
@@ -79,9 +75,7 @@ export const featureGrid = defineType({
             },
           },
         }),
-      ],
-      validation: (Rule) => Rule.required().min(1),
-    }),
+      ],    }),
   ],
   preview: {
     select: {

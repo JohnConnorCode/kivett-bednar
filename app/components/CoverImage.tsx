@@ -15,6 +15,7 @@ export default function CoverImage(props: CoverImageProps) {
       className="object-cover"
       width={getImageDimensions(source).width}
       height={getImageDimensions(source).height}
+      sizes="100vw"
       alt={stegaClean(source?.alt) || ''}
       src={urlForImage(source)?.url() as string}
       priority={priority}

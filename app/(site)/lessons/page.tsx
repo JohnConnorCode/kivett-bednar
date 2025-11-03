@@ -1,5 +1,5 @@
 import {Metadata} from 'next'
-import {client} from '@/sanity/lib/client'
+import {sanityFetch} from '@/sanity/lib/live'
 import {lessonsPageQuery, settingsQuery} from '@/sanity/lib/queries'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 
 export default async function LessonsPage() {
   const [lessonsPage, settings] = await Promise.all([
-    client.fetch(lessonsPageQuery, {}, {next: {revalidate: 60}}),
-    client.fetch(settingsQuery, {}, {next: {revalidate: 60}}),
+    sanityFetch({query: lessonsPageQuery}).then((r) => r.data),
+    sanityFetch({query: settingsQuery}).then((r) => r.data),
   ])
 
   // Fallback if no content yet

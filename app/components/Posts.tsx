@@ -1,6 +1,6 @@
 import Link from 'next/link'
 
-import {client} from '@/sanity/lib/client'
+import {sanityFetch} from '@/sanity/lib/live'
 import {morePostsQuery, allPostsQuery} from '@/sanity/lib/queries'
 import {Post as PostType, AllPostsQueryResult} from '@/sanity.types'
 import DateComponent from '@/app/components/Date'
@@ -66,11 +66,7 @@ const Posts = ({
 )
 
 export const MorePosts = async ({skip, limit}: {skip: string; limit: number}) => {
-  const data = await client.fetch(
-    morePostsQuery,
-    {skip, limit},
-    {next: {revalidate: 60}}
-  )
+  const data = await sanityFetch({query: morePostsQuery, params: {skip, limit}}).then((r) => r.data)
 
   if (!data || data.length === 0) {
     return null
@@ -86,7 +82,7 @@ export const MorePosts = async ({skip, limit}: {skip: string; limit: number}) =>
 }
 
 export const AllPosts = async () => {
-  const data = await client.fetch(allPostsQuery, {}, {next: {revalidate: 60}})
+  const data = await sanityFetch({query: allPostsQuery}).then((r) => r.data)
 
   if (!data || data.length === 0) {
     return <OnBoarding />

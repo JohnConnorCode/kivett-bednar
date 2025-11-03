@@ -15,9 +15,7 @@ export const lessonsPage = defineType({
     defineField({
       name: 'heroHeading',
       title: 'Hero Heading',
-      type: 'string',
-      validation: (rule) => rule.required(),
-    }),
+      type: 'string',    }),
     defineField({
       name: 'heroSubheading',
       title: 'Hero Subheading',
@@ -37,8 +35,7 @@ export const lessonsPage = defineType({
           name: 'alt',
           title: 'Alt Text',
           type: 'string',
-          validation: (rule) => rule.required(),
-        }),
+              initialValue: 'Kivett Bednar teaching guitar',        }),
         defineField({
           name: 'desktopPosition',
           title: 'Desktop Position (Optional)',
@@ -87,17 +84,13 @@ export const lessonsPage = defineType({
       name: 'philosophyHeading',
       title: 'Philosophy/Approach Heading',
       type: 'string',
-      description: 'Heading for the teaching philosophy section',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Heading for the teaching philosophy section',    }),
     defineField({
       name: 'philosophyText',
       title: 'Philosophy/Approach Text',
       type: 'text',
       rows: 4,
-      description: 'Description of teaching approach',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Description of teaching approach',    }),
     defineField({
       name: 'philosophyImage',
       title: 'Philosophy Section Image',
@@ -111,8 +104,7 @@ export const lessonsPage = defineType({
           name: 'alt',
           title: 'Alt Text',
           type: 'string',
-          validation: (rule) => rule.required(),
-        }),
+              initialValue: 'Kivett Bednar teaching guitar',        }),
       ],
     }),
 
@@ -121,9 +113,7 @@ export const lessonsPage = defineType({
       name: 'learningItemsHeading',
       title: 'Learning Items Section Heading',
       type: 'string',
-      description: 'Heading for the "What You\'ll Learn" section',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Heading for the "What You\'ll Learn" section',    }),
     defineField({
       name: 'learningItems',
       title: 'What You\'ll Learn',
@@ -137,16 +127,12 @@ export const lessonsPage = defineType({
             defineField({
               name: 'title',
               title: 'Title',
-              type: 'string',
-              validation: (rule) => rule.required(),
-            }),
+              type: 'string',            }),
             defineField({
               name: 'description',
               title: 'Description',
               type: 'text',
-              rows: 2,
-              validation: (rule) => rule.required(),
-            }),
+              rows: 2,            }),
           ],
           preview: {
             select: {
@@ -161,17 +147,13 @@ export const lessonsPage = defineType({
       name: 'ctaBoxHeading',
       title: 'CTA Box Heading',
       type: 'string',
-      description: 'Heading for the call-to-action box',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Heading for the call-to-action box',    }),
     defineField({
       name: 'ctaBoxText',
       title: 'CTA Box Text',
       type: 'text',
       rows: 2,
-      description: 'Text in the CTA box',
-      validation: (rule) => rule.required(),
-    }),
+      description: 'Text in the CTA box',    }),
     defineField({
       name: 'credentials',
       title: 'Credentials/Experience',
@@ -194,8 +176,7 @@ export const lessonsPage = defineType({
           name: 'alt',
           title: 'Alt Text',
           type: 'string',
-          validation: (rule) => rule.required(),
-        }),
+              initialValue: 'Kivett Bednar teaching guitar',        }),
       ],
     }),
     defineField({
@@ -211,8 +192,7 @@ export const lessonsPage = defineType({
           name: 'alt',
           title: 'Alt Text',
           type: 'string',
-          validation: (rule) => rule.required(),
-        }),
+              initialValue: 'Kivett Bednar teaching guitar',        }),
       ],
     }),
 

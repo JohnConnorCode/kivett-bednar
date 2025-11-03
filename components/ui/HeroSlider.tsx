@@ -4,7 +4,29 @@ import {useState, useEffect, useRef} from 'react'
 import {motion, useScroll, useTransform} from 'framer-motion'
 import Image from 'next/image'
 import Link from 'next/link'
+import {cn} from '@/lib/utils'
 import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
+
+// Text size mapping for Tailwind JIT compiler
+const textSizeMap: Record<string, string> = {
+  'text-2xl': 'text-2xl',
+  'text-3xl': 'text-3xl',
+  'text-4xl': 'text-4xl',
+  'text-5xl': 'text-5xl',
+  'text-6xl': 'text-6xl',
+  'text-7xl': 'text-7xl',
+  'text-8xl': 'text-8xl',
+  'text-9xl': 'text-9xl',
+}
+
+const desktopSizeMap: Record<string, string> = {
+  'text-4xl': 'md:text-4xl',
+  'text-5xl': 'md:text-5xl',
+  'text-6xl': 'md:text-6xl',
+  'text-7xl': 'md:text-7xl',
+  'text-8xl': 'md:text-8xl',
+  'text-9xl': 'md:text-9xl',
+}
 
 interface HeroSlide {
   _key: string
@@ -23,6 +45,10 @@ interface HeroSliderProps {
   buttonText?: string
   headingDesktopSize?: string
   headingMobileSize?: string
+  headingTracking?: string
+  headingLineHeight?: string
+  subheadingTracking?: string
+  subheadingLineHeight?: string
 }
 
 export function HeroSlider({
@@ -33,6 +59,10 @@ export function HeroSlider({
   buttonText = 'See Live Shows',
   headingDesktopSize = 'text-8xl',
   headingMobileSize = 'text-5xl',
+  headingTracking = 'tracking-tight',
+  headingLineHeight = 'leading-none',
+  subheadingTracking = 'tracking-normal',
+  subheadingLineHeight = 'leading-normal',
 }: HeroSliderProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isLoaded, setIsLoaded] = useState(false)
@@ -89,6 +119,23 @@ export function HeroSlider({
       return () => clearInterval(timer)
     }
   }, [slides.length])
+
+  const trackingMap: Record<string, string> = {
+    'tracking-tighter': 'tracking-tighter',
+    'tracking-tight': 'tracking-tight',
+    'tracking-normal': 'tracking-normal',
+    'tracking-wide': 'tracking-wide',
+    'tracking-wider': 'tracking-wider',
+    'tracking-widest': 'tracking-widest',
+  }
+
+  const leadingMap: Record<string, string> = {
+    'leading-none': 'leading-none',
+    'leading-tight': 'leading-tight',
+    'leading-snug': 'leading-snug',
+    'leading-normal': 'leading-normal',
+    'leading-relaxed': 'leading-relaxed',
+  }
 
   return (
     <section
@@ -159,7 +206,13 @@ export function HeroSlider({
             duration: 0.8,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className={`${headingMobileSize} md:${headingDesktopSize} font-bold text-white mb-6 leading-none tracking-tight`}
+          className={cn(
+            'font-bold text-white mb-6',
+            textSizeMap[headingMobileSize] || 'text-5xl',
+            desktopSizeMap[headingDesktopSize] || 'md:text-8xl',
+            trackingMap[headingTracking] || 'tracking-tight',
+            leadingMap[headingLineHeight] || 'leading-none'
+          )}
           style={{
             textShadow: '0 4px 8px rgba(0,0,0,0.8)',
             fontFamily: 'var(--font-bebas), system-ui, sans-serif'
@@ -176,7 +229,11 @@ export function HeroSlider({
             delay: 0.15,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="text-2xl md:text-4xl lg:text-5xl mb-8 font-normal tracking-wide text-white"
+          className={cn(
+            'text-2xl md:text-4xl lg:text-5xl mb-8 font-normal text-white',
+            trackingMap[subheadingTracking] || 'tracking-normal',
+            leadingMap[subheadingLineHeight] || 'leading-normal'
+          )}
         >
           {subheading}
         </motion.p>

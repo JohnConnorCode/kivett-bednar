@@ -3,6 +3,7 @@ import {notFound} from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import {client} from '@/sanity/lib/client'
+import {sanityFetch} from '@/sanity/lib/live'
 import {eventBySlugQuery, eventsSlugs} from '@/sanity/lib/queries'
 import {urlFor} from '@/sanity/lib/image'
 import {PortableText} from '@portabletext/react'
@@ -38,11 +39,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 
 export default async function EventPage({params}: Props) {
   const {slug} = await params
-  const event = await client.fetch(
-    eventBySlugQuery,
-    {slug},
-    {next: {revalidate: 60}}
-  )
+  const event = await sanityFetch({query: eventBySlugQuery, params: {slug}}).then((r) => r.data)
 
   if (!event) {
     notFound()
@@ -129,6 +126,7 @@ export default async function EventPage({params}: Props) {
                 alt={heroImageDesktop.alt || event.title}
                 fill
                 className="object-cover"
+                sizes="100vw"
                 style={{
                   objectPosition: getObjectPosition(heroImageDesktop, false)
                 }}
@@ -144,6 +142,7 @@ export default async function EventPage({params}: Props) {
                   alt={heroImageMobile.alt || event.title}
                   fill
                   className="object-cover"
+                  sizes="100vw"
                   style={{
                     objectPosition: getObjectPosition(heroImageMobile, true)
                   }}
@@ -229,6 +228,7 @@ export default async function EventPage({params}: Props) {
                           alt={(event as any).coverImage.alt || `${event.title} performance`}
                           fill
                           className="object-cover"
+                          sizes="(min-width: 1024px) 66vw, 100vw"
                           style={{
                             objectPosition: getObjectPosition((event as any).coverImage, false)
                           }}

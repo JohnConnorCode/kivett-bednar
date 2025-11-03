@@ -117,6 +117,8 @@ export type RichText = {
 export type Hero = {
   _type: "hero";
   headline?: string;
+  headlineDesktopSize?: "text-4xl" | "text-5xl" | "text-6xl" | "text-7xl" | "text-8xl" | "text-9xl";
+  headlineMobileSize?: "text-2xl" | "text-3xl" | "text-4xl" | "text-5xl" | "text-6xl" | "text-7xl";
   subhead?: string;
   mediaType?: "image" | "video";
   image?: {
@@ -760,6 +762,8 @@ export type HomePage = {
     _key: string;
   }>;
   heroHeading?: string;
+  heroHeadingDesktopSize?: "text-4xl" | "text-5xl" | "text-6xl" | "text-7xl" | "text-8xl" | "text-9xl";
+  heroHeadingMobileSize?: "text-2xl" | "text-3xl" | "text-4xl" | "text-5xl" | "text-6xl" | "text-7xl";
   heroSubheading?: string;
   heroTagline?: string;
   aboutHeading?: string;
@@ -877,6 +881,14 @@ export type HomePage = {
   heroButtonText?: string;
   aboutButtonText?: string;
   ctaLessonsButtonText?: string;
+  showAboutSection?: boolean;
+  showAlbumSection?: boolean;
+  showUpcomingShows?: boolean;
+  showLessonsSection?: boolean;
+  showBookingSection?: boolean;
+  showGallerySection?: boolean;
+  showStudioVideos?: boolean;
+  showNewsletterSection?: boolean;
 };
 
 export type UiText = {
@@ -1487,7 +1499,7 @@ export type NavigationQueryResult = {
   }> | null;
 } | null;
 // Variable: homePageQuery
-// Query: *[_type == "homePage"][0]{  _id,  heroSlides[]{    _key,    image{      asset->{_id, url},      hotspot,      crop,      alt    },    mobileImage{      asset->{_id, url},      hotspot,      crop,      alt    },    alt,    desktopPosition,    mobilePosition  },  heroHeading,  heroSubheading,  heroTagline,  aboutHeading,  aboutText,  aboutImage{    asset->{_id, url},    hotspot,    crop,    desktopPosition,    mobilePosition,    alt  },  albumTitle,  albumYear,  albumFormat,  albumDescription,  albumCoverImage{    asset->{_id, url},    hotspot,    crop,    desktopPosition,    mobilePosition,    alt  },  albumFeatures,  ctaLessonsHeading,  ctaLessonsText,  parallaxHeading,  parallaxSubheading,  parallaxImages[]{    _key,    image{      asset->{_id, url},      hotspot,      crop,      desktopPosition,      mobilePosition,      alt    },    alt,    position,    offset  },  performanceSectionHeading,  performanceImage{    asset->{_id, url},    hotspot,    crop,    desktopPosition,    mobilePosition,    alt  },  gallerySectionHeading,  gallerySectionSubheading,  galleryImages[]{    _key,    image{      asset->{_id, url},      hotspot,      crop,      desktopPosition,      mobilePosition,      alt    },    alt,    width,    height  },  upcomingShowsHeading,  seeAllShowsLinkText,  aboutButtonText,  ctaLessonsButtonText,  featuredVideoUrl,  studioVideo1Url,  studioVideo2Url}
+// Query: *[_type == "homePage"][0]{  _id,  heroSlides[]{    _key,    image{      asset->{_id, url},      hotspot,      crop,      alt    },    mobileImage{      asset->{_id, url},      hotspot,      crop,      alt    },    alt,    desktopPosition,    mobilePosition  },  heroHeading,  heroHeadingDesktopSize,  heroHeadingMobileSize,  heroSubheading,  heroTagline,  heroButtonText,  aboutHeading,  aboutText,  aboutImage{    asset->{_id, url},    hotspot,    crop,    desktopPosition,    mobilePosition,    alt  },  albumTitle,  albumYear,  albumFormat,  albumDescription,  albumCoverImage{    asset->{_id, url},    hotspot,    crop,    desktopPosition,    mobilePosition,    alt  },  albumFeatures,  ctaLessonsHeading,  ctaLessonsText,  parallaxHeading,  parallaxSubheading,  parallaxImages[]{    _key,    image{      asset->{_id, url},      hotspot,      crop,      desktopPosition,      mobilePosition,      alt    },    alt,    position,    offset  },  performanceSectionHeading,  performanceImage{    asset->{_id, url},    hotspot,    crop,    desktopPosition,    mobilePosition,    alt  },  gallerySectionHeading,  gallerySectionSubheading,  galleryImages[]{    _key,    image{      asset->{_id, url},      hotspot,      crop,      desktopPosition,      mobilePosition,      alt    },    alt,    width,    height  },  upcomingShowsHeading,  seeAllShowsLinkText,  aboutButtonText,  ctaLessonsButtonText,  featuredVideoHeading,  featuredVideoSubheading,  featuredVideoUrl,  bookingSectionHeading,  bookingSectionIntro,  bookingInquiriesHeading,  bookingInquiriesText,  bookingInquiryListHeading,  bookingInquiryItems,  bookingPerfectForHeading,  bookingEventTypes,  bookingTestimonialQuote,  bookingTestimonialAttribution,  studioSectionHeading,  studioSectionSubheading,  studioVideo1Url,  studioVideo2Url,  newsletterHeading,  newsletterText,  heroButtonText,  showAboutSection,  showAlbumSection,  showUpcomingShows,  showLessonsSection,  showBookingSection,  showGallerySection,  showStudioVideos,  showNewsletterSection}
 export type HomePageQueryResult = {
   _id: string;
   heroSlides: Array<{
@@ -1515,8 +1527,11 @@ export type HomePageQueryResult = {
     mobilePosition: "bottom-center" | "bottom-left" | "bottom-right" | "center-left" | "center-right" | "center" | "top-center" | "top-left" | "top-right" | null;
   }> | null;
   heroHeading: string | null;
+  heroHeadingDesktopSize: "text-4xl" | "text-5xl" | "text-6xl" | "text-7xl" | "text-8xl" | "text-9xl" | null;
+  heroHeadingMobileSize: "text-2xl" | "text-3xl" | "text-4xl" | "text-5xl" | "text-6xl" | "text-7xl" | null;
   heroSubheading: string | null;
   heroTagline: string | null;
+  heroButtonText: string | null;
   aboutHeading: string | null;
   aboutText: string | null;
   aboutImage: {
@@ -1592,9 +1607,33 @@ export type HomePageQueryResult = {
   seeAllShowsLinkText: string | null;
   aboutButtonText: string | null;
   ctaLessonsButtonText: string | null;
+  featuredVideoHeading: string | null;
+  featuredVideoSubheading: string | null;
   featuredVideoUrl: string | null;
+  bookingSectionHeading: string | null;
+  bookingSectionIntro: string | null;
+  bookingInquiriesHeading: string | null;
+  bookingInquiriesText: string | null;
+  bookingInquiryListHeading: string | null;
+  bookingInquiryItems: Array<string> | null;
+  bookingPerfectForHeading: string | null;
+  bookingEventTypes: Array<string> | null;
+  bookingTestimonialQuote: string | null;
+  bookingTestimonialAttribution: string | null;
+  studioSectionHeading: string | null;
+  studioSectionSubheading: string | null;
   studioVideo1Url: string | null;
   studioVideo2Url: string | null;
+  newsletterHeading: string | null;
+  newsletterText: string | null;
+  showAboutSection: boolean | null;
+  showAlbumSection: boolean | null;
+  showUpcomingShows: boolean | null;
+  showLessonsSection: boolean | null;
+  showBookingSection: boolean | null;
+  showGallerySection: boolean | null;
+  showStudioVideos: boolean | null;
+  showNewsletterSection: boolean | null;
 } | null;
 // Variable: lessonsPageQuery
 // Query: *[_type == "lessonsPage"][0]{  _id,  heroHeading,  heroSubheading,  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  philosophyHeading,  philosophyText,  philosophyImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  learningItemsHeading,  learningItems[]{    _key,    title,    description  },  ctaBoxHeading,  ctaBoxText,  credentials,  teachingImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  performanceImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},  emailButtonText,  scheduleButtonText}
@@ -2647,7 +2686,7 @@ declare module "@sanity/client" {
     "*[_type == \"settings\"][0]{\n  _id,\n  title,\n  description,\n  ogImage{\n    asset->,\n    alt,\n    metadataBase\n  },\n  contactEmail,\n  bookingUrl,\n  socialLinks[]{\n    platform,\n    url\n  }\n}": SettingsQueryResult;
     "*[_type == \"uiText\"][0]{\n  _id,\n  siteName,\n  siteTagline,\n  navShows,\n  navLessons,\n  navSetlist,\n  navMerch,\n  navContact,\n  footerNavigationHeading,\n  footerConnectHeading,\n  footerCopyrightText,\n  formLabelName,\n  formLabelEmail,\n  formLabelSubject,\n  formLabelMessage,\n  formButtonSubmit,\n  formButtonSending,\n  formSuccessMessage,\n  buttonViewSetlist,\n  buttonScheduleLesson,\n  buttonBookLesson,\n  buttonEmailMe,\n  buttonGetInTouch,\n  linkSeeAllShows,\n  linkUpcomingShows,\n  linkGuitarLessons,\n  linkBluesSetlist,\n  showsCountSingular,\n  showsCountPlural,\n  upcomingPrefix,\n  setlistSubtitleSuffix,\n  socialFacebook,\n  socialInstagram\n}": UiTextQueryResult;
     "*[_type == \"navigation\"][0]{\n  _id,\n  main[]{\n    title,\n    href,\n    docRef->{\n      _type,\n      \"slug\": slug.current\n    }\n  },\n  footer[]{\n    title,\n    href,\n    docRef->{\n      _type,\n      \"slug\": slug.current\n    }\n  }\n}": NavigationQueryResult;
-    "*[_type == \"homePage\"][0]{\n  _id,\n  heroSlides[]{\n    _key,\n    image{\n      asset->{_id, url},\n      hotspot,\n      crop,\n      alt\n    },\n    mobileImage{\n      asset->{_id, url},\n      hotspot,\n      crop,\n      alt\n    },\n    alt,\n    desktopPosition,\n    mobilePosition\n  },\n  heroHeading,\n  heroSubheading,\n  heroTagline,\n  aboutHeading,\n  aboutText,\n  aboutImage{\n    asset->{_id, url},\n    hotspot,\n    crop,\n    desktopPosition,\n    mobilePosition,\n    alt\n  },\n  albumTitle,\n  albumYear,\n  albumFormat,\n  albumDescription,\n  albumCoverImage{\n    asset->{_id, url},\n    hotspot,\n    crop,\n    desktopPosition,\n    mobilePosition,\n    alt\n  },\n  albumFeatures,\n  ctaLessonsHeading,\n  ctaLessonsText,\n  parallaxHeading,\n  parallaxSubheading,\n  parallaxImages[]{\n    _key,\n    image{\n      asset->{_id, url},\n      hotspot,\n      crop,\n      desktopPosition,\n      mobilePosition,\n      alt\n    },\n    alt,\n    position,\n    offset\n  },\n  performanceSectionHeading,\n  performanceImage{\n    asset->{_id, url},\n    hotspot,\n    crop,\n    desktopPosition,\n    mobilePosition,\n    alt\n  },\n  gallerySectionHeading,\n  gallerySectionSubheading,\n  galleryImages[]{\n    _key,\n    image{\n      asset->{_id, url},\n      hotspot,\n      crop,\n      desktopPosition,\n      mobilePosition,\n      alt\n    },\n    alt,\n    width,\n    height\n  },\n  upcomingShowsHeading,\n  seeAllShowsLinkText,\n  aboutButtonText,\n  ctaLessonsButtonText,\n  featuredVideoUrl,\n  studioVideo1Url,\n  studioVideo2Url\n}": HomePageQueryResult;
+    "*[_type == \"homePage\"][0]{\n  _id,\n  heroSlides[]{\n    _key,\n    image{\n      asset->{_id, url},\n      hotspot,\n      crop,\n      alt\n    },\n    mobileImage{\n      asset->{_id, url},\n      hotspot,\n      crop,\n      alt\n    },\n    alt,\n    desktopPosition,\n    mobilePosition\n  },\n  heroHeading,\n  heroHeadingDesktopSize,\n  heroHeadingMobileSize,\n  heroSubheading,\n  heroTagline,\n  heroButtonText,\n  aboutHeading,\n  aboutText,\n  aboutImage{\n    asset->{_id, url},\n    hotspot,\n    crop,\n    desktopPosition,\n    mobilePosition,\n    alt\n  },\n  albumTitle,\n  albumYear,\n  albumFormat,\n  albumDescription,\n  albumCoverImage{\n    asset->{_id, url},\n    hotspot,\n    crop,\n    desktopPosition,\n    mobilePosition,\n    alt\n  },\n  albumFeatures,\n  ctaLessonsHeading,\n  ctaLessonsText,\n  parallaxHeading,\n  parallaxSubheading,\n  parallaxImages[]{\n    _key,\n    image{\n      asset->{_id, url},\n      hotspot,\n      crop,\n      desktopPosition,\n      mobilePosition,\n      alt\n    },\n    alt,\n    position,\n    offset\n  },\n  performanceSectionHeading,\n  performanceImage{\n    asset->{_id, url},\n    hotspot,\n    crop,\n    desktopPosition,\n    mobilePosition,\n    alt\n  },\n  gallerySectionHeading,\n  gallerySectionSubheading,\n  galleryImages[]{\n    _key,\n    image{\n      asset->{_id, url},\n      hotspot,\n      crop,\n      desktopPosition,\n      mobilePosition,\n      alt\n    },\n    alt,\n    width,\n    height\n  },\n  upcomingShowsHeading,\n  seeAllShowsLinkText,\n  aboutButtonText,\n  ctaLessonsButtonText,\n  featuredVideoHeading,\n  featuredVideoSubheading,\n  featuredVideoUrl,\n  bookingSectionHeading,\n  bookingSectionIntro,\n  bookingInquiriesHeading,\n  bookingInquiriesText,\n  bookingInquiryListHeading,\n  bookingInquiryItems,\n  bookingPerfectForHeading,\n  bookingEventTypes,\n  bookingTestimonialQuote,\n  bookingTestimonialAttribution,\n  studioSectionHeading,\n  studioSectionSubheading,\n  studioVideo1Url,\n  studioVideo2Url,\n  newsletterHeading,\n  newsletterText,\n  heroButtonText,\n  showAboutSection,\n  showAlbumSection,\n  showUpcomingShows,\n  showLessonsSection,\n  showBookingSection,\n  showGallerySection,\n  showStudioVideos,\n  showNewsletterSection\n}": HomePageQueryResult;
     "*[_type == \"lessonsPage\"][0]{\n  _id,\n  heroHeading,\n  heroSubheading,\n  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  philosophyHeading,\n  philosophyText,\n  philosophyImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  learningItemsHeading,\n  learningItems[]{\n    _key,\n    title,\n    description\n  },\n  ctaBoxHeading,\n  ctaBoxText,\n  credentials,\n  teachingImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  performanceImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  emailButtonText,\n  scheduleButtonText\n}": LessonsPageQueryResult;
     "*[_type == \"contactPage\"][0]{\n  _id,\n  heroHeading,\n  heroSubheading,\n  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  portraitImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  portraitGallery[]{\n    _key,\n    image{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n    alt\n  },\n  formHeading,\n  directContactHeading,\n  directContactDescription,\n  socialHeading,\n  quickLinksHeading,\n  aboutHeading,\n  quickLinkShowsText,\n  quickLinkLessonsText,\n  quickLinkSetlistText,\n  ctaSectionHeading,\n  ctaSectionText,\n  ctaSectionButtonText\n}": ContactPageQueryResult;
     "*[_type == \"setlistPage\"][0]{\n  _id,\n  heroHeading,\n  heroImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  introText,\n  performanceImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  guitarImage{asset->{_id, url}, hotspot, crop, desktopPosition, mobilePosition, alt},\n  ctaHeading,\n  ctaText,\n  ctaBookLessonButtonText,\n  ctaContactButtonText,\n  subtitleSuffix\n}": SetlistPageQueryResult;

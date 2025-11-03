@@ -19,16 +19,12 @@ export const musicEmbed = defineType({
         ],
         layout: 'radio',
       },
-      initialValue: 'spotify',
-      validation: (Rule) => Rule.required(),
-    }),
+      initialValue: 'spotify',    }),
     defineField({
       name: 'url',
       title: 'Embed URL',
       type: 'url',
-      description: 'Share/embed URL from the music platform',
-      validation: (Rule) => Rule.required(),
-    }),
+      description: 'Share/embed URL from the music platform',    }),
   ],
   preview: {
     select: {

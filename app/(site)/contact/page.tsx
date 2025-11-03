@@ -1,6 +1,6 @@
 import {Metadata} from 'next'
 import Link from 'next/link'
-import {client} from '@/sanity/lib/client'
+import {sanityFetch} from '@/sanity/lib/live'
 import {contactPageQuery, settingsQuery, uiTextQuery} from '@/sanity/lib/queries'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
 import {ImageRevealScroll} from '@/components/ui/ImageRevealScroll'
@@ -14,9 +14,9 @@ export const metadata: Metadata = {
 
 export default async function ContactPage() {
   const [contactPage, settings, uiText] = await Promise.all([
-    client.fetch(contactPageQuery, {}, {next: {revalidate: 60}}),
-    client.fetch(settingsQuery, {}, {next: {revalidate: 60}}),
-    client.fetch(uiTextQuery, {}, {next: {revalidate: 60}}),
+    sanityFetch({query: contactPageQuery}).then((r) => r.data),
+    sanityFetch({query: settingsQuery}).then((r) => r.data),
+    sanityFetch({query: uiTextQuery}).then((r) => r.data),
   ])
 
   return (

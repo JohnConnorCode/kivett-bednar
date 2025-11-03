@@ -27,6 +27,8 @@ import {featureGrid} from './objects/modules/featureGrid'
 import {ctaBanner} from './objects/modules/ctaBanner'
 import {videoEmbed} from './objects/modules/videoEmbed'
 import {musicEmbed} from './objects/modules/musicEmbed'
+import {testimonials} from './objects/modules/testimonials'
+import {faq} from './objects/modules/faq'
 
 // Export an array of all the schema types.  This is used in the Sanity Studio configuration. https://www.sanity.io/docs/schema-types
 
@@ -62,4 +64,6 @@ export const schemaTypes = [
   ctaBanner,
   videoEmbed,
   musicEmbed,
+  testimonials,
+  faq,
 ]

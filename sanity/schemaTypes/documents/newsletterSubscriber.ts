@@ -8,9 +8,7 @@ export const newsletterSubscriber = defineType({
     defineField({
       name: 'email',
       title: 'Email Address',
-      type: 'string',
-      validation: (Rule) => Rule.required().email(),
-    }),
+      type: 'string',    }),
     defineField({
       name: 'subscribedAt',
       title: 'Subscribed At',
@@ -27,9 +25,7 @@ export const newsletterSubscriber = defineType({
           {title: 'Unsubscribed', value: 'unsubscribed'},
         ],
       },
-      initialValue: 'active',
-      validation: (Rule) => Rule.required(),
-    }),
+      initialValue: 'active',    }),
     defineField({
       name: 'source',
       title: 'Subscription Source',

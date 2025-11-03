@@ -39,6 +39,7 @@ export function FeatureGrid({items}: FeatureGridProps) {
                   alt=""
                   fill
                   className="object-contain"
+                  sizes="64px"
                   style={{
                     objectPosition: getObjectPosition(item.image, isMobile)
                   }}

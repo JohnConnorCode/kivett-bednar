@@ -25,6 +25,7 @@ export default function Avatar({person, date, small = false}: Props) {
             className="h-full rounded-full object-cover"
             height={small ? 32 : 48}
             width={small ? 32 : 48}
+            sizes={small ? '32px' : '48px'}
             src={
               urlForImage(picture)
                 ?.height(small ? 64 : 96)

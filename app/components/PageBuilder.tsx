@@ -4,7 +4,7 @@ import {SanityDocument} from 'next-sanity'
 import {useOptimistic} from 'next-sanity/hooks'
 import Link from 'next/link'
 
-import BlockRenderer from '@/app/components/BlockRenderer'
+import {ModuleRenderer} from '@/components/modules/ModuleRenderer'
 import {PageBySlugQueryResult} from '@/sanity.types'
 import {dataAttr} from '@/sanity/lib/utils'
 import {studioUrl} from '@/sanity/lib/api'
@@ -40,15 +40,7 @@ function renderSections(pageBuilderSections: PageBuilderSection[], page: PageByS
         path: `pageBuilder`,
       }).toString()}
     >
-      {pageBuilderSections.map((block: any, index: number) => (
-        <BlockRenderer
-          key={block._key}
-          index={index}
-          block={block}
-          pageId={page._id}
-          pageType={page._type}
-        />
-      ))}
+      <ModuleRenderer modules={pageBuilderSections as any} />
     </div>
   )
 }

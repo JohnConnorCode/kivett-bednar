@@ -64,6 +64,7 @@ export function EventCard({event}: {event: Event}) {
             alt={event.coverImage.alt || event.title}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
+            sizes="(min-width: 1024px) 800px, (min-width: 768px) 700px, 100vw"
             style={{
               objectPosition: getObjectPosition(event.coverImage, isMobile)
             }}
