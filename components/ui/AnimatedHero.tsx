@@ -15,7 +15,7 @@ interface AnimatedHeroProps {
   mobilePosition?: string
 }
 
-export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImage, backgroundAlt}: AnimatedHeroProps) {
+export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImage, backgroundAlt, desktopPosition, mobilePosition}: AnimatedHeroProps) {
   const [isLoaded, setIsLoaded] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const sectionRef = useRef<HTMLElement>(null)
@@ -41,6 +41,13 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
     setIsLoaded(true)
   }, [])
 
+  // Combine image with position overrides for positioning
+  const imageWithPosition = typeof backgroundImage !== 'string' && backgroundImage ? {
+    ...backgroundImage,
+    desktopPosition: desktopPosition as any,
+    mobilePosition: mobilePosition as any
+  } : backgroundImage
+
   return (
     <section
       ref={sectionRef}
@@ -58,7 +65,7 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
         >
           <div className="absolute inset-0 animate-ken-burns">
             <Image
-              src={typeof backgroundImage === 'string' ? backgroundImage : backgroundImage.asset?.url || ''}
+              src={typeof imageWithPosition === 'string' ? imageWithPosition : (imageWithPosition?.asset?.url || '')}
               alt={backgroundAlt || title}
               fill
               className="object-cover object-center"
@@ -66,9 +73,9 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
               quality={95}
               sizes="100vw"
               style={{
-                objectPosition: typeof backgroundImage === 'string'
+                objectPosition: typeof imageWithPosition === 'string'
                   ? 'center 40%'
-                  : getObjectPosition(backgroundImage, isMobile)
+                  : (imageWithPosition ? getObjectPosition(imageWithPosition, isMobile) : 'center center')
               }}
             />
           </div>

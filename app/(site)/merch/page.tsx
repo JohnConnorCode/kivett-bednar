@@ -32,11 +32,11 @@ export default async function MerchPage() {
       <AnimatedHero
         title={merchPage.heroHeading || 'Merch'}
         subtitle={merchPage.heroSubheading || 'Official Kivett Bednar gear and music'}
-        variant="merch"
-        backgroundImage={merchPage.heroImage?.asset?.url}
+        variant="shows"
+        backgroundImage={merchPage.heroImage || undefined}
         backgroundAlt={merchPage.heroImage?.alt || 'Kivett Bednar merchandise'}
-        desktopPosition={merchPage.heroImage?.desktopPosition}
-        mobilePosition={merchPage.heroImage?.mobilePosition}
+        desktopPosition={merchPage.heroImage?.desktopPosition || undefined}
+        mobilePosition={merchPage.heroImage?.mobilePosition || undefined}
       />
 
       {/* Content */}
