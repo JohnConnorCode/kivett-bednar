@@ -48,6 +48,33 @@ export default async function HomePage() {
         tagline={homePage.heroTagline || 'Gritty Texas Blues meets the heart of the Pacific Northwest'}
       />
 
+      {/* Featured Video Section */}
+      <section className="py-24 bg-gradient-to-b from-background to-surface">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <AnimatedSection animation="fadeIn">
+              <div className="text-center mb-12">
+                <h2 className="text-5xl font-bold text-text-primary mb-4">Live Performance</h2>
+                <p className="text-xl text-text-secondary">
+                  Experience the authentic blues sound
+                </p>
+              </div>
+            </AnimatedSection>
+            <AnimatedSection animation="scaleIn" delay={0.2}>
+              <div className="aspect-video relative overflow-hidden rounded-lg shadow-2xl">
+                <iframe
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                  title="Kivett Bednar Live Performance"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  className="absolute inset-0 w-full h-full"
+                />
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
       {/* About Section - Split Screen with Image */}
       {homePage.aboutImage?.asset?.url && (
         <SplitScreenImage
@@ -212,6 +239,46 @@ export default async function HomePage() {
             }
           />
         )}
+      </section>
+
+      {/* Additional Video Section - Studio Performance */}
+      <section className="py-24 bg-surface">
+        <div className="container mx-auto px-4">
+          <div className="max-w-6xl mx-auto">
+            <AnimatedSection animation="fadeIn">
+              <div className="text-center mb-12">
+                <h2 className="text-5xl font-bold text-text-primary mb-4">In The Studio</h2>
+                <p className="text-xl text-text-secondary">
+                  Behind the scenes of creating authentic Texas blues
+                </p>
+              </div>
+            </AnimatedSection>
+            <div className="grid md:grid-cols-2 gap-8">
+              <AnimatedSection animation="fadeUp" delay={0.2}>
+                <div className="aspect-video relative overflow-hidden rounded-lg shadow-xl">
+                  <iframe
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    title="Kivett Bednar Studio Session 1"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                  />
+                </div>
+              </AnimatedSection>
+              <AnimatedSection animation="fadeUp" delay={0.3}>
+                <div className="aspect-video relative overflow-hidden rounded-lg shadow-xl">
+                  <iframe
+                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    title="Kivett Bednar Studio Session 2"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                  />
+                </div>
+              </AnimatedSection>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Newsletter Signup - NEW */}
