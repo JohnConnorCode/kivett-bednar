@@ -644,6 +644,78 @@ export const homePage = defineType({
       description: 'Button text for lessons call-to-action',
       initialValue: 'Schedule Your First Lesson',
     }),
+
+    // Visibility Controls
+    defineField({
+      name: 'showAboutSection',
+      title: 'Show About Section',
+      type: 'boolean',
+      description: 'Toggle to show/hide the "Musician, Amp Maker, Artist" section',
+      initialValue: true,
+      group: 'visibility',
+    }),
+    defineField({
+      name: 'showAlbumSection',
+      title: 'Show Album Section',
+      type: 'boolean',
+      description: 'Toggle to show/hide the featured album section',
+      initialValue: true,
+      group: 'visibility',
+    }),
+    defineField({
+      name: 'showUpcomingShows',
+      title: 'Show Upcoming Shows Section',
+      type: 'boolean',
+      description: 'Toggle to show/hide upcoming shows on homepage',
+      initialValue: true,
+      group: 'visibility',
+    }),
+    defineField({
+      name: 'showLessonsSection',
+      title: 'Show Lessons CTA Section',
+      type: 'boolean',
+      description: 'Toggle to show/hide the lessons call-to-action section',
+      initialValue: true,
+      group: 'visibility',
+    }),
+    defineField({
+      name: 'showBookingSection',
+      title: 'Show Booking Section',
+      type: 'boolean',
+      description: 'Toggle to show/hide the booking inquiry section',
+      initialValue: true,
+      group: 'visibility',
+    }),
+    defineField({
+      name: 'showGallerySection',
+      title: 'Show Gallery Section',
+      type: 'boolean',
+      description: 'Toggle to show/hide the floating gallery section',
+      initialValue: true,
+      group: 'visibility',
+    }),
+    defineField({
+      name: 'showStudioVideos',
+      title: 'Show Studio Videos Section',
+      type: 'boolean',
+      description: 'Toggle to show/hide the studio video section',
+      initialValue: true,
+      group: 'visibility',
+    }),
+    defineField({
+      name: 'showNewsletterSection',
+      title: 'Show Newsletter Section',
+      type: 'boolean',
+      description: 'Toggle to show/hide the newsletter signup section',
+      initialValue: true,
+      group: 'visibility',
+    }),
+  ],
+  groups: [
+    {
+      name: 'visibility',
+      title: 'Section Visibility',
+    },
   ],
   preview: {
     prepare() {

@@ -195,7 +195,15 @@ export const homePageQuery = defineQuery(`*[_type == "homePage"][0]{
   studioVideo2Url,
   newsletterHeading,
   newsletterText,
-  heroButtonText
+  heroButtonText,
+  showAboutSection,
+  showAlbumSection,
+  showUpcomingShows,
+  showLessonsSection,
+  showBookingSection,
+  showGallerySection,
+  showStudioVideos,
+  showNewsletterSection
 }`)
 
 // Lessons Page
