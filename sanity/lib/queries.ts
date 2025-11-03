@@ -357,36 +357,54 @@ const moduleFields = /* groq */ `
     sectionPadding
   },
   _type == "featureGrid" => {
-    items[]{title, body, iconType, icon, image{asset->, hotspot, crop, desktopPosition, mobilePosition}}
+    items[]{title, body, iconType, icon, image{asset->, hotspot, crop, desktopPosition, mobilePosition}},
+    backgroundVariant,
+    sectionPadding
   },
   _type == "ctaBanner" => {
     heading,
+    headingTracking,
+    headingLineHeight,
     body,
+    backgroundVariant,
+    sectionPadding,
     cta{label, href}
   },
   _type == "videoEmbed" => {
     provider,
-    url
+    url,
+    backgroundVariant,
+    sectionPadding
   },
   _type == "musicEmbed" => {
     provider,
-    url
+    url,
+    backgroundVariant,
+    sectionPadding
   },
   _type == "testimonials" => {
     heading,
+    headingTracking,
+    headingLineHeight,
     items[]{
       name,
       role,
       quote,
       image{asset->, hotspot, crop, alt}
-    }
+    },
+    backgroundVariant,
+    sectionPadding
   },
   _type == "faq" => {
     heading,
+    headingTracking,
+    headingLineHeight,
     items[]{
       question,
       answer
-    }
+    },
+    backgroundVariant,
+    sectionPadding
   },
   _type == "callToAction" => @,
   _type == "infoSection" => @

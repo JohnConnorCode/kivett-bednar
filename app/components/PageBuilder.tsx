@@ -37,10 +37,10 @@ function renderSections(pageBuilderSections: PageBuilderSection[], page: PageByS
       data-sanity={dataAttr({
         id: page._id,
         type: page._type,
-        path: `pageBuilder`,
+        path: `modules`,
       }).toString()}
     >
-      <ModuleRenderer modules={pageBuilderSections as any} />
+      <ModuleRenderer modules={pageBuilderSections as any} pageId={page._id} pageType={page._type} fieldPath="modules" />
     </div>
   )
 }

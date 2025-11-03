@@ -8,6 +8,31 @@ export const featureGrid = defineType({
   icon: BlockElementIcon,
   fields: [
     defineField({
+      name: 'backgroundVariant',
+      title: 'Background Variant',
+      type: 'string',
+      initialValue: 'default',
+      options: {list: [
+        {title: 'Default', value: 'default'},
+        {title: 'Surface', value: 'surface'},
+        {title: 'Surface Elevated', value: 'surface-elevated'},
+        {title: 'Dark Gradient', value: 'dark-gradient'},
+      ]},
+    }),
+    defineField({
+      name: 'sectionPadding',
+      title: 'Section Vertical Padding',
+      type: 'string',
+      initialValue: 'md',
+      options: {list: [
+        {title: 'None', value: 'none'},
+        {title: 'Small', value: 'sm'},
+        {title: 'Medium', value: 'md'},
+        {title: 'Large', value: 'lg'},
+        {title: 'XL', value: 'xl'},
+      ]},
+    }),
+    defineField({
       name: 'items',
       title: 'Items',
       type: 'array',

@@ -7,6 +7,7 @@ import {VideoEmbed} from './VideoEmbed'
 import {MusicEmbed} from './MusicEmbed'
 import {Testimonials} from './Testimonials'
 import {FAQ} from './FAQ'
+import {dataAttr} from '@/sanity/lib/utils'
 
 type Module = {
   _type: string
@@ -16,9 +17,12 @@ type Module = {
 
 type Props = {
   modules?: Module[]
+  pageId?: string
+  pageType?: string
+  fieldPath?: string
 }
 
-export function ModuleRenderer({modules}: Props) {
+export function ModuleRenderer({modules, pageId, pageType, fieldPath = 'modules'}: Props) {
   if (!modules || modules.length === 0) {
     return null
   }
@@ -26,25 +30,65 @@ export function ModuleRenderer({modules}: Props) {
   return (
     <div className="space-y-16">
       {modules.map((module) => {
+        const wrapperAttr =
+          pageId && pageType
+            ? dataAttr({id: pageId, type: pageType, path: `${fieldPath}[_key=="${module._key}"]`}).toString()
+            : undefined
         switch (module._type) {
           case 'hero':
-            return <Hero key={module._key} {...(module as any)} />
+            return (
+              <div key={module._key} {...(wrapperAttr ? {'data-sanity': wrapperAttr} : {})}>
+                <Hero {...(module as any)} />
+              </div>
+            )
           case 'richText':
-            return <RichText key={module._key} {...(module as any)} />
+            return (
+              <div key={module._key} {...(wrapperAttr ? {'data-sanity': wrapperAttr} : {})}>
+                <RichText {...(module as any)} />
+              </div>
+            )
           case 'imageGallery':
-            return <ImageGallery key={module._key} {...(module as any)} />
+            return (
+              <div key={module._key} {...(wrapperAttr ? {'data-sanity': wrapperAttr} : {})}>
+                <ImageGallery {...(module as any)} />
+              </div>
+            )
           case 'featureGrid':
-            return <FeatureGrid key={module._key} {...(module as any)} />
+            return (
+              <div key={module._key} {...(wrapperAttr ? {'data-sanity': wrapperAttr} : {})}>
+                <FeatureGrid {...(module as any)} />
+              </div>
+            )
           case 'ctaBanner':
-            return <CtaBanner key={module._key} {...(module as any)} />
+            return (
+              <div key={module._key} {...(wrapperAttr ? {'data-sanity': wrapperAttr} : {})}>
+                <CtaBanner {...(module as any)} />
+              </div>
+            )
           case 'videoEmbed':
-            return <VideoEmbed key={module._key} {...(module as any)} />
-      case 'musicEmbed':
-        return <MusicEmbed key={module._key} {...(module as any)} />
-      case 'testimonials':
-        return <Testimonials key={module._key} {...(module as any)} />
-      case 'faq':
-        return <FAQ key={module._key} {...(module as any)} />
+            return (
+              <div key={module._key} {...(wrapperAttr ? {'data-sanity': wrapperAttr} : {})}>
+                <VideoEmbed {...(module as any)} />
+              </div>
+            )
+          case 'musicEmbed':
+            return (
+              <div key={module._key} {...(wrapperAttr ? {'data-sanity': wrapperAttr} : {})}>
+                <MusicEmbed {...(module as any)} />
+              </div>
+            )
+          case 'testimonials':
+            return (
+              <div key={module._key} {...(wrapperAttr ? {'data-sanity': wrapperAttr} : {})}>
+                <Testimonials {...(module as any)} />
+              </div>
+            )
+          case 'faq':
+            return (
+              <div key={module._key} {...(wrapperAttr ? {'data-sanity': wrapperAttr} : {})}>
+                <FAQ {...(module as any)} />
+              </div>
+            )
       default:
         console.warn(`Unknown module type: ${module._type}`)
         return null
