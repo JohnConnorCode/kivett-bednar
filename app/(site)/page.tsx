@@ -10,6 +10,30 @@ import {FloatingGallery} from '@/components/ui/FloatingGallery'
 import {SplitScreenImage} from '@/components/ui/SplitScreenImage'
 import {NewsletterForm} from '@/components/ui/NewsletterForm'
 
+// Helper function to extract YouTube video ID from URL or return ID as-is
+function getYouTubeId(urlOrId: string): string {
+  if (!urlOrId) return '75M50Bfksa0' // Default fallback
+
+  // If it's already just an ID (11 characters, alphanumeric), return it
+  if (/^[a-zA-Z0-9_-]{11}$/.test(urlOrId)) {
+    return urlOrId
+  }
+
+  // Try to extract from various YouTube URL formats
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/,
+    /youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/,
+  ]
+
+  for (const pattern of patterns) {
+    const match = urlOrId.match(pattern)
+    if (match) return match[1]
+  }
+
+  // If no pattern matches, return the input (might be just an ID)
+  return urlOrId
+}
+
 export const metadata: Metadata = {
   title: 'Kivett Bednar | Blues Guitarist & Musician',
   description: 'Gritty Texas Blues meets the heart of the Pacific Northwest',
@@ -64,7 +88,7 @@ export default async function HomePage() {
             <AnimatedSection animation="fadeUp" delay={0.2}>
               <div className="aspect-video relative overflow-hidden rounded-lg shadow-2xl">
                 <iframe
-                  src="https://www.youtube.com/embed/75M50Bfksa0"
+                  src={`https://www.youtube.com/embed/${getYouTubeId(homePage.featuredVideoUrl || '')}`}
                   title="Kivett Bednar Live Performance"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -258,7 +282,7 @@ export default async function HomePage() {
               <AnimatedSection animation="fadeUp" delay={0.2}>
                 <div className="aspect-video relative overflow-hidden rounded-lg shadow-xl">
                   <iframe
-                    src="https://www.youtube.com/embed/75M50Bfksa0"
+                    src={`https://www.youtube.com/embed/${getYouTubeId(homePage.studioVideo1Url || '')}`}
                     title="Kivett Bednar Studio Session 1"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -269,7 +293,7 @@ export default async function HomePage() {
               <AnimatedSection animation="fadeUp" delay={0.3}>
                 <div className="aspect-video relative overflow-hidden rounded-lg shadow-xl">
                   <iframe
-                    src="https://www.youtube.com/embed/75M50Bfksa0"
+                    src={`https://www.youtube.com/embed/${getYouTubeId(homePage.studioVideo2Url || '')}`}
                     title="Kivett Bednar Studio Session 2"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen

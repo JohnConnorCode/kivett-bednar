@@ -407,6 +407,29 @@ export const homePage = defineType({
       initialValue: 'See all shows →',
     }),
 
+    // Video URLs
+    defineField({
+      name: 'featuredVideoUrl',
+      title: 'Featured Video URL',
+      type: 'url',
+      description: 'YouTube video ID or full URL for the featured "Live Performance" video (e.g., https://www.youtube.com/watch?v=75M50Bfksa0 or just 75M50Bfksa0)',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'studioVideo1Url',
+      title: 'Studio Video 1 URL',
+      type: 'url',
+      description: 'YouTube video ID or full URL for first studio session video',
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: 'studioVideo2Url',
+      title: 'Studio Video 2 URL',
+      type: 'url',
+      description: 'YouTube video ID or full URL for second studio session video',
+      validation: (rule) => rule.required(),
+    }),
+
     // Button Labels
     defineField({
       name: 'aboutButtonText',

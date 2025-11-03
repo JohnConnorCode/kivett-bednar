@@ -5516,6 +5516,27 @@
         },
         "optional": true
       },
+      "featuredVideoUrl": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "studioVideo1Url": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
+      "studioVideo2Url": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "aboutButtonText": {
         "type": "objectAttribute",
         "value": {
