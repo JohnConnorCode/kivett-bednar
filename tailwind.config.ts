@@ -83,6 +83,34 @@ export default {
           950: '#101111',
         },
         bone: '#f8f6f1', // Bone white
+        // Vintage Blues color palette
+        vintage: {
+          50: '#fef5f1',
+          100: '#fde8df',
+          200: '#fbd1bf',
+          300: '#f9b49f',
+          400: '#f79780',
+          500: '#fb875e', // Primary burnt orange - vintage blues accent
+          600: '#f56b3e',
+          700: '#e44d1d',
+          800: '#b73b16',
+          900: '#8a2c11',
+          950: '#5d1d0b',
+        },
+        gold: {
+          50: '#fefbf0',
+          100: '#fdf6db',
+          200: '#fbedb7',
+          300: '#f9e493',
+          400: '#f7db6f',
+          500: '#F0C419', // Warm gold accent
+          600: '#d4a917',
+          700: '#a68313',
+          800: '#78600e',
+          900: '#4a3b09',
+          950: '#312706',
+        },
+        cream: '#f5e6d3', // Aged paper warm background
         amber: {
           50: '#fefbf3',
           100: '#fdf7e7',

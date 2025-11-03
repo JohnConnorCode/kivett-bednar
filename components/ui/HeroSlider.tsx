@@ -197,19 +197,13 @@ export function HeroSlider({
             delay: 0.35,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="flex justify-center"
         >
           <Link
             href="/shows"
-            className="px-10 py-5 bg-midnight-600 text-white font-bold rounded-lg text-xl shadow-2xl transform transition-all duration-200 hover:scale-105 hover:bg-midnight-700"
+            className="px-10 py-5 bg-vintage-500 text-white font-bold rounded-lg text-xl shadow-2xl transform transition-all duration-200 hover:scale-105 hover:bg-vintage-600"
           >
             See Live Shows
-          </Link>
-          <Link
-            href="/lessons"
-            className="px-10 py-5 border-2 border-white text-white font-bold rounded-lg text-xl backdrop-blur-sm transform transition-all duration-200 hover:scale-105 hover:bg-white/10"
-          >
-            Book a Lesson
           </Link>
         </motion.div>
       </div>

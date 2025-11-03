@@ -31,121 +31,103 @@ export default async function ContactPage() {
         backgroundAlt={contactPage?.heroImage?.alt || 'Kivett Bednar on stage'}
       />
 
-      {/* Content */}
-      <div className="bg-bone py-24">
+      {/* Content - Redesigned */}
+      <div className="bg-gradient-to-b from-bone via-cream to-bone py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-3 gap-12">
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
               {/* Contact Form */}
-              <div className="lg:col-span-2">
-                <div className="bg-white rounded-2xl p-8 md:p-12 border-2 border-charcoal-900/10">
-                  <h2 className="text-3xl font-bold mb-8 text-charcoal-900">{contactPage?.formHeading || 'Send a Message'}</h2>
-                  <ContactForm
-                    labelName={uiText?.formLabelName || undefined}
-                    labelEmail={uiText?.formLabelEmail || undefined}
-                    labelSubject={uiText?.formLabelSubject || undefined}
-                    labelMessage={uiText?.formLabelMessage || undefined}
-                    buttonSubmit={uiText?.formButtonSubmit || undefined}
-                    buttonSending={uiText?.formButtonSending || undefined}
-                    successMessage={uiText?.formSuccessMessage || undefined}
-                  />
-                </div>
+              <div>
+                <AnimatedSection animation="fadeUp">
+                  <div className="bg-white rounded-2xl p-8 md:p-12 border-4 border-vintage-500/20 shadow-2xl">
+                    <h2 className="text-4xl font-bold mb-8 text-charcoal-900">{contactPage?.formHeading || 'Send a Message'}</h2>
+                    <ContactForm
+                      labelName={uiText?.formLabelName || undefined}
+                      labelEmail={uiText?.formLabelEmail || undefined}
+                      labelSubject={uiText?.formLabelSubject || undefined}
+                      labelMessage={uiText?.formLabelMessage || undefined}
+                      buttonSubmit={uiText?.formButtonSubmit || undefined}
+                      buttonSending={uiText?.formButtonSending || undefined}
+                      successMessage={uiText?.formSuccessMessage || undefined}
+                    />
+                  </div>
+                </AnimatedSection>
               </div>
 
               {/* Contact Info & Social */}
               <div className="space-y-8">
                 {/* Direct Contact */}
                 {settings?.contactEmail && (
-                  <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-8 text-bone border-2 border-midnight-600/20">
-                    <h2 className="text-2xl font-bold mb-4">{contactPage?.directContactHeading || 'Direct Contact'}</h2>
-                    <a
-                      href={`mailto:${settings.contactEmail}`}
-                      className="text-midnight-600 hover:text-midnight-700 transition-colors text-lg font-semibold break-all"
-                    >
-                      {settings.contactEmail}
-                    </a>
-                  </div>
+                  <AnimatedSection animation="fadeUp" delay={0.2}>
+                    <div className="bg-gradient-to-br from-charcoal-900 to-midnight-500 rounded-2xl p-8 text-bone border-4 border-vintage-500/30 shadow-2xl">
+                      <h2 className="text-3xl font-bold mb-4 text-gold-500">{contactPage?.directContactHeading || 'Direct Contact'}</h2>
+                      <a
+                        href={`mailto:${settings.contactEmail}`}
+                        className="text-bone hover:text-vintage-500 transition-colors text-lg font-semibold break-all block mb-6"
+                      >
+                        {settings.contactEmail}
+                      </a>
+                      <p className="text-bone/70 text-sm">
+                        Whether you&apos;re booking a show, inquiring about lessons, or just want to say hello — I&apos;d love to hear from you.
+                      </p>
+                    </div>
+                  </AnimatedSection>
                 )}
 
                 {/* Social Media */}
                 {settings?.socialLinks && settings.socialLinks.length > 0 && (
-                  <div className="bg-white rounded-2xl p-8 border-2 border-charcoal-900/10">
-                    <h2 className="text-2xl font-bold mb-4 text-charcoal-900">{contactPage?.socialHeading || 'Follow Along'}</h2>
-                    <div className="space-y-3">
-                      {settings.socialLinks.map((link: any) => (
-                        <a
-                          key={link.url}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-center gap-3 text-midnight-500 hover:text-midnight-600 transition-colors font-semibold capitalize"
-                        >
-                          <span>→</span>
-                          {link.platform}
-                        </a>
-                      ))}
+                  <AnimatedSection animation="fadeUp" delay={0.3}>
+                    <div className="bg-white rounded-2xl p-8 border-2 border-vintage-500/20 shadow-lg">
+                      <h2 className="text-2xl font-bold mb-6 text-charcoal-900">{contactPage?.socialHeading || 'Follow Along'}</h2>
+                      <div className="grid grid-cols-2 gap-4">
+                        {settings.socialLinks.map((link: any) => (
+                          <a
+                            key={link.url}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center justify-center gap-2 px-4 py-3 bg-charcoal-900/5 rounded-lg hover:bg-vintage-500/10 border border-transparent hover:border-vintage-500/30 transition-all font-semibold capitalize text-charcoal-900 hover:text-vintage-500"
+                          >
+                            <span className="text-vintage-500">→</span>
+                            {link.platform}
+                          </a>
+                        ))}
+                      </div>
                     </div>
-                  </div>
+                  </AnimatedSection>
                 )}
 
-                {/* Quick Links */}
-                <div className="bg-white rounded-2xl p-8 border-2 border-charcoal-900/10">
-                  <h2 className="text-2xl font-bold mb-4 text-charcoal-900">{contactPage?.quickLinksHeading || 'Quick Links'}</h2>
-                  <div className="space-y-3">
+                {/* Call to Action */}
+                <AnimatedSection animation="scaleIn" delay={0.4}>
+                  <div className="bg-gradient-to-br from-vintage-500 to-vintage-700 rounded-2xl p-8 text-white shadow-2xl">
+                    <h3 className="text-2xl font-bold mb-4">Looking for Live Blues?</h3>
+                    <p className="mb-6 text-white/90">
+                      Check out my upcoming shows and experience gritty Texas Blues meets the heart of the Pacific Northwest.
+                    </p>
                     <Link
                       href="/shows"
-                      className="flex items-center gap-3 text-midnight-500 hover:text-midnight-600 transition-colors font-semibold"
+                      className="inline-block px-8 py-4 bg-white text-vintage-500 font-bold rounded-lg hover:bg-bone transition-all transform hover:scale-105"
                     >
-                      <span>→</span>
-                      {contactPage?.quickLinkShowsText || 'Upcoming Shows'}
-                    </Link>
-                    <Link
-                      href="/lessons"
-                      className="flex items-center gap-3 text-midnight-500 hover:text-midnight-600 transition-colors font-semibold"
-                    >
-                      <span>→</span>
-                      {contactPage?.quickLinkLessonsText || 'Guitar Lessons'}
-                    </Link>
-                    <Link
-                      href="/setlist"
-                      className="flex items-center gap-3 text-midnight-500 hover:text-midnight-600 transition-colors font-semibold"
-                    >
-                      <span>→</span>
-                      {contactPage?.quickLinkSetlistText || 'Blues Setlist'}
+                      View Upcoming Shows →
                     </Link>
                   </div>
-                </div>
+                </AnimatedSection>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Portrait Image Section */}
-      <section className="bg-gradient-to-b from-bone to-charcoal-900 py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto mb-16">
-            <AnimatedSection animation="fadeIn">
-              <h2 className="text-5xl font-bold text-center text-bone mb-16">
-                {contactPage?.aboutHeading || 'About Kivett'}
-              </h2>
-            </AnimatedSection>
-            {contactPage?.portraitImage?.asset?.url && (
-              <ImageRevealScroll
-                imageSrc={contactPage.portraitImage.asset.url}
-                imageAlt={contactPage.portraitImage?.alt || 'Kivett Bednar portrait'}
-                direction="up"
-              />
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Portrait Grid */}
-      <section className="bg-charcoal-900 py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            {contactPage?.portraitGallery && contactPage.portraitGallery.length > 0 && (
+      {/* Single Gallery Section - Replaces redundant portrait sections */}
+      {contactPage?.portraitGallery && contactPage.portraitGallery.length > 0 && (
+        <section className="bg-charcoal-900 py-24">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <AnimatedSection animation="fadeIn">
+                <h2 className="text-5xl font-bold text-center text-bone mb-16">
+                  {contactPage?.aboutHeading || 'Behind the Music'}
+                </h2>
+              </AnimatedSection>
               <StaggeredImageGrid
                 images={contactPage.portraitGallery
                   .filter((img: any) => img.image?.asset?.url)
@@ -157,10 +139,10 @@ export default async function ContactPage() {
                 }
                 columns={2}
               />
-            )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </div>
   )
 }

@@ -45,50 +45,66 @@ export function EventCard({event}: {event: Event}) {
   )
 
   return (
-    <div className="border rounded-lg overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1 duration-200">
+    <div className="group relative border-2 border-vintage-500/20 rounded-lg overflow-hidden hover:shadow-2xl hover:border-vintage-500/40 transition-all hover:-translate-y-2 duration-300 bg-bone">
+      {/* Vintage paper texture on card */}
+      <div className="absolute inset-0 vintage-paper opacity-30 pointer-events-none" />
+
       {event.coverImage?.asset && (
-        <div className="relative aspect-video">
+        <div className="relative aspect-video overflow-hidden">
+          {/* Vintage grain overlay on image */}
+          <div className="absolute inset-0 z-10 pointer-events-none opacity-15 mix-blend-overlay vintage-grain" />
+
           <Image
             src={urlFor(event.coverImage.asset).width(600).height(400).url()}
             alt={event.coverImage.alt || event.title}
             fill
-            className="object-cover"
+            className="object-cover transition-all duration-500 group-hover:scale-105 group-hover:brightness-105"
             style={{
               objectPosition: getObjectPosition(event.coverImage, isMobile)
             }}
           />
+
+          {/* Vintage overlay gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/30 via-transparent to-vintage-500/5" />
+
           {event.isCanceled && (
-            <div className="absolute inset-0 bg-black/70 flex items-center justify-center">
-              <span className="text-white text-2xl font-bold">CANCELED</span>
+            <div className="absolute inset-0 bg-black/70 flex items-center justify-center z-20">
+              <span className="text-white text-2xl font-bold tracking-wide" style={{fontFamily: 'var(--font-heading)'}}>CANCELED</span>
             </div>
           )}
           {event.isSoldOut && !event.isCanceled && (
-            <div className="absolute top-4 right-4 bg-destructive text-destructive-foreground px-3 py-1 rounded-full text-sm font-semibold">
+            <div className="absolute top-4 right-4 bg-vintage-500 text-white px-4 py-2 rounded-md text-sm font-bold tracking-wide shadow-lg z-20" style={{fontFamily: 'var(--font-heading)'}}>
               SOLD OUT
             </div>
           )}
         </div>
       )}
-      <div className="p-6">
-        <div className="text-sm text-muted-foreground mb-2">
+      <div className="relative p-6 bg-gradient-to-b from-bone to-cream">
+        <div className="text-sm font-semibold text-vintage-600 mb-2 tracking-wide uppercase" style={{fontFamily: 'var(--font-heading)'}}>
           {eventDate} • {eventTime}
         </div>
-        <h3 className="text-xl font-bold mb-2">{event.title}</h3>
-        <div className="text-muted-foreground mb-4">
-          <p className="font-medium">{event.venue}</p>
-          <p>{event.city}{event.state && `, ${event.state}`}</p>
+        <h3 className="text-2xl font-bold mb-3 text-charcoal-900 group-hover:text-vintage-600 transition-colors" style={{fontFamily: 'var(--font-heading)'}}>
+          {event.title}
+        </h3>
+        <div className="text-charcoal-900/70 mb-4">
+          <p className="font-semibold text-charcoal-900">{event.venue}</p>
+          <p className="text-sm">{event.city}{event.state && `, ${event.state}`}</p>
         </div>
         {event.ticketUrl && !event.isCanceled && (
           <a
             href={event.ticketUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-primary text-primary-foreground px-6 py-2 rounded-md font-semibold hover:bg-primary/90 transition-colors"
+            className="inline-block bg-vintage-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-vintage-600 transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
+            style={{fontFamily: 'var(--font-heading)'}}
           >
-            {event.isSoldOut ? 'Waitlist' : 'Get Tickets'}
+            {event.isSoldOut ? 'Join Waitlist →' : 'Get Tickets →'}
           </a>
         )}
       </div>
+
+      {/* Vintage border accent - appears on hover */}
+      <div className="absolute inset-0 border-2 border-vintage-500 opacity-0 group-hover:opacity-30 transition-opacity duration-300 rounded-lg pointer-events-none" />
     </div>
   )
 }
