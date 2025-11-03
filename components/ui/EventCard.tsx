@@ -104,24 +104,21 @@ export function EventCard({event}: {event: Event}) {
 
         {/* Action Buttons */}
         <div className="flex flex-wrap gap-3">
-          {eventLink && (
-            <Link
-              href={eventLink}
-              className="inline-flex items-center justify-center px-6 py-3 bg-surface text-text-primary border border-border font-bold hover:border-accent-primary transition-all hover:shadow-lg hover:shadow-accent-primary/20 flex-1 sm:flex-none"
-            >
-              Details
-            </Link>
-          )}
           {event.ticketUrl && !event.isCanceled && (
             <a
               href={event.ticketUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 py-3 bg-accent-primary text-black font-bold hover:bg-accent-primary/90 transition-all transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent-primary/40 flex-1 sm:flex-none"
+              className="inline-flex items-center justify-center px-6 py-3 bg-accent-primary text-black font-bold hover:bg-accent-primary/90 transition-all transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent-primary/40 w-full"
               onClick={(e) => e.stopPropagation()}
             >
-              {event.isSoldOut ? 'Waitlist' : 'Tickets'}
+              {event.isSoldOut ? 'Waitlist →' : 'Get Tickets →'}
             </a>
+          )}
+          {!eventLink && !event.ticketUrl && (
+            <div className="text-sm text-text-muted italic">
+              Event details coming soon
+            </div>
           )}
         </div>
       </div>
