@@ -115,36 +115,40 @@ export default async function HomePage() {
             </AnimatedSection>
             <div className="grid md:grid-cols-2 gap-12">
               <AnimatedSection animation="fadeUp" delay={0.2}>
-                <div className="bg-white p-8 rounded-lg shadow-lg">
-                  <h3 className="text-2xl font-bold mb-6 text-charcoal-900">Get in Touch</h3>
-                  <form className="space-y-4">
-                    <input
-                      type="text"
-                      placeholder="Name"
-                      className="w-full px-4 py-3 border border-charcoal-900/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-vintage-500"
-                    />
-                    <input
-                      type="email"
-                      placeholder="Email"
-                      className="w-full px-4 py-3 border border-charcoal-900/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-vintage-500"
-                    />
-                    <input
-                      type="text"
-                      placeholder="Event Date & Location"
-                      className="w-full px-4 py-3 border border-charcoal-900/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-vintage-500"
-                    />
-                    <textarea
-                      placeholder="Tell me about your event..."
-                      rows={4}
-                      className="w-full px-4 py-3 border border-charcoal-900/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-vintage-500"
-                    ></textarea>
-                    <button
-                      type="submit"
-                      className="w-full px-8 py-4 bg-vintage-500 text-white font-bold rounded-lg hover:bg-vintage-600 transition-all transform hover:scale-105"
+                <div className="bg-gradient-to-br from-charcoal-900 to-midnight-500 p-8 rounded-lg shadow-lg text-bone">
+                  <h3 className="text-2xl font-bold mb-6 text-gold-500">Booking Inquiries</h3>
+                  <div className="space-y-6">
+                    <p className="text-lg">
+                      For booking inquiries, please contact Kivett directly via email:
+                    </p>
+                    <a
+                      href="mailto:kivettbednar@gmail.com"
+                      className="block w-full px-8 py-4 bg-vintage-500 text-white font-bold rounded-lg hover:bg-vintage-600 transition-all transform hover:scale-105 text-center text-xl"
                     >
-                      Send Inquiry
-                    </button>
-                  </form>
+                      kivettbednar@gmail.com
+                    </a>
+                    <div className="border-t border-bone/20 pt-6 mt-6">
+                      <h4 className="font-bold text-gold-500 mb-3">Include in Your Inquiry:</h4>
+                      <ul className="space-y-2 text-bone/90">
+                        <li className="flex items-start gap-3">
+                          <span className="text-vintage-500 mt-1">→</span>
+                          <span>Event date and location</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-vintage-500 mt-1">→</span>
+                          <span>Type of event (festival, private party, venue, etc.)</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-vintage-500 mt-1">→</span>
+                          <span>Expected audience size</span>
+                        </li>
+                        <li className="flex items-start gap-3">
+                          <span className="text-vintage-500 mt-1">→</span>
+                          <span>Performance duration needed</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </AnimatedSection>
               <AnimatedSection animation="fadeUp" delay={0.3}>

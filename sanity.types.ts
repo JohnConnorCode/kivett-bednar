@@ -1898,10 +1898,12 @@ export type PagesSlugsResult = Array<{
   slug: string | null;
 }>;
 // Variable: upcomingEventsQuery
-// Query: *[_type == "event" && startDateTime >= $now && !isCanceled] | order(startDateTime asc)[0...$limit]{  _id,  title,  startDateTime,  endDateTime,  timezone,  venue,  address,  city,  state,  country,  ticketUrl,  description,  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},  isCanceled,  isSoldOut}
+// Query: *[_type == "event" && startDateTime >= $now && !isCanceled] | order(startDateTime asc)[0...$limit]{  _id,  title,  "slug": slug.current,  excerpt,  startDateTime,  endDateTime,  timezone,  venue,  address,  city,  state,  country,  ticketUrl,  description,  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},  isCanceled,  isSoldOut}
 export type UpcomingEventsQueryResult = Array<{
   _id: string;
   title: string | null;
+  slug: null;
+  excerpt: null;
   startDateTime: string | null;
   endDateTime: string | null;
   timezone: string | null;
@@ -1998,6 +2000,62 @@ export type EventsByMonthQueryResult = Array<{
   isCanceled: boolean | null;
   isSoldOut: boolean | null;
 }>;
+// Variable: eventBySlugQuery
+// Query: *[_type == "event" && slug.current == $slug][0]{  _id,  title,  "slug": slug.current,  excerpt,  startDateTime,  endDateTime,  timezone,  venue,  address,  city,  state,  country,  ticketUrl,  description,  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},  heroImage{asset->, hotspot, crop, desktopPosition, alt},  heroImageMobile{asset->, hotspot, crop, mobilePosition, alt},  lineup[]{name, role, bio},  specialNotes,  isCanceled,  isSoldOut}
+export type EventBySlugQueryResult = {
+  _id: string;
+  title: string | null;
+  slug: null;
+  excerpt: null;
+  startDateTime: string | null;
+  endDateTime: string | null;
+  timezone: string | null;
+  venue: string | null;
+  address: string | null;
+  city: string | null;
+  state: string | null;
+  country: string | null;
+  ticketUrl: string | null;
+  description: BlockContent | null;
+  coverImage: {
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: null;
+    mobilePosition: null;
+    alt: string | null;
+  } | null;
+  heroImage: null;
+  heroImageMobile: null;
+  lineup: null;
+  specialNotes: null;
+  isCanceled: boolean | null;
+  isSoldOut: boolean | null;
+} | null;
+// Variable: eventsSlugs
+// Query: *[_type == "event" && defined(slug.current)]{  "slug": slug.current}
+export type EventsSlugsResult = Array<never>;
 // Variable: allProductsQuery
 // Query: *[_type == "product"] | order(_createdAt desc){  _id,  title,  "slug": slug.current,  images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},  priceCents,  currency}
 export type AllProductsQueryResult = Array<{
@@ -2316,9 +2374,11 @@ declare module "@sanity/client" {
     "*[_type == \"song\"] | order(order asc){\n  _id,\n  title,\n  key,\n  artist,\n  notes,\n  order\n}": AllSongsQueryResult;
     "*[_type == \"page\" && slug.current == $slug][0]{\n  _id,\n  _type,\n  name,\n  heading,\n  subheading,\n  modules[]{\n    \n  _type,\n  _key,\n  _type == \"hero\" => {\n    headline,\n    subhead,\n    mediaType,\n    image{asset->, hotspot, crop, alt},\n    mobileImage{asset->, hotspot, crop, alt},\n    desktopPosition,\n    mobilePosition,\n    video,\n    ctas[]{label, href, variant}\n  },\n  _type == \"richText\" => {\n    content\n  },\n  _type == \"imageGallery\" => {\n    images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt, caption}\n  },\n  _type == \"featureGrid\" => {\n    items[]{title, body, iconType, icon, image{asset->, hotspot, crop, desktopPosition, mobilePosition}}\n  },\n  _type == \"ctaBanner\" => {\n    heading,\n    body,\n    cta{label, href}\n  },\n  _type == \"videoEmbed\" => {\n    provider,\n    url\n  },\n  _type == \"musicEmbed\" => {\n    provider,\n    url\n  },\n  _type == \"callToAction\" => @,\n  _type == \"infoSection\" => @\n\n  },\n  seo{\n    title,\n    description,\n    ogImage{asset->}\n  }\n}": PageBySlugQueryResult;
     "*[_type == \"page\" && defined(slug.current)]{\n  \"slug\": slug.current\n}": PagesSlugsResult;
-    "*[_type == \"event\" && startDateTime >= $now && !isCanceled] | order(startDateTime asc)[0...$limit]{\n  _id,\n  title,\n  startDateTime,\n  endDateTime,\n  timezone,\n  venue,\n  address,\n  city,\n  state,\n  country,\n  ticketUrl,\n  description,\n  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n  isCanceled,\n  isSoldOut\n}": UpcomingEventsQueryResult;
+    "*[_type == \"event\" && startDateTime >= $now && !isCanceled] | order(startDateTime asc)[0...$limit]{\n  _id,\n  title,\n  \"slug\": slug.current,\n  excerpt,\n  startDateTime,\n  endDateTime,\n  timezone,\n  venue,\n  address,\n  city,\n  state,\n  country,\n  ticketUrl,\n  description,\n  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n  isCanceled,\n  isSoldOut\n}": UpcomingEventsQueryResult;
     "*[_type == \"event\" && startDateTime < $now] | order(startDateTime desc)[$offset...$limit]{\n  _id,\n  title,\n  startDateTime,\n  timezone,\n  venue,\n  city,\n  state,\n  country,\n  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt}\n}": PastEventsQueryResult;
     "*[_type == \"event\" && dateTime(startDateTime) >= dateTime($startOfMonth) && dateTime(startDateTime) < dateTime($endOfMonth)] | order(startDateTime asc){\n  _id,\n  title,\n  startDateTime,\n  timezone,\n  venue,\n  city,\n  ticketUrl,\n  isCanceled,\n  isSoldOut\n}": EventsByMonthQueryResult;
+    "*[_type == \"event\" && slug.current == $slug][0]{\n  _id,\n  title,\n  \"slug\": slug.current,\n  excerpt,\n  startDateTime,\n  endDateTime,\n  timezone,\n  venue,\n  address,\n  city,\n  state,\n  country,\n  ticketUrl,\n  description,\n  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n  heroImage{asset->, hotspot, crop, desktopPosition, alt},\n  heroImageMobile{asset->, hotspot, crop, mobilePosition, alt},\n  lineup[]{name, role, bio},\n  specialNotes,\n  isCanceled,\n  isSoldOut\n}": EventBySlugQueryResult;
+    "*[_type == \"event\" && defined(slug.current)]{\n  \"slug\": slug.current\n}": EventsSlugsResult;
     "*[_type == \"product\"] | order(_createdAt desc){\n  _id,\n  title,\n  \"slug\": slug.current,\n  images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n  priceCents,\n  currency\n}": AllProductsQueryResult;
     "*[_type == \"product\" && slug.current == $slug][0]{\n  _id,\n  title,\n  description,\n  images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},\n  priceCents,\n  currency,\n  options[]{name, values},\n  variants[]{optionValues, priceCents, sku},\n  gelatoProductUid,\n  printAreas[]{areaName, artwork{asset->}},\n  shippingNotes,\n  seo{title, description, ogImage{asset->}}\n}": ProductBySlugQueryResult;
     "*[_type == \"product\" && defined(slug.current)]{\n  \"slug\": slug.current\n}": ProductSlugsQueryResult;

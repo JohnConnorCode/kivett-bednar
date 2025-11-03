@@ -71,8 +71,8 @@ export default async function ShowsPage() {
         title={showsPage?.heroHeading || 'Live Shows'}
         subtitle={showsPage?.heroSubheading || 'Catch authentic blues performances across the Pacific Northwest'}
         variant="shows"
-        backgroundImage={showsPage?.heroImage?.asset?.url || '/images/hero/performance-orpheum.jpg'}
-        backgroundAlt={showsPage?.heroImage?.alt || 'Kivett Bednar performing live at the Orpheum Theatre'}
+        backgroundImage={showsPage?.heroImage?.asset?.url || undefined}
+        backgroundAlt={showsPage?.heroImage?.alt || 'Kivett Bednar performing live blues'}
       />
 
       {/* Performance Photo Grid */}
@@ -87,48 +87,19 @@ export default async function ShowsPage() {
                 {showsPage?.performanceGallerySubheading || 'Moments from the stage'}
               </p>
             </AnimatedSection>
-            <StaggeredImageGrid
-              images={showsPage?.performanceImages && showsPage.performanceImages.length > 0
-                ? showsPage.performanceImages.map((img: any) => ({
-                    src: img.image?.asset?.url || '/images/placeholder.jpg',
+            {showsPage?.performanceImages && showsPage.performanceImages.length > 0 && (
+              <StaggeredImageGrid
+                images={showsPage.performanceImages
+                  .filter((img: any) => img.image?.asset?.url)
+                  .map((img: any) => ({
+                    src: img.image.asset.url,
                     alt: img.alt || img.image?.alt || 'Performance photo',
                     caption: img.caption || '',
                   }))
-                : [
-                    {
-                      src: '/images/performance/orpheum-main.jpg',
-                      alt: 'Historic Orpheum Theatre performance',
-                      caption: 'Orpheum Theatre',
-                    },
-                    {
-                      src: '/images/382702580_10225110781416892_2823231479166319016_n.jpg',
-                      alt: 'Recent live performance',
-                      caption: 'Live Energy',
-                    },
-                    {
-                      src: '/images/38696879_10212495556648941_4928380418454978560_o.jpg',
-                      alt: 'Blues performance in action',
-                      caption: 'Blues Power',
-                    },
-                    {
-                      src: '/images/37124646_10212749349148811_4768331034854948864_o.jpg',
-                      alt: 'Concert energy and presence',
-                      caption: 'Stage Presence',
-                    },
-                    {
-                      src: '/images/26910150_10211126011331164_9091562930595566163_o.jpg',
-                      alt: 'Guitar-focused performance',
-                      caption: 'Guitar Craft',
-                    },
-                    {
-                      src: '/images/16487687_1351833004875154_191765266250731543_o.jpg',
-                      alt: 'Wide stage shot blues performance',
-                      caption: 'Pacific Northwest Blues',
-                    },
-                  ]
-              }
-              columns={3}
-            />
+                }
+                columns={3}
+              />
+            )}
           </div>
         </div>
       </section>

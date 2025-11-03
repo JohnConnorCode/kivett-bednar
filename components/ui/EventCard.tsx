@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import {format} from 'date-fns'
 import {formatInTimeZone} from 'date-fns-tz'
 import {urlFor} from '@/lib/image-positioning'
@@ -10,6 +11,7 @@ import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-po
 type Event = {
   _id: string
   title: string
+  slug?: string
   startDateTime: string
   timezone: string
   venue: string
@@ -44,8 +46,10 @@ export function EventCard({event}: {event: Event}) {
     'h:mm a'
   )
 
-  return (
-    <div className="group relative border-2 border-vintage-500/20 rounded-lg overflow-hidden hover:shadow-2xl hover:border-vintage-500/40 transition-all hover:-translate-y-2 duration-300 bg-bone">
+  const eventLink = event.slug ? `/shows/${event.slug}` : null
+
+  const cardContent = (
+    <>
       {/* Vintage paper texture on card */}
       <div className="absolute inset-0 vintage-paper opacity-30 pointer-events-none" />
 
@@ -90,21 +94,47 @@ export function EventCard({event}: {event: Event}) {
           <p className="font-semibold text-charcoal-900">{event.venue}</p>
           <p className="text-sm">{event.city}{event.state && `, ${event.state}`}</p>
         </div>
-        {event.ticketUrl && !event.isCanceled && (
-          <a
-            href={event.ticketUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block bg-vintage-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-vintage-600 transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
-            style={{fontFamily: 'var(--font-heading)'}}
-          >
-            {event.isSoldOut ? 'Join Waitlist →' : 'Get Tickets →'}
-          </a>
-        )}
+        <div className="flex flex-wrap gap-3">
+          {eventLink && (
+            <Link
+              href={eventLink}
+              className="inline-block bg-charcoal-900 text-white px-6 py-3 rounded-lg font-bold hover:bg-charcoal-800 transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
+              style={{fontFamily: 'var(--font-heading)'}}
+            >
+              Event Details →
+            </Link>
+          )}
+          {event.ticketUrl && !event.isCanceled && (
+            <a
+              href={event.ticketUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-vintage-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-vintage-600 transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
+              style={{fontFamily: 'var(--font-heading)'}}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {event.isSoldOut ? 'Join Waitlist' : 'Get Tickets'}
+            </a>
+          )}
+        </div>
       </div>
 
       {/* Vintage border accent - appears on hover */}
       <div className="absolute inset-0 border-2 border-vintage-500 opacity-0 group-hover:opacity-30 transition-opacity duration-300 rounded-lg pointer-events-none" />
+    </>
+  )
+
+  if (eventLink) {
+    return (
+      <Link href={eventLink} className="group relative border-2 border-vintage-500/20 rounded-lg overflow-hidden hover:shadow-2xl hover:border-vintage-500/40 transition-all hover:-translate-y-2 duration-300 bg-bone block">
+        {cardContent}
+      </Link>
+    )
+  }
+
+  return (
+    <div className="group relative border-2 border-vintage-500/20 rounded-lg overflow-hidden hover:shadow-2xl hover:border-vintage-500/40 transition-all hover:-translate-y-2 duration-300 bg-bone">
+      {cardContent}
     </div>
   )
 }

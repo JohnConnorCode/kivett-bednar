@@ -334,6 +334,8 @@ export const pagesSlugs = defineQuery(`*[_type == "page" && defined(slug.current
 export const upcomingEventsQuery = defineQuery(`*[_type == "event" && startDateTime >= $now && !isCanceled] | order(startDateTime asc)[0...$limit]{
   _id,
   title,
+  "slug": slug.current,
+  excerpt,
   startDateTime,
   endDateTime,
   timezone,
@@ -371,6 +373,35 @@ export const eventsByMonthQuery = defineQuery(`*[_type == "event" && dateTime(st
   ticketUrl,
   isCanceled,
   isSoldOut
+}`)
+
+// Event detail pages
+export const eventBySlugQuery = defineQuery(`*[_type == "event" && slug.current == $slug][0]{
+  _id,
+  title,
+  "slug": slug.current,
+  excerpt,
+  startDateTime,
+  endDateTime,
+  timezone,
+  venue,
+  address,
+  city,
+  state,
+  country,
+  ticketUrl,
+  description,
+  coverImage{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
+  heroImage{asset->, hotspot, crop, desktopPosition, alt},
+  heroImageMobile{asset->, hotspot, crop, mobilePosition, alt},
+  lineup[]{name, role, bio},
+  specialNotes,
+  isCanceled,
+  isSoldOut
+}`)
+
+export const eventsSlugs = defineQuery(`*[_type == "event" && defined(slug.current)]{
+  "slug": slug.current
 }`)
 
 // Products

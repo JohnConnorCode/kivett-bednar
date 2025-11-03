@@ -4,23 +4,65 @@ import {defineField, defineType} from 'sanity'
 /**
  * Event schema for concerts and performances
  * Includes timezone handling for accurate display across regions
+ * Supports individual event pages with hero images and rich content
  */
 export const event = defineType({
   name: 'event',
   title: 'Event',
   type: 'document',
   icon: CalendarIcon,
+  groups: [
+    {
+      name: 'details',
+      title: 'Event Details',
+    },
+    {
+      name: 'content',
+      title: 'Page Content',
+    },
+    {
+      name: 'images',
+      title: 'Images',
+    },
+    {
+      name: 'location',
+      title: 'Location',
+    },
+  ],
   fields: [
     defineField({
       name: 'title',
       title: 'Event Title',
       type: 'string',
+      group: 'details',
       validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      description: 'URL-friendly identifier for the event page',
+      group: 'details',
+      options: {
+        source: 'title',
+        maxLength: 96,
+        isUnique: (value, context) => context.defaultIsUnique(value, context),
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'excerpt',
+      title: 'Short Description',
+      type: 'text',
+      rows: 3,
+      group: 'details',
+      description: 'Brief summary for event cards and previews',
     }),
     defineField({
       name: 'startDateTime',
       title: 'Start Date & Time',
       type: 'datetime',
+      group: 'details',
       validation: (Rule) => Rule.required(),
       options: {
         dateFormat: 'YYYY-MM-DD',
@@ -32,6 +74,7 @@ export const event = defineType({
       name: 'endDateTime',
       title: 'End Date & Time',
       type: 'datetime',
+      group: 'details',
       description: 'Optional end time if different from start',
       options: {
         dateFormat: 'YYYY-MM-DD',
@@ -43,6 +86,7 @@ export const event = defineType({
       name: 'timezone',
       title: 'Timezone',
       type: 'string',
+      group: 'details',
       description: 'IANA timezone (e.g., America/Los_Angeles)',
       initialValue: 'America/Los_Angeles',
       validation: (Rule) => Rule.required(),
@@ -51,28 +95,33 @@ export const event = defineType({
       name: 'venue',
       title: 'Venue Name',
       type: 'string',
+      group: 'location',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'address',
       title: 'Street Address',
       type: 'string',
+      group: 'location',
     }),
     defineField({
       name: 'city',
       title: 'City',
       type: 'string',
+      group: 'location',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'state',
       title: 'State/Province',
       type: 'string',
+      group: 'location',
     }),
     defineField({
       name: 'country',
       title: 'Country',
       type: 'string',
+      group: 'location',
       initialValue: 'USA',
       validation: (Rule) => Rule.required(),
     }),
@@ -80,17 +129,15 @@ export const event = defineType({
       name: 'ticketUrl',
       title: 'Ticket URL',
       type: 'url',
+      group: 'details',
       description: 'Link to purchase tickets',
-    }),
-    defineField({
-      name: 'description',
-      title: 'Description',
-      type: 'blockContent',
     }),
     defineField({
       name: 'coverImage',
       title: 'Cover Image',
       type: 'image',
+      group: 'images',
+      description: 'Image used for event cards and listings',
       options: {
         hotspot: true,
       },
@@ -100,18 +147,189 @@ export const event = defineType({
           title: 'Alt Text',
           type: 'string',
         }),
+        defineField({
+          name: 'desktopPosition',
+          title: 'Desktop Image Position',
+          type: 'string',
+          description: 'Override hotspot positioning for desktop',
+          options: {
+            list: [
+              {title: 'Top Left', value: 'top left'},
+              {title: 'Top Center', value: 'top center'},
+              {title: 'Top Right', value: 'top right'},
+              {title: 'Center Left', value: 'center left'},
+              {title: 'Center Center', value: 'center center'},
+              {title: 'Center Right', value: 'center right'},
+              {title: 'Bottom Left', value: 'bottom left'},
+              {title: 'Bottom Center', value: 'bottom center'},
+              {title: 'Bottom Right', value: 'bottom right'},
+            ],
+          },
+        }),
+        defineField({
+          name: 'mobilePosition',
+          title: 'Mobile Image Position',
+          type: 'string',
+          description: 'Override hotspot positioning for mobile',
+          options: {
+            list: [
+              {title: 'Top Left', value: 'top left'},
+              {title: 'Top Center', value: 'top center'},
+              {title: 'Top Right', value: 'top right'},
+              {title: 'Center Left', value: 'center left'},
+              {title: 'Center Center', value: 'center center'},
+              {title: 'Center Right', value: 'center right'},
+              {title: 'Bottom Left', value: 'bottom left'},
+              {title: 'Bottom Center', value: 'bottom center'},
+              {title: 'Bottom Right', value: 'bottom right'},
+            ],
+          },
+        }),
       ],
+    }),
+    defineField({
+      name: 'heroImage',
+      title: 'Hero Image (Desktop)',
+      type: 'image',
+      group: 'images',
+      description: 'Large hero image for the event detail page (desktop)',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+        }),
+        defineField({
+          name: 'desktopPosition',
+          title: 'Desktop Image Position',
+          type: 'string',
+          description: 'Override hotspot positioning for desktop',
+          options: {
+            list: [
+              {title: 'Top Left', value: 'top left'},
+              {title: 'Top Center', value: 'top center'},
+              {title: 'Top Right', value: 'top right'},
+              {title: 'Center Left', value: 'center left'},
+              {title: 'Center Center', value: 'center center'},
+              {title: 'Center Right', value: 'center right'},
+              {title: 'Bottom Left', value: 'bottom left'},
+              {title: 'Bottom Center', value: 'bottom center'},
+              {title: 'Bottom Right', value: 'bottom right'},
+            ],
+          },
+        }),
+      ],
+    }),
+    defineField({
+      name: 'heroImageMobile',
+      title: 'Hero Image (Mobile)',
+      type: 'image',
+      group: 'images',
+      description: 'Optional separate hero image for mobile devices',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+        }),
+        defineField({
+          name: 'mobilePosition',
+          title: 'Mobile Image Position',
+          type: 'string',
+          description: 'Override hotspot positioning for mobile',
+          options: {
+            list: [
+              {title: 'Top Left', value: 'top left'},
+              {title: 'Top Center', value: 'top center'},
+              {title: 'Top Right', value: 'top right'},
+              {title: 'Center Left', value: 'center left'},
+              {title: 'Center Center', value: 'center center'},
+              {title: 'Center Right', value: 'center right'},
+              {title: 'Bottom Left', value: 'bottom left'},
+              {title: 'Bottom Center', value: 'bottom center'},
+              {title: 'Bottom Right', value: 'bottom right'},
+            ],
+          },
+        }),
+      ],
+    }),
+    defineField({
+      name: 'description',
+      title: 'Full Description',
+      type: 'blockContent',
+      group: 'content',
+      description: 'Rich content for the event detail page',
+    }),
+    defineField({
+      name: 'lineup',
+      title: 'Lineup / Special Guests',
+      type: 'array',
+      group: 'content',
+      description: 'Featured performers and special guests',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'name',
+              title: 'Name',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'role',
+              title: 'Role',
+              type: 'string',
+              description: 'e.g., "Headliner", "Support", "Special Guest"',
+            }),
+            defineField({
+              name: 'bio',
+              title: 'Bio',
+              type: 'text',
+              rows: 2,
+            }),
+          ],
+          preview: {
+            select: {
+              name: 'name',
+              role: 'role',
+            },
+            prepare({name, role}) {
+              return {
+                title: name,
+                subtitle: role,
+              }
+            },
+          },
+        },
+      ],
+    }),
+    defineField({
+      name: 'specialNotes',
+      title: 'Special Notes',
+      type: 'text',
+      rows: 3,
+      group: 'content',
+      description: 'Important information about the event (age restrictions, parking, etc.)',
     }),
     defineField({
       name: 'isCanceled',
       title: 'Event Canceled',
       type: 'boolean',
+      group: 'details',
       initialValue: false,
     }),
     defineField({
       name: 'isSoldOut',
       title: 'Sold Out',
       type: 'boolean',
+      group: 'details',
       initialValue: false,
     }),
   ],
