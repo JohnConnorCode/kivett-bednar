@@ -29,7 +29,7 @@ export default async function SetlistPage() {
       />
 
       {/* Image Reveal - Blues Performance */}
-      <section className="bg-gradient-to-b from-bone to-charcoal-900/5 py-16">
+      <section className="bg-gradient-to-b from-surface to-surface-elevated py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <ImageRevealScroll
@@ -42,14 +42,14 @@ export default async function SetlistPage() {
       </section>
 
       {/* Content Section */}
-      <div className="bg-bone py-24">
+      <div className="bg-surface py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             {/* Intro text */}
             {setlistPage?.introText && (
               <div className="max-w-3xl mx-auto text-center mb-16">
                 <AnimatedSection animation="fadeIn">
-                  <p className="text-2xl text-charcoal-900/80 leading-relaxed whitespace-pre-wrap">
+                  <p className="text-2xl text-text-secondary leading-relaxed whitespace-pre-wrap">
                     {setlistPage.introText}
                   </p>
                 </AnimatedSection>
@@ -66,16 +66,16 @@ export default async function SetlistPage() {
                     delay={0.05 * index}
                   >
                     <div className="group relative">
-                      <div className="flex items-baseline justify-between py-4 border-b-2 border-charcoal-900/10 group-hover:border-midnight-600/50 transition-all duration-300">
+                      <div className="flex items-baseline justify-between py-4 border-b-2 border-border group-hover:border-accent-primary/50 transition-all duration-300">
                         <div className="flex items-baseline gap-4">
-                          <span className="text-charcoal-900/40 font-mono text-sm w-8">
+                          <span className="text-text-muted font-mono text-sm w-8">
                             {(index + 1).toString().padStart(2, '0')}
                           </span>
-                          <span className="text-xl font-semibold text-charcoal-900 group-hover:text-midnight-500 transition-colors">
+                          <span className="text-xl font-semibold text-text-primary group-hover:text-accent-primary transition-colors">
                             {song.title}
                           </span>
                         </div>
-                        <span className="text-lg font-mono text-midnight-600 font-bold ml-4 shrink-0">
+                        <span className="text-lg font-mono text-accent-primary font-bold ml-4 shrink-0">
                           {song.key}
                         </span>
                       </div>
@@ -89,7 +89,7 @@ export default async function SetlistPage() {
       </div>
 
       {/* Image Reveal - Guitar */}
-      <section className="bg-gradient-to-b from-bone to-midnight-500/10 py-16">
+      <section className="bg-gradient-to-b from-surface to-surface-elevated py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <ImageRevealScroll
@@ -103,31 +103,31 @@ export default async function SetlistPage() {
 
       {/* CTA Section */}
       {(setlistPage?.ctaHeading || setlistPage?.ctaText) && (
-        <section className="bg-gradient-to-b from-midnight-500/10 to-charcoal-900 py-24">
+        <section className="bg-gradient-to-b from-surface-elevated to-background py-24">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
               <AnimatedSection animation="scaleIn">
-                <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-12 text-center text-bone border-2 border-midnight-600/20">
+                <div className="bg-gradient-to-br from-surface-elevated to-surface rounded-2xl p-12 text-center text-text-primary border-2 border-accent-primary/20">
                   {setlistPage.ctaHeading && (
                     <h2 className="text-4xl font-bold mb-4">
                       {setlistPage.ctaHeading}
                     </h2>
                   )}
                   {setlistPage.ctaText && (
-                    <p className="text-xl text-bone/80 mb-8 max-w-2xl mx-auto whitespace-pre-wrap">
+                    <p className="text-xl text-text-secondary mb-8 max-w-2xl mx-auto whitespace-pre-wrap">
                       {setlistPage.ctaText}
                     </p>
                   )}
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link
                       href="/lessons"
-                      className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-midnight-600 text-bone font-bold hover:bg-midnight-700 transition-all transform hover:scale-105"
+                      className="inline-flex items-center justify-center px-8 py-4 rounded-lg bg-accent-primary text-black font-bold hover:bg-accent-primary/90 transition-all transform hover:scale-105"
                     >
                       {setlistPage?.ctaBookLessonButtonText || 'Book a Lesson'}
                     </Link>
                     <Link
                       href="/contact"
-                      className="inline-flex items-center justify-center px-8 py-4 rounded-lg border-2 border-bone text-bone font-semibold hover:bg-bone/10 transition-all"
+                      className="inline-flex items-center justify-center px-8 py-4 rounded-lg border-2 border-accent-primary text-text-primary font-semibold hover:bg-surface-elevated transition-all"
                     >
                       {setlistPage?.ctaContactButtonText || 'Get in Touch'}
                     </Link>

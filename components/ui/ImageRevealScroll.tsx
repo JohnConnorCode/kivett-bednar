@@ -69,16 +69,16 @@ export function ImageRevealScroll({
         />
 
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/50 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
 
         {/* Border Glow Effect */}
         <motion.div
-          className="absolute inset-0 border-2 border-midnight-600 rounded-2xl"
+          className="absolute inset-0 border-2 border-accent-primary rounded-2xl"
           animate={{
             boxShadow: [
-              '0 0 20px rgba(217, 119, 6, 0.3)',
-              '0 0 40px rgba(217, 119, 6, 0.5)',
-              '0 0 20px rgba(217, 119, 6, 0.3)',
+              '0 0 20px rgba(240, 196, 25, 0.3)',
+              '0 0 40px rgba(240, 196, 25, 0.5)',
+              '0 0 20px rgba(240, 196, 25, 0.3)',
             ],
           }}
           transition={{
@@ -95,7 +95,7 @@ export function ImageRevealScroll({
           style={{opacity}}
           className="absolute inset-0 flex items-center justify-center p-8"
         >
-          <div className="text-center text-bone drop-shadow-2xl">
+          <div className="text-center text-text-primary drop-shadow-2xl">
             {children}
           </div>
         </motion.div>

@@ -76,14 +76,14 @@ export default async function ShowsPage() {
       />
 
       {/* Performance Photo Grid */}
-      <section className="bg-gradient-to-b from-charcoal-900 to-midnight-500 py-24">
+      <section className="bg-gradient-to-b from-background to-surface py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection animation="fadeIn">
-              <h2 className="text-5xl font-bold text-center text-bone mb-4">
+              <h2 className="text-5xl font-bold text-center text-text-primary mb-4">
                 {showsPage?.performanceGalleryHeading || 'Live Performances'}
               </h2>
-              <p className="text-xl text-center text-bone/70 mb-16">
+              <p className="text-xl text-center text-text-secondary mb-16">
                 {showsPage?.performanceGallerySubheading || 'Moments from the stage'}
               </p>
             </AnimatedSection>
@@ -105,16 +105,16 @@ export default async function ShowsPage() {
       </section>
 
       {/* Shows Content */}
-      <div className="bg-bone py-16">
+      <div className="bg-background py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             {events && events.length > 0 ? (
               <>
                 <AnimatedSection animation="fadeIn">
-                  <h2 className="text-4xl font-bold mb-8 text-charcoal-900">
+                  <h2 className="text-4xl font-bold mb-8 text-text-primary">
                     {showsPage?.upcomingShowsHeading || 'Upcoming Shows'}
                   </h2>
-                  <p className="text-charcoal-900/60 text-lg mb-8">
+                  <p className="text-text-secondary text-lg mb-8">
                     {events.length}{showsPage?.showCountPrefix || ' upcoming'} {events.length === 1 ? (showsPage?.showSingular || 'show') : (showsPage?.showPlural || 'shows')}
                   </p>
                 </AnimatedSection>
@@ -128,15 +128,15 @@ export default async function ShowsPage() {
               </>
             ) : (
               <AnimatedSection animation="fadeIn">
-                <h2 className="text-4xl font-bold mb-8 text-charcoal-900">
+                <h2 className="text-4xl font-bold mb-8 text-text-primary">
                   {showsPage?.upcomingShowsHeading || 'Upcoming Shows'}
                 </h2>
-                <div className="text-center py-16 border-2 border-dashed border-charcoal-900/20 rounded-lg bg-bone">
+                <div className="text-center py-16 border-2 border-dashed border-border rounded-lg bg-surface">
                   <div className="text-6xl mb-4">🎸</div>
-                  <p className="text-charcoal-900/80 text-2xl font-semibold mb-2">
+                  <p className="text-text-primary text-2xl font-semibold mb-2">
                     {showsPage?.emptyStateHeading || 'No upcoming shows scheduled'}
                   </p>
-                  <p className="text-charcoal-900/60 mt-2">
+                  <p className="text-text-secondary mt-2">
                     {showsPage?.emptyStateText || 'Check back soon for new dates! Follow on social media for announcements.'}
                   </p>
                 </div>

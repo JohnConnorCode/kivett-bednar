@@ -39,15 +39,15 @@ export function Header({siteName, navigation}: HeaderProps) {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ease-out ${
-        isScrolled ? 'shadow-lg' : ''
+        isScrolled ? 'shadow-lg shadow-black/50' : ''
       }`}
       style={{
         backgroundColor: isScrolled
-          ? 'rgba(33, 34, 35, 0.95)' // charcoal-900/95
+          ? 'rgba(26, 26, 26, 0.95)' // surface/95 - Dark cinematic
           : 'transparent',
         backdropFilter: isScrolled ? 'blur(12px)' : 'none',
         WebkitBackdropFilter: isScrolled ? 'blur(12px)' : 'none',
-        borderBottom: isScrolled ? '1px solid rgba(26, 75, 147, 0.2)' : 'none', // midnight-500
+        borderBottom: isScrolled ? '1px solid rgba(61, 61, 61, 0.3)' : 'none', // border color
       }}
     >
       <div className="container mx-auto px-4">
@@ -57,8 +57,8 @@ export function Header({siteName, navigation}: HeaderProps) {
             href="/"
             className={`text-2xl font-bold tracking-tight transition-all duration-500 ${
               isScrolled
-                ? 'text-white hover:text-midnight-400 opacity-100'
-                : 'text-white hover:text-midnight-300'
+                ? 'text-white hover:text-accent-primary opacity-100'
+                : 'text-white hover:text-accent-primary'
             } ${
               isHomePage && !isScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
@@ -71,7 +71,7 @@ export function Header({siteName, navigation}: HeaderProps) {
             {logoText}
           </Link>
 
-          {/* Desktop Navigation - Adaptive text color */}
+          {/* Desktop Navigation - Dark cinematic theme */}
           <nav className="hidden md:flex items-center gap-8">
             {navItems.map((item) => (
               <Link
@@ -79,8 +79,8 @@ export function Header({siteName, navigation}: HeaderProps) {
                 href={item.href}
                 className={`font-medium uppercase tracking-wider text-sm transition-all duration-300 ${
                   isScrolled
-                    ? 'text-white/90 hover:text-midnight-400'
-                    : 'text-white hover:text-midnight-300'
+                    ? 'text-white/90 hover:text-accent-primary'
+                    : 'text-white hover:text-accent-primary'
                 }`}
                 style={{
                   textShadow: isScrolled
@@ -121,14 +121,14 @@ export function Header({siteName, navigation}: HeaderProps) {
           </button>
         </div>
 
-        {/* Mobile Navigation - Solid background when open */}
+        {/* Mobile Navigation - Dark cinematic background when open */}
         {mobileMenuOpen && (
-          <nav className="md:hidden pb-4 border-t border-midnight-600/20 mt-2 pt-4 bg-charcoal-900/95 backdrop-blur-lg -mx-4 px-4">
+          <nav className="md:hidden pb-4 border-t border-border/30 mt-2 pt-4 bg-surface/95 backdrop-blur-lg -mx-4 px-4">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="block py-3 text-white/90 hover:text-midnight-400 transition-colors font-medium uppercase tracking-wider text-sm"
+                className="block py-3 text-white/90 hover:text-accent-primary transition-colors font-medium uppercase tracking-wider text-sm"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.title}

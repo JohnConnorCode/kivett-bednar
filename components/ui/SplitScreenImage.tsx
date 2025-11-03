@@ -46,7 +46,7 @@ export function SplitScreenImage({
     <div
       ref={containerRef}
       className={`relative overflow-hidden ${
-        darkBg ? 'bg-gradient-to-br from-charcoal-900 to-midnight-500' : 'bg-bone'
+        darkBg ? 'bg-gradient-to-br from-background to-surface-elevated' : 'bg-surface'
       }`}
     >
       <div className="container mx-auto px-4 py-24">
@@ -70,15 +70,15 @@ export function SplitScreenImage({
                 }}
               />
               {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/30 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-transparent" />
 
               {/* Decorative Frame */}
-              <div className="absolute inset-0 border-4 border-midnight-600/20 rounded-2xl" />
+              <div className="absolute inset-0 border-4 border-border rounded-2xl" />
             </div>
 
             {/* Floating Accent */}
             <motion.div
-              className="absolute -top-4 -right-4 w-32 h-32 bg-midnight-600/10 rounded-full blur-3xl"
+              className="absolute -top-4 -right-4 w-32 h-32 bg-surface-elevated/50 rounded-full blur-3xl"
               animate={{
                 scale: [1, 1.2, 1],
                 opacity: [0.3, 0.5, 0.3],
@@ -95,7 +95,7 @@ export function SplitScreenImage({
           <motion.div
             style={{y: contentY}}
             className={`${isLeft ? 'lg:order-2' : 'lg:order-1'} ${
-              darkBg ? 'text-bone' : 'text-charcoal-900'
+              darkBg ? 'text-text-primary' : 'text-text-primary'
             }`}
           >
             {children}

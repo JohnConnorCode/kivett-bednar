@@ -119,7 +119,7 @@ export default async function EventPage({params}: Props) {
       <div className="min-h-screen">
         {/* Hero Section */}
         {heroImageDesktop?.asset?.url && (
-          <div className="relative h-[60vh] md:h-[70vh] overflow-hidden bg-charcoal-900">
+          <div className="relative h-[60vh] md:h-[70vh] overflow-hidden bg-background">
             {/* Vintage grain overlay */}
             <div className="absolute inset-0 z-10 pointer-events-none opacity-20 mix-blend-overlay vintage-grain" />
 
@@ -154,7 +154,7 @@ export default async function EventPage({params}: Props) {
             )}
 
             {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900 via-charcoal-900/60 to-transparent z-10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent z-10" />
 
             {/* Event Status Badges */}
             {event.isCanceled && (
@@ -163,7 +163,7 @@ export default async function EventPage({params}: Props) {
               </div>
             )}
             {event.isSoldOut && !event.isCanceled && (
-              <div className="absolute top-8 right-8 z-20 bg-vintage-500 text-white px-6 py-3 rounded-lg text-xl font-bold tracking-wide shadow-2xl">
+              <div className="absolute top-8 right-8 z-20 bg-accent-primary text-black px-6 py-3 rounded-lg text-xl font-bold tracking-wide shadow-2xl">
                 SOLD OUT
               </div>
             )}
@@ -172,10 +172,10 @@ export default async function EventPage({params}: Props) {
             <div className="absolute bottom-0 left-0 right-0 z-20 p-8 md:p-16">
               <div className="container mx-auto max-w-6xl">
                 <AnimatedSection animation="fadeUp">
-                  <h1 className="text-5xl md:text-7xl font-bold text-bone mb-4 drop-shadow-2xl">
+                  <h1 className="text-5xl md:text-7xl font-bold text-text-primary mb-4 drop-shadow-2xl">
                     {event.title}
                   </h1>
-                  <div className="flex flex-wrap gap-4 text-bone/90 text-xl md:text-2xl">
+                  <div className="flex flex-wrap gap-4 text-text-secondary text-xl md:text-2xl">
                     <span className="font-semibold">{eventDate}</span>
                     <span>•</span>
                     <span>{eventTime}</span>
@@ -187,7 +187,7 @@ export default async function EventPage({params}: Props) {
         )}
 
         {/* Event Details */}
-        <section className="bg-gradient-to-b from-cream via-bone to-cream py-16 md:py-24">
+        <section className="bg-gradient-to-b from-surface via-surface-elevated to-surface py-16 md:py-24">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <div className="grid lg:grid-cols-3 gap-12">
@@ -196,7 +196,7 @@ export default async function EventPage({params}: Props) {
                   {/* Excerpt */}
                   {event.excerpt && (
                     <AnimatedSection animation="fadeUp">
-                      <p className="text-2xl text-charcoal-900/80 leading-relaxed border-l-4 border-vintage-500 pl-6">
+                      <p className="text-2xl text-text-secondary leading-relaxed border-l-4 border-accent-primary pl-6">
                         {event.excerpt}
                       </p>
                     </AnimatedSection>
@@ -205,7 +205,7 @@ export default async function EventPage({params}: Props) {
                   {/* Description */}
                   {event.description && (
                     <AnimatedSection animation="fadeUp" delay={0.1}>
-                      <div className="prose prose-lg max-w-none text-charcoal-900">
+                      <div className="prose prose-lg max-w-none text-text-primary">
                         <PortableText value={event.description} />
                       </div>
                     </AnimatedSection>
@@ -214,21 +214,21 @@ export default async function EventPage({params}: Props) {
                   {/* Lineup */}
                   {(event as any).lineup && (event as any).lineup.length > 0 && (
                     <AnimatedSection animation="fadeUp" delay={0.2}>
-                      <div className="bg-white rounded-2xl p-8 border-2 border-vintage-500/20 shadow-lg">
-                        <h2 className="text-3xl font-bold text-charcoal-900 mb-6">Lineup</h2>
+                      <div className="bg-surface-elevated rounded-2xl p-8 border-2 border-accent-primary/20 shadow-lg">
+                        <h2 className="text-3xl font-bold text-text-primary mb-6">Lineup</h2>
                         <div className="space-y-6">
                           {(event as any).lineup.map((performer: any, index: number) => (
-                            <div key={index} className="border-b border-charcoal-900/10 last:border-0 pb-4 last:pb-0">
+                            <div key={index} className="border-b border-border last:border-0 pb-4 last:pb-0">
                               <div className="flex items-baseline gap-3 mb-2">
-                                <h3 className="text-xl font-bold text-charcoal-900">{performer.name}</h3>
+                                <h3 className="text-xl font-bold text-text-primary">{performer.name}</h3>
                                 {performer.role && (
-                                  <span className="text-sm text-vintage-600 font-semibold uppercase tracking-wide">
+                                  <span className="text-sm text-accent-primary font-semibold uppercase tracking-wide">
                                     {performer.role}
                                   </span>
                                 )}
                               </div>
                               {performer.bio && (
-                                <p className="text-charcoal-900/70">{performer.bio}</p>
+                                <p className="text-text-secondary">{performer.bio}</p>
                               )}
                             </div>
                           ))}
@@ -240,9 +240,9 @@ export default async function EventPage({params}: Props) {
                   {/* Special Notes */}
                   {event.specialNotes && (
                     <AnimatedSection animation="fadeUp" delay={0.3}>
-                      <div className="bg-gold-50 border-l-4 border-gold-500 p-6 rounded-r-lg">
-                        <h3 className="text-lg font-bold text-charcoal-900 mb-2">Important Information</h3>
-                        <p className="text-charcoal-900/80 whitespace-pre-wrap">{event.specialNotes}</p>
+                      <div className="bg-surface-elevated border-l-4 border-accent-primary p-6 rounded-r-lg">
+                        <h3 className="text-lg font-bold text-text-primary mb-2">Important Information</h3>
+                        <p className="text-text-secondary whitespace-pre-wrap">{event.specialNotes}</p>
                       </div>
                     </AnimatedSection>
                   )}
@@ -252,21 +252,21 @@ export default async function EventPage({params}: Props) {
                 <div className="space-y-6">
                   {/* Event Info Card */}
                   <AnimatedSection animation="scaleIn" delay={0.2}>
-                    <div className="bg-gradient-to-br from-charcoal-900 to-midnight-500 rounded-2xl p-8 text-bone border-4 border-vintage-500/30 shadow-2xl sticky top-8">
-                      <h2 className="text-2xl font-bold text-gold-500 mb-6">Event Details</h2>
+                    <div className="bg-gradient-to-br from-surface to-surface-elevated rounded-2xl p-8 text-text-primary border-4 border-accent-primary/30 shadow-2xl sticky top-8">
+                      <h2 className="text-2xl font-bold text-accent-primary mb-6">Event Details</h2>
 
                       <div className="space-y-4 mb-8">
                         <div>
-                          <div className="text-sm text-bone/60 uppercase tracking-wide mb-1">Date & Time</div>
+                          <div className="text-sm text-text-muted uppercase tracking-wide mb-1">Date & Time</div>
                           <div className="text-lg font-semibold">{eventDate}</div>
-                          <div className="text-bone/80">{eventTime}</div>
+                          <div className="text-text-secondary">{eventTime}</div>
                         </div>
 
-                        <div className="border-t border-bone/20 pt-4">
-                          <div className="text-sm text-bone/60 uppercase tracking-wide mb-1">Venue</div>
+                        <div className="border-t border-border pt-4">
+                          <div className="text-sm text-text-muted uppercase tracking-wide mb-1">Venue</div>
                           <div className="text-lg font-semibold">{event.venue}</div>
-                          {event.address && <div className="text-bone/80">{event.address}</div>}
-                          <div className="text-bone/80">
+                          {event.address && <div className="text-text-secondary">{event.address}</div>}
+                          <div className="text-text-secondary">
                             {event.city}{event.state && `, ${event.state}`}
                           </div>
                         </div>
@@ -278,7 +278,7 @@ export default async function EventPage({params}: Props) {
                           href={event.ticketUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="block w-full px-8 py-4 bg-vintage-500 text-white font-bold rounded-lg hover:bg-vintage-600 transition-all transform hover:scale-105 text-center shadow-lg"
+                          className="block w-full px-8 py-4 bg-accent-primary text-black font-bold rounded-lg hover:bg-accent-primary/90 transition-all transform hover:scale-105 text-center shadow-lg"
                         >
                           {event.isSoldOut ? 'Join Waitlist →' : 'Get Tickets →'}
                         </a>
@@ -296,7 +296,7 @@ export default async function EventPage({params}: Props) {
                   <AnimatedSection animation="fadeUp" delay={0.3}>
                     <Link
                       href="/shows"
-                      className="block w-full px-6 py-3 bg-white text-charcoal-900 font-semibold rounded-lg hover:bg-bone transition-all text-center border-2 border-vintage-500/20"
+                      className="block w-full px-6 py-3 bg-surface-elevated text-text-primary font-semibold rounded-lg hover:bg-surface transition-all text-center border-2 border-accent-primary/20"
                     >
                       ← Back to All Shows
                     </Link>

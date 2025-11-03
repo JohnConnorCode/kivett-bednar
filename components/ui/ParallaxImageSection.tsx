@@ -43,7 +43,7 @@ function ParallaxImage({image, index, scrollYProgress, darkOverlay, isMobile}: P
           }}
         />
         {darkOverlay && (
-          <div className="absolute inset-0 bg-gradient-to-br from-charcoal-900/20 to-transparent rounded-2xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-background/20 to-transparent rounded-2xl" />
         )}
       </div>
     </motion.div>

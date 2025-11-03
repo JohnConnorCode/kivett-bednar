@@ -50,20 +50,20 @@ export function Footer({
   }
 
   return (
-    <footer className="bg-charcoal-900 border-t border-midnight-600/20 text-bone">
+    <footer className="bg-background border-t border-border text-text-primary">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {/* Brand */}
           <div>
             <h3 className="text-lg font-bold mb-4">{siteName || 'Kivett Bednar'}</h3>
-            <p className="text-sm text-bone/60">
+            <p className="text-sm text-text-muted">
               {siteTagline || 'Gritty Texas Blues meets the heart of the Pacific Northwest'}
             </p>
           </div>
 
           {/* Links */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 text-midnight-600 uppercase tracking-wide">
+            <h4 className="text-sm font-semibold mb-4 text-text-secondary uppercase tracking-wide">
               {navigationHeading || 'Navigation'}
             </h4>
             <ul className="space-y-2">
@@ -71,7 +71,7 @@ export function Footer({
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="text-sm text-bone/70 hover:text-midnight-600 transition-colors"
+                    className="text-sm text-text-secondary hover:text-accent-primary transition-colors"
                   >
                     {item.title}
                   </Link>
@@ -82,7 +82,7 @@ export function Footer({
 
           {/* Social */}
           <div>
-            <h4 className="text-sm font-semibold mb-4 text-midnight-600 uppercase tracking-wide">
+            <h4 className="text-sm font-semibold mb-4 text-text-secondary uppercase tracking-wide">
               {connectHeading || 'Connect'}
             </h4>
             <div className="flex flex-col gap-2">
@@ -92,7 +92,7 @@ export function Footer({
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-bone/70 hover:text-midnight-600 transition-colors text-sm"
+                  className="text-text-secondary hover:text-accent-primary transition-colors text-sm"
                 >
                   {getPlatformLabel(link.platform)}
                 </a>
@@ -101,7 +101,7 @@ export function Footer({
           </div>
         </div>
 
-        <div className="mt-8 pt-8 border-t border-midnight-600/20 text-center text-sm text-bone/50">
+        <div className="mt-8 pt-8 border-t border-border text-center text-sm text-text-muted">
           <p>
             {copyrightText
               ? copyrightText.replace('{year}', currentYear.toString())

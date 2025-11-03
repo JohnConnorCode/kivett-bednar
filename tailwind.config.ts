@@ -55,75 +55,17 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
-        // Kivett Bednar brand colors - Blues/Americana theme
-        midnight: {
-          50: '#e8edf5',
-          100: '#d1dbe9',
-          200: '#a3b7d4',
-          300: '#7593be',
-          400: '#476fa9',
-          500: '#1a4b93', // Primary midnight blue
-          600: '#153c76',
-          700: '#102d58',
-          800: '#0b1e3b',
-          900: '#060f1d',
-          950: '#03070e',
-        },
-        charcoal: {
-          50: '#f6f6f7',
-          100: '#edeeef',
-          200: '#dcdcdf',
-          300: '#cacbcf',
-          400: '#b9b9bf',
-          500: '#a7a8af',
-          600: '#86878c',
-          700: '#646569',
-          800: '#434446',
-          900: '#212223', // Primary charcoal
-          950: '#101111',
-        },
-        bone: '#f8f6f1', // Bone white
-        // Vintage Blues color palette
-        vintage: {
-          50: '#fef5f1',
-          100: '#fde8df',
-          200: '#fbd1bf',
-          300: '#f9b49f',
-          400: '#f79780',
-          500: '#fb875e', // Primary burnt orange - vintage blues accent
-          600: '#f56b3e',
-          700: '#e44d1d',
-          800: '#b73b16',
-          900: '#8a2c11',
-          950: '#5d1d0b',
-        },
-        gold: {
-          50: '#fefbf0',
-          100: '#fdf6db',
-          200: '#fbedb7',
-          300: '#f9e493',
-          400: '#f7db6f',
-          500: '#F0C419', // Warm gold accent
-          600: '#d4a917',
-          700: '#a68313',
-          800: '#78600e',
-          900: '#4a3b09',
-          950: '#312706',
-        },
-        cream: '#f5e6d3', // Aged paper warm background
-        amber: {
-          50: '#fefbf3',
-          100: '#fdf7e7',
-          200: '#fbefc',
-          300: '#f8e7c3',
-          400: '#f6df9b',
-          500: '#f4d773',
-          600: '#f0c83e', // Stage light amber accent
-          700: '#d4a919',
-          800: '#9f7d13',
-          900: '#6a520d',
-          950: '#352907',
-        },
+        // Dark Cinematic Theme - matches globals.css @theme variables
+        // Note: Primary colors are defined in globals.css via CSS custom properties
+        // These Tailwind utilities mirror those values for class-based usage
+        'surface': '#1a1a1a',
+        'surface-elevated': '#26262e',
+        'text-primary': '#ffffff',
+        'text-secondary': '#dddddd',
+        'text-muted': '#888888',
+        'accent-primary': '#F0C419', // Gold accent - use sparingly
+        'accent-secondary': '#4a9eff', // Electric blue
+        'accent-red': '#a71a19', // Deep red
         black: '#0d0e12',
         white: '#fff',
         cyan: {

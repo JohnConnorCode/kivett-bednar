@@ -50,58 +50,66 @@ export function EventCard({event}: {event: Event}) {
 
   const cardContent = (
     <>
-      {/* Vintage paper texture on card */}
-      <div className="absolute inset-0 vintage-paper opacity-30 pointer-events-none" />
-
+      {/* Image Section */}
       {event.coverImage?.asset && (
         <div className="relative aspect-video overflow-hidden">
-          {/* Vintage grain overlay on image */}
-          <div className="absolute inset-0 z-10 pointer-events-none opacity-15 mix-blend-overlay vintage-grain" />
-
           <Image
             src={urlFor(event.coverImage.asset).width(600).height(400).url()}
             alt={event.coverImage.alt || event.title}
             fill
-            className="object-cover transition-all duration-500 group-hover:scale-105 group-hover:brightness-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
             style={{
               objectPosition: getObjectPosition(event.coverImage, isMobile)
             }}
           />
 
-          {/* Vintage overlay gradient */}
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal-900/30 via-transparent to-vintage-500/5" />
+          {/* Dark gradient overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
+          {/* Canceled overlay */}
           {event.isCanceled && (
-            <div className="absolute inset-0 bg-black/70 flex items-center justify-center z-20">
-              <span className="text-white text-2xl font-bold tracking-wide" style={{fontFamily: 'var(--font-heading)'}}>CANCELED</span>
+            <div className="absolute inset-0 bg-black/80 flex items-center justify-center z-20">
+              <span className="text-white text-3xl font-black tracking-wider uppercase">
+                CANCELED
+              </span>
             </div>
           )}
+
+          {/* Sold Out badge */}
           {event.isSoldOut && !event.isCanceled && (
-            <div className="absolute top-4 right-4 bg-vintage-500 text-white px-4 py-2 rounded-md text-sm font-bold tracking-wide shadow-lg z-20" style={{fontFamily: 'var(--font-heading)'}}>
+            <div className="absolute top-4 right-4 bg-accent-primary text-black px-4 py-2 text-sm font-bold tracking-wider uppercase z-20">
               SOLD OUT
             </div>
           )}
         </div>
       )}
-      <div className="relative p-6 bg-gradient-to-b from-bone to-cream">
-        <div className="text-sm font-semibold text-vintage-600 mb-2 tracking-wide uppercase" style={{fontFamily: 'var(--font-heading)'}}>
+
+      {/* Content Section */}
+      <div className="relative p-6 bg-surface-elevated">
+        {/* Date and Time */}
+        <div className="text-sm font-bold text-accent-primary mb-3 tracking-wider uppercase">
           {eventDate} • {eventTime}
         </div>
-        <h3 className="text-2xl font-bold mb-3 text-charcoal-900 group-hover:text-vintage-600 transition-colors" style={{fontFamily: 'var(--font-heading)'}}>
+
+        {/* Event Title */}
+        <h3 className="text-2xl font-bold mb-3 text-text-primary group-hover:text-accent-primary transition-colors">
           {event.title}
         </h3>
-        <div className="text-charcoal-900/70 mb-4">
-          <p className="font-semibold text-charcoal-900">{event.venue}</p>
+
+        {/* Venue Info */}
+        <div className="text-text-secondary mb-6">
+          <p className="font-semibold text-text-primary">{event.venue}</p>
           <p className="text-sm">{event.city}{event.state && `, ${event.state}`}</p>
         </div>
+
+        {/* Action Buttons */}
         <div className="flex flex-wrap gap-3">
           {eventLink && (
             <Link
               href={eventLink}
-              className="inline-block bg-charcoal-900 text-white px-6 py-3 rounded-lg font-bold hover:bg-charcoal-800 transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
-              style={{fontFamily: 'var(--font-heading)'}}
+              className="inline-flex items-center justify-center px-6 py-3 bg-surface text-text-primary border border-border font-bold hover:border-accent-primary transition-all hover:shadow-lg hover:shadow-accent-primary/20 flex-1 sm:flex-none"
             >
-              Event Details →
+              Details
             </Link>
           )}
           {event.ticketUrl && !event.isCanceled && (
@@ -109,32 +117,30 @@ export function EventCard({event}: {event: Event}) {
               href={event.ticketUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block bg-vintage-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-vintage-600 transition-all transform hover:scale-105 shadow-md hover:shadow-lg"
-              style={{fontFamily: 'var(--font-heading)'}}
+              className="inline-flex items-center justify-center px-6 py-3 bg-accent-primary text-black font-bold hover:bg-accent-primary/90 transition-all transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent-primary/40 flex-1 sm:flex-none"
               onClick={(e) => e.stopPropagation()}
             >
-              {event.isSoldOut ? 'Join Waitlist' : 'Get Tickets'}
+              {event.isSoldOut ? 'Waitlist' : 'Tickets'}
             </a>
           )}
         </div>
       </div>
-
-      {/* Vintage border accent - appears on hover */}
-      <div className="absolute inset-0 border-2 border-vintage-500 opacity-0 group-hover:opacity-30 transition-opacity duration-300 rounded-lg pointer-events-none" />
     </>
   )
 
   if (eventLink) {
     return (
-      <Link href={eventLink} className="group relative border-2 border-vintage-500/20 rounded-lg overflow-hidden hover:shadow-2xl hover:border-vintage-500/40 transition-all hover:-translate-y-2 duration-300 bg-bone block">
-        {cardContent}
-      </Link>
+      <article className="group relative border border-border overflow-hidden hover:shadow-2xl hover:border-accent-primary transition-all hover:-translate-y-1 duration-300 bg-surface">
+        <Link href={eventLink} className="block">
+          {cardContent}
+        </Link>
+      </article>
     )
   }
 
   return (
-    <div className="group relative border-2 border-vintage-500/20 rounded-lg overflow-hidden hover:shadow-2xl hover:border-vintage-500/40 transition-all hover:-translate-y-2 duration-300 bg-bone">
+    <article className="group relative border border-border overflow-hidden hover:shadow-2xl hover:border-accent-primary transition-all hover:-translate-y-1 duration-300 bg-surface">
       {cardContent}
-    </div>
+    </article>
   )
 }

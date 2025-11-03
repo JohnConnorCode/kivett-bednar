@@ -43,29 +43,29 @@ export default async function LessonsPage() {
         imagePosition="right"
         darkBg={false}
       >
-        <h2 className="text-5xl font-bold mb-8 text-charcoal-900">
+        <h2 className="text-5xl font-bold mb-8 text-text-primary">
           {lessonsPage.philosophyHeading}
         </h2>
-        <div className="space-y-6 text-xl text-charcoal-900/80 leading-relaxed whitespace-pre-wrap">
+        <div className="space-y-6 text-xl text-text-secondary leading-relaxed whitespace-pre-wrap">
           {lessonsPage.philosophyText}
         </div>
       </SplitScreenImage>
 
       {/* CTA Box */}
-      <section className="bg-bone py-24">
+      <section className="bg-surface py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <AnimatedSection animation="scaleIn">
-              <div className="bg-gradient-to-br from-midnight-500 to-charcoal-900 rounded-2xl p-12 text-bone flex flex-col justify-center border-2 border-midnight-600/20">
+              <div className="bg-gradient-to-br from-surface-elevated to-surface rounded-2xl p-12 text-text-primary flex flex-col justify-center border-2 border-accent-primary/20">
                 <h3 className="text-3xl font-bold mb-6">{lessonsPage.ctaBoxHeading}</h3>
-                <p className="text-lg mb-8 text-bone/80">
+                <p className="text-lg mb-8 text-text-secondary">
                   {lessonsPage.ctaBoxText}
                 </p>
                 <div className="space-y-4">
                   {settings?.contactEmail && (
                     <a
                       href={`mailto:${settings.contactEmail}`}
-                      className="block text-center px-8 py-4 rounded-lg bg-midnight-600 text-bone font-bold hover:bg-midnight-700 transition-all transform hover:scale-105"
+                      className="block text-center px-8 py-4 rounded-lg bg-accent-primary text-black font-bold hover:bg-accent-primary/90 transition-all transform hover:scale-105"
                     >
                       {lessonsPage.emailButtonText || 'Email Me'}
                     </a>
@@ -75,7 +75,7 @@ export default async function LessonsPage() {
                       href={settings.bookingUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block text-center px-8 py-4 rounded-lg border-2 border-bone text-bone font-semibold hover:bg-bone/10 transition-all"
+                      className="block text-center px-8 py-4 rounded-lg border-2 border-accent-primary text-text-primary font-semibold hover:bg-surface-elevated transition-all"
                     >
                       {lessonsPage.scheduleButtonText || 'Schedule a Lesson'}
                     </a>
@@ -89,23 +89,23 @@ export default async function LessonsPage() {
 
       {/* What You'll Learn */}
       {lessonsPage.learningItems && lessonsPage.learningItems.length > 0 && (
-        <section className="bg-charcoal-900 py-24">
+        <section className="bg-background py-24">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <AnimatedSection animation="fadeIn">
-                <div className="bg-midnight-500/30 rounded-2xl p-12 border-2 border-midnight-600/20">
-                  <h2 className="text-4xl font-bold mb-12 text-center text-bone">
+                <div className="bg-surface-elevated rounded-2xl p-12 border-2 border-accent-primary/20">
+                  <h2 className="text-4xl font-bold mb-12 text-center text-text-primary">
                     {lessonsPage.learningItemsHeading || "What You'll Learn"}
                   </h2>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {lessonsPage.learningItems.map((item: any, index: number) => (
                       <AnimatedSection key={item._key || index} animation="scaleIn" delay={0.15 * index}>
                         <div className="text-center group">
-                          <div className="w-12 h-12 mx-auto mb-4 rounded-full border-2 border-midnight-600/40 flex items-center justify-center text-midnight-600 font-bold text-lg group-hover:border-midnight-700 group-hover:text-midnight-700 transition-colors">
+                          <div className="w-12 h-12 mx-auto mb-4 rounded-full border-2 border-accent-primary/40 flex items-center justify-center text-accent-primary font-bold text-lg group-hover:border-accent-primary group-hover:text-accent-primary transition-colors">
                             {index + 1}
                           </div>
-                          <h3 className="text-2xl font-bold mb-3 text-bone">{item.title}</h3>
-                          <p className="text-bone/70 leading-relaxed">{item.description}</p>
+                          <h3 className="text-2xl font-bold mb-3 text-text-primary">{item.title}</h3>
+                          <p className="text-text-secondary leading-relaxed">{item.description}</p>
                         </div>
                       </AnimatedSection>
                     ))}

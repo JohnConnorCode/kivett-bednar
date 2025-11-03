@@ -55,16 +55,16 @@ export default async function HomePage() {
           imageAlt={homePage.aboutImage?.alt || "Kivett Bednar with guitar - blues musician and performer"}
           imagePosition="left"
         >
-        <h2 className="text-5xl font-bold mb-6 text-charcoal-900">
+        <h2 className="text-5xl font-bold mb-6 text-text-primary">
           {homePage.aboutHeading}
         </h2>
-        <p className="text-xl mb-6 leading-relaxed text-charcoal-900/80">
+        <p className="text-xl mb-6 leading-relaxed text-text-secondary">
           {homePage.aboutText}
         </p>
         <div className="flex gap-4">
           <Link
             href="/setlist"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-vintage-500 text-white font-semibold rounded-lg hover:bg-vintage-600 transition-all transform hover:scale-105"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-accent-primary text-black font-semibold rounded-lg hover:bg-accent-primary/90 transition-all transform hover:scale-105"
           >
             {homePage.aboutButtonText || 'View Setlist'}
             <span>→</span>
@@ -75,15 +75,15 @@ export default async function HomePage() {
 
       {/* Upcoming Shows Section - MOVED UP */}
       {events && events.length > 0 && (
-        <section className="py-24 bg-charcoal-900">
+        <section className="py-24 bg-background">
           <div className="container mx-auto px-4">
             <div className="max-w-6xl mx-auto">
               <AnimatedSection animation="fadeIn">
                 <div className="flex justify-between items-end mb-12">
-                  <h2 className="text-5xl font-bold text-bone">{homePage.upcomingShowsHeading || 'Upcoming Shows'}</h2>
+                  <h2 className="text-5xl font-bold text-text-primary">{homePage.upcomingShowsHeading || 'Upcoming Shows'}</h2>
                   <Link
                     href="/shows"
-                    className="text-vintage-500 font-semibold hover:text-vintage-400 transition-colors"
+                    className="text-accent-primary font-semibold hover:text-accent-primary/80 transition-colors"
                   >
                     {homePage.seeAllShowsLinkText || 'See all shows →'}
                   </Link>
@@ -102,48 +102,48 @@ export default async function HomePage() {
       )}
 
       {/* Booking Section - NEW */}
-      <section className="py-24 bg-cream">
+      <section className="py-24 bg-surface">
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto">
             <AnimatedSection animation="fadeIn">
               <div className="text-center mb-12">
-                <h2 className="text-5xl font-bold text-charcoal-900 mb-6">Book Kivett for Your Event</h2>
-                <p className="text-xl text-charcoal-900/70 max-w-2xl mx-auto">
+                <h2 className="text-5xl font-bold text-text-primary mb-6">Book Kivett for Your Event</h2>
+                <p className="text-xl text-text-secondary max-w-2xl mx-auto">
                   Available for festivals, private events, and venue bookings. Professional blues performance with authentic Texas style meets Pacific Northwest soul.
                 </p>
               </div>
             </AnimatedSection>
             <div className="grid md:grid-cols-2 gap-12">
               <AnimatedSection animation="fadeUp" delay={0.2}>
-                <div className="bg-gradient-to-br from-charcoal-900 to-midnight-500 p-8 rounded-lg shadow-lg text-bone">
-                  <h3 className="text-2xl font-bold mb-6 text-gold-500">Booking Inquiries</h3>
+                <div className="bg-gradient-to-br from-surface to-surface-elevated p-8 rounded-lg shadow-lg text-text-primary">
+                  <h3 className="text-2xl font-bold mb-6 text-accent-primary">Booking Inquiries</h3>
                   <div className="space-y-6">
                     <p className="text-lg">
                       For booking inquiries, please contact Kivett directly via email:
                     </p>
                     <a
                       href="mailto:kivettbednar@gmail.com"
-                      className="block w-full px-8 py-4 bg-vintage-500 text-white font-bold rounded-lg hover:bg-vintage-600 transition-all transform hover:scale-105 text-center text-xl"
+                      className="block w-full px-8 py-4 bg-accent-primary text-black font-bold rounded-lg hover:bg-accent-primary/90 transition-all transform hover:scale-105 text-center text-xl"
                     >
                       kivettbednar@gmail.com
                     </a>
-                    <div className="border-t border-bone/20 pt-6 mt-6">
-                      <h4 className="font-bold text-gold-500 mb-3">Include in Your Inquiry:</h4>
-                      <ul className="space-y-2 text-bone/90">
+                    <div className="border-t border-border pt-6 mt-6">
+                      <h4 className="font-bold text-accent-primary mb-3">Include in Your Inquiry:</h4>
+                      <ul className="space-y-2 text-text-secondary">
                         <li className="flex items-start gap-3">
-                          <span className="text-vintage-500 mt-1">→</span>
+                          <span className="text-accent-primary mt-1">→</span>
                           <span>Event date and location</span>
                         </li>
                         <li className="flex items-start gap-3">
-                          <span className="text-vintage-500 mt-1">→</span>
+                          <span className="text-accent-primary mt-1">→</span>
                           <span>Type of event (festival, private party, venue, etc.)</span>
                         </li>
                         <li className="flex items-start gap-3">
-                          <span className="text-vintage-500 mt-1">→</span>
+                          <span className="text-accent-primary mt-1">→</span>
                           <span>Expected audience size</span>
                         </li>
                         <li className="flex items-start gap-3">
-                          <span className="text-vintage-500 mt-1">→</span>
+                          <span className="text-accent-primary mt-1">→</span>
                           <span>Performance duration needed</span>
                         </li>
                       </ul>
@@ -153,32 +153,32 @@ export default async function HomePage() {
               </AnimatedSection>
               <AnimatedSection animation="fadeUp" delay={0.3}>
                 <div className="space-y-6">
-                  <div className="bg-charcoal-900 p-8 rounded-lg text-bone">
-                    <h4 className="text-xl font-bold mb-4 text-gold-500">Perfect For</h4>
+                  <div className="bg-surface-elevated p-8 rounded-lg text-text-primary">
+                    <h4 className="text-xl font-bold mb-4 text-accent-primary">Perfect For</h4>
                     <ul className="space-y-3">
                       <li className="flex items-center gap-3">
-                        <span className="text-vintage-500">→</span>
+                        <span className="text-accent-primary">→</span>
                         <span>Blues Festivals & Music Events</span>
                       </li>
                       <li className="flex items-center gap-3">
-                        <span className="text-vintage-500">→</span>
+                        <span className="text-accent-primary">→</span>
                         <span>Private Parties & Celebrations</span>
                       </li>
                       <li className="flex items-center gap-3">
-                        <span className="text-vintage-500">→</span>
+                        <span className="text-accent-primary">→</span>
                         <span>Corporate Events</span>
                       </li>
                       <li className="flex items-center gap-3">
-                        <span className="text-vintage-500">→</span>
+                        <span className="text-accent-primary">→</span>
                         <span>Venue Residencies</span>
                       </li>
                     </ul>
                   </div>
-                  <div className="bg-white p-8 rounded-lg shadow-lg border-2 border-vintage-500/20">
-                    <p className="text-lg italic text-charcoal-900/70 mb-4">
+                  <div className="bg-surface p-8 rounded-lg shadow-lg border-2 border-accent-primary/20">
+                    <p className="text-lg italic text-text-secondary mb-4">
                       &ldquo;Kivett brings authentic blues energy that connects with every audience. His performance at our festival was unforgettable.&rdquo;
                     </p>
-                    <p className="font-semibold text-charcoal-900">— Festival Organizer</p>
+                    <p className="font-semibold text-text-primary">— Festival Organizer</p>
                   </div>
                 </div>
               </AnimatedSection>
@@ -188,13 +188,13 @@ export default async function HomePage() {
       </section>
 
       {/* Floating Image Gallery with Parallax */}
-      <section className="bg-gradient-to-b from-midnight-500 via-charcoal-900/50 to-bone py-32">
+      <section className="bg-gradient-to-b from-background via-surface to-surface-elevated py-32">
         <div className="container mx-auto px-4 mb-16">
           <AnimatedSection animation="fadeIn">
-            <h2 className="text-5xl font-bold text-center text-bone mb-4">
+            <h2 className="text-5xl font-bold text-center text-text-primary mb-4">
               {homePage.gallerySectionHeading || 'Gallery'}
             </h2>
-            <p className="text-xl text-center text-bone/70">
+            <p className="text-xl text-center text-text-secondary">
               {homePage.gallerySectionSubheading || 'Moments from the stage and studio'}
             </p>
           </AnimatedSection>
@@ -215,27 +215,27 @@ export default async function HomePage() {
       </section>
 
       {/* Newsletter Signup - NEW */}
-      <section className="py-24 bg-bone">
+      <section className="py-24 bg-surface">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <AnimatedSection animation="scaleIn">
-              <div className="bg-gradient-to-br from-charcoal-900 to-midnight-500 p-12 rounded-2xl border-4 border-vintage-500/30 text-center">
-                <h2 className="text-4xl font-bold text-bone mb-4">Stay Connected</h2>
-                <p className="text-xl text-bone/80 mb-8">Get the latest show announcements, new music releases, and exclusive content delivered to your inbox.</p>
+              <div className="bg-gradient-to-br from-surface to-surface-elevated p-12 rounded-2xl border-4 border-accent-primary/30 text-center">
+                <h2 className="text-4xl font-bold text-text-primary mb-4">Stay Connected</h2>
+                <p className="text-xl text-text-secondary mb-8">Get the latest show announcements, new music releases, and exclusive content delivered to your inbox.</p>
                 <form className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
                   <input
                     type="email"
                     placeholder="Enter your email"
-                    className="flex-1 px-6 py-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-vintage-500"
+                    className="flex-1 px-6 py-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-primary text-black"
                   />
                   <button
                     type="submit"
-                    className="px-8 py-4 bg-vintage-500 text-white font-bold rounded-lg hover:bg-vintage-600 transition-all transform hover:scale-105 whitespace-nowrap"
+                    className="px-8 py-4 bg-accent-primary text-black font-bold rounded-lg hover:bg-accent-primary/90 transition-all transform hover:scale-105 whitespace-nowrap"
                   >
                     Join the List
                   </button>
                 </form>
-                <p className="text-sm text-bone/60 mt-4">We respect your privacy. Unsubscribe at any time.</p>
+                <p className="text-sm text-text-muted mt-4">We respect your privacy. Unsubscribe at any time.</p>
               </div>
             </AnimatedSection>
           </div>

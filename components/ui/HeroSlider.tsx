@@ -87,7 +87,7 @@ export function HeroSlider({
   return (
     <section
       ref={sectionRef}
-      className="relative h-screen flex items-center justify-center overflow-hidden bg-charcoal-900"
+      className="relative h-screen flex items-center justify-center overflow-hidden bg-background"
       style={{
         contentVisibility: 'auto',
         containIntrinsicSize: '100vh',
@@ -201,7 +201,7 @@ export function HeroSlider({
         >
           <Link
             href="/shows"
-            className="px-10 py-5 bg-vintage-500 text-white font-bold rounded-lg text-xl shadow-2xl transform transition-all duration-200 hover:scale-105 hover:bg-vintage-600"
+            className="px-10 py-5 bg-accent-primary text-background font-bold rounded-lg text-xl shadow-2xl transform transition-all duration-200 hover:scale-105 hover:bg-accent-primary/90"
           >
             See Live Shows
           </Link>

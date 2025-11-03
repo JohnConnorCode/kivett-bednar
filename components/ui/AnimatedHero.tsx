@@ -42,7 +42,7 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
   return (
     <section
       ref={sectionRef}
-      className="relative h-[70vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-charcoal-900"
+      className="relative h-[70vh] min-h-[600px] flex items-center justify-center overflow-hidden bg-background"
       style={{
         contentVisibility: 'auto',
         containIntrinsicSize: '70vh',
@@ -116,7 +116,7 @@ function MusicalNotesBackground() {
       {Array.from({length: 20}).map((_, i) => (
         <motion.div
           key={i}
-          className="absolute text-midnight-600/20 text-4xl md:text-6xl"
+          className="absolute text-text-muted text-4xl md:text-6xl"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
@@ -167,7 +167,7 @@ function SpotlightBackground() {
         />
       ))}
       {/* Stage floor glow */}
-      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-midnight-600/10 to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-surface-elevated/50 to-transparent" />
     </div>
   )
 }
@@ -177,15 +177,15 @@ function VinylBackground() {
   return (
     <div className="absolute inset-0 flex items-center justify-center opacity-10">
       <motion.div
-        className="w-96 h-96 md:w-[600px] md:h-[600px] rounded-full border-4 border-bone/30 relative"
+        className="w-96 h-96 md:w-[600px] md:h-[600px] rounded-full border-4 border-border relative"
         style={{
-          background: 'radial-gradient(circle at center, transparent 20%, rgba(240,200,62,0.1) 20%, rgba(240,200,62,0.1) 22%, transparent 22%, transparent 40%, rgba(240,200,62,0.1) 40%, rgba(240,200,62,0.1) 42%, transparent 42%)',
+          background: 'radial-gradient(circle at center, transparent 20%, rgba(240,196,25,0.1) 20%, rgba(240,196,25,0.1) 22%, transparent 22%, transparent 40%, rgba(240,196,25,0.1) 40%, rgba(240,196,25,0.1) 42%, transparent 42%)',
         }}
         animate={{rotate: 360}}
         transition={{duration: 20, repeat: Infinity, ease: 'linear'}}
       >
         <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-midnight-600/30" />
+          <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-surface-elevated" />
         </div>
       </motion.div>
     </div>
@@ -200,7 +200,7 @@ function SheetMusicBackground() {
       {Array.from({length: 5}).map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-full h-px bg-bone/10"
+          className="absolute w-full h-px bg-border"
           style={{top: `${20 + i * 15}%`}}
           initial={{scaleX: 0}}
           animate={{scaleX: 1}}
@@ -211,7 +211,7 @@ function SheetMusicBackground() {
       {Array.from({length: 15}).map((_, i) => (
         <motion.div
           key={`note-${i}`}
-          className="absolute text-midnight-600/20 text-3xl md:text-5xl"
+          className="absolute text-text-muted text-3xl md:text-5xl"
           style={{
             left: `${Math.random() * 90 + 5}%`,
             top: `${15 + Math.random() * 50}%`,

@@ -54,12 +54,12 @@ function FloatingImage({image, index, scrollYProgress, isMobile}: FloatingImageP
       {/* Polaroid-style frame */}
       <div className="polaroid-frame relative">
         {/* Image container */}
-        <div className="relative aspect-[3/4] overflow-hidden bg-charcoal-900/5">
-          {/* Subtle vintage grain overlay */}
+        <div className="relative aspect-[3/4] overflow-hidden bg-background">
+          {/* Subtle grain overlay */}
           <div className="absolute inset-0 z-10 pointer-events-none opacity-20 mix-blend-overlay vintage-grain" />
 
-          {/* Vintage glow effect on hover */}
-          <div className="absolute inset-0 bg-gradient-to-t from-vintage-500/10 via-transparent to-gold-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+          {/* Glow effect on hover */}
+          <div className="absolute inset-0 bg-gradient-to-t from-accent-primary/10 via-transparent to-accent-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
 
           {/* Image */}
           <Image
@@ -75,13 +75,13 @@ function FloatingImage({image, index, scrollYProgress, isMobile}: FloatingImageP
             }}
           />
 
-          {/* Floating overlay with vintage styling */}
+          {/* Floating overlay */}
           <motion.div
-            className="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-charcoal-900/90 via-charcoal-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
+            className="absolute inset-0 flex items-end p-4 bg-gradient-to-t from-background/90 via-background/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20"
             initial={{y: 20}}
             whileHover={{y: 0}}
           >
-            <p className="text-bone font-light text-sm tracking-wide" style={{fontFamily: 'var(--font-display)'}}>
+            <p className="text-text-primary font-light text-sm tracking-wide" style={{fontFamily: 'var(--font-display)'}}>
               {image.alt}
             </p>
           </motion.div>
@@ -95,9 +95,9 @@ function FloatingImage({image, index, scrollYProgress, isMobile}: FloatingImageP
         </div>
       </div>
 
-      {/* Enhanced vintage shadow beneath */}
+      {/* Enhanced shadow beneath */}
       <div
-        className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[95%] h-12 bg-charcoal-900/30 blur-2xl rounded-full opacity-50 group-hover:opacity-70 transition-opacity duration-500"
+        className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-[95%] h-12 bg-background/30 blur-2xl rounded-full opacity-50 group-hover:opacity-70 transition-opacity duration-500"
         style={{zIndex: -1}}
       />
     </motion.div>
@@ -127,7 +127,7 @@ export function FloatingGallery({images}: FloatingGalleryProps) {
         {Array.from({length: 8}).map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-32 h-32 rounded-full bg-midnight-600/5"
+            className="absolute w-32 h-32 rounded-full bg-surface-elevated/50"
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
