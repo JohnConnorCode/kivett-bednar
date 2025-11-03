@@ -21,14 +21,20 @@ import {handleError} from './client-utils'
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#generatemetadata-function
  */
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await client.fetch(
-    settingsQuery,
-    {},
-    {
-      // Metadata should never contain stega
-      next: {revalidate: 60}
-    }
-  )
+  let settings: any
+  try {
+    settings = await client.fetch(
+      settingsQuery,
+      {},
+      {
+        // Metadata should never contain stega
+        next: {revalidate: 60},
+      },
+    )
+  } catch {
+    // Fallback to demo content if Sanity is unavailable during build
+    settings = null
+  }
   const title = settings?.title || demo.title
   const description = settings?.description || demo.description
 
