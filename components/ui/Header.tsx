@@ -122,9 +122,14 @@ export function Header({siteName, navigation}: HeaderProps) {
           </button>
         </div>
 
-        {/* Mobile Navigation - Dark cinematic background when open */}
+        {/* Mobile Navigation - Enhanced glassy background when open */}
         {mobileMenuOpen && (
-          <nav className="md:hidden pb-4 border-t border-border/30 mt-2 pt-4 bg-surface/95 backdrop-blur-lg -mx-4 px-4">
+          <nav className="md:hidden pb-4 border-t border-border/30 mt-2 pt-4 -mx-4 px-4" style={{
+            background: 'rgba(26, 26, 26, 0.95)',
+            backdropFilter: 'blur(16px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+            isolation: 'isolate'
+          }}>
             {navItems.map((item) => (
               <Link
                 key={item.href}
