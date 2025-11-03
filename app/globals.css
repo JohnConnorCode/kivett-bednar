@@ -194,9 +194,9 @@ h3 { font-size: 32px; font-weight: 400; }
   justify-content: center;
   gap: 0.5rem;
   padding: 1rem 2rem;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  background: rgba(10, 10, 10, 0.15);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   color: var(--color-accent-primary);
   font-weight: 700;
   font-size: 18px;
@@ -224,9 +224,9 @@ h3 { font-size: 32px; font-weight: 400; }
   justify-content: center;
   gap: 0.5rem;
   padding: 1rem 2rem;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(12px) saturate(180%);
-  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  background: rgba(10, 10, 10, 0.15);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
   color: var(--color-text-primary);
   font-weight: 700;
   font-size: 18px;
