@@ -72,7 +72,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
 
   return (
     <html lang="en" className={`${inter.variable} ${bebasNeue.variable} bg-white text-black`}>
-      <body>
+      <body className="overflow-x-hidden">
         <GrainOverlay />
         <section className="min-h-screen">
           {/* The <Toaster> component is responsible for rendering toast notifications used in /app/client-utils.ts and /app/components/DraftModeToast.tsx */}

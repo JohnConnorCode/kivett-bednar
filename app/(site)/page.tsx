@@ -64,7 +64,7 @@ export default async function HomePage() {
             <AnimatedSection animation="fadeUp" delay={0.2}>
               <div className="aspect-video relative overflow-hidden rounded-lg shadow-2xl">
                 <iframe
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                  src="https://www.youtube.com/embed/75M50Bfksa0"
                   title="Kivett Bednar Live Performance"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
@@ -258,7 +258,7 @@ export default async function HomePage() {
               <AnimatedSection animation="fadeUp" delay={0.2}>
                 <div className="aspect-video relative overflow-hidden rounded-lg shadow-xl">
                   <iframe
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    src="https://www.youtube.com/embed/75M50Bfksa0"
                     title="Kivett Bednar Studio Session 1"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -269,7 +269,7 @@ export default async function HomePage() {
               <AnimatedSection animation="fadeUp" delay={0.3}>
                 <div className="aspect-video relative overflow-hidden rounded-lg shadow-xl">
                   <iframe
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                    src="https://www.youtube.com/embed/75M50Bfksa0"
                     title="Kivett Bednar Studio Session 2"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen

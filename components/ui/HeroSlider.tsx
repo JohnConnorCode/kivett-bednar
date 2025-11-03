@@ -153,7 +153,7 @@ export function HeroSlider({
             duration: 0.8,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="text-8xl md:text-[8rem] lg:text-[13rem] mb-6 tracking-tight text-white font-bebas uppercase leading-none"
+          className="text-6xl md:text-[8rem] lg:text-[13rem] mb-6 tracking-tight text-white font-bebas uppercase leading-none break-words"
           style={{
             textShadow: '0 4px 8px rgba(0,0,0,0.8)',
             fontFamily: 'var(--font-bebas), system-ui, sans-serif'
