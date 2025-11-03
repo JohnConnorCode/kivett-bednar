@@ -68,16 +68,17 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: system-ui, -apple-system, sans-serif;
-  font-weight: 700;
+  font-family: var(--font-bebas), system-ui, -apple-system, sans-serif;
+  font-weight: 400;
   letter-spacing: 0.05em;
+  text-transform: uppercase;
   text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.8);
   color: var(--color-text-primary);
 }
 
-h1 { font-size: 60px; font-weight: 900; }
-h2 { font-size: 48px; font-weight: 700; }
-h3 { font-size: 32px; font-weight: 600; }
+h1 { font-size: 60px; font-weight: 400; }
+h2 { font-size: 48px; font-weight: 400; }
+h3 { font-size: 32px; font-weight: 400; }
 
 /* ======================
    ANIMATIONS

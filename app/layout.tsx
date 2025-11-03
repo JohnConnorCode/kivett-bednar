@@ -2,7 +2,7 @@ import './globals.css'
 
 import {SpeedInsights} from '@vercel/speed-insights/next'
 import type {Metadata} from 'next'
-import {Inter, Oswald} from 'next/font/google'
+import {Inter, Bebas_Neue} from 'next/font/google'
 import {draftMode} from 'next/headers'
 import {VisualEditing, toPlainText} from 'next-sanity'
 import {Toaster} from 'sonner'
@@ -60,10 +60,10 @@ const inter = Inter({
   display: 'swap',
 })
 
-const oswald = Oswald({
-  variable: '--font-oswald',
+const bebasNeue = Bebas_Neue({
+  variable: '--font-bebas',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: '400',
   display: 'swap',
 })
 
@@ -71,7 +71,7 @@ export default async function RootLayout({children}: {children: React.ReactNode}
   const {isEnabled: isDraftMode} = await draftMode()
 
   return (
-    <html lang="en" className={`${inter.variable} ${oswald.variable} bg-white text-black`}>
+    <html lang="en" className={`${inter.variable} ${bebasNeue.variable} bg-white text-black`}>
       <body>
         <GrainOverlay />
         <section className="min-h-screen">

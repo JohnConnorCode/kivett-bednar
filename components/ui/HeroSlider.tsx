@@ -153,9 +153,10 @@ export function HeroSlider({
             duration: 0.8,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight text-white"
+          className="text-7xl md:text-8xl lg:text-9xl mb-6 tracking-tight text-white font-bebas uppercase"
           style={{
-            textShadow: '0 2px 4px rgba(0,0,0,0.5)'
+            textShadow: '0 4px 8px rgba(0,0,0,0.8)',
+            fontFamily: 'var(--font-bebas), system-ui, sans-serif'
           }}
         >
           {heading}
