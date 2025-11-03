@@ -47,12 +47,11 @@ export function Header({siteName, navigation}: HeaderProps) {
         isScrolled ? 'shadow-lg shadow-black/50' : ''
       }`}
       style={{
-        backgroundColor: isScrolled
-          ? 'rgba(26, 26, 26, 0.95)' // surface/95 - Dark cinematic
-          : 'transparent',
-        backdropFilter: isScrolled ? 'blur(12px)' : 'none',
-        WebkitBackdropFilter: isScrolled ? 'blur(12px)' : 'none',
-        borderBottom: isScrolled ? '1px solid rgba(61, 61, 61, 0.3)' : 'none', // border color
+        backgroundColor: 'rgba(10, 10, 10, 0.3)',
+        backdropFilter: 'blur(16px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+        borderBottom: isScrolled ? '1px solid rgba(212, 175, 55, 0.2)' : '1px solid rgba(255, 255, 255, 0.1)',
+        isolation: 'isolate',
       }}
     >
       <div className="container mx-auto px-4">
@@ -124,8 +123,8 @@ export function Header({siteName, navigation}: HeaderProps) {
 
         {/* Mobile Navigation - Enhanced glassy background when open */}
         {mobileMenuOpen && (
-          <nav className="md:hidden pb-4 border-t border-border/30 mt-2 pt-4 -mx-4 px-4" style={{
-            background: 'rgba(26, 26, 26, 0.95)',
+          <nav className="md:hidden pb-4 border-t border-accent-primary/30 mt-2 pt-4 -mx-4 px-4" style={{
+            background: 'rgba(10, 10, 10, 0.3)',
             backdropFilter: 'blur(16px) saturate(180%)',
             WebkitBackdropFilter: 'blur(16px) saturate(180%)',
             isolation: 'isolate'
