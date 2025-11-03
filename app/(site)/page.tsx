@@ -40,6 +40,9 @@ export const metadata: Metadata = {
 }
 
 export default async function HomePage() {
+  console.log('[HomePage] Starting data fetch...')
+  const fetchStart = Date.now()
+
   // Fetch home page content and upcoming shows
   const [homePage, events, uiText] = await Promise.all([
     client.fetch(homePageQuery, {}, {next: {revalidate: 60}}),
@@ -53,6 +56,8 @@ export default async function HomePage() {
     ),
     client.fetch(uiTextQuery, {}, {next: {revalidate: 60}}),
   ])
+
+  console.log(`[HomePage] Data fetch completed in ${Date.now() - fetchStart}ms`)
 
   // Fallback if no content in Sanity yet
   if (!homePage) {
