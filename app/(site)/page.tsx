@@ -61,7 +61,7 @@ export default async function HomePage() {
                 </p>
               </div>
             </AnimatedSection>
-            <AnimatedSection animation="scaleIn" delay={0.2}>
+            <AnimatedSection animation="fadeUp" delay={0.2}>
               <div className="aspect-video relative overflow-hidden rounded-lg shadow-2xl">
                 <iframe
                   src="https://www.youtube.com/embed/dQw4w9WgXcQ"
@@ -119,7 +119,7 @@ export default async function HomePage() {
               </AnimatedSection>
               <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                 {events.slice(0, 6).map((event: any, index: number) => (
-                  <AnimatedSection key={event._id} animation="scaleIn" delay={0.1 * index}>
+                  <AnimatedSection key={event._id} animation="fadeUp" delay={0.1 * index}>
                     <EventCard event={event} />
                   </AnimatedSection>
                 ))}
@@ -286,7 +286,7 @@ export default async function HomePage() {
       <section className="py-24 bg-surface">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
-            <AnimatedSection animation="scaleIn">
+            <AnimatedSection animation="fadeUp">
               <div className="bg-gradient-to-br from-surface to-surface-elevated p-12 rounded-2xl border-4 border-accent-primary/30 text-center">
                 <h2 className="text-4xl font-bold text-text-primary mb-4">Stay Connected</h2>
                 <p className="text-xl text-text-secondary mb-8">Get the latest show announcements, new music releases, and exclusive content delivered to your inbox.</p>

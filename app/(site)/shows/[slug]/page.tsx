@@ -210,6 +210,23 @@ export default async function EventPage({params}: Props) {
                     </AnimatedSection>
                   )}
 
+                  {/* Event Image - Show coverImage if different from hero, or as placeholder */}
+                  {(event as any).coverImage?.asset?.url && (event as any).coverImage.asset.url !== heroImageDesktop?.asset?.url && (
+                    <AnimatedSection animation="fadeUp" delay={0.15}>
+                      <div className="relative aspect-[16/9] rounded-2xl overflow-hidden shadow-2xl">
+                        <Image
+                          src={urlFor((event as any).coverImage.asset).width(1200).height(675).url()}
+                          alt={(event as any).coverImage.alt || `${event.title} performance`}
+                          fill
+                          className="object-cover"
+                          style={{
+                            objectPosition: getObjectPosition((event as any).coverImage, false)
+                          }}
+                        />
+                      </div>
+                    </AnimatedSection>
+                  )}
+
                   {/* Lineup */}
                   {(event as any).lineup && (event as any).lineup.length > 0 && (
                     <AnimatedSection animation="fadeUp" delay={0.2}>
@@ -250,7 +267,7 @@ export default async function EventPage({params}: Props) {
                 {/* Sidebar */}
                 <div className="space-y-6">
                   {/* Event Info Card */}
-                  <AnimatedSection animation="scaleIn" delay={0.2}>
+                  <AnimatedSection animation="fadeUp" delay={0.2}>
                     <div className="bg-gradient-to-br from-surface to-surface-elevated rounded-2xl p-8 text-text-primary border-4 border-accent-primary/30 shadow-2xl sticky top-8">
                       <h2 className="text-2xl font-bold text-accent-primary mb-6">Event Details</h2>
 

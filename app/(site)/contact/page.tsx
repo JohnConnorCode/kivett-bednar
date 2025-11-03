@@ -77,7 +77,7 @@ export default async function ContactPage() {
                 )}
 
               {/* Call to Action */}
-              <AnimatedSection animation="scaleIn" delay={0.4}>
+              <AnimatedSection animation="fadeUp" delay={0.4}>
                 <div className="bg-surface rounded-2xl p-8 border-2 border-accent-primary/20 text-center shadow-2xl">
                   <h3 className="text-2xl font-bold mb-4 text-text-primary">Looking for Live Blues?</h3>
                   <p className="mb-6 text-text-secondary">

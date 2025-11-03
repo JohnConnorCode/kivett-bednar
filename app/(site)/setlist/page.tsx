@@ -106,7 +106,7 @@ export default async function SetlistPage() {
         <section className="bg-gradient-to-b from-surface-elevated to-background py-24">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto">
-              <AnimatedSection animation="scaleIn">
+              <AnimatedSection animation="fadeUp">
                 <div className="bg-gradient-to-br from-surface-elevated to-surface rounded-2xl p-12 text-center text-text-primary border-2 border-accent-primary/20">
                   {setlistPage.ctaHeading && (
                     <h2 className="text-4xl font-bold mb-4">

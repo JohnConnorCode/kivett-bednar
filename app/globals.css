@@ -94,9 +94,10 @@ h3 { font-size: 32px; font-weight: 400; }
 }
 
 .animate-ken-burns {
-  animation: ken-burns 20s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation: ken-burns 20s cubic-bezier(0.25, 0.1, 0.25, 1) infinite alternate;
   backface-visibility: hidden;
   perspective: 1000px;
+  will-change: transform;
 }
 
 .duration-2000 {

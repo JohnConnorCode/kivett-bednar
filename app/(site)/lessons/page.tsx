@@ -55,7 +55,7 @@ export default async function LessonsPage() {
       <section className="bg-surface py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
-            <AnimatedSection animation="scaleIn">
+            <AnimatedSection animation="fadeUp">
               <div className="bg-gradient-to-br from-surface-elevated to-surface rounded-2xl p-12 text-text-primary flex flex-col justify-center border-2 border-accent-primary/20">
                 <h3 className="text-3xl font-bold mb-6">{lessonsPage.ctaBoxHeading}</h3>
                 <p className="text-lg mb-8 text-text-secondary">
@@ -99,7 +99,7 @@ export default async function LessonsPage() {
                   </h2>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {lessonsPage.learningItems.map((item: any, index: number) => (
-                      <AnimatedSection key={item._key || index} animation="scaleIn" delay={0.15 * index}>
+                      <AnimatedSection key={item._key || index} animation="fadeUp" delay={0.15 * index}>
                         <div className="text-center group">
                           <div className="w-12 h-12 mx-auto mb-4 rounded-full border-2 border-accent-primary/40 flex items-center justify-center text-accent-primary font-bold text-lg group-hover:border-accent-primary group-hover:text-accent-primary transition-colors">
                             {index + 1}
