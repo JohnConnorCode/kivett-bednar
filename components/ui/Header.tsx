@@ -12,8 +12,13 @@ interface HeaderProps {
 export function Header({siteName, navigation}: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
   const isHomePage = pathname === '/'
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Fallback navigation if not provided from CMS
   const navItems = navigation || [
@@ -55,12 +60,8 @@ export function Header({siteName, navigation}: HeaderProps) {
           {/* Logo - White text with strong shadow for visibility over images */}
           <Link
             href="/"
-            className={`text-2xl font-bold tracking-tight transition-all duration-500 ${
-              isScrolled
-                ? 'text-white hover:text-accent-primary opacity-100'
-                : 'text-white hover:text-accent-primary'
-            } ${
-              isHomePage && !isScrolled ? 'opacity-0 pointer-events-none' : 'opacity-100'
+            className={`text-2xl font-bold tracking-tight transition-all duration-500 text-white hover:text-accent-primary ${
+              !mounted || (isHomePage && !isScrolled) ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}
             style={{
               textShadow: isScrolled

@@ -20,6 +20,7 @@ interface HeroSliderProps {
   heading?: string
   subheading?: string
   tagline?: string
+  buttonText?: string
 }
 
 export function HeroSlider({
@@ -153,7 +154,7 @@ export function HeroSlider({
             duration: 0.8,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="text-9xl md:text-[10rem] lg:text-[14rem] mb-6 tracking-tight text-white font-bebas uppercase leading-none"
+          className="hero-title text-white mb-6"
           style={{
             textShadow: '0 4px 8px rgba(0,0,0,0.8)',
             fontFamily: 'var(--font-bebas), system-ui, sans-serif'
