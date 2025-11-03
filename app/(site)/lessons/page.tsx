@@ -65,7 +65,7 @@ export default async function LessonsPage() {
                   {settings?.contactEmail && (
                     <a
                       href={`mailto:${settings.contactEmail}`}
-                      className="block text-center px-8 py-4 rounded-lg bg-accent-primary text-black font-bold hover:bg-accent-primary/90 transition-all transform hover:scale-105"
+                      className="btn-primary block text-center"
                     >
                       {lessonsPage.emailButtonText || 'Email Me'}
                     </a>
@@ -75,7 +75,7 @@ export default async function LessonsPage() {
                       href={settings.bookingUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block text-center px-8 py-4 rounded-lg border-2 border-accent-primary text-text-primary font-semibold hover:bg-surface-elevated transition-all"
+                      className="btn-secondary block text-center"
                     >
                       {lessonsPage.scheduleButtonText || 'Schedule a Lesson'}
                     </a>

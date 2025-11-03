@@ -102,25 +102,13 @@ export function EventCard({event}: {event: Event}) {
           <p className="text-sm">{event.city}{event.state && `, ${event.state}`}</p>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-wrap gap-3">
-          {event.ticketUrl && !event.isCanceled && (
-            <a
-              href={event.ticketUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-6 py-3 bg-accent-primary text-black font-bold hover:bg-accent-primary/90 transition-all transform hover:-translate-y-0.5 hover:shadow-lg hover:shadow-accent-primary/40 w-full"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {event.isSoldOut ? 'Waitlist →' : 'Get Tickets →'}
-            </a>
-          )}
-          {!eventLink && !event.ticketUrl && (
-            <div className="text-sm text-text-muted italic">
-              Event details coming soon
-            </div>
-          )}
-        </div>
+        {/* View Details indicator */}
+        {eventLink && !event.isCanceled && (
+          <div className="inline-flex items-center gap-2 text-accent-primary font-semibold group-hover:gap-3 transition-all">
+            <span>View Details</span>
+            <span>→</span>
+          </div>
+        )}
       </div>
     </>
   )

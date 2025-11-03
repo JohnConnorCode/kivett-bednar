@@ -8,6 +8,7 @@ import {HeroSlider} from '@/components/ui/HeroSlider'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
 import {FloatingGallery} from '@/components/ui/FloatingGallery'
 import {SplitScreenImage} from '@/components/ui/SplitScreenImage'
+import {NewsletterForm} from '@/components/ui/NewsletterForm'
 
 export const metadata: Metadata = {
   title: 'Kivett Bednar | Blues Guitarist & Musician',
@@ -91,7 +92,7 @@ export default async function HomePage() {
         <div className="flex gap-4">
           <Link
             href="/setlist"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-accent-primary text-black font-semibold rounded-lg hover:bg-accent-primary/90 transition-all transform hover:scale-105"
+            className="btn-primary"
           >
             {homePage.aboutButtonText || 'View Setlist'}
             <span>→</span>
@@ -150,7 +151,7 @@ export default async function HomePage() {
                     </p>
                     <a
                       href="mailto:kivettbednar@gmail.com"
-                      className="block w-full px-8 py-4 bg-accent-primary text-black font-bold rounded-lg hover:bg-accent-primary/90 transition-all transform hover:scale-105 text-center text-xl"
+                      className="btn-primary w-full text-center text-xl"
                     >
                       kivettbednar@gmail.com
                     </a>
@@ -289,20 +290,7 @@ export default async function HomePage() {
               <div className="bg-gradient-to-br from-surface to-surface-elevated p-12 rounded-2xl border-4 border-accent-primary/30 text-center">
                 <h2 className="text-4xl font-bold text-text-primary mb-4">Stay Connected</h2>
                 <p className="text-xl text-text-secondary mb-8">Get the latest show announcements, new music releases, and exclusive content delivered to your inbox.</p>
-                <form className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    className="flex-1 px-6 py-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-primary text-black"
-                  />
-                  <button
-                    type="submit"
-                    className="px-8 py-4 bg-accent-primary text-black font-bold rounded-lg hover:bg-accent-primary/90 transition-all transform hover:scale-105 whitespace-nowrap"
-                  >
-                    Join the List
-                  </button>
-                </form>
-                <p className="text-sm text-text-muted mt-4">We respect your privacy. Unsubscribe at any time.</p>
+                <NewsletterForm />
               </div>
             </AnimatedSection>
           </div>

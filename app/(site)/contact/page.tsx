@@ -1,6 +1,5 @@
 import {Metadata} from 'next'
 import Link from 'next/link'
-import {ContactForm} from '@/components/ui/ContactForm'
 import {client} from '@/sanity/lib/client'
 import {contactPageQuery, settingsQuery, uiTextQuery} from '@/sanity/lib/queries'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
@@ -31,31 +30,11 @@ export default async function ContactPage() {
         backgroundAlt={contactPage?.heroImage?.alt || 'Kivett Bednar on stage'}
       />
 
-      {/* Content - Redesigned */}
+      {/* Content - Simplified Contact Info Only */}
       <div className="bg-gradient-to-b from-surface via-surface-elevated to-surface py-24">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-start">
-              {/* Contact Form */}
-              <div>
-                <AnimatedSection animation="fadeUp">
-                  <div className="bg-surface-elevated rounded-2xl p-8 md:p-12 border-4 border-accent-primary/20 shadow-2xl">
-                    <h2 className="text-4xl font-bold mb-8 text-text-primary">{contactPage?.formHeading || 'Send a Message'}</h2>
-                    <ContactForm
-                      labelName={uiText?.formLabelName || undefined}
-                      labelEmail={uiText?.formLabelEmail || undefined}
-                      labelSubject={uiText?.formLabelSubject || undefined}
-                      labelMessage={uiText?.formLabelMessage || undefined}
-                      buttonSubmit={uiText?.formButtonSubmit || undefined}
-                      buttonSending={uiText?.formButtonSending || undefined}
-                      successMessage={uiText?.formSuccessMessage || undefined}
-                    />
-                  </div>
-                </AnimatedSection>
-              </div>
-
-              {/* Contact Info & Social */}
-              <div className="space-y-8">
+          <div className="max-w-3xl mx-auto">
+            <div className="space-y-8">
                 {/* Direct Contact */}
                 {settings?.contactEmail && (
                   <AnimatedSection animation="fadeUp" delay={0.2}>
@@ -97,22 +76,21 @@ export default async function ContactPage() {
                   </AnimatedSection>
                 )}
 
-                {/* Call to Action */}
-                <AnimatedSection animation="scaleIn" delay={0.4}>
-                  <div className="bg-gradient-to-br from-accent-primary to-accent-primary/80 rounded-2xl p-8 text-black shadow-2xl">
-                    <h3 className="text-2xl font-bold mb-4">Looking for Live Blues?</h3>
-                    <p className="mb-6">
-                      Check out my upcoming shows and experience gritty Texas Blues meets the heart of the Pacific Northwest.
-                    </p>
-                    <Link
-                      href="/shows"
-                      className="inline-block px-8 py-4 bg-black text-accent-primary font-bold rounded-lg hover:bg-surface-elevated transition-all transform hover:scale-105"
-                    >
-                      View Upcoming Shows →
-                    </Link>
-                  </div>
-                </AnimatedSection>
-              </div>
+              {/* Call to Action */}
+              <AnimatedSection animation="scaleIn" delay={0.4}>
+                <div className="bg-surface rounded-2xl p-8 border-2 border-accent-primary/20 text-center shadow-2xl">
+                  <h3 className="text-2xl font-bold mb-4 text-text-primary">Looking for Live Blues?</h3>
+                  <p className="mb-6 text-text-secondary">
+                    Check out my upcoming shows and experience gritty Texas Blues meets the heart of the Pacific Northwest.
+                  </p>
+                  <Link
+                    href="/shows"
+                    className="btn-primary"
+                  >
+                    View Upcoming Shows →
+                  </Link>
+                </div>
+              </AnimatedSection>
             </div>
           </div>
         </div>

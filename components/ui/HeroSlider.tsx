@@ -153,7 +153,7 @@ export function HeroSlider({
             duration: 0.8,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="text-7xl md:text-8xl lg:text-9xl mb-6 tracking-tight text-white font-bebas uppercase"
+          className="text-7xl md:text-8xl lg:text-[10rem] mb-6 tracking-tight text-white font-bebas uppercase leading-none"
           style={{
             textShadow: '0 4px 8px rgba(0,0,0,0.8)',
             fontFamily: 'var(--font-bebas), system-ui, sans-serif'
@@ -170,7 +170,7 @@ export function HeroSlider({
             delay: 0.15,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className="text-2xl md:text-3xl lg:text-4xl mb-8 font-normal tracking-wide text-white"
+          className="text-2xl md:text-4xl lg:text-5xl mb-8 font-normal tracking-wide text-white"
         >
           {subheading}
         </motion.p>
@@ -202,7 +202,7 @@ export function HeroSlider({
         >
           <Link
             href="/shows"
-            className="px-10 py-5 bg-accent-primary text-background font-bold rounded-lg text-xl shadow-2xl transform transition-all duration-200 hover:scale-105 hover:bg-accent-primary/90"
+            className="btn-primary text-xl px-10 py-5"
           >
             See Live Shows
           </Link>

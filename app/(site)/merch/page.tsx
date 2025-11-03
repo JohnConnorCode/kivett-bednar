@@ -62,13 +62,13 @@ export default async function MerchPage() {
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Link
                       href="/contact"
-                      className="px-8 py-4 rounded-lg bg-accent-primary text-background font-bold hover:bg-accent-primary/90 transition-all transform hover:scale-105"
+                      className="btn-primary"
                     >
                       Get Notified
                     </Link>
                     <Link
                       href="/shows"
-                      className="px-8 py-4 rounded-lg border-2 border-border text-text-primary font-semibold hover:bg-surface-elevated transition-all"
+                      className="btn-secondary"
                     >
                       See Live Shows
                     </Link>

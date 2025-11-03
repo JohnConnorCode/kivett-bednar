@@ -254,6 +254,18 @@ export type BlockContent = Array<{
   _key: string;
 }>;
 
+export type NewsletterSubscriber = {
+  _id: string;
+  _type: "newsletterSubscriber";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  email?: string;
+  subscribedAt?: string;
+  status?: "active" | "unsubscribed";
+  source?: string;
+};
+
 export type Song = {
   _id: string;
   _type: "song";
@@ -1284,7 +1296,7 @@ export type SanityAssetSourceData = {
   url?: string;
 };
 
-export type AllSanitySchemaTypes = MusicEmbed | VideoEmbed | CtaBanner | FeatureGrid | ImageGallery | RichText | Hero | CallToAction | Link | InfoSection | BlockContent | Song | Product | Event | SetlistPage | ContactPage | LessonsPage | ShowsPage | HomePage | UiText | Navigation | Settings | Page | Post | Person | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
+export type AllSanitySchemaTypes = MusicEmbed | VideoEmbed | CtaBanner | FeatureGrid | ImageGallery | RichText | Hero | CallToAction | Link | InfoSection | BlockContent | NewsletterSubscriber | Song | Product | Event | SetlistPage | ContactPage | LessonsPage | ShowsPage | HomePage | UiText | Navigation | Settings | Page | Post | Person | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | SanityAssistInstructionContext | AssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageHotspot | SanityImageCrop | SanityFileAsset | SanityImageAsset | SanityImageMetadata | Geopoint | Slug | SanityAssetSourceData;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: settingsQuery

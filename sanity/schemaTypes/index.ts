@@ -3,6 +3,7 @@ import {page} from './documents/page'
 import {post} from './documents/post'
 import {event} from './documents/event'
 import {product} from './documents/product'
+import {newsletterSubscriber} from './documents/newsletterSubscriber'
 import {callToAction} from './objects/callToAction'
 import {infoSection} from './objects/infoSection'
 import {settings} from './singletons/settings'
@@ -45,6 +46,7 @@ export const schemaTypes = [
   event,
   product,
   song,
+  newsletterSubscriber,
   // Objects
   blockContent,
   infoSection,

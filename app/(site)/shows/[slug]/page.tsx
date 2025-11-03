@@ -272,18 +272,6 @@ export default async function EventPage({params}: Props) {
                         </div>
                       </div>
 
-                      {/* Ticket Button */}
-                      {event.ticketUrl && !event.isCanceled && (
-                        <a
-                          href={event.ticketUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="block w-full px-8 py-4 bg-accent-primary text-black font-bold rounded-lg hover:bg-accent-primary/90 transition-all transform hover:scale-105 text-center shadow-lg"
-                        >
-                          {event.isSoldOut ? 'Join Waitlist →' : 'Get Tickets →'}
-                        </a>
-                      )}
-
                       {event.isCanceled && (
                         <div className="bg-red-600/20 border border-red-600/30 rounded-lg p-4 text-center">
                           <p className="font-semibold">This event has been canceled</p>
@@ -296,7 +284,7 @@ export default async function EventPage({params}: Props) {
                   <AnimatedSection animation="fadeUp" delay={0.3}>
                     <Link
                       href="/shows"
-                      className="block w-full px-6 py-3 bg-surface-elevated text-text-primary font-semibold rounded-lg hover:bg-surface transition-all text-center border-2 border-accent-primary/20"
+                      className="btn-secondary w-full text-center"
                     >
                       ← Back to All Shows
                     </Link>
