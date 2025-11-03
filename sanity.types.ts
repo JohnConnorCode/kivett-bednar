@@ -132,6 +132,21 @@ export type Hero = {
     alt?: string;
     _type: "image";
   };
+  mobileImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  desktopPosition?: "top-left" | "top-center" | "top-right" | "center-left" | "center" | "center-right" | "bottom-left" | "bottom-center" | "bottom-right";
+  mobilePosition?: "top-left" | "top-center" | "top-right" | "center-left" | "center" | "center-right" | "bottom-left" | "bottom-center" | "bottom-right";
   video?: string;
   ctas?: Array<{
     label?: string;
@@ -335,6 +350,8 @@ export type Event = {
   _updatedAt: string;
   _rev: string;
   title?: string;
+  slug?: Slug;
+  excerpt?: string;
   startDateTime?: string;
   endDateTime?: string;
   timezone?: string;
@@ -344,7 +361,6 @@ export type Event = {
   state?: string;
   country?: string;
   ticketUrl?: string;
-  description?: BlockContent;
   coverImage?: {
     asset?: {
       _ref: string;
@@ -356,8 +372,46 @@ export type Event = {
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
     alt?: string;
+    desktopPosition?: "top left" | "top center" | "top right" | "center left" | "center center" | "center right" | "bottom left" | "bottom center" | "bottom right";
+    mobilePosition?: "top left" | "top center" | "top right" | "center left" | "center center" | "center right" | "bottom left" | "bottom center" | "bottom right";
     _type: "image";
   };
+  heroImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    desktopPosition?: "top left" | "top center" | "top right" | "center left" | "center center" | "center right" | "bottom left" | "bottom center" | "bottom right";
+    _type: "image";
+  };
+  heroImageMobile?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    mobilePosition?: "top left" | "top center" | "top right" | "center left" | "center center" | "center right" | "bottom left" | "bottom center" | "bottom right";
+    _type: "image";
+  };
+  description?: BlockContent;
+  lineup?: Array<{
+    name?: string;
+    role?: string;
+    bio?: string;
+    _key: string;
+  }>;
+  specialNotes?: string;
   isCanceled?: boolean;
   isSoldOut?: boolean;
 };
@@ -574,6 +628,21 @@ export type ShowsPage = {
     alt?: string;
     _type: "image";
   };
+  heroMobileImage?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  heroDesktopPosition?: "top-left" | "top-center" | "top-right" | "center-left" | "center" | "center-right" | "bottom-left" | "bottom-center" | "bottom-right";
+  heroMobilePosition?: "top-left" | "top-center" | "top-right" | "center-left" | "center" | "center-right" | "bottom-left" | "bottom-center" | "bottom-right";
   performanceGalleryHeading?: string;
   performanceGallerySubheading?: string;
   performanceImages?: Array<{
@@ -621,7 +690,21 @@ export type HomePage = {
       crop?: SanityImageCrop;
       _type: "image";
     };
+    mobileImage?: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
     alt?: string;
+    desktopPosition?: "top-left" | "top-center" | "top-right" | "center-left" | "center" | "center-right" | "bottom-left" | "bottom-center" | "bottom-right";
+    mobilePosition?: "top-left" | "top-center" | "top-right" | "center-left" | "center" | "center-right" | "bottom-left" | "bottom-center" | "bottom-right";
     _type: "slide";
     _key: string;
   }>;
@@ -1347,10 +1430,18 @@ export type HomePageQueryResult = {
       crop: SanityImageCrop | null;
       alt: null;
     } | null;
-    mobileImage: null;
+    mobileImage: {
+      asset: {
+        _id: string;
+        url: string | null;
+      } | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: null;
+    } | null;
     alt: string | null;
-    desktopPosition: null;
-    mobilePosition: null;
+    desktopPosition: "bottom-center" | "bottom-left" | "bottom-right" | "center-left" | "center-right" | "center" | "top-center" | "top-left" | "top-right" | null;
+    mobilePosition: "bottom-center" | "bottom-left" | "bottom-right" | "center-left" | "center-right" | "center" | "top-center" | "top-left" | "top-right" | null;
   }> | null;
   heroHeading: string | null;
   heroSubheading: string | null;
@@ -1738,9 +1829,35 @@ export type PageBySlugQueryResult = {
       crop: SanityImageCrop | null;
       alt: string | null;
     } | null;
-    mobileImage: null;
-    desktopPosition: null;
-    mobilePosition: null;
+    mobileImage: {
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+      hotspot: SanityImageHotspot | null;
+      crop: SanityImageCrop | null;
+      alt: string | null;
+    } | null;
+    desktopPosition: "bottom-center" | "bottom-left" | "bottom-right" | "center-left" | "center-right" | "center" | "top-center" | "top-left" | "top-right" | null;
+    mobilePosition: "bottom-center" | "bottom-left" | "bottom-right" | "center-left" | "center-right" | "center" | "top-center" | "top-left" | "top-right" | null;
     video: string | null;
     ctas: Array<{
       label: string | null;
@@ -1902,8 +2019,8 @@ export type PagesSlugsResult = Array<{
 export type UpcomingEventsQueryResult = Array<{
   _id: string;
   title: string | null;
-  slug: null;
-  excerpt: null;
+  slug: string | null;
+  excerpt: string | null;
   startDateTime: string | null;
   endDateTime: string | null;
   timezone: string | null;
@@ -1939,8 +2056,8 @@ export type UpcomingEventsQueryResult = Array<{
     } | null;
     hotspot: SanityImageHotspot | null;
     crop: SanityImageCrop | null;
-    desktopPosition: null;
-    mobilePosition: null;
+    desktopPosition: "bottom center" | "bottom left" | "bottom right" | "center center" | "center left" | "center right" | "top center" | "top left" | "top right" | null;
+    mobilePosition: "bottom center" | "bottom left" | "bottom right" | "center center" | "center left" | "center right" | "top center" | "top left" | "top right" | null;
     alt: string | null;
   } | null;
   isCanceled: boolean | null;
@@ -1982,8 +2099,8 @@ export type PastEventsQueryResult = Array<{
     } | null;
     hotspot: SanityImageHotspot | null;
     crop: SanityImageCrop | null;
-    desktopPosition: null;
-    mobilePosition: null;
+    desktopPosition: "bottom center" | "bottom left" | "bottom right" | "center center" | "center left" | "center right" | "top center" | "top left" | "top right" | null;
+    mobilePosition: "bottom center" | "bottom left" | "bottom right" | "center center" | "center left" | "center right" | "top center" | "top left" | "top right" | null;
     alt: string | null;
   } | null;
 }>;
@@ -2005,8 +2122,8 @@ export type EventsByMonthQueryResult = Array<{
 export type EventBySlugQueryResult = {
   _id: string;
   title: string | null;
-  slug: null;
-  excerpt: null;
+  slug: string | null;
+  excerpt: string | null;
   startDateTime: string | null;
   endDateTime: string | null;
   timezone: string | null;
@@ -2042,20 +2159,80 @@ export type EventBySlugQueryResult = {
     } | null;
     hotspot: SanityImageHotspot | null;
     crop: SanityImageCrop | null;
-    desktopPosition: null;
-    mobilePosition: null;
+    desktopPosition: "bottom center" | "bottom left" | "bottom right" | "center center" | "center left" | "center right" | "top center" | "top left" | "top right" | null;
+    mobilePosition: "bottom center" | "bottom left" | "bottom right" | "center center" | "center left" | "center right" | "top center" | "top left" | "top right" | null;
     alt: string | null;
   } | null;
-  heroImage: null;
-  heroImageMobile: null;
-  lineup: null;
-  specialNotes: null;
+  heroImage: {
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    desktopPosition: "bottom center" | "bottom left" | "bottom right" | "center center" | "center left" | "center right" | "top center" | "top left" | "top right" | null;
+    alt: string | null;
+  } | null;
+  heroImageMobile: {
+    asset: {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    } | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    mobilePosition: "bottom center" | "bottom left" | "bottom right" | "center center" | "center left" | "center right" | "top center" | "top left" | "top right" | null;
+    alt: string | null;
+  } | null;
+  lineup: Array<{
+    name: string | null;
+    role: string | null;
+    bio: string | null;
+  }> | null;
+  specialNotes: string | null;
   isCanceled: boolean | null;
   isSoldOut: boolean | null;
 } | null;
 // Variable: eventsSlugs
 // Query: *[_type == "event" && defined(slug.current)]{  "slug": slug.current}
-export type EventsSlugsResult = Array<never>;
+export type EventsSlugsResult = Array<{
+  slug: string | null;
+}>;
 // Variable: allProductsQuery
 // Query: *[_type == "product"] | order(_createdAt desc){  _id,  title,  "slug": slug.current,  images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},  priceCents,  currency}
 export type AllProductsQueryResult = Array<{

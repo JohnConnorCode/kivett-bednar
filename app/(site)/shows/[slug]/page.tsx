@@ -16,9 +16,11 @@ type Props = {
 
 export async function generateStaticParams() {
   const slugs = await client.fetch(eventsSlugs)
-  return slugs.map((item: {slug: string}) => ({
-    slug: item.slug,
-  }))
+  return slugs
+    .filter((item: {slug: string | null}) => item.slug !== null)
+    .map((item: {slug: string | null}) => ({
+      slug: item.slug as string,
+    }))
 }
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {
