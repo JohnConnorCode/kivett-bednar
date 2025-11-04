@@ -4,8 +4,7 @@ import Image from 'next/image'
 import {client} from '@/sanity/lib/client'
 import {sanityFetch} from '@/sanity/lib/live'
 import {productBySlugQuery} from '@/sanity/lib/queries'
-import {useCart} from '@/components/ui/CartContext'
-import React, {useState} from 'react'
+import {PurchaseSection} from '@/components/merch/ProductPurchase'
 import {urlFor} from '@/sanity/lib/image'
 import {PortableText} from '@portabletext/react'
 
@@ -64,7 +63,7 @@ export default async function ProductPage({params}: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{__html: JSON.stringify(productJsonLd)}}
       />
-      <AddToCartUI product={product} />
+      <PurchaseSection product={{ _id: product._id, title: product.title, slug: product.slug, priceCents: product.priceCents, currency: product.currency, options: product.options || [], imageUrl: product.images?.[0]?.asset?.url || undefined }} />
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12">
@@ -106,7 +105,7 @@ export default async function ProductPage({params}: Props) {
                 {product.currency} ${price}
               </p>
 
-              <ProductOptions product={product} />
+              {/* Purchase controls are rendered above via client component */}
 
               {product.description && (
                 <div className="prose prose-lg mb-8">
@@ -131,56 +130,4 @@ export default async function ProductPage({params}: Props) {
       </div>
     </>
   )
-}
-
-function ProductOptions({product}: {product: any}) {
-  'use client'
-  const [selected, setSelected] = useState<Record<string, string>>({})
-  const {addItem} = useCart()
-  const price = product.priceCents ? (product.priceCents / 100).toFixed(2) : '0.00'
-
-  return (
-    <div className="mb-6">
-      {product.options?.map((opt: any) => (
-        <div key={opt.name} className="mb-4">
-          <label className="block font-semibold mb-2">{opt.name}</label>
-          <div className="flex gap-2 flex-wrap">
-            {opt.values?.map((val: string) => (
-              <button
-                key={val}
-                className={`px-3 py-2 border rounded ${selected[opt.name] === val ? 'bg-accent-primary/20 border-accent-primary' : ''}`}
-                onClick={() => setSelected((s) => ({...s, [opt.name]: val}))}
-                type="button"
-              >
-                {val}
-              </button>
-            ))}
-          </div>
-        </div>
-      ))}
-      <button
-        className="btn-primary"
-        onClick={() =>
-          addItem({
-            productId: product._id,
-            title: product.title,
-            slug: product.slug,
-            imageUrl: product.images?.[0]?.asset?.url,
-            priceCents: product.priceCents,
-            currency: product.currency || 'USD',
-            quantity: 1,
-            options: Object.keys(selected).length ? selected : undefined,
-          })
-        }
-        type="button"
-      >
-        Add to cart — {product.currency} ${price}
-      </button>
-    </div>
-  )
-}
-
-function AddToCartUI({product}: {product: any}) {
-  'use client'
-  return null
 }
