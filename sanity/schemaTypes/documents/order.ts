@@ -1,11 +1,11 @@
 import {defineField, defineType} from 'sanity'
-import {ShoppingCartIcon} from '@sanity/icons'
+import {BasketIcon} from '@sanity/icons'
 
 export const order = defineType({
   name: 'order',
   title: 'Order',
   type: 'document',
-  icon: ShoppingCartIcon,
+  icon: BasketIcon,
   fields: [
     defineField({name: 'stripeSessionId', title: 'Stripe Session ID', type: 'string'}),
     defineField({name: 'email', title: 'Email', type: 'string'}),
@@ -36,4 +36,3 @@ export const order = defineType({
     select: {title: 'name', subtitle: 'status'},
   },
 })
-

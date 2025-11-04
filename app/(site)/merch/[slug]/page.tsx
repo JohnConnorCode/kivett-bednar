@@ -5,6 +5,7 @@ import {client} from '@/sanity/lib/client'
 import {sanityFetch} from '@/sanity/lib/live'
 import {productBySlugQuery} from '@/sanity/lib/queries'
 import {useCart} from '@/components/ui/CartContext'
+import React, {useState} from 'react'
 import {urlFor} from '@/sanity/lib/image'
 import {PortableText} from '@portabletext/react'
 
@@ -134,7 +135,7 @@ export default async function ProductPage({params}: Props) {
 
 function ProductOptions({product}: {product: any}) {
   'use client'
-  const [selected, setSelected] = React.useState<Record<string, string>>({})
+  const [selected, setSelected] = useState<Record<string, string>>({})
   const {addItem} = useCart()
   const price = product.priceCents ? (product.priceCents / 100).toFixed(2) : '0.00'
 
