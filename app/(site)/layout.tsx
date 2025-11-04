@@ -2,6 +2,7 @@ import {type ReactNode} from 'react'
 import {sanityFetch} from '@/sanity/lib/live'
 import {settingsQuery, uiTextQuery} from '@/sanity/lib/queries'
 import {Header} from '@/components/ui/Header'
+import {CartProvider} from '@/components/ui/CartContext'
 import {Footer} from '@/components/ui/Footer'
 
 export default async function SiteLayout({
@@ -23,7 +24,7 @@ export default async function SiteLayout({
   ]
 
   return (
-    <>
+    <CartProvider>
       <Header siteName={uiText?.siteName || undefined} navigation={navigation} />
       <main>{children}</main>
       <Footer
@@ -39,6 +40,6 @@ export default async function SiteLayout({
         socialInstagramLabel={uiText?.socialInstagram || undefined}
         copyrightText={uiText?.footerCopyrightText || undefined}
       />
-    </>
+    </CartProvider>
   )
 }

@@ -1,0 +1,50 @@
+import {NextResponse} from 'next/server'
+import Stripe from 'stripe'
+import {client} from '@/sanity/lib/client'
+import {productBySlugQuery} from '@/sanity/lib/queries'
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+  apiVersion: '2024-06-20',
+})
+
+export async function POST(req: Request) {
+  try {
+    const {items} = await req.json()
+    if (!Array.isArray(items) || items.length === 0) {
+      return NextResponse.json({error: 'Empty cart'}, {status: 400})
+    }
+
+    // Validate items against Sanity
+    const line_items: Stripe.Checkout.SessionCreateParams.LineItem[] = []
+    for (const it of items) {
+      const product = await client.fetch(productBySlugQuery, {slug: it.slug})
+      if (!product) return NextResponse.json({error: 'Invalid product'}, {status: 400})
+      const unitAmount = (product.priceCents as number) || it.priceCents
+      line_items.push({
+        quantity: it.quantity,
+        price_data: {
+          currency: (product.currency as string) || it.currency || 'USD',
+          unit_amount: unitAmount,
+          product_data: {
+            name: product.title,
+            images: product.images?.[0]?.asset?.url ? [product.images[0].asset.url] : [],
+          },
+        },
+      })
+    }
+
+    const session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      line_items,
+      shipping_address_collection: {allowed_countries: ['US', 'CA', 'GB', 'IE', 'DE', 'FR', 'ES', 'IT', 'AU', 'NZ']},
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/merch?success=1`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/cart?canceled=1`,
+    })
+
+    return NextResponse.json({id: session.id, url: session.url})
+  } catch (err: any) {
+    console.error(err)
+    return NextResponse.json({error: err.message || 'Checkout failed'}, {status: 500})
+  }
+}
+
