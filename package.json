@@ -13,7 +13,8 @@
     "validate": "npm run type-check",
     "build:types": "npm run extract-schema && npm run typegen",
     "test": "playwright test",
-    "test:ui": "playwright test --ui"
+    "test:ui": "playwright test --ui",
+    "seed:products": "node scripts/seed-products.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.2",

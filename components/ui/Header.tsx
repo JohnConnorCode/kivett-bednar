@@ -3,6 +3,9 @@
 import Link from 'next/link'
 import {useState, useEffect} from 'react'
 import {usePathname} from 'next/navigation'
+import {ShoppingCart} from 'lucide-react'
+import {CartDrawer} from './CartDrawer'
+import {useCart} from './CartContext'
 
 interface HeaderProps {
   siteName?: string
@@ -15,6 +18,9 @@ export function Header({siteName, navigation}: HeaderProps) {
   const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
   const isHomePage = pathname === '/'
+  const [cartOpen, setCartOpen] = useState(false)
+  const {items} = useCart()
+  const itemCount = items.reduce((sum, i) => sum + i.quantity, 0)
 
   useEffect(() => {
     setMounted(true)
@@ -91,6 +97,22 @@ export function Header({siteName, navigation}: HeaderProps) {
                 {item.title}
               </Link>
             ))}
+            {/* Cart Button */}
+            <button
+              aria-label="Open cart"
+              className={`relative rounded-full p-2 transition-colors ${
+                isScrolled ? 'text-white/90 hover:text-accent-primary' : 'text-white hover:text-accent-primary'
+              }`}
+              onClick={() => setCartOpen(true)}
+              type="button"
+            >
+              <ShoppingCart className="h-6 w-6" />
+              {itemCount > 0 && (
+                <span className="absolute -top-1 -right-1 text-xs bg-accent-primary text-black rounded-full px-1.5 py-0.5 font-bold">
+                  {itemCount}
+                </span>
+              )}
+            </button>
           </nav>
 
           {/* Mobile menu button - Always white for visibility */}
@@ -141,6 +163,9 @@ export function Header({siteName, navigation}: HeaderProps) {
             ))}
           </nav>
         )}
+
+        {/* Cart Drawer */}
+        <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
       </div>
     </header>
   )
