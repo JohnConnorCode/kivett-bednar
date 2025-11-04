@@ -82,6 +82,35 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
 
       S.divider(),
 
+      // === ORDERS ===
+      S.listItem()
+        .title('Orders')
+        .icon(BasketIcon)
+        .child(
+          S.list()
+            .title('Orders by Status')
+            .items([
+              'pending',
+              'submitted',
+              'in_production',
+              'shipped',
+              'delivered',
+              'canceled',
+              'failed',
+            ].map((status) =>
+              S.listItem()
+                .title(status.replace('_', ' ').toUpperCase())
+                .child(
+                  S.documentList()
+                    .title(`Orders: ${status}`)
+                    .filter('_type == "order" && status == $status')
+                    .params({status}),
+                ),
+            )),
+        ),
+
+      S.divider(),
+
       // === DOCUMENT TYPES ===
       // These content types can have multiple instances (Events, Pages, Products, Songs, etc.)
 

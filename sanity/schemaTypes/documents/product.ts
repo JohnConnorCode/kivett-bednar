@@ -14,7 +14,9 @@ export const product = defineType({
     defineField({
       name: 'title',
       title: 'Product Title',
-      type: 'string',    }),
+      type: 'string',
+      validation: (Rule) => Rule.required().min(2),
+    }),
     defineField({
       name: 'slug',
       title: 'Slug',
@@ -45,12 +47,16 @@ export const product = defineType({
               type: 'string',            }),
           ],
         }),
-      ],    }),
+      ],
+      validation: (Rule) => Rule.min(1).error('At least one image is required'),
+    }),
     defineField({
       name: 'priceCents',
       title: 'Price (cents)',
       type: 'number',
-      description: 'Price in cents (e.g., 2500 = $25.00)',    }),
+      description: 'Price in cents (e.g., 2500 = $25.00)',
+      validation: (Rule) => Rule.required().positive().integer(),
+    }),
     defineField({
       name: 'currency',
       title: 'Currency',

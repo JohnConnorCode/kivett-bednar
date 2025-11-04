@@ -11,7 +11,9 @@ export const hero = defineType({
     defineField({
       name: 'headline',
       title: 'Headline',
-      type: 'string',    }),
+      type: 'string',
+      validation: (Rule) => Rule.required().min(2),
+    }),
     defineField({
       name: 'headlineDesktopSize',
       title: 'Headline Size (Desktop)',
@@ -231,9 +233,15 @@ export const hero = defineType({
         defineField({
           name: 'alt',
           title: 'Alt Text',
-          type: 'string',        }),
+          type: 'string',
+        }),
       ],
       hidden: ({parent}) => parent?.mediaType !== 'image',
+      validation: (Rule) => Rule.custom((_, ctx) => {
+        const p: any = (ctx as any).parent
+        if (p?.mediaType === 'image' && !p?.image) return 'Image is required when media type is image'
+        return true
+      }),
     }),
     defineField({
       name: 'mobileImage',
@@ -300,6 +308,11 @@ export const hero = defineType({
       type: 'url',
       description: 'Video file URL (MP4, WebM, etc.)',
       hidden: ({parent}) => parent?.mediaType !== 'video',
+      validation: (Rule) => Rule.custom((val, ctx) => {
+        const p: any = (ctx as any).parent
+        if (p?.mediaType === 'video' && !val) return 'Video URL is required when media type is video'
+        return true
+      }),
     }),
     defineField({
       name: 'backgroundVariant',

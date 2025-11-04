@@ -15,7 +15,9 @@ export const page = defineType({
     defineField({
       name: 'name',
       title: 'Name',
-      type: 'string',    }),
+      type: 'string',
+      validation: (Rule) => Rule.required().min(2),
+    }),
 
     defineField({
       name: 'slug',
@@ -133,6 +135,25 @@ export const page = defineType({
       ],
     }),
   ],
+  initialValue: {
+    modules: [
+      {
+        _type: 'hero',
+        headline: 'New Page',
+        mediaType: 'image',
+      },
+      {
+        _type: 'richText',
+        content: [
+          {
+            _type: 'block',
+            style: 'normal',
+            children: [{_type: 'span', text: 'Start writing your content...'}],
+          },
+        ],
+      },
+    ],
+  },
   preview: {
     select: {
       title: 'name',

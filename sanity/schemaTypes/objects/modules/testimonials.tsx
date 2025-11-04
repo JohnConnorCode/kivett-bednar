@@ -9,6 +9,13 @@ export const testimonials = defineType({
   icon: UsersIcon,
   fields: [
     defineField({
+      name: 'set',
+      title: 'Use Testimonials Set',
+      type: 'reference',
+      to: [{type: 'testimonialsSet'}],
+      description: 'Optional: reference a reusable set instead of defining items here',
+    }),
+    defineField({
       name: 'heading',
       title: 'Heading',
       type: 'string',
@@ -112,6 +119,7 @@ export const testimonials = defineType({
       name: 'items',
       title: 'Testimonials',
       type: 'array',
+      hidden: ({parent}) => Boolean(parent?.set),
       of: [
         defineField({
           name: 'testimonial',
@@ -135,8 +143,8 @@ export const testimonials = defineType({
     }),
   ],
   preview: {
-    select: {title: 'heading'},
-    prepare({title}) {
+    select: {title: 'heading', hasSet: 'set._ref'},
+    prepare({title, hasSet}) {
       return {title: title || 'Testimonials'}
     },
   },

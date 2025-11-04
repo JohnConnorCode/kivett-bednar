@@ -8,6 +8,13 @@ export const faq = defineType({
   type: 'object',
   icon: HelpCircleIcon,
   fields: [
+    defineField({
+      name: 'set',
+      title: 'Use FAQ Set',
+      type: 'reference',
+      to: [{type: 'faqSet'}],
+      description: 'Optional: reference a reusable FAQ set instead of defining items here',
+    }),
     defineField({name: 'heading', title: 'Heading', type: 'string'}),
     defineField({
       name: 'headingTracking',
@@ -108,6 +115,7 @@ export const faq = defineType({
       name: 'items',
       title: 'Questions',
       type: 'array',
+      hidden: ({parent}) => Boolean(parent?.set),
       of: [
         defineField({
           name: 'qa',
@@ -124,7 +132,7 @@ export const faq = defineType({
     }),
   ],
   preview: {
-    select: {title: 'heading'},
+    select: {title: 'heading', hasSet: 'set._ref'},
     prepare({title}) {
       return {title: title || 'FAQ'}
     },

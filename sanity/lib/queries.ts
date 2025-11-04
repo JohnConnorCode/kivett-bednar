@@ -386,6 +386,7 @@ const moduleFields = /* groq */ `
     heading,
     headingTracking,
     headingLineHeight,
+    'items': coalesce(items, set->items),
     items[]{
       name,
       role,
@@ -399,6 +400,7 @@ const moduleFields = /* groq */ `
     heading,
     headingTracking,
     headingLineHeight,
+    'items': coalesce(items, set->items),
     items[]{
       question,
       answer

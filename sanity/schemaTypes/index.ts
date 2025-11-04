@@ -4,6 +4,8 @@ import {post} from './documents/post'
 import {event} from './documents/event'
 import {product} from './documents/product'
 import {order} from './documents/order'
+import {testimonialsSet} from './documents/testimonialsSet'
+import {faqSet} from './documents/faqSet'
 import {newsletterSubscriber} from './documents/newsletterSubscriber'
 import {callToAction} from './objects/callToAction'
 import {infoSection} from './objects/infoSection'
@@ -51,6 +53,8 @@ export const schemaTypes = [
   event,
   product,
   order,
+  testimonialsSet,
+  faqSet,
   song,
   newsletterSubscriber,
   // Objects
