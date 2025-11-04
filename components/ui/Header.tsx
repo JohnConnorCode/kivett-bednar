@@ -161,6 +161,28 @@ export function Header({siteName, navigation}: HeaderProps) {
                 {item.title}
               </Link>
             ))}
+            <div className="mt-2 pt-3 border-t border-accent-primary/30 flex items-center justify-between">
+              <button
+                aria-label="Open cart"
+                className="flex items-center gap-2 text-white/90 hover:text-accent-primary transition-colors"
+                onClick={() => {
+                  setMobileMenuOpen(false)
+                  setCartOpen(true)
+                }}
+                type="button"
+              >
+                <ShoppingCart className="h-6 w-6" />
+                <span className="uppercase tracking-wider text-sm">Cart</span>
+                {itemCount > 0 && (
+                  <span className="ml-2 text-xs bg-accent-primary text-black rounded-full px-1.5 py-0.5 font-bold">
+                    {itemCount}
+                  </span>
+                )}
+              </button>
+              <Link href="/cart" className="text-sm text-white/80 hover:text-accent-primary" onClick={() => setMobileMenuOpen(false)}>
+                View Cart
+              </Link>
+            </div>
           </nav>
         )}
 

@@ -65,6 +65,10 @@ export function linkResolver(link: Link | undefined) {
       if (link?.post && typeof link.post === 'string') {
         return `/posts/${link.post}`
       }
+    case 'product':
+      if (link?.product && typeof link.product === 'string') {
+        return `/merch/${link.product}`
+      }
     default:
       return null
   }

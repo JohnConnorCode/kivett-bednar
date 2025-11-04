@@ -36,6 +36,7 @@ export const blockContent = defineType({
                     {title: 'URL', value: 'href'},
                     {title: 'Page', value: 'page'},
                     {title: 'Post', value: 'post'},
+                    {title: 'Product', value: 'product'},
                   ],
                   layout: 'radio',
                 },
@@ -82,10 +83,45 @@ export const blockContent = defineType({
                   }),
               }),
               defineField({
+                name: 'product',
+                title: 'Product',
+                type: 'reference',
+                to: [{type: 'product'}],
+                hidden: ({parent}) => parent?.linkType !== 'product',
+                validation: (Rule) =>
+                  Rule.custom((value, context: any) => {
+                    if (context.parent?.linkType === 'product' && !value) {
+                      return 'Product reference is required when Link Type is Product'
+                    }
+                    return true
+                  }),
+              }),
+              defineField({
                 name: 'openInNewTab',
                 title: 'Open in new tab',
                 type: 'boolean',
                 initialValue: false,
+              }),
+            ],
+          },
+          {
+            name: 'button',
+            type: 'object',
+            title: 'Button',
+            fields: [
+              defineField({name: 'label', title: 'Label', type: 'string', validation: (Rule) => Rule.required()}),
+              defineField({
+                name: 'variant',
+                title: 'Variant',
+                type: 'string',
+                initialValue: 'primary',
+                options: {list: ['primary', 'secondary', 'outline']},
+              }),
+              defineField({
+                name: 'href',
+                title: 'URL',
+                type: 'url',
+                validation: (Rule) => Rule.uri({allowRelative: true, scheme: ['http', 'https']}).required(),
               }),
             ],
           },
