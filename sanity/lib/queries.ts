@@ -522,6 +522,7 @@ export const allProductsQuery = defineQuery(`*[_type == "product"] | order(_crea
 export const productBySlugQuery = defineQuery(`*[_type == "product" && slug.current == $slug][0]{
   _id,
   title,
+  "slug": slug.current,
   description,
   images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
   priceCents,
