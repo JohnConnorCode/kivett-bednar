@@ -36,6 +36,8 @@ export default async function ProductPage({params}: Props) {
 
   const price = product.priceCents ? (product.priceCents / 100).toFixed(2) : '0.00'
 
+  const productSlug: string = product.slug?.current || '';
+
   // Generate JSON-LD structured data for product
   const productJsonLd = {
     '@context': 'https://schema.org',
@@ -63,7 +65,7 @@ export default async function ProductPage({params}: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{__html: JSON.stringify(productJsonLd)}}
       />
-      <PurchaseSection product={{ _id: product._id, title: product.title, slug: (product.slug?.current || '') as string, priceCents: product.priceCents, currency: product.currency, options: product.options || [], imageUrl: product.images?.[0]?.asset?.url || undefined }} />
+      <PurchaseSection product={{ _id: product._id, title: product.title, slug: productSlug, priceCents: product.priceCents, currency: product.currency, options: product.options || [], imageUrl: product.images?.[0]?.asset?.url || undefined }} />
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12">
