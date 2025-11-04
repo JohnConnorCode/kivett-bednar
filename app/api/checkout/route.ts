@@ -28,6 +28,11 @@ export async function POST(req: Request) {
           product_data: {
             name: product.title,
             images: product.images?.[0]?.asset?.url ? [product.images[0].asset.url] : [],
+            metadata: {
+              productId: product._id,
+              slug: it.slug,
+              options: it.options ? JSON.stringify(it.options) : '{}',
+            },
           },
         },
       })
@@ -39,6 +44,10 @@ export async function POST(req: Request) {
       shipping_address_collection: {allowed_countries: ['US', 'CA', 'GB', 'IE', 'DE', 'FR', 'ES', 'IT', 'AU', 'NZ']},
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/merch?success=1`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/cart?canceled=1`,
+      metadata: {
+        // Simple checksum for debugging
+        cartSize: String(items.length),
+      },
     })
 
     return NextResponse.json({id: session.id, url: session.url})
@@ -47,4 +56,3 @@ export async function POST(req: Request) {
     return NextResponse.json({error: err.message || 'Checkout failed'}, {status: 500})
   }
 }
-

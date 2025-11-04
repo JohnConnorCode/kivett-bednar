@@ -3,6 +3,7 @@ import {page} from './documents/page'
 import {post} from './documents/post'
 import {event} from './documents/event'
 import {product} from './documents/product'
+import {order} from './documents/order'
 import {newsletterSubscriber} from './documents/newsletterSubscriber'
 import {callToAction} from './objects/callToAction'
 import {infoSection} from './objects/infoSection'
@@ -49,6 +50,7 @@ export const schemaTypes = [
   person,
   event,
   product,
+  order,
   song,
   newsletterSubscriber,
   // Objects
