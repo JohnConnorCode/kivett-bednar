@@ -63,7 +63,7 @@ export default async function ProductPage({params}: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{__html: JSON.stringify(productJsonLd)}}
       />
-      <PurchaseSection product={{ _id: product._id, title: product.title, slug: product.slug || '', priceCents: product.priceCents, currency: product.currency, options: product.options || [], imageUrl: product.images?.[0]?.asset?.url || undefined }} />
+      <PurchaseSection product={{ _id: product._id, title: product.title, slug: product.slug?.current || '', priceCents: product.priceCents, currency: product.currency, options: product.options || [], imageUrl: product.images?.[0]?.asset?.url || undefined }} />
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12">
