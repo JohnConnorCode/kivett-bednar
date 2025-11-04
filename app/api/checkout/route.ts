@@ -3,11 +3,17 @@ import Stripe from 'stripe'
 import {client} from '@/sanity/lib/client'
 import {productBySlugQuery} from '@/sanity/lib/queries'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2024-06-20',
-})
+let stripe: Stripe
+if (process.env.STRIPE_ENABLED === 'true') {
+  stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+    apiVersion: '2025-02-24.acacia' as any,
+  })
+}
 
 export async function POST(req: Request) {
+  if (process.env.STRIPE_ENABLED !== 'true') {
+    return NextResponse.json({error: 'Checkout is disabled'}, {status: 501})
+  }
   try {
     const {items} = await req.json()
     if (!Array.isArray(items) || items.length === 0) {

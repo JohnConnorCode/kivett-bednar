@@ -90,7 +90,7 @@ export type RichText = {
     style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
     listItem?: "bullet" | "number";
     markDefs?: Array<{
-      linkType?: "href" | "page" | "post";
+      linkType?: "href" | "page" | "post" | "product";
       href?: string;
       page?: {
         _ref: string;
@@ -103,6 +103,12 @@ export type RichText = {
         _type: "reference";
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "post";
+      };
+      product?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "product";
       };
       openInNewTab?: boolean;
       _type: "link";
@@ -168,7 +174,7 @@ export type CallToAction = {
 
 export type Link = {
   _type: "link";
-  linkType?: "href" | "page" | "post";
+  linkType?: "href" | "page" | "post" | "product";
   href?: string;
   page?: {
     _ref: string;
@@ -181,6 +187,12 @@ export type Link = {
     _type: "reference";
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "post";
+  };
+  product?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "product";
   };
   openInNewTab?: boolean;
 };
@@ -232,26 +244,31 @@ export type BlockContent = Array<{
   }>;
   style?: "normal" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "blockquote";
   listItem?: "bullet" | "number";
-  markDefs?: Array<{
-    linkType?: "href" | "page" | "post";
-    href?: string;
-    page?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "page";
-    };
-    post?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "post";
-    };
-    openInNewTab?: boolean;
-    _type: "link";
-    _key: string;
-  }>;
-  level?: number;
+      markDefs?: Array<{
+        linkType?: "href" | "page" | "post" | "product";
+        href?: string;
+        page?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "page";
+        };
+        post?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "post";
+        };
+        product?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "product";
+        };
+        openInNewTab?: boolean;
+        _type: "link";
+        _key: string;
+      }>;  level?: number;
   _type: "block";
   _key: string;
 }>;
@@ -980,7 +997,7 @@ export type Settings = {
     style?: "normal";
     listItem?: never;
     markDefs?: Array<{
-      linkType?: "href" | "page" | "post";
+      linkType?: "href" | "page" | "post" | "product";
       href?: string;
       page?: {
         _ref: string;
@@ -993,6 +1010,12 @@ export type Settings = {
         _type: "reference";
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "post";
+      };
+      product?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "product";
       };
       openInNewTab?: boolean;
       _type: "link";
