@@ -2,7 +2,6 @@ import './globals.css'
 
 import {SpeedInsights} from '@vercel/speed-insights/next'
 import type {Metadata} from 'next'
-import {Inter, Bebas_Neue} from 'next/font/google'
 import {draftMode} from 'next/headers'
 import {VisualEditing, toPlainText} from 'next-sanity'
 import {Toaster} from 'sonner'
@@ -60,24 +59,11 @@ export async function generateMetadata(): Promise<Metadata> {
   }
 }
 
-const inter = Inter({
-  variable: '--font-inter',
-  subsets: ['latin'],
-  display: 'swap',
-})
-
-const bebasNeue = Bebas_Neue({
-  variable: '--font-bebas',
-  subsets: ['latin'],
-  weight: '400',
-  display: 'swap',
-})
-
 export default async function RootLayout({children}: {children: React.ReactNode}) {
   const {isEnabled: isDraftMode} = await draftMode()
 
   return (
-    <html lang="en" className={`${inter.variable} ${bebasNeue.variable} bg-white text-black`}>
+    <html lang="en" className="bg-white text-black">
       <body className="overflow-x-hidden">
         <GrainOverlay />
         <section className="min-h-screen">

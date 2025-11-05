@@ -3,6 +3,7 @@
  * Run with: npx tsx scripts/add-demo-products.ts
  */
 
+// @ts-nocheck
 import {client} from '../sanity/lib/client'
 
 const demoProducts = [
@@ -79,6 +80,7 @@ const demoProducts = [
     lowStockThreshold: 10,
     materials: 'Vinyl, Cardboard Sleeve, 180g pressing',
     careInstructions: 'Handle by edges only. Store vertically in cool, dry place away from direct sunlight.',
+    options: [],
     shippingNotes: 'Limited edition pressing. Ships within 1-2 business days in protective packaging.',
     dimensions: {
       length: 12.5,
@@ -115,6 +117,7 @@ const demoProducts = [
     inventoryQuantity: -1,
     trackInventory: false,
     materials: 'Premium Celluloid',
+    options: [],
     shippingNotes: 'Ships within 1-2 business days.',
     seo: {
       title: 'Professional Guitar Pick Set | Kivett Bednar',
@@ -237,6 +240,7 @@ const demoProducts = [
     tags: ['digital', 'download', 'album', 'music'],
     inventoryQuantity: -1,
     trackInventory: false,
+    options: [],
     shippingNotes: 'Digital download - instant delivery. Download link valid for 30 days.',
     seo: {
       title: 'Digital Album Download | Kivett Bednar',

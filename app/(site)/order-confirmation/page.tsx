@@ -40,7 +40,7 @@ export default function OrderConfirmationPage() {
             No Order Found
           </h1>
           <p className="text-text-secondary mb-8">
-            We couldn't find your order information.
+            We couldn&apos;t find your order information.
           </p>
           <Link href="/merch" className="btn-primary inline-flex">
             Browse Merch
@@ -263,7 +263,7 @@ export default function OrderConfirmationPage() {
             {/* Next Steps */}
             <div className="bg-background/50 border border-border p-8 mb-8">
               <h2 className="font-bebas text-2xl uppercase tracking-wide text-text-primary mb-4">
-                What's Next?
+                What&apos;s Next?
               </h2>
               <ul className="space-y-3 text-text-secondary">
                 <li className="flex items-start gap-3">
@@ -282,7 +282,7 @@ export default function OrderConfirmationPage() {
                     />
                   </svg>
                   <span>
-                    You'll receive an order confirmation email at {orderData.shippingInfo.email}
+                    You&apos;ll receive an order confirmation email at {orderData.shippingInfo.email}
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
@@ -318,7 +318,7 @@ export default function OrderConfirmationPage() {
                     />
                   </svg>
                   <span>
-                    You'll receive tracking information once your order ships
+                    You&apos;ll receive tracking information once your order ships
                   </span>
                 </li>
               </ul>

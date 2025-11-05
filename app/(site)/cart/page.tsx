@@ -62,7 +62,7 @@ export default function CartPage() {
                     Your cart is empty
                   </h2>
                   <p className="text-text-secondary mb-8">
-                    Looks like you haven't added any items to your cart yet.
+                    Looks like you haven&apos;t added any items to your cart yet.
                   </p>
                   <Link href="/merch" className="btn-primary inline-flex">
                     Continue Shopping
