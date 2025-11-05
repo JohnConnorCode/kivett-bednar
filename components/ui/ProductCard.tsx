@@ -14,7 +14,14 @@ type Product = {
     alt: string
   }>
   priceCents: number
+  compareAtPriceCents?: number
+  onSale?: boolean
   currency: string
+  stockStatus?: string
+  badges?: string[]
+  inventoryQuantity?: number
+  trackInventory?: boolean
+  lowStockThreshold?: number
 }
 
 export function ProductCard({product}: {product: Product}) {
@@ -28,6 +35,27 @@ export function ProductCard({product}: {product: Product}) {
   }, [])
 
   const price = (product.priceCents / 100).toFixed(2)
+  const compareAtPrice = product.compareAtPriceCents
+    ? (product.compareAtPriceCents / 100).toFixed(2)
+    : null
+
+  // Calculate stock status
+  const isLowStock =
+    product.trackInventory &&
+    product.inventoryQuantity !== undefined &&
+    product.inventoryQuantity > 0 &&
+    product.inventoryQuantity <= (product.lowStockThreshold || 5)
+
+  const isOutOfStock =
+    product.trackInventory &&
+    product.inventoryQuantity !== undefined &&
+    product.inventoryQuantity === 0
+
+  // Determine discount percentage
+  const discountPercentage =
+    product.onSale && product.compareAtPriceCents
+      ? Math.round(((product.compareAtPriceCents - product.priceCents) / product.compareAtPriceCents) * 100)
+      : null
 
   return (
     <Link
@@ -51,9 +79,46 @@ export function ProductCard({product}: {product: Product}) {
             }}
           />
 
+          {/* Badges */}
+          <div className="absolute top-4 left-4 z-20 flex flex-col gap-2">
+            {product.onSale && discountPercentage && (
+              <div className="bg-accent-red text-white text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg">
+                {discountPercentage}% Off
+              </div>
+            )}
+            {product.badges?.map((badge) => (
+              <div
+                key={badge}
+                className="bg-accent-primary text-black text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg"
+              >
+                {badge === 'bestseller'
+                  ? 'Best Seller'
+                  : badge === 'limited'
+                  ? 'Limited'
+                  : badge === 'tour-exclusive'
+                  ? 'Tour Exclusive'
+                  : badge === 'back-in-stock'
+                  ? 'Back in Stock'
+                  : badge === 'new'
+                  ? 'New'
+                  : badge}
+              </div>
+            ))}
+            {isOutOfStock && (
+              <div className="bg-text-muted text-black text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg">
+                Out of Stock
+              </div>
+            )}
+            {isLowStock && !isOutOfStock && (
+              <div className="bg-orange-600 text-white text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg">
+                Only {product.inventoryQuantity} Left
+              </div>
+            )}
+          </div>
+
           {/* Quick View Badge */}
           <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div className="bg-accent-primary text-black text-xs font-bold px-3 py-1.5 uppercase tracking-wider">
+            <div className="bg-accent-primary text-black text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg">
               View
             </div>
           </div>
@@ -69,17 +134,29 @@ export function ProductCard({product}: {product: Product}) {
 
         {/* Price Bar */}
         <div className="flex items-center justify-between">
-          <div className="flex items-baseline gap-2">
-            <span className="text-sm text-text-muted uppercase tracking-wide">
-              {product.currency}
-            </span>
-            <span className="text-3xl font-bold text-accent-primary">
-              ${price}
-            </span>
+          <div className="flex flex-col gap-1">
+            <div className="flex items-baseline gap-2">
+              <span className="text-sm text-text-muted uppercase tracking-wide">
+                {product.currency}
+              </span>
+              <span className="text-3xl font-bold text-accent-primary">
+                ${price}
+              </span>
+            </div>
+            {compareAtPrice && product.onSale && (
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-text-muted line-through">
+                  ${compareAtPrice}
+                </span>
+                <span className="text-xs text-accent-red font-bold uppercase">
+                  Save ${(parseFloat(compareAtPrice) - parseFloat(price)).toFixed(2)}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* CTA Arrow */}
-          <div className="w-10 h-10 flex items-center justify-center border border-accent-primary text-accent-primary group-hover:bg-accent-primary group-hover:text-black transition-all duration-300">
+          <div className="w-10 h-10 flex items-center justify-center border border-accent-primary text-accent-primary group-hover:bg-accent-primary group-hover:text-black transition-all duration-300 flex-shrink-0">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

@@ -1,5 +1,5 @@
 /**
- * Script to add demo products to Sanity
+ * Script to add enhanced demo products to Sanity
  * Run with: npx tsx scripts/add-demo-products.ts
  */
 
@@ -26,6 +26,13 @@ const demoProducts = [
     category: 'apparel',
     stockStatus: 'in_stock',
     featured: true,
+    badges: ['bestseller', 'new'],
+    tags: ['apparel', 't-shirt', 'cotton', 'blues'],
+    inventoryQuantity: 45,
+    trackInventory: true,
+    lowStockThreshold: 10,
+    materials: '100% Premium Cotton, Screen Printed Design',
+    careInstructions: 'Machine wash cold, tumble dry low. Do not bleach.',
     options: [
       {
         name: 'Size',
@@ -59,11 +66,26 @@ const demoProducts = [
       },
     ],
     priceCents: 3499,
+    compareAtPriceCents: 3999,
+    onSale: true,
     currency: 'USD',
     category: 'music',
     stockStatus: 'low_stock',
     featured: true,
+    badges: ['limited'],
+    tags: ['vinyl', 'music', 'album', 'live', 'blues'],
+    inventoryQuantity: 8,
+    trackInventory: true,
+    lowStockThreshold: 10,
+    materials: 'Vinyl, Cardboard Sleeve, 180g pressing',
+    careInstructions: 'Handle by edges only. Store vertically in cool, dry place away from direct sunlight.',
     shippingNotes: 'Limited edition pressing. Ships within 1-2 business days in protective packaging.',
+    dimensions: {
+      length: 12.5,
+      width: 12.5,
+      height: 0.25,
+      weight: 12,
+    },
     seo: {
       title: 'Live Blues Album Vinyl | Kivett Bednar',
       description: 'Limited edition vinyl featuring live performances. Premium audio quality.',
@@ -89,6 +111,10 @@ const demoProducts = [
     category: 'accessories',
     stockStatus: 'in_stock',
     featured: false,
+    tags: ['accessories', 'guitar', 'picks', 'music'],
+    inventoryQuantity: -1,
+    trackInventory: false,
+    materials: 'Premium Celluloid',
     shippingNotes: 'Ships within 1-2 business days.',
     seo: {
       title: 'Professional Guitar Pick Set | Kivett Bednar',
@@ -115,12 +141,25 @@ const demoProducts = [
     category: 'prints',
     stockStatus: 'in_stock',
     featured: false,
+    badges: ['tour-exclusive'],
+    tags: ['poster', 'art', 'print', 'collectible'],
+    inventoryQuantity: 25,
+    trackInventory: true,
+    lowStockThreshold: 5,
+    materials: 'Archival Matte Paper, Giclee Print',
+    careInstructions: 'Frame with UV-protective glass. Keep away from direct sunlight and moisture.',
     options: [
       {
         name: 'Size',
         values: ['18x24', '24x36'],
       },
     ],
+    dimensions: {
+      length: 24,
+      width: 18,
+      height: 0.01,
+      weight: 3,
+    },
     shippingNotes: 'Shipped flat in protective tube. Ships within 2-3 business days.',
     seo: {
       title: 'Blues Concert Poster | Kivett Bednar Official Art',
@@ -143,10 +182,19 @@ const demoProducts = [
       },
     ],
     priceCents: 5499,
+    compareAtPriceCents: 6499,
+    onSale: true,
     currency: 'USD',
     category: 'apparel',
     stockStatus: 'in_stock',
     featured: true,
+    badges: ['bestseller', 'back-in-stock'],
+    tags: ['hoodie', 'apparel', 'tour', 'limited'],
+    inventoryQuantity: 32,
+    trackInventory: true,
+    lowStockThreshold: 10,
+    materials: '80% Cotton, 20% Polyester Fleece',
+    careInstructions: 'Machine wash cold with like colors. Tumble dry low.',
     options: [
       {
         name: 'Size',
@@ -157,6 +205,9 @@ const demoProducts = [
         values: ['Black', 'Charcoal'],
       },
     ],
+    dimensions: {
+      weight: 18,
+    },
     shippingNotes: 'Ships within 3-5 business days. Free shipping on orders over $50.',
     seo: {
       title: 'Tour Edition Hoodie | Kivett Bednar Merch',
@@ -183,6 +234,9 @@ const demoProducts = [
     category: 'music',
     stockStatus: 'in_stock',
     featured: false,
+    tags: ['digital', 'download', 'album', 'music'],
+    inventoryQuantity: -1,
+    trackInventory: false,
     shippingNotes: 'Digital download - instant delivery. Download link valid for 30 days.',
     seo: {
       title: 'Digital Album Download | Kivett Bednar',
@@ -209,12 +263,25 @@ const demoProducts = [
     category: 'accessories',
     stockStatus: 'in_stock',
     featured: false,
+    badges: ['limited'],
+    tags: ['leather', 'strap', 'guitar', 'accessories'],
+    inventoryQuantity: 15,
+    trackInventory: true,
+    lowStockThreshold: 5,
+    materials: 'Full Grain Leather, Suede Backing, Brass Hardware',
+    careInstructions: 'Condition with leather oil periodically. Avoid excessive moisture.',
     options: [
       {
         name: 'Color',
         values: ['Brown', 'Black', 'Tan'],
       },
     ],
+    dimensions: {
+      length: 60,
+      width: 2.5,
+      height: 0.25,
+      weight: 6,
+    },
     shippingNotes: 'Handcrafted to order. Ships within 5-7 business days.',
     seo: {
       title: 'Leather Guitar Strap | Kivett Bednar Gear',
@@ -241,6 +308,13 @@ const demoProducts = [
     category: 'accessories',
     stockStatus: 'in_stock',
     featured: false,
+    badges: ['new'],
+    tags: ['cap', 'hat', 'accessories', 'apparel'],
+    inventoryQuantity: 38,
+    trackInventory: true,
+    lowStockThreshold: 10,
+    materials: '100% Cotton Twill, Embroidered Logo',
+    careInstructions: 'Spot clean only. Do not machine wash.',
     options: [
       {
         name: 'Color',
@@ -256,19 +330,31 @@ const demoProducts = [
 ]
 
 async function addDemoProducts() {
-  console.log('Adding demo products to Sanity...')
+  console.log('Adding enhanced demo products to Sanity...\n')
 
   for (const product of demoProducts) {
     try {
       const result = await client.create(product)
       console.log(`✓ Created: ${product.title} (${result._id})`)
+      if (product.onSale) {
+        console.log(`  → On Sale: ${((product.compareAtPriceCents! - product.priceCents) / product.compareAtPriceCents! * 100).toFixed(0)}% off`)
+      }
+      if (product.badges && product.badges.length > 0) {
+        console.log(`  → Badges: ${product.badges.join(', ')}`)
+      }
+      if (product.trackInventory) {
+        console.log(`  → Stock: ${product.inventoryQuantity} units`)
+      }
     } catch (error: any) {
       console.error(`✗ Failed to create ${product.title}:`, error.message)
     }
   }
 
-  console.log('\nDemo products added! Please add images in Sanity Studio.')
-  console.log('Note: Products require at least one image to be valid.')
+  console.log('\n✓ Demo products added successfully!')
+  console.log('\nNext steps:')
+  console.log('1. Add images to each product in Sanity Studio')
+  console.log('2. Optionally add related products references')
+  console.log('3. Your store now has full ecommerce features!')
 }
 
 addDemoProducts().catch(console.error)
