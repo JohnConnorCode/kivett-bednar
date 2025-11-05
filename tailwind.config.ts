@@ -63,7 +63,7 @@ export default {
         'text-primary': '#ffffff',
         'text-secondary': '#dddddd',
         'text-muted': '#888888',
-        'accent-primary': '#F0C419', // Gold accent - use sparingly
+        'accent-primary': '#D4AF37', // Metallic Gold - matches globals.css
         'accent-secondary': '#4a9eff', // Electric blue
         'accent-red': '#a71a19', // Deep red
         black: '#0d0e12',
@@ -151,6 +151,7 @@ export default {
         sans: ['var(--font-inter)'],
         display: ['var(--font-display)', 'serif'],
         heading: ['var(--font-oswald)', 'sans-serif'],
+        bebas: ['var(--font-bebas)', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
         lg: 'var(--radius)',
