@@ -213,6 +213,41 @@ export const product = defineType({
         }),
       ],    }),
     defineField({
+      name: 'category',
+      title: 'Category',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Apparel', value: 'apparel'},
+          {title: 'Music', value: 'music'},
+          {title: 'Accessories', value: 'accessories'},
+          {title: 'Posters & Prints', value: 'prints'},
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'stockStatus',
+      title: 'Stock Status',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'In Stock', value: 'in_stock'},
+          {title: 'Low Stock', value: 'low_stock'},
+          {title: 'Out of Stock', value: 'out_of_stock'},
+          {title: 'Pre-Order', value: 'pre_order'},
+        ],
+      },
+      initialValue: 'in_stock',
+    }),
+    defineField({
+      name: 'featured',
+      title: 'Featured Product',
+      type: 'boolean',
+      description: 'Show this product prominently on the merch page',
+      initialValue: false,
+    }),
+    defineField({
       name: 'shippingNotes',
       title: 'Shipping Notes',
       type: 'text',

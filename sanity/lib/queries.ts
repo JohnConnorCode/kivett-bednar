@@ -516,7 +516,10 @@ export const allProductsQuery = defineQuery(`*[_type == "product"] | order(_crea
   "slug": slug.current,
   images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
   priceCents,
-  currency
+  currency,
+  category,
+  stockStatus,
+  featured
 }`)
 
 export const productBySlugQuery = defineQuery(`*[_type == "product" && slug.current == $slug][0]{
@@ -527,6 +530,9 @@ export const productBySlugQuery = defineQuery(`*[_type == "product" && slug.curr
   images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
   priceCents,
   currency,
+  category,
+  stockStatus,
+  featured,
   options[]{name, values},
   variants[]{optionValues, priceCents, sku},
   gelatoProductUid,
@@ -539,13 +545,16 @@ export const productSlugsQuery = defineQuery(`*[_type == "product" && defined(sl
   "slug": slug.current
 }`)
 
-export const featuredProductsQuery = defineQuery(`*[_type == "product"] | order(_createdAt desc)[0...$limit]{
+export const featuredProductsQuery = defineQuery(`*[_type == "product" && featured == true] | order(_createdAt desc)[0...$limit]{
   _id,
   title,
   "slug": slug.current,
   images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
   priceCents,
-  currency
+  currency,
+  category,
+  stockStatus,
+  featured
 }`)
 
 // Posts (blog functionality - template remnant)
