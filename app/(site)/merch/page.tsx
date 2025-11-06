@@ -175,9 +175,15 @@ export default async function MerchPage() {
     // Fetch products from Sanity
     const sanityProducts = await sanityFetch({query: allProductsQuery}).then((r) => r.data)
 
-    // Use Sanity products if available, otherwise use demo products
+    // Merge Sanity products with demo products, prioritizing demo products
+    // This ensures we always show all demo products plus any additional Sanity products
     if (sanityProducts && sanityProducts.length > 0) {
-      products = sanityProducts
+      // Filter out any Sanity products that have the same IDs as demo products
+      const uniqueSanityProducts = sanityProducts.filter(
+        (sp: any) => !demoProducts.some(dp => dp._id === sp._id)
+      )
+      // Combine demo products first, then unique Sanity products
+      products = [...demoProducts, ...uniqueSanityProducts]
     }
   } catch (error) {
     console.warn('Failed to fetch products from Sanity, using demo products:', error)
