@@ -43,7 +43,7 @@ export default function Error({
           </h1>
 
           <p className="text-text-secondary text-lg mb-8 leading-relaxed">
-            We encountered an unexpected error. Don't worry, it's not your fault.
+            We encountered an unexpected error. Don&apos;t worry, it&apos;s not your fault.
           </p>
 
           {/* Error Details (dev mode) */}

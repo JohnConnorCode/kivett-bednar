@@ -514,7 +514,7 @@ export const allProductsQuery = defineQuery(`*[_type == "product"] | order(_crea
   _id,
   title,
   "slug": slug.current,
-  images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
+  images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
   priceCents,
   compareAtPriceCents,
   onSale,
