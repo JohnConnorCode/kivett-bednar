@@ -202,38 +202,6 @@ export const structure: StructureResolver = (S: StructureBuilder) =>
                 ),
 
               S.listItem()
-                .title('Product Reviews')
-                .icon(StarIcon)
-                .child(
-                  S.list()
-                    .title('Product Reviews')
-                    .items([
-                      S.listItem()
-                        .title('Pending Approval')
-                        .child(
-                          S.documentList()
-                            .title('Pending Reviews')
-                            .filter('_type == "productReview" && approved == false')
-                        ),
-                      S.listItem()
-                        .title('Approved Reviews')
-                        .child(
-                          S.documentList()
-                            .title('Approved Reviews')
-                            .filter('_type == "productReview" && approved == true')
-                        ),
-                      S.listItem()
-                        .title('All Reviews')
-                        .child(
-                          S.documentList()
-                            .title('All Reviews')
-                            .filter('_type == "productReview"')
-                            .defaultOrdering([{field: 'createdAt', direction: 'desc'}])
-                        ),
-                    ])
-                ),
-
-              S.listItem()
                 .title('Promo Codes')
                 .icon(TagIcon)
                 .child(
