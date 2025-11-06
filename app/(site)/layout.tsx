@@ -10,10 +10,17 @@ export default async function SiteLayout({
 }: {
   children: ReactNode
 }) {
-  const [settings, uiText] = await Promise.all([
-    sanityFetch({query: settingsQuery}).then((r) => r.data),
-    sanityFetch({query: uiTextQuery}).then((r) => r.data),
-  ])
+  let settings = null
+  let uiText = null
+
+  try {
+    ;[settings, uiText] = await Promise.all([
+      sanityFetch({query: settingsQuery}).then((r) => r.data),
+      sanityFetch({query: uiTextQuery}).then((r) => r.data),
+    ])
+  } catch (error) {
+    console.warn('Failed to fetch layout data, using fallback content:', error)
+  }
 
   const navigation = [
     {title: uiText?.navShows || 'Shows', href: '/shows'},

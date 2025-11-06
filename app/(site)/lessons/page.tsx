@@ -10,11 +10,21 @@ export const metadata: Metadata = {
   description: 'Guitar and blues music lessons',
 }
 
+// Revalidate every 60 seconds (ISR)
+export const revalidate = 60
+
 export default async function LessonsPage() {
-  const [lessonsPage, settings] = await Promise.all([
-    sanityFetch({query: lessonsPageQuery}).then((r) => r.data),
-    sanityFetch({query: settingsQuery}).then((r) => r.data),
-  ])
+  let lessonsPage = null
+  let settings = null
+
+  try {
+    ;[lessonsPage, settings] = await Promise.all([
+      sanityFetch({query: lessonsPageQuery}).then((r) => r.data),
+      sanityFetch({query: settingsQuery}).then((r) => r.data),
+    ])
+  } catch (error) {
+    console.warn('Failed to fetch lessons page data, using fallback content:', error)
+  }
 
   // Fallback if no content yet
   if (!lessonsPage) {

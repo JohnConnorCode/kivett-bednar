@@ -1,7 +1,6 @@
 "use client"
 
 import {useEffect, useState} from 'react'
-import {useSearchParams} from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import {useCart} from '@/components/ui/CartContext'
@@ -15,7 +14,6 @@ type OrderData = {
 }
 
 export default function OrderConfirmationPage() {
-  const searchParams = useSearchParams()
   const {clear} = useCart()
   const [orderData, setOrderData] = useState<OrderData | null>(null)
 

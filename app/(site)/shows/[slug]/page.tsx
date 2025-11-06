@@ -16,11 +16,18 @@ type Props = {
 }
 
 export async function generateStaticParams() {
-  const slugs = await client.fetch(eventsSlugs)
-  // Query now returns slug if available, or _id as fallback
-  return slugs.map((item: {slug: string}) => ({
-    slug: item.slug,
-  }))
+  try {
+    const slugs = await client.fetch(eventsSlugs)
+    // Query now returns slug if available, or _id as fallback
+    return slugs.map((item: {slug: string}) => ({
+      slug: item.slug,
+    }))
+  } catch (error) {
+    console.warn('Failed to fetch event slugs for static generation:', error)
+    // Return empty array to allow build to continue
+    // Events will be generated on-demand instead
+    return []
+  }
 }
 
 export async function generateMetadata({params}: Props): Promise<Metadata> {

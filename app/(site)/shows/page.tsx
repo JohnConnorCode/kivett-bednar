@@ -12,14 +12,24 @@ export const metadata: Metadata = {
   description: 'Upcoming concerts and performances',
 }
 
+// Revalidate every 60 seconds (ISR)
+export const revalidate = 60
+
 export default async function ShowsPage() {
-  const [showsPage, events] = await Promise.all([
-    sanityFetch({query: showsPageQuery}).then((r) => r.data),
-    sanityFetch({
-      query: upcomingEventsQuery,
-      params: {now: new Date().toISOString(), limit: 50},
-    }).then((r) => r.data),
-  ])
+  let showsPage = null
+  let events = null
+
+  try {
+    ;[showsPage, events] = await Promise.all([
+      sanityFetch({query: showsPageQuery}).then((r) => r.data),
+      sanityFetch({
+        query: upcomingEventsQuery,
+        params: {now: new Date().toISOString(), limit: 50},
+      }).then((r) => r.data),
+    ])
+  } catch (error) {
+    console.warn('Failed to fetch shows page data, using fallback content:', error)
+  }
 
   // Generate JSON-LD structured data for events
   const eventsJsonLd = events?.map((event: any) => ({

@@ -12,13 +12,22 @@ type Props = {
   params: Promise<{slug: string}>
 }
 
+// Revalidate every 60 seconds (ISR)
+export const revalidate = 60
+
 export async function generateMetadata({params}: Props): Promise<Metadata> {
   const {slug} = await params
-  const product = await client.fetch(
-    productBySlugQuery,
-    {slug},
-    {next: {revalidate: 60}}
-  )
+  let product = null
+
+  try {
+    product = await client.fetch(
+      productBySlugQuery,
+      {slug},
+      {next: {revalidate: 60}}
+    )
+  } catch (error) {
+    console.warn(`Failed to fetch product metadata for slug: ${slug}`, error)
+  }
 
   return {
     title: product?.title ? `${product.title} | Kivett Bednar` : 'Product | Kivett Bednar',
@@ -28,7 +37,13 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 
 export default async function ProductPage({params}: Props) {
   const {slug} = await params
-  const product = await sanityFetch({query: productBySlugQuery, params: {slug}}).then((r) => r.data)
+  let product = null
+
+  try {
+    product = await sanityFetch({query: productBySlugQuery, params: {slug}}).then((r) => r.data)
+  } catch (error) {
+    console.warn(`Failed to fetch product for slug: ${slug}`, error)
+  }
 
   if (!product) {
     notFound()

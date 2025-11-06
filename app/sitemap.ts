@@ -9,7 +9,13 @@ import {headers} from 'next/headers'
  */
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const allPostsAndPages = await client.fetch(sitemapQuery, {}, {next: {revalidate: 60}})
+  let allPostsAndPages = null
+  try {
+    allPostsAndPages = await client.fetch(sitemapQuery, {}, {next: {revalidate: 60}})
+  } catch (error) {
+    console.warn('Failed to fetch content for sitemap, returning static pages only:', error)
+  }
+
   const headersList = await headers()
   const sitemap: MetadataRoute.Sitemap = []
   const host = headersList.get('host') || ''
