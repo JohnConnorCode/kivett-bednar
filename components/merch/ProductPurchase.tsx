@@ -2,6 +2,7 @@
 
 import {useState} from 'react'
 import {useCart} from '@/components/ui/CartContext'
+import {useToast} from '@/components/ui/Toast'
 
 type ProductOption = {name: string; values: string[]}
 
@@ -21,6 +22,7 @@ export function PurchaseSection({
   const [selected, setSelected] = useState<Record<string, string>>({})
   const [quantity, setQuantity] = useState(1)
   const {addItem} = useCart()
+  const {showToast} = useToast()
   const price = product.priceCents ? (product.priceCents / 100).toFixed(2) : '0.00'
 
   const handleAddToCart = () => {
@@ -34,6 +36,9 @@ export function PurchaseSection({
       quantity,
       options: Object.keys(selected).length ? selected : undefined,
     })
+
+    // Show success toast
+    showToast(`Added ${quantity}x ${product.title} to cart!`, 'success')
   }
 
   return (

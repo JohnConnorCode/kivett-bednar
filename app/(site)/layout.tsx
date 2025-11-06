@@ -3,6 +3,7 @@ import {sanityFetch} from '@/sanity/lib/live'
 import {settingsQuery, uiTextQuery} from '@/sanity/lib/queries'
 import {Header} from '@/components/ui/Header'
 import {CartProvider} from '@/components/ui/CartContext'
+import {ToastProvider} from '@/components/ui/Toast'
 import {Footer} from '@/components/ui/Footer'
 
 export default async function SiteLayout({
@@ -31,22 +32,24 @@ export default async function SiteLayout({
   ]
 
   return (
-    <CartProvider>
-      <Header siteName={uiText?.siteName || undefined} navigation={navigation} />
-      <main>{children}</main>
-      <Footer
-        navigation={navigation}
-        siteName={uiText?.siteName || undefined}
-        siteTagline={uiText?.siteTagline || undefined}
-        navigationHeading={uiText?.footerNavigationHeading || undefined}
-        connectHeading={uiText?.footerConnectHeading || undefined}
-        socialLinks={(settings?.socialLinks?.filter((link) =>
-          link.platform !== null && link.url !== null
-        ) as Array<{platform: string; url: string}> | undefined) || undefined}
-        socialFacebookLabel={uiText?.socialFacebook || undefined}
-        socialInstagramLabel={uiText?.socialInstagram || undefined}
-        copyrightText={uiText?.footerCopyrightText || undefined}
-      />
-    </CartProvider>
+    <ToastProvider>
+      <CartProvider>
+        <Header siteName={uiText?.siteName || undefined} navigation={navigation} />
+        <main>{children}</main>
+        <Footer
+          navigation={navigation}
+          siteName={uiText?.siteName || undefined}
+          siteTagline={uiText?.siteTagline || undefined}
+          navigationHeading={uiText?.footerNavigationHeading || undefined}
+          connectHeading={uiText?.footerConnectHeading || undefined}
+          socialLinks={(settings?.socialLinks?.filter((link) =>
+            link.platform !== null && link.url !== null
+          ) as Array<{platform: string; url: string}> | undefined) || undefined}
+          socialFacebookLabel={uiText?.socialFacebook || undefined}
+          socialInstagramLabel={uiText?.socialInstagram || undefined}
+          copyrightText={uiText?.footerCopyrightText || undefined}
+        />
+      </CartProvider>
+    </ToastProvider>
   )
 }

@@ -63,67 +63,89 @@ export function ProductCard({product}: {product: Product}) {
       className="group block relative bg-surface border border-border overflow-hidden transition-all duration-300 hover:border-accent-primary hover:-translate-y-2 hover:shadow-2xl hover:shadow-accent-primary/20"
     >
       {/* Image Container */}
-      {product.images?.[0]?.asset && (
-        <div className="relative aspect-square bg-background overflow-hidden">
-          {/* Dark overlay that lightens on hover */}
-          <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 z-10" />
+      <div className="relative aspect-square bg-background overflow-hidden">
+        {product.images?.[0]?.asset ? (
+          <>
+            {/* Dark overlay that lightens on hover */}
+            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 z-10" />
 
-          <Image
-            src={urlFor(product.images[0].asset).width(800).height(800).url()}
-            alt={product.images[0].alt || product.title}
-            fill
-            className="object-cover group-hover:scale-110 transition-transform duration-500"
-            sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
-            style={{
-              objectPosition: getObjectPosition(product.images[0], isMobile)
-            }}
-          />
-
-          {/* Badges */}
-          <div className="absolute top-4 left-4 z-20 flex flex-col gap-2">
-            {product.onSale && discountPercentage && (
-              <div className="bg-accent-red text-white text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg">
-                {discountPercentage}% Off
-              </div>
-            )}
-            {product.badges?.map((badge) => (
-              <div
-                key={badge}
-                className="bg-accent-primary text-black text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg"
+            <Image
+              src={urlFor(product.images[0].asset).width(800).height(800).url()}
+              alt={product.images[0].alt || product.title}
+              fill
+              className="object-cover group-hover:scale-110 transition-transform duration-500"
+              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+              style={{
+                objectPosition: getObjectPosition(product.images[0], isMobile)
+              }}
+            />
+          </>
+        ) : (
+          /* Professional fallback placeholder */
+          <div className="absolute inset-0 bg-gradient-to-br from-surface-elevated via-surface to-background flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
+            <div className="text-center px-8">
+              <svg
+                className="w-20 h-20 mx-auto text-text-muted/20 mb-3 group-hover:text-accent-primary/30 transition-colors duration-300"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1}
               >
-                {badge === 'bestseller'
-                  ? 'Best Seller'
-                  : badge === 'limited'
-                  ? 'Limited'
-                  : badge === 'tour-exclusive'
-                  ? 'Tour Exclusive'
-                  : badge === 'back-in-stock'
-                  ? 'Back in Stock'
-                  : badge === 'new'
-                  ? 'New'
-                  : badge}
-              </div>
-            ))}
-            {isOutOfStock && (
-              <div className="bg-text-muted text-black text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg">
-                Out of Stock
-              </div>
-            )}
-            {isLowStock && !isOutOfStock && (
-              <div className="bg-orange-600 text-white text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg">
-                Only {product.inventoryQuantity} Left
-              </div>
-            )}
-          </div>
-
-          {/* Quick View Badge */}
-          <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <div className="bg-accent-primary text-black text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg">
-              View
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"
+                />
+              </svg>
+              <p className="text-text-muted/40 text-xs uppercase tracking-widest font-bold">Image Coming Soon</p>
             </div>
           </div>
+        )}
+
+        {/* Badges */}
+        <div className="absolute top-4 left-4 z-20 flex flex-col gap-2">
+          {product.onSale && discountPercentage && (
+            <div className="bg-accent-red text-white text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg">
+              {discountPercentage}% Off
+            </div>
+          )}
+          {product.badges?.map((badge) => (
+            <div
+              key={badge}
+              className="bg-accent-primary text-black text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg"
+            >
+              {badge === 'bestseller'
+                ? 'Best Seller'
+                : badge === 'limited'
+                ? 'Limited'
+                : badge === 'tour-exclusive'
+                ? 'Tour Exclusive'
+                : badge === 'back-in-stock'
+                ? 'Back in Stock'
+                : badge === 'new'
+                ? 'New'
+                : badge}
+            </div>
+          ))}
+          {isOutOfStock && (
+            <div className="bg-text-muted text-black text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg">
+              Out of Stock
+            </div>
+          )}
+          {isLowStock && !isOutOfStock && (
+            <div className="bg-orange-600 text-white text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg">
+              Only {product.inventoryQuantity} Left
+            </div>
+          )}
         </div>
-      )}
+
+        {/* Quick View Badge */}
+        <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div className="bg-accent-primary text-black text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg">
+            View
+          </div>
+        </div>
+      </div>
 
       {/* Content */}
       <div className="relative p-6 bg-surface-elevated border-t border-border">
