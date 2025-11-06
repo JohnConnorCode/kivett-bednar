@@ -191,6 +191,15 @@ h3 { font-size: 32px; font-weight: 400; }
   }
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
 /* ======================
    PROFESSIONAL CSS GRID SYSTEM
    Based on Piper and The Hard Times pattern

@@ -4,10 +4,29 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {useCart} from '@/components/ui/CartContext'
 import {useRouter} from 'next/navigation'
+import {PromoCodeInput} from '@/components/ui/PromoCodeInput'
+import {useState} from 'react'
 
 export default function CartPage() {
   const {items, totalCents, updateQty, removeItem, clear} = useCart()
   const router = useRouter()
+  const [promoDiscount, setPromoDiscount] = useState(0)
+  const [promoCode, setPromoCode] = useState('')
+  const [promoDescription, setPromoDescription] = useState('')
+
+  const handleApplyPromo = (discountCents: number, code: string, description?: string) => {
+    setPromoDiscount(discountCents)
+    setPromoCode(code)
+    setPromoDescription(description || '')
+  }
+
+  const handleRemovePromo = () => {
+    setPromoDiscount(0)
+    setPromoCode('')
+    setPromoDescription('')
+  }
+
+  const finalTotal = Math.max(0, totalCents - promoDiscount)
 
   const proceedToCheckout = () => {
     router.push('/checkout')
@@ -172,6 +191,21 @@ export default function CartPage() {
                           ${(totalCents / 100).toFixed(2)}
                         </span>
                       </div>
+                      {promoDiscount > 0 && (
+                        <div className="flex justify-between text-accent-primary">
+                          <span>
+                            Discount
+                            {promoDescription && (
+                              <span className="text-xs block text-text-muted mt-0.5">
+                                {promoDescription}
+                              </span>
+                            )}
+                          </span>
+                          <span className="font-bold">
+                            -${(promoDiscount / 100).toFixed(2)}
+                          </span>
+                        </div>
+                      )}
                       <div className="flex justify-between">
                         <span className="text-text-secondary">Shipping</span>
                         <span className="text-text-muted text-sm">Calculated at checkout</span>
@@ -182,12 +216,22 @@ export default function CartPage() {
                       </div>
                     </div>
 
+                    {/* Promo Code Input */}
+                    <div className="mb-6">
+                      <PromoCodeInput
+                        cartTotal={totalCents}
+                        onApply={handleApplyPromo}
+                        onRemove={handleRemovePromo}
+                        currentCode={promoCode}
+                      />
+                    </div>
+
                     <div className="flex justify-between mb-6">
                       <span className="font-bebas text-xl uppercase tracking-wide text-text-primary">
                         Total
                       </span>
                       <span className="text-3xl font-bold text-accent-primary">
-                        ${(totalCents / 100).toFixed(2)}
+                        ${(finalTotal / 100).toFixed(2)}
                       </span>
                     </div>
 

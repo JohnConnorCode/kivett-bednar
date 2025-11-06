@@ -3,8 +3,9 @@
 import Link from 'next/link'
 import {useState, useEffect} from 'react'
 import {usePathname} from 'next/navigation'
-import {ShoppingCart} from 'lucide-react'
+import {ShoppingCart, Search} from 'lucide-react'
 import {CartDrawer} from './CartDrawer'
+import {SearchModal} from './SearchModal'
 import {useCart} from './CartContext'
 
 interface HeaderProps {
@@ -19,6 +20,7 @@ export function Header({siteName, navigation}: HeaderProps) {
   const pathname = usePathname()
   const isHomePage = pathname === '/'
   const [cartOpen, setCartOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const {items} = useCart()
   const itemCount = items.reduce((sum, i) => sum + i.quantity, 0)
 
@@ -97,6 +99,17 @@ export function Header({siteName, navigation}: HeaderProps) {
                 {item.title}
               </Link>
             ))}
+            {/* Search Button */}
+            <button
+              aria-label="Search products"
+              className={`rounded-full p-2 transition-colors ${
+                isScrolled ? 'text-white/90 hover:text-accent-primary' : 'text-white hover:text-accent-primary'
+              }`}
+              onClick={() => setSearchOpen(true)}
+              type="button"
+            >
+              <Search className="h-6 w-6" />
+            </button>
             {/* Cart Button */}
             <button
               aria-label="Open cart"
@@ -119,6 +132,9 @@ export function Header({siteName, navigation}: HeaderProps) {
           <button
             className="md:hidden text-white"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-menu"
             style={{
               textShadow: isScrolled
                 ? '0 1px 2px rgba(0,0,0,0.5)'
@@ -133,6 +149,7 @@ export function Header({siteName, navigation}: HeaderProps) {
               strokeWidth="2"
               viewBox="0 0 24 24"
               stroke="currentColor"
+              aria-hidden="true"
             >
               {mobileMenuOpen ? (
                 <path d="M6 18L18 6M6 6l12 12" />
@@ -145,12 +162,18 @@ export function Header({siteName, navigation}: HeaderProps) {
 
         {/* Mobile Navigation - Enhanced glassy background when open */}
         {mobileMenuOpen && (
-          <nav className="md:hidden pb-4 border-t border-accent-primary/30 mt-2 pt-4 -mx-4 px-4" style={{
-            background: 'rgba(10, 10, 10, 0.3)',
-            backdropFilter: 'blur(16px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(16px) saturate(180%)',
-            isolation: 'isolate'
-          }}>
+          <nav
+            id="mobile-menu"
+            className="md:hidden pb-4 border-t border-accent-primary/30 mt-2 pt-4 -mx-4 px-4"
+            role="navigation"
+            aria-label="Mobile navigation"
+            style={{
+              background: 'rgba(10, 10, 10, 0.3)',
+              backdropFilter: 'blur(16px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(16px) saturate(180%)',
+              isolation: 'isolate'
+            }}
+          >
             {navItems.map((item) => (
               <Link
                 key={item.href}
@@ -161,33 +184,50 @@ export function Header({siteName, navigation}: HeaderProps) {
                 {item.title}
               </Link>
             ))}
-            <div className="mt-2 pt-3 border-t border-accent-primary/30 flex items-center justify-between">
+            <div className="mt-2 pt-3 border-t border-accent-primary/30 space-y-3">
               <button
-                aria-label="Open cart"
-                className="flex items-center gap-2 text-white/90 hover:text-accent-primary transition-colors"
+                aria-label="Search products"
+                className="flex items-center gap-2 text-white/90 hover:text-accent-primary transition-colors w-full"
                 onClick={() => {
                   setMobileMenuOpen(false)
-                  setCartOpen(true)
+                  setSearchOpen(true)
                 }}
                 type="button"
               >
-                <ShoppingCart className="h-6 w-6" />
-                <span className="uppercase tracking-wider text-sm">Cart</span>
-                {itemCount > 0 && (
-                  <span className="ml-2 text-xs bg-accent-primary text-black rounded-full px-1.5 py-0.5 font-bold">
-                    {itemCount}
-                  </span>
-                )}
+                <Search className="h-6 w-6" />
+                <span className="uppercase tracking-wider text-sm">Search</span>
               </button>
-              <Link href="/cart" className="text-sm text-white/80 hover:text-accent-primary" onClick={() => setMobileMenuOpen(false)}>
-                View Cart
-              </Link>
+              <div className="flex items-center justify-between">
+                <button
+                  aria-label="Open cart"
+                  className="flex items-center gap-2 text-white/90 hover:text-accent-primary transition-colors"
+                  onClick={() => {
+                    setMobileMenuOpen(false)
+                    setCartOpen(true)
+                  }}
+                  type="button"
+                >
+                  <ShoppingCart className="h-6 w-6" />
+                  <span className="uppercase tracking-wider text-sm">Cart</span>
+                  {itemCount > 0 && (
+                    <span className="ml-2 text-xs bg-accent-primary text-black rounded-full px-1.5 py-0.5 font-bold">
+                      {itemCount}
+                    </span>
+                  )}
+                </button>
+                <Link href="/cart" className="text-sm text-white/80 hover:text-accent-primary" onClick={() => setMobileMenuOpen(false)}>
+                  View Cart
+                </Link>
+              </div>
             </div>
           </nav>
         )}
 
         {/* Cart Drawer */}
         <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
+
+        {/* Search Modal */}
+        <SearchModal open={searchOpen} onClose={() => setSearchOpen(false)} />
       </div>
     </header>
   )

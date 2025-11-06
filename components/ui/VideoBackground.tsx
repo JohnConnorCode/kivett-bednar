@@ -6,11 +6,13 @@ import { useEffect, useState } from 'react'
 export function VideoBackground({
   videoSrc,
   posterSrc,
-  overlayOpacity = 0.5
+  overlayOpacity = 0.5,
+  videoAlt = 'Background video'
 }: {
   videoSrc: string
   posterSrc: string
   overlayOpacity?: number
+  videoAlt?: string
 }) {
   const [isMobile, setIsMobile] = useState(false)
 
@@ -31,6 +33,7 @@ export function VideoBackground({
           playsInline
           poster={posterSrc}
           className="absolute w-full h-full object-cover"
+          aria-label={videoAlt}
         >
           <source src={videoSrc} type="video/mp4" />
         </video>
@@ -38,7 +41,7 @@ export function VideoBackground({
       {isMobile && (
         <img
           src={posterSrc}
-          alt=""
+          alt={videoAlt}
           className="absolute w-full h-full object-cover"
         />
       )}

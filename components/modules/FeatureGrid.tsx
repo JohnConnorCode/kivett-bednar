@@ -54,7 +54,7 @@ export function FeatureGrid({items, backgroundVariant, sectionPadding}: FeatureG
               <div className="w-16 h-16 mx-auto mb-4 relative">
                 <Image
                   src={urlFor(item.image.asset).width(64).height(64).url()}
-                  alt=""
+                  alt={item.title}
                   fill
                   className="object-contain"
                   sizes="64px"
