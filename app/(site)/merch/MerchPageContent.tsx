@@ -117,23 +117,29 @@ export function MerchPageContent({merchPage, products}: Props) {
         <div className="container mx-auto px-4 py-24 md:py-40 relative z-10">
           <div className="max-w-5xl mx-auto text-center">
             {/* Accent Line */}
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="h-px bg-gradient-to-r from-transparent via-accent-primary to-accent-primary w-16" />
-              <span className="text-accent-primary text-sm uppercase tracking-[0.2em] font-bold drop-shadow-lg">
-                Official Store
-              </span>
-              <div className="h-px bg-gradient-to-r from-accent-primary via-accent-primary to-transparent w-16" />
-            </div>
+            <AnimatedSection animation="fadeIn" delay={0.1}>
+              <div className="flex items-center justify-center gap-4 mb-6">
+                <div className="h-px bg-gradient-to-r from-transparent via-accent-primary to-accent-primary w-16" />
+                <span className="text-accent-primary text-sm uppercase tracking-[0.2em] font-bold drop-shadow-lg">
+                  Official Store
+                </span>
+                <div className="h-px bg-gradient-to-r from-accent-primary via-accent-primary to-transparent w-16" />
+              </div>
+            </AnimatedSection>
 
             {/* Main Heading - From Sanity */}
-            <h1 className="font-bebas text-7xl md:text-8xl lg:text-9xl uppercase tracking-wider text-white mb-6 leading-none drop-shadow-2xl">
-              {heroHeading}
-            </h1>
+            <AnimatedSection animation="fadeUp" delay={0.2}>
+              <h1 className="font-bebas text-7xl md:text-8xl lg:text-9xl uppercase tracking-wider text-white mb-6 leading-none drop-shadow-2xl">
+                {heroHeading}
+              </h1>
+            </AnimatedSection>
 
             {/* Subheading - From Sanity */}
-            <p className="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed drop-shadow-lg">
-              {heroSubheading}
-            </p>
+            <AnimatedSection animation="fadeUp" delay={0.3}>
+              <p className="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed drop-shadow-lg">
+                {heroSubheading}
+              </p>
+            </AnimatedSection>
           </div>
         </div>
 
@@ -148,8 +154,9 @@ export function MerchPageContent({merchPage, products}: Props) {
             {products && products.length > 0 ? (
               <>
                 {/* Filters and Sort - Enhanced Design */}
-                <div className="mb-16">
-                  <div className="bg-surface/50 backdrop-blur-sm border border-border/50 p-8 shadow-2xl">
+                <AnimatedSection animation="fadeUp" delay={0.1}>
+                  <div className="mb-16">
+                    <div className="bg-surface/50 backdrop-blur-sm border border-border/50 p-8 shadow-2xl">
                     <div className="flex flex-col lg:flex-row gap-8 items-start lg:items-end justify-between">
                       {/* Category Filter */}
                       <div className="flex-1 w-full">
@@ -215,7 +222,8 @@ export function MerchPageContent({merchPage, products}: Props) {
                       )}
                     </div>
                   </div>
-                </div>
+                  </div>
+                </AnimatedSection>
 
                 {/* Products Grid - Enhanced Layout */}
                 {filteredAndSortedProducts.length > 0 ? (
@@ -232,10 +240,11 @@ export function MerchPageContent({merchPage, products}: Props) {
                     ))}
                   </div>
                 ) : (
-                  <div className="text-center py-32">
-                    <div className="bg-surface/50 backdrop-blur-sm border border-border/50 p-20 max-w-2xl mx-auto shadow-2xl">
-                      {/* Empty state icon */}
-                      <div className="mb-8 flex justify-center">
+                  <AnimatedSection animation="fadeUp" delay={0.2}>
+                    <div className="text-center py-32">
+                      <div className="bg-surface/50 backdrop-blur-sm border border-border/50 p-20 max-w-2xl mx-auto shadow-2xl">
+                        {/* Empty state icon */}
+                        <div className="mb-8 flex justify-center">
                         <div className="w-24 h-24 border-4 border-border rounded-full flex items-center justify-center">
                           <svg
                             className="w-12 h-12 text-text-muted"
@@ -284,12 +293,14 @@ export function MerchPageContent({merchPage, products}: Props) {
                         Reset All Filters
                       </button>
                     </div>
-                  </div>
+                    </div>
+                  </AnimatedSection>
                 )}
               </>
             ) : (
-              <div className="text-center py-32">
-                <div className="bg-surface/50 backdrop-blur-sm border border-border/50 p-20 max-w-3xl mx-auto shadow-2xl">
+              <AnimatedSection animation="fadeUp" delay={0.2}>
+                <div className="text-center py-32">
+                  <div className="bg-surface/50 backdrop-blur-sm border border-border/50 p-20 max-w-3xl mx-auto shadow-2xl">
                   {/* Coming soon icon */}
                   <div className="mb-10 flex justify-center">
                     <div className="w-32 h-32 border-4 border-accent-primary/20 rounded-full flex items-center justify-center relative">
@@ -335,7 +346,8 @@ export function MerchPageContent({merchPage, products}: Props) {
                     </Link>
                   </div>
                 </div>
-              </div>
+                </div>
+              </AnimatedSection>
             )}
           </div>
         </div>
