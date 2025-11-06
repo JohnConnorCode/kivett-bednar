@@ -575,6 +575,22 @@ export const productSlugsQuery = defineQuery(`*[_type == "product" && defined(sl
   "slug": slug.current
 }`)
 
+export const relatedProductsByCategoryQuery = defineQuery(`*[_type == "product" && category == $category && _id != $excludeId] | order(_createdAt desc)[0...$limit]{
+  _id,
+  title,
+  "slug": slug.current,
+  images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
+  priceCents,
+  compareAtPriceCents,
+  onSale,
+  currency,
+  stockStatus,
+  badges,
+  inventoryQuantity,
+  trackInventory,
+  lowStockThreshold
+}`)
+
 export const featuredProductsQuery = defineQuery(`*[_type == "product" && featured == true] | order(_createdAt desc)[0...$limit]{
   _id,
   title,

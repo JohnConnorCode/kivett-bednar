@@ -1,8 +1,11 @@
 'use client'
 
 import Image from 'next/image'
+import {useState} from 'react'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
 import {PurchaseSection} from '@/components/merch/ProductPurchase'
+import {ImageLightbox} from '@/components/ui/ImageLightbox'
+import {RelatedProductsCarousel} from '@/components/merch/RelatedProductsCarousel'
 import {PortableText} from '@portabletext/react'
 
 type ProductPageContentProps = {
@@ -11,9 +14,18 @@ type ProductPageContentProps = {
   productSlug: string
   mainImageUrl?: string
   thumbnailImages?: Array<{url: string; alt: string}>
+  allImages?: Array<{url: string; alt: string}>
+  relatedProducts?: any[]
 }
 
-export function ProductPageContent({product, price, productSlug, mainImageUrl, thumbnailImages}: ProductPageContentProps) {
+export function ProductPageContent({product, price, productSlug, mainImageUrl, thumbnailImages, allImages, relatedProducts = []}: ProductPageContentProps) {
+  const [lightboxOpen, setLightboxOpen] = useState(false)
+  const [lightboxIndex, setLightboxIndex] = useState(0)
+
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index)
+    setLightboxOpen(true)
+  }
   return (
     <>
       {/* Hero Section with Product Title */}
@@ -55,7 +67,11 @@ export function ProductPageContent({product, price, productSlug, mainImageUrl, t
                 {/* Main Image */}
                 <AnimatedSection animation="fadeIn" delay={0.1}>
                   {mainImageUrl ? (
-                    <div className="relative aspect-square bg-background border border-border overflow-hidden group">
+                    <button
+                      onClick={() => openLightbox(0)}
+                      className="relative aspect-square bg-background border border-border overflow-hidden group w-full cursor-zoom-in"
+                      aria-label="View image in lightbox"
+                    >
                       <Image
                         src={mainImageUrl}
                         alt={product.images?.[0]?.alt || product.title || 'Product image'}
@@ -66,7 +82,14 @@ export function ProductPageContent({product, price, productSlug, mainImageUrl, t
                       />
                       {/* Subtle overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                    </div>
+                      {/* Zoom indicator */}
+                      <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm text-white px-3 py-2 text-xs uppercase tracking-wider font-bold opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2">
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+                        </svg>
+                        Click to Zoom
+                      </div>
+                    </button>
                   ) : (
                     <div className="relative aspect-square bg-gradient-to-br from-surface-elevated via-surface to-background border border-border flex items-center justify-center">
                       <div className="text-center px-8">
@@ -94,9 +117,11 @@ export function ProductPageContent({product, price, productSlug, mainImageUrl, t
                   <AnimatedSection animation="fadeUp" delay={0.2}>
                     <div className="grid grid-cols-4 gap-3">
                       {thumbnailImages.map((img, idx) => (
-                        <div
+                        <button
                           key={idx}
+                          onClick={() => openLightbox(idx + 1)}
                           className="relative aspect-square bg-background border border-border overflow-hidden group cursor-pointer hover:border-accent-primary transition-colors"
+                          aria-label={`View image ${idx + 2} in lightbox`}
                         >
                           <Image
                             src={img.url}
@@ -105,7 +130,7 @@ export function ProductPageContent({product, price, productSlug, mainImageUrl, t
                             className="object-cover group-hover:scale-110 transition-transform duration-300"
                             sizes="(min-width: 768px) 12vw, 25vw"
                           />
-                        </div>
+                        </button>
                       ))}
                     </div>
                   </AnimatedSection>
@@ -200,6 +225,21 @@ export function ProductPageContent({product, price, productSlug, mainImageUrl, t
           </div>
         </div>
       </div>
+
+      {/* Related Products Carousel */}
+      {relatedProducts && relatedProducts.length > 0 && (
+        <RelatedProductsCarousel products={relatedProducts} />
+      )}
+
+      {/* Image Lightbox */}
+      {allImages && allImages.length > 0 && (
+        <ImageLightbox
+          images={allImages}
+          initialIndex={lightboxIndex}
+          isOpen={lightboxOpen}
+          onClose={() => setLightboxOpen(false)}
+        />
+      )}
     </>
   )
 }

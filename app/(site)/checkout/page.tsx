@@ -3,6 +3,8 @@
 import {useState} from 'react'
 import {useRouter} from 'next/navigation'
 import {useCart} from '@/components/ui/CartContext'
+import {useFormValidation} from '@/hooks/useFormValidation'
+import {FormField} from '@/components/ui/FormField'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -21,15 +23,70 @@ export default function CheckoutPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  // Form validation
+  const {errors, touched, validateAll, handleBlur, handleChange: validateChange} = useFormValidation({
+    email: {
+      required: true,
+      pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+    },
+    firstName: {
+      required: true,
+      minLength: 2,
+      maxLength: 50,
+    },
+    lastName: {
+      required: true,
+      minLength: 2,
+      maxLength: 50,
+    },
+    address: {
+      required: true,
+      minLength: 5,
+      maxLength: 100,
+    },
+    city: {
+      required: true,
+      minLength: 2,
+      maxLength: 50,
+    },
+    state: {
+      required: true,
+      minLength: 2,
+      maxLength: 50,
+    },
+    zipCode: {
+      required: true,
+      pattern: /^[0-9]{5}(-[0-9]{4})?$/,
+    },
+  })
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const {name, value} = e.target
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: value,
     })
+    validateChange(name, value)
+  }
+
+  const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const {name, value} = e.target
+    handleBlur(name, value)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    // Validate all fields
+    if (!validateAll(formData)) {
+      // Scroll to first error
+      const firstError = document.querySelector('[aria-invalid="true"]')
+      if (firstError) {
+        firstError.scrollIntoView({behavior: 'smooth', block: 'center'})
+      }
+      return
+    }
+
     setIsSubmitting(true)
 
     // Simulate processing
@@ -104,20 +161,19 @@ export default function CheckoutPage() {
                     <h2 className="font-bebas text-3xl uppercase tracking-wide text-text-primary mb-6">
                       Contact Information
                     </h2>
-                    <div>
-                      <label className="block text-sm uppercase tracking-wider font-bold text-text-primary mb-3">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full bg-background border border-border px-4 py-3 text-text-primary focus:border-accent-primary focus:outline-none transition-colors"
-                        placeholder="your@email.com"
-                      />
-                    </div>
+                    <FormField
+                      label="Email Address"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      onBlur={handleInputBlur}
+                      required
+                      placeholder="your@email.com"
+                      error={errors.email}
+                      touched={touched.email}
+                      autoComplete="email"
+                    />
                   </div>
 
                   {/* Shipping Address */}
@@ -127,102 +183,92 @@ export default function CheckoutPage() {
                     </h2>
                     <div className="space-y-6">
                       <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm uppercase tracking-wider font-bold text-text-primary mb-3">
-                            First Name *
-                          </label>
-                          <input
-                            type="text"
-                            name="firstName"
-                            value={formData.firstName}
-                            onChange={handleChange}
-                            required
-                            className="w-full bg-background border border-border px-4 py-3 text-text-primary focus:border-accent-primary focus:outline-none transition-colors"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm uppercase tracking-wider font-bold text-text-primary mb-3">
-                            Last Name *
-                          </label>
-                          <input
-                            type="text"
-                            name="lastName"
-                            value={formData.lastName}
-                            onChange={handleChange}
-                            required
-                            className="w-full bg-background border border-border px-4 py-3 text-text-primary focus:border-accent-primary focus:outline-none transition-colors"
-                          />
-                        </div>
+                        <FormField
+                          label="First Name"
+                          name="firstName"
+                          value={formData.firstName}
+                          onChange={handleInputChange}
+                          onBlur={handleInputBlur}
+                          required
+                          error={errors.firstName}
+                          touched={touched.firstName}
+                          autoComplete="given-name"
+                        />
+                        <FormField
+                          label="Last Name"
+                          name="lastName"
+                          value={formData.lastName}
+                          onChange={handleInputChange}
+                          onBlur={handleInputBlur}
+                          required
+                          error={errors.lastName}
+                          touched={touched.lastName}
+                          autoComplete="family-name"
+                        />
                       </div>
 
-                      <div>
-                        <label className="block text-sm uppercase tracking-wider font-bold text-text-primary mb-3">
-                          Address *
-                        </label>
-                        <input
-                          type="text"
-                          name="address"
-                          value={formData.address}
-                          onChange={handleChange}
+                      <FormField
+                        label="Address"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleInputChange}
+                        onBlur={handleInputBlur}
+                        required
+                        placeholder="Street address"
+                        error={errors.address}
+                        touched={touched.address}
+                        autoComplete="street-address"
+                      />
+
+                      <div className="grid grid-cols-2 gap-4">
+                        <FormField
+                          label="City"
+                          name="city"
+                          value={formData.city}
+                          onChange={handleInputChange}
+                          onBlur={handleInputBlur}
                           required
-                          className="w-full bg-background border border-border px-4 py-3 text-text-primary focus:border-accent-primary focus:outline-none transition-colors"
-                          placeholder="Street address"
+                          error={errors.city}
+                          touched={touched.city}
+                          autoComplete="address-level2"
+                        />
+                        <FormField
+                          label="State/Region"
+                          name="state"
+                          value={formData.state}
+                          onChange={handleInputChange}
+                          onBlur={handleInputBlur}
+                          required
+                          error={errors.state}
+                          touched={touched.state}
+                          autoComplete="address-level1"
                         />
                       </div>
 
                       <div className="grid grid-cols-2 gap-4">
+                        <FormField
+                          label="ZIP / Postal Code"
+                          name="zipCode"
+                          value={formData.zipCode}
+                          onChange={handleInputChange}
+                          onBlur={handleInputBlur}
+                          required
+                          error={errors.zipCode}
+                          touched={touched.zipCode}
+                          autoComplete="postal-code"
+                        />
                         <div>
-                          <label className="block text-sm uppercase tracking-wider font-bold text-text-primary mb-3">
-                            City *
-                          </label>
-                          <input
-                            type="text"
-                            name="city"
-                            value={formData.city}
-                            onChange={handleChange}
-                            required
-                            className="w-full bg-background border border-border px-4 py-3 text-text-primary focus:border-accent-primary focus:outline-none transition-colors"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm uppercase tracking-wider font-bold text-text-primary mb-3">
-                            State/Region *
-                          </label>
-                          <input
-                            type="text"
-                            name="state"
-                            value={formData.state}
-                            onChange={handleChange}
-                            required
-                            className="w-full bg-background border border-border px-4 py-3 text-text-primary focus:border-accent-primary focus:outline-none transition-colors"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm uppercase tracking-wider font-bold text-text-primary mb-3">
-                            ZIP / Postal Code *
-                          </label>
-                          <input
-                            type="text"
-                            name="zipCode"
-                            value={formData.zipCode}
-                            onChange={handleChange}
-                            required
-                            className="w-full bg-background border border-border px-4 py-3 text-text-primary focus:border-accent-primary focus:outline-none transition-colors"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm uppercase tracking-wider font-bold text-text-primary mb-3">
-                            Country *
+                          <label htmlFor="country" className="block text-sm uppercase tracking-wider font-bold text-text-primary mb-3">
+                            Country <span className="text-accent-red">*</span>
                           </label>
                           <select
+                            id="country"
                             name="country"
                             value={formData.country}
-                            onChange={handleChange}
+                            onChange={handleInputChange}
                             required
                             className="w-full bg-background border border-border px-4 py-3 text-text-primary focus:border-accent-primary focus:outline-none transition-colors"
+                            autoComplete="country"
                           >
                             <option value="US">United States</option>
                             <option value="CA">Canada</option>

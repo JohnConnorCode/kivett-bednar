@@ -2,7 +2,7 @@ import {Metadata} from 'next'
 import {notFound} from 'next/navigation'
 import {client} from '@/sanity/lib/client'
 import {sanityFetch} from '@/sanity/lib/live'
-import {productBySlugQuery} from '@/sanity/lib/queries'
+import {productBySlugQuery, relatedProductsByCategoryQuery} from '@/sanity/lib/queries'
 import {ProductPageContent} from './ProductPageContent'
 import {urlFor} from '@/sanity/lib/image'
 
@@ -63,6 +63,34 @@ export default async function ProductPage({params}: Props) {
       }))
     : undefined
 
+  // Build all images for lightbox (larger resolution)
+  const allImages = product.images
+    ? product.images.map((img: any) => ({
+        url: urlFor(img.asset).width(1600).height(1600).url(),
+        alt: img.alt || product.title || 'Product image'
+      }))
+    : []
+
+  // Fetch related products (from relatedProducts field or by category)
+  let relatedProducts: any[] = []
+  try {
+    if (product.relatedProducts && product.relatedProducts.length > 0) {
+      relatedProducts = product.relatedProducts
+    } else if (product.category) {
+      const categoryRelated = await sanityFetch({
+        query: relatedProductsByCategoryQuery,
+        params: {
+          category: product.category,
+          excludeId: product._id,
+          limit: 4,
+        },
+      }).then((r) => r.data)
+      relatedProducts = categoryRelated || []
+    }
+  } catch (error) {
+    console.warn('Failed to fetch related products:', error)
+  }
+
   // Generate JSON-LD structured data for product
   const productJsonLd = {
     '@context': 'https://schema.org',
@@ -94,6 +122,8 @@ export default async function ProductPage({params}: Props) {
         productSlug={productSlug}
         mainImageUrl={mainImageUrl}
         thumbnailImages={thumbnailImages}
+        allImages={allImages}
+        relatedProducts={relatedProducts}
       />
     </>
   )
