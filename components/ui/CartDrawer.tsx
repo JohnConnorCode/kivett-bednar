@@ -16,17 +16,17 @@ export function CartDrawer({open, onClose}: {open: boolean; onClose: () => void}
       />
       {/* Panel */}
       <div
-        className={`absolute right-0 top-0 h-full w-full sm:w-[28rem] bg-surface text-text-primary shadow-xl transition-transform ${
+        className={`absolute right-0 top-0 h-full w-full sm:w-[28rem] bg-surface text-text-primary shadow-xl transition-transform flex flex-col ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="flex items-center justify-between p-4 border-b">
+        <div className="flex items-center justify-between p-4 border-b flex-shrink-0">
           <h2 className="text-xl font-bold">Your Cart</h2>
           <button className="text-sm hover:underline" onClick={onClose}>
             Close
           </button>
         </div>
-        <div className="p-4 space-y-4 overflow-y-auto h-[calc(100%-180px)]">
+        <div className="p-4 space-y-4 overflow-y-auto flex-1 overscroll-contain">
           {items.length === 0 ? (
             <div className="text-text-secondary">Your cart is empty.</div>
           ) : (
@@ -35,11 +35,11 @@ export function CartDrawer({open, onClose}: {open: boolean; onClose: () => void}
               return (
                 <div key={it.productId + optKey} className="flex gap-3 items-center">
                   {it.imageUrl && (
-                    <div className="relative w-16 h-16 bg-muted rounded">
+                    <div className="relative w-16 h-16 bg-muted rounded flex-shrink-0">
                       <Image src={it.imageUrl} alt={it.title} fill className="object-cover rounded" />
                     </div>
                   )}
-                  <div className="flex-1">
+                  <div className="flex-1 min-w-0">
                     <div className="font-semibold leading-tight">
                       <Link href={`/merch/${it.slug}`} onClick={onClose}>
                         {it.title}
@@ -59,13 +59,13 @@ export function CartDrawer({open, onClose}: {open: boolean; onClose: () => void}
                       </button>
                     </div>
                   </div>
-                  <div className="font-semibold whitespace-nowrap">{it.currency} ${(it.priceCents / 100).toFixed(2)}</div>
+                  <div className="font-semibold whitespace-nowrap flex-shrink-0">{it.currency} ${(it.priceCents / 100).toFixed(2)}</div>
                 </div>
               )
             })
           )}
         </div>
-        <div className="p-4 border-t bg-surface-elevated">
+        <div className="p-4 border-t bg-surface-elevated flex-shrink-0 safe-bottom">
           <div className="flex justify-between mb-3">
             <span>Subtotal</span>
             <span className="font-semibold">${(totalCents / 100).toFixed(2)}</span>
