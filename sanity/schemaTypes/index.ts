@@ -3,6 +3,8 @@ import {page} from './documents/page'
 import {post} from './documents/post'
 import {event} from './documents/event'
 import {product} from './documents/product'
+import {promoCode} from './documents/promoCode'
+import {productCollection} from './documents/productCollection'
 import {order} from './documents/order'
 import {testimonialsSet} from './documents/testimonialsSet'
 import {faqSet} from './documents/faqSet'
@@ -52,6 +54,8 @@ export const schemaTypes = [
   person,
   event,
   product,
+  promoCode,
+  productCollection,
   order,
   testimonialsSet,
   faqSet,

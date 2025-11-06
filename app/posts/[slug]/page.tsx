@@ -21,16 +21,23 @@ type Props = {
  * Learn more: https://nextjs.org/docs/app/api-reference/functions/generate-static-params
  */
 export async function generateStaticParams() {
-  const data = await client.fetch(
-    postPagesSlugs,
-    {},
-    {
-      // Use the published perspective in generateStaticParams
-      perspective: 'published',
-      next: {revalidate: 60}
-    }
-  )
-  return data
+  try {
+    const data = await client.fetch(
+      postPagesSlugs,
+      {},
+      {
+        // Use the published perspective in generateStaticParams
+        perspective: 'published',
+        next: {revalidate: 60}
+      }
+    )
+    return data
+  } catch (error) {
+    console.warn('Failed to fetch post slugs for static generation:', error)
+    // Return empty array to allow build to continue
+    // Posts will be generated on-demand instead
+    return []
+  }
 }
 
 /**

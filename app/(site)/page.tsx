@@ -39,16 +39,27 @@ export const metadata: Metadata = {
   description: 'Gritty Texas Blues meets the heart of the Pacific Northwest',
 }
 
+// Revalidate every 60 seconds (ISR)
+export const revalidate = 60
+
 export default async function HomePage() {
-  // Fetch home page content and upcoming shows using live-enabled queries
-  const [homePage, events, uiText] = await Promise.all([
-    sanityFetch({query: homePageQuery}).then((r) => r.data),
-    sanityFetch({
-      query: upcomingEventsQuery,
-      params: {now: new Date().toISOString(), limit: 3},
-    }).then((r) => r.data),
-    sanityFetch({query: uiTextQuery}).then((r) => r.data),
-  ])
+  let homePage = null
+  let events = null
+  let uiText = null
+
+  try {
+    // Fetch home page content and upcoming shows using live-enabled queries
+    ;[homePage, events, uiText] = await Promise.all([
+      sanityFetch({query: homePageQuery}).then((r) => r.data),
+      sanityFetch({
+        query: upcomingEventsQuery,
+        params: {now: new Date().toISOString(), limit: 3},
+      }).then((r) => r.data),
+      sanityFetch({query: uiTextQuery}).then((r) => r.data),
+    ])
+  } catch (error) {
+    console.warn('Failed to fetch homepage data, using fallback content:', error)
+  }
 
   // Fallback if no content in Sanity yet
   if (!homePage) {

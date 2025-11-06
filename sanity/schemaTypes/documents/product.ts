@@ -58,6 +58,19 @@ export const product = defineType({
       validation: (Rule) => Rule.required().positive().integer(),
     }),
     defineField({
+      name: 'compareAtPriceCents',
+      title: 'Compare At Price (cents)',
+      type: 'number',
+      description: 'Original price before discount - creates "Was $X, Now $Y" display',
+    }),
+    defineField({
+      name: 'onSale',
+      title: 'On Sale',
+      type: 'boolean',
+      description: 'Mark product as on sale (shows sale badge)',
+      initialValue: false,
+    }),
+    defineField({
       name: 'currency',
       title: 'Currency',
       type: 'string',
@@ -212,6 +225,155 @@ export const product = defineType({
           },
         }),
       ],    }),
+    defineField({
+      name: 'category',
+      title: 'Category',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'Apparel', value: 'apparel'},
+          {title: 'Music', value: 'music'},
+          {title: 'Accessories', value: 'accessories'},
+          {title: 'Posters & Prints', value: 'prints'},
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'stockStatus',
+      title: 'Stock Status',
+      type: 'string',
+      options: {
+        list: [
+          {title: 'In Stock', value: 'in_stock'},
+          {title: 'Low Stock', value: 'low_stock'},
+          {title: 'Out of Stock', value: 'out_of_stock'},
+          {title: 'Pre-Order', value: 'pre_order'},
+        ],
+      },
+      initialValue: 'in_stock',
+    }),
+    defineField({
+      name: 'featured',
+      title: 'Featured Product',
+      type: 'boolean',
+      description: 'Show this product prominently on the merch page',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'tags',
+      title: 'Product Tags',
+      type: 'array',
+      of: [{type: 'string'}],
+      description: 'Tags for search and filtering (e.g., "vintage", "tour-exclusive", "limited-edition")',
+      options: {
+        layout: 'tags',
+      },
+    }),
+    defineField({
+      name: 'badges',
+      title: 'Product Badges',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'string',
+        }),
+      ],
+      description: 'Display badges like "New", "Best Seller", "Limited Edition"',
+      options: {
+        list: [
+          {title: 'New', value: 'new'},
+          {title: 'Best Seller', value: 'bestseller'},
+          {title: 'Limited Edition', value: 'limited'},
+          {title: 'Tour Exclusive', value: 'tour-exclusive'},
+          {title: 'Back in Stock', value: 'back-in-stock'},
+        ],
+      },
+    }),
+    defineField({
+      name: 'inventoryQuantity',
+      title: 'Inventory Quantity',
+      type: 'number',
+      description: 'Current stock quantity (-1 for unlimited/made-to-order)',
+      initialValue: -1,
+    }),
+    defineField({
+      name: 'lowStockThreshold',
+      title: 'Low Stock Threshold',
+      type: 'number',
+      description: 'Show "low stock" warning when inventory falls below this number',
+      initialValue: 5,
+    }),
+    defineField({
+      name: 'trackInventory',
+      title: 'Track Inventory',
+      type: 'boolean',
+      description: 'Enable inventory tracking for this product',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'availableDate',
+      title: 'Available Date',
+      type: 'datetime',
+      description: 'When product becomes available (for pre-orders)',
+    }),
+    defineField({
+      name: 'relatedProducts',
+      title: 'Related Products',
+      type: 'array',
+      of: [
+        defineArrayMember({
+          type: 'reference',
+          to: [{type: 'product'}],
+        }),
+      ],
+      description: 'Products to show as "You might also like"',
+    }),
+    defineField({
+      name: 'dimensions',
+      title: 'Product Dimensions',
+      type: 'object',
+      options: {
+        collapsible: true,
+        collapsed: true,
+      },
+      fields: [
+        defineField({
+          name: 'length',
+          title: 'Length (inches)',
+          type: 'number',
+        }),
+        defineField({
+          name: 'width',
+          title: 'Width (inches)',
+          type: 'number',
+        }),
+        defineField({
+          name: 'height',
+          title: 'Height (inches)',
+          type: 'number',
+        }),
+        defineField({
+          name: 'weight',
+          title: 'Weight (ounces)',
+          type: 'number',
+        }),
+      ],
+    }),
+    defineField({
+      name: 'materials',
+      title: 'Materials',
+      type: 'text',
+      rows: 2,
+      description: 'Materials used in product (e.g., "100% Cotton", "Vinyl, Cardboard")',
+    }),
+    defineField({
+      name: 'careInstructions',
+      title: 'Care Instructions',
+      type: 'text',
+      rows: 3,
+      description: 'How to care for the product',
+    }),
     defineField({
       name: 'shippingNotes',
       title: 'Shipping Notes',

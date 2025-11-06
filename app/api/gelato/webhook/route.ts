@@ -2,36 +2,110 @@ import {NextRequest, NextResponse} from 'next/server'
 
 export const runtime = 'nodejs'
 
+/**
+ * POST /api/gelato/webhook
+ * Handles Gelato webhook events for order status updates
+ * Updates Sanity orders with latest status, tracking info, etc.
+ */
 export async function POST(req: NextRequest) {
+  // Verify webhook signature if secret is configured
   const secret = process.env.GELATO_WEBHOOK_SECRET
-  const sig = req.headers.get('x-gelato-signature') || req.headers.get('x-signature')
-  if (secret && sig !== secret) {
-    return new NextResponse('Invalid signature', {status: 401})
+  if (secret && secret !== 'placeholder') {
+    const sig = req.headers.get('x-gelato-signature') || req.headers.get('x-signature')
+    if (sig !== secret) {
+      console.warn('Gelato webhook: Invalid signature')
+      return new NextResponse('Invalid signature', {status: 401})
+    }
   }
 
-  const data = await req.json().catch(() => null)
-  if (!data) return NextResponse.json({ok: false})
+  let data: any
+  try {
+    data = await req.json()
+  } catch (error) {
+    console.error('Gelato webhook: Failed to parse JSON', error)
+    return NextResponse.json({ok: false, error: 'Invalid JSON'}, {status: 400})
+  }
+
+  if (!data) {
+    return NextResponse.json({ok: false, error: 'No data provided'}, {status: 400})
+  }
 
   try {
-    const gelatoOrderId = data?.orderId || data?.id
-    const status = data?.status || data?.event
-    if (!gelatoOrderId || !status) return NextResponse.json({ok: true})
+    // Extract relevant data from webhook payload
+    const gelatoOrderId = data?.orderId || data?.id || data?.order?.id
+    const status = data?.status || data?.event || data?.orderStatus
+    const trackingNumber = data?.trackingNumber || data?.tracking?.number
+    const trackingUrl = data?.trackingUrl || data?.tracking?.url
+    const carrier = data?.carrier || data?.tracking?.carrier
 
+    if (!gelatoOrderId) {
+      console.warn('Gelato webhook: No order ID found in payload', data)
+      return NextResponse.json({ok: true, message: 'No order ID found'})
+    }
+
+    console.log(`Gelato webhook: Received event for order ${gelatoOrderId}`, {
+      status,
+      trackingNumber,
+      carrier,
+    })
+
+    // Update order in Sanity
     const {createClient} = await import('next-sanity')
     const {projectId, dataset, apiVersion} = await import('@/sanity/lib/api')
     const {token} = await import('@/sanity/lib/token')
     const writeClient = createClient({projectId, dataset, apiVersion, token, useCdn: false})
 
-    const patches = [{set: {status}}]
-    await writeClient
-      .patch({query: `*[_type == "order" && gelatoOrderId == $id][0]`, params: {id: gelatoOrderId}})
-      .set({status})
-      .commit()
+    // Find the order
+    const existingOrder = await writeClient
+      .fetch(`*[_type == "order" && gelatoOrderId == $id][0]`, {id: gelatoOrderId})
       .catch(() => null)
-  } catch (e) {
-    console.error('Gelato webhook error', e)
+
+    if (!existingOrder) {
+      console.warn(`Gelato webhook: Order not found for Gelato ID ${gelatoOrderId}`)
+      return NextResponse.json({ok: true, message: 'Order not found'})
+    }
+
+    // Build update payload
+    const updateData: any = {
+      updatedAt: new Date().toISOString(),
+    }
+
+    if (status) {
+      updateData.status = status
+      updateData.gelatoStatus = status
+    }
+
+    if (trackingNumber) {
+      updateData.trackingNumber = trackingNumber
+    }
+
+    if (trackingUrl) {
+      updateData.trackingUrl = trackingUrl
+    }
+
+    // Update the order
+    await writeClient
+      .patch(existingOrder._id)
+      .set(updateData)
+      .commit()
+
+    console.log(`Gelato webhook: Updated order ${existingOrder._id}`, updateData)
+
+    return NextResponse.json({
+      ok: true,
+      orderId: existingOrder._id,
+      gelatoOrderId,
+      updated: Object.keys(updateData),
+    })
+  } catch (error: any) {
+    console.error('Gelato webhook: Processing error', error)
+    return NextResponse.json(
+      {
+        ok: false,
+        error: 'Internal server error',
+        message: error.message,
+      },
+      {status: 500}
+    )
   }
-
-  return NextResponse.json({ok: true})
 }
-

@@ -12,12 +12,23 @@ export const metadata: Metadata = {
   description: 'Get in touch',
 }
 
+// Revalidate every 60 seconds (ISR)
+export const revalidate = 60
+
 export default async function ContactPage() {
-  const [contactPage, settings, uiText] = await Promise.all([
-    sanityFetch({query: contactPageQuery}).then((r) => r.data),
-    sanityFetch({query: settingsQuery}).then((r) => r.data),
-    sanityFetch({query: uiTextQuery}).then((r) => r.data),
-  ])
+  let contactPage = null
+  let settings = null
+  let uiText = null
+
+  try {
+    ;[contactPage, settings, uiText] = await Promise.all([
+      sanityFetch({query: contactPageQuery}).then((r) => r.data),
+      sanityFetch({query: settingsQuery}).then((r) => r.data),
+      sanityFetch({query: uiTextQuery}).then((r) => r.data),
+    ])
+  } catch (error) {
+    console.warn('Failed to fetch contact page data, using fallback content:', error)
+  }
 
   return (
     <div className="min-h-screen">

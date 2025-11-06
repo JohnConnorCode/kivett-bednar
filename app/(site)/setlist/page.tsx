@@ -11,11 +11,21 @@ export const metadata: Metadata = {
   description: 'A collection of classic blues songs',
 }
 
+// Revalidate every 60 seconds (ISR)
+export const revalidate = 60
+
 export default async function SetlistPage() {
-  const [setlistPage, songs] = await Promise.all([
-    sanityFetch({query: setlistPageQuery}).then((r) => r.data),
-    sanityFetch({query: allSongsQuery}).then((r) => r.data),
-  ])
+  let setlistPage = null
+  let songs = null
+
+  try {
+    ;[setlistPage, songs] = await Promise.all([
+      sanityFetch({query: setlistPageQuery}).then((r) => r.data),
+      sanityFetch({query: allSongsQuery}).then((r) => r.data),
+    ])
+  } catch (error) {
+    console.warn('Failed to fetch setlist data, using fallback content:', error)
+  }
 
   return (
     <div className="min-h-screen">

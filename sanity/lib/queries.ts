@@ -516,7 +516,17 @@ export const allProductsQuery = defineQuery(`*[_type == "product"] | order(_crea
   "slug": slug.current,
   images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
   priceCents,
-  currency
+  compareAtPriceCents,
+  onSale,
+  currency,
+  category,
+  stockStatus,
+  featured,
+  badges,
+  tags,
+  inventoryQuantity,
+  trackInventory,
+  lowStockThreshold
 }`)
 
 export const productBySlugQuery = defineQuery(`*[_type == "product" && slug.current == $slug][0]{
@@ -526,12 +536,38 @@ export const productBySlugQuery = defineQuery(`*[_type == "product" && slug.curr
   description,
   images[]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
   priceCents,
+  compareAtPriceCents,
+  onSale,
   currency,
+  category,
+  stockStatus,
+  featured,
+  badges,
+  tags,
+  inventoryQuantity,
+  trackInventory,
+  lowStockThreshold,
+  availableDate,
+  materials,
+  careInstructions,
+  dimensions,
   options[]{name, values},
   variants[]{optionValues, priceCents, sku},
   gelatoProductUid,
   printAreas[]{areaName, artwork{asset->}},
   shippingNotes,
+  relatedProducts[]->{
+    _id,
+    title,
+    "slug": slug.current,
+    images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
+    priceCents,
+    compareAtPriceCents,
+    onSale,
+    currency,
+    category,
+    badges
+  },
   seo{title, description, ogImage{asset->}}
 }`)
 
@@ -539,13 +575,59 @@ export const productSlugsQuery = defineQuery(`*[_type == "product" && defined(sl
   "slug": slug.current
 }`)
 
-export const featuredProductsQuery = defineQuery(`*[_type == "product"] | order(_createdAt desc)[0...$limit]{
+export const featuredProductsQuery = defineQuery(`*[_type == "product" && featured == true] | order(_createdAt desc)[0...$limit]{
   _id,
   title,
   "slug": slug.current,
   images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
   priceCents,
-  currency
+  compareAtPriceCents,
+  onSale,
+  currency,
+  category,
+  stockStatus,
+  featured,
+  badges,
+  tags,
+  inventoryQuantity,
+  trackInventory,
+  lowStockThreshold
+}`)
+
+// Product search
+export const productSearchQuery = defineQuery(`*[_type == "product" && (
+  title match $searchTerm
+  || category match $searchTerm
+  || tags[] match $searchTerm
+)] | order(_score desc, _createdAt desc)[0...$limit]{
+  _id,
+  title,
+  "slug": slug.current,
+  images[0]{asset->, hotspot, crop, desktopPosition, mobilePosition, alt},
+  priceCents,
+  compareAtPriceCents,
+  onSale,
+  currency,
+  category,
+  stockStatus,
+  badges,
+  tags
+}`)
+
+// Promo codes
+export const promoCodeByCodeQuery = defineQuery(`*[_type == "promoCode" && code == $code && active == true][0]{
+  _id,
+  code,
+  description,
+  discountType,
+  discountValue,
+  minimumPurchaseCents,
+  maxUses,
+  currentUses,
+  validFrom,
+  validUntil,
+  applicableProducts[]->{_id, title},
+  applicableCategories
 }`)
 
 // Posts (blog functionality - template remnant)
