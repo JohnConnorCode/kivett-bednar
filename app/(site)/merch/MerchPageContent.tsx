@@ -1,13 +1,18 @@
 'use client'
 
-import {useState, useMemo, useEffect} from 'react'
+import {useState, useMemo} from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import {ProductCard} from '@/components/ui/ProductCard'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
 
 type MerchPageData = {
   heroHeading?: string | null
   heroSubheading?: string | null
+  heroImage?: {
+    asset?: {url: string | null} | null
+    alt?: string | null
+  } | null
   emptyStateHeading?: string | null
   emptyStateText?: string | null
   emptyStateButton1Text?: string | null
@@ -16,27 +21,14 @@ type MerchPageData = {
   emptyStateButton2Link?: string | null
 }
 
-export function MerchPageContent({merchPage}: {merchPage: MerchPageData | null}) {
-  const [products, setProducts] = useState<any[]>([])
+type Props = {
+  merchPage: MerchPageData | null
+  products: any[]
+}
+
+export function MerchPageContent({merchPage, products}: Props) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [sortBy, setSortBy] = useState<string>('featured')
-  const [loading, setLoading] = useState(true)
-
-  // Load products on mount
-  useEffect(() => {
-    async function loadProducts() {
-      try {
-        const response = await fetch('/api/products')
-        const data = await response.json()
-        setProducts(data)
-      } catch (error) {
-        console.error('Failed to load products:', error)
-      } finally {
-        setLoading(false)
-      }
-    }
-    loadProducts()
-  }, [])
 
   // Filter and sort products
   const filteredAndSortedProducts = useMemo(() => {
@@ -88,53 +80,72 @@ export function MerchPageContent({merchPage}: {merchPage: MerchPageData | null})
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Cinematic Hero Section */}
-      <div className="relative bg-gradient-to-b from-surface via-surface/95 to-background border-b border-border overflow-hidden">
-        {/* Subtle background pattern */}
-        <div
-          className="absolute inset-0 opacity-5"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-          }}
-        />
+      {/* Cinematic Hero Section with Image */}
+      <div className="relative bg-background border-b border-border overflow-hidden">
+        {/* Background Image */}
+        {merchPage?.heroImage?.asset?.url ? (
+          <div className="absolute inset-0">
+            <Image
+              src={merchPage.heroImage.asset.url}
+              alt={merchPage.heroImage.alt || 'Kivett Bednar performing'}
+              fill
+              className="object-cover"
+              style={{objectPosition: '50% 30%'}}
+              priority
+            />
+            {/* Dark overlay for text readability */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/90" />
+          </div>
+        ) : (
+          // Fallback: Use a placeholder blues musician image
+          <>
+            <div className="absolute inset-0">
+              <Image
+                src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1920&h=800&fit=crop&q=80"
+                alt="Blues guitarist performing"
+                fill
+                className="object-cover"
+                style={{objectPosition: '50% 30%'}}
+                priority
+              />
+              {/* Dark overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/90" />
+            </div>
+          </>
+        )}
 
-        <div className="container mx-auto px-4 py-20 md:py-32 relative">
+        <div className="container mx-auto px-4 py-24 md:py-40 relative z-10">
           <div className="max-w-5xl mx-auto text-center">
             {/* Accent Line */}
             <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="h-px bg-gradient-to-r from-transparent via-accent-primary to-transparent w-32" />
-              <span className="text-accent-primary text-sm uppercase tracking-[0.2em] font-bold">
+              <div className="h-px bg-gradient-to-r from-transparent via-accent-primary to-accent-primary w-16" />
+              <span className="text-accent-primary text-sm uppercase tracking-[0.2em] font-bold drop-shadow-lg">
                 Official Store
               </span>
-              <div className="h-px bg-gradient-to-r from-transparent via-accent-primary to-transparent w-32" />
+              <div className="h-px bg-gradient-to-r from-accent-primary via-accent-primary to-transparent w-16" />
             </div>
 
             {/* Main Heading - From Sanity */}
-            <h1 className="font-bebas text-7xl md:text-8xl lg:text-9xl uppercase tracking-wider text-text-primary mb-6 leading-none">
+            <h1 className="font-bebas text-7xl md:text-8xl lg:text-9xl uppercase tracking-wider text-white mb-6 leading-none drop-shadow-2xl">
               {heroHeading}
             </h1>
 
             {/* Subheading - From Sanity */}
-            <p className="text-text-secondary text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+            <p className="text-gray-200 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed drop-shadow-lg">
               {heroSubheading}
             </p>
           </div>
         </div>
 
         {/* Bottom gradient fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent z-10" />
       </div>
 
       {/* Content */}
       <div className="bg-background py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
-            {loading ? (
-              <div className="text-center py-32">
-                <div className="inline-block w-16 h-16 border-4 border-border border-t-accent-primary rounded-full animate-spin" />
-                <p className="text-text-muted mt-6 uppercase tracking-wider text-sm">Loading products...</p>
-              </div>
-            ) : products && products.length > 0 ? (
+            {products && products.length > 0 ? (
               <>
                 {/* Filters and Sort - Enhanced Design */}
                 <div className="mb-16">

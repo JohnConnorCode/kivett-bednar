@@ -14,8 +14,22 @@ const builder = createImageUrlBuilder({projectId, dataset})
 /**
  * Client-safe URL builder for Sanity images
  * Uses public environment variables only
+ * Also handles external URLs (like Unsplash) for demo products
  */
 export function urlFor(source: any) {
+  // Handle external URLs directly (for demo products)
+  if (source?.url && typeof source.url === 'string' && source.url.startsWith('http')) {
+    const chainable = {
+      url: () => source.url,
+      width: (w: number) => chainable,
+      height: (h: number) => chainable,
+      fit: (mode: string) => chainable,
+      format: (fmt: string) => chainable,
+    }
+    return chainable
+  }
+
+  // Handle Sanity image references normally
   return builder.image(source)
 }
 
