@@ -35,7 +35,7 @@ export default async function SiteLayout({
     <ToastProvider>
       <CartProvider>
         <Header siteName={uiText?.siteName || undefined} navigation={navigation} />
-        <main className="pt-20">{children}</main>
+        <main>{children}</main>
         <Footer
           navigation={navigation}
           siteName={uiText?.siteName || undefined}

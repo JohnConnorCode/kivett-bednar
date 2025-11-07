@@ -113,7 +113,7 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+      <div className="min-h-screen bg-background pt-20 flex items-center justify-center">
         <div className="bg-surface-elevated border border-border p-16 max-w-2xl mx-auto text-center">
           <h1 className="font-bebas text-4xl uppercase tracking-wide text-text-primary mb-4">
             Your Cart is Empty
@@ -130,7 +130,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background pt-20">
       {/* Header */}
       <div className="bg-surface border-b border-border">
         <div className="container mx-auto px-4 py-12">
