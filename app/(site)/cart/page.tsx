@@ -44,7 +44,7 @@ export default function CartPage() {
                 Shopping Cart
               </span>
             </div>
-            <h1 className="font-bebas text-6xl md:text-7xl uppercase tracking-wide text-text-primary">
+            <h1 className="font-bebas text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-wide text-text-primary">
               Your Cart
             </h1>
             {items.length > 0 && (
@@ -61,15 +61,15 @@ export default function CartPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             {items.length === 0 ? (
-              <div className="text-center py-24">
-                <div className="bg-surface-elevated border border-border p-16 max-w-2xl mx-auto">
+              <div className="text-center py-12 sm:py-16 md:py-24">
+                <div className="bg-surface-elevated border border-border p-8 sm:p-12 md:p-16 max-w-2xl mx-auto">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     strokeWidth={1}
                     stroke="currentColor"
-                    className="w-24 h-24 mx-auto text-text-muted mb-6"
+                    className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto text-text-muted mb-4 sm:mb-6"
                   >
                     <path
                       strokeLinecap="round"
@@ -77,10 +77,10 @@ export default function CartPage() {
                       d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
                     />
                   </svg>
-                  <h2 className="font-bebas text-4xl uppercase tracking-wide text-text-primary mb-4">
+                  <h2 className="font-bebas text-3xl sm:text-4xl uppercase tracking-wide text-text-primary mb-3 sm:mb-4">
                     Your cart is empty
                   </h2>
-                  <p className="text-text-secondary mb-8">
+                  <p className="text-text-secondary mb-6 sm:mb-8 text-sm sm:text-base">
                     Looks like you haven&apos;t added any items to your cart yet.
                   </p>
                   <Link href="/merch" className="btn-primary inline-flex">
@@ -101,38 +101,52 @@ export default function CartPage() {
                     return (
                       <div
                         key={it.productId + optKey}
-                        className="bg-surface-elevated border border-border p-6 flex gap-6 items-start"
+                        className="bg-surface-elevated border border-border p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-6 items-start"
                       >
-                        {/* Image */}
-                        {it.imageUrl && (
-                          <Link href={`/merch/${it.slug}`} className="flex-shrink-0">
-                            <div className="relative w-32 h-32 bg-background border border-border overflow-hidden group">
-                              <Image
-                                src={it.imageUrl}
-                                alt={it.title}
-                                fill
-                                className="object-cover group-hover:scale-105 transition-transform"
-                              />
-                            </div>
-                          </Link>
-                        )}
-
-                        {/* Details */}
-                        <div className="flex-1 min-w-0">
-                          <Link href={`/merch/${it.slug}`}>
-                            <h3 className="font-bebas text-2xl uppercase tracking-wide text-text-primary hover:text-accent-primary transition-colors">
-                              {it.title}
-                            </h3>
-                          </Link>
-                          {optKey && (
-                            <div className="text-sm text-text-muted uppercase tracking-wide mt-1">
-                              {optKey}
-                            </div>
+                        {/* Image and Basic Info - Mobile Layout */}
+                        <div className="flex gap-4 w-full sm:w-auto">
+                          {/* Image */}
+                          {it.imageUrl && (
+                            <Link href={`/merch/${it.slug}`} className="flex-shrink-0">
+                              <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 bg-background border border-border overflow-hidden group">
+                                <Image
+                                  src={it.imageUrl}
+                                  alt={it.title}
+                                  fill
+                                  className="object-cover group-hover:scale-105 transition-transform"
+                                />
+                              </div>
+                            </Link>
                           )}
 
-                          {/* Quantity Controls */}
-                          <div className="flex items-center gap-4 mt-4">
-                            <span className="text-sm uppercase tracking-wide text-text-secondary">
+                          {/* Details */}
+                          <div className="flex-1 min-w-0">
+                            <Link href={`/merch/${it.slug}`}>
+                              <h3 className="font-bebas text-xl sm:text-2xl uppercase tracking-wide text-text-primary hover:text-accent-primary transition-colors">
+                                {it.title}
+                              </h3>
+                            </Link>
+                            {optKey && (
+                              <div className="text-xs sm:text-sm text-text-muted uppercase tracking-wide mt-1">
+                                {optKey}
+                              </div>
+                            )}
+                            {/* Price - Mobile only */}
+                            <div className="sm:hidden mt-2">
+                              <div className="text-xl font-bold text-accent-primary">
+                                ${((it.priceCents * it.quantity) / 100).toFixed(2)}
+                              </div>
+                              <div className="text-xs text-text-muted mt-0.5">
+                                {it.currency} ${(it.priceCents / 100).toFixed(2)} each
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Quantity Controls - Full Width on Mobile */}
+                        <div className="w-full sm:w-auto sm:flex-1 sm:min-w-0">
+                          <div className="flex items-center gap-3 sm:gap-4 flex-wrap sm:mt-4">
+                            <span className="text-xs sm:text-sm uppercase tracking-wide text-text-secondary whitespace-nowrap">
                               Quantity
                             </span>
                             <div className="flex items-center gap-2">
@@ -140,35 +154,35 @@ export default function CartPage() {
                                 onClick={() =>
                                   updateQty(it.productId, Math.max(1, it.quantity - 1), optKey)
                                 }
-                                className="w-8 h-8 border border-border hover:border-accent-primary hover:text-accent-primary transition-colors flex items-center justify-center"
+                                className="w-8 h-8 sm:w-9 sm:h-9 border border-border hover:border-accent-primary hover:text-accent-primary transition-colors flex items-center justify-center text-lg"
                               >
                                 −
                               </button>
-                              <div className="w-12 h-8 border border-border bg-background flex items-center justify-center text-text-primary font-bold">
+                              <div className="w-12 sm:w-14 h-8 sm:h-9 border border-border bg-background flex items-center justify-center text-text-primary font-bold">
                                 {it.quantity}
                               </div>
                               <button
                                 onClick={() => updateQty(it.productId, it.quantity + 1, optKey)}
-                                className="w-8 h-8 border border-border hover:border-accent-primary hover:text-accent-primary transition-colors flex items-center justify-center"
+                                className="w-8 h-8 sm:w-9 sm:h-9 border border-border hover:border-accent-primary hover:text-accent-primary transition-colors flex items-center justify-center text-lg"
                               >
                                 +
                               </button>
                             </div>
                             <button
                               onClick={() => removeItem(it.productId, optKey)}
-                              className="ml-auto text-sm text-accent-red hover:text-red-400 uppercase tracking-wide font-bold transition-colors"
+                              className="ml-auto text-xs sm:text-sm text-accent-red hover:text-red-400 uppercase tracking-wide font-bold transition-colors"
                             >
                               Remove
                             </button>
                           </div>
                         </div>
 
-                        {/* Price */}
-                        <div className="text-right flex-shrink-0">
-                          <div className="text-2xl font-bold text-accent-primary">
+                        {/* Price - Desktop only */}
+                        <div className="hidden sm:block text-right flex-shrink-0">
+                          <div className="text-xl md:text-2xl font-bold text-accent-primary">
                             ${((it.priceCents * it.quantity) / 100).toFixed(2)}
                           </div>
-                          <div className="text-sm text-text-muted mt-1">
+                          <div className="text-xs md:text-sm text-text-muted mt-1">
                             {it.currency} ${(it.priceCents / 100).toFixed(2)} each
                           </div>
                         </div>
@@ -179,7 +193,7 @@ export default function CartPage() {
 
                 {/* Order Summary */}
                 <div className="lg:col-span-1">
-                  <div className="bg-surface-elevated border border-border p-8 sticky top-24">
+                  <div className="bg-surface-elevated border border-border p-6 sm:p-8 lg:sticky lg:top-24">
                     <h2 className="font-bebas text-3xl uppercase tracking-wide text-text-primary mb-6">
                       Order Summary
                     </h2>

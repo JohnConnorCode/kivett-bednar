@@ -30,28 +30,28 @@ export function ProductPageContent({product, price, productSlug, mainImageUrl, t
     <>
       {/* Hero Section with Product Title */}
       <div className="relative bg-background border-b border-border">
-        <div className="container mx-auto px-4 py-16 md:py-24">
+        <div className="container mx-auto px-4 py-12 sm:py-16 md:py-20 lg:py-24">
           <div className="max-w-6xl mx-auto">
             <AnimatedSection animation="fadeIn" delay={0.1}>
-              <div className="flex items-center gap-3 mb-4">
-                <div className="h-px bg-accent-primary w-12" />
-                <span className="text-accent-primary text-sm uppercase tracking-wider font-bold">
+              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4">
+                <div className="h-px bg-accent-primary w-8 sm:w-12" />
+                <span className="text-accent-primary text-xs sm:text-sm uppercase tracking-wider font-bold">
                   Official Merch
                 </span>
               </div>
             </AnimatedSection>
 
             <AnimatedSection animation="fadeUp" delay={0.2}>
-              <h1 className="font-bebas text-6xl md:text-7xl uppercase tracking-wide text-text-primary mb-4">
+              <h1 className="font-bebas text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-wide text-text-primary mb-4">
                 {product.title}
               </h1>
             </AnimatedSection>
 
             <AnimatedSection animation="fadeUp" delay={0.3}>
-              <div className="flex items-center gap-4 flex-wrap">
-                <div className="flex items-baseline gap-3">
-                  <span className="text-5xl font-bold text-accent-primary">${price}</span>
-                  <span className="text-text-muted uppercase tracking-wide">{product.currency}</span>
+              <div className="flex items-center gap-3 sm:gap-4 flex-wrap">
+                <div className="flex items-baseline gap-2 sm:gap-3">
+                  <span className="text-3xl sm:text-4xl md:text-5xl font-bold text-accent-primary">${price}</span>
+                  <span className="text-text-muted uppercase tracking-wide text-sm sm:text-base">{product.currency}</span>
                 </div>
                 {product.inStock !== false && (
                   <div className="flex items-center gap-2 px-3 py-1 bg-green-500/10 border border-green-500/30 rounded-lg">
@@ -72,10 +72,10 @@ export function ProductPageContent({product, price, productSlug, mainImageUrl, t
       </div>
 
       {/* Main Content */}
-      <div className="bg-surface py-16 md:py-24">
+      <div className="bg-surface py-12 sm:py-16 md:py-20 lg:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
+            <div className="grid md:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16">
               {/* Images Section */}
               <div className="space-y-6">
                 {/* Main Image */}
@@ -129,7 +129,7 @@ export function ProductPageContent({product, price, productSlug, mainImageUrl, t
                 {/* Thumbnail Gallery */}
                 {thumbnailImages && thumbnailImages.length > 0 && (
                   <AnimatedSection animation="fadeUp" delay={0.2}>
-                    <div className="grid grid-cols-4 gap-3">
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 sm:gap-3">
                       {thumbnailImages.map((img, idx) => (
                         <button
                           key={idx}
@@ -142,7 +142,7 @@ export function ProductPageContent({product, price, productSlug, mainImageUrl, t
                             alt={img.alt || ''}
                             fill
                             className="object-cover group-hover:scale-110 transition-transform duration-300"
-                            sizes="(min-width: 768px) 12vw, 25vw"
+                            sizes="(min-width: 640px) 12vw, 30vw"
                           />
                         </button>
                       ))}
@@ -169,9 +169,9 @@ export function ProductPageContent({product, price, productSlug, mainImageUrl, t
 
                 {/* Purchase Section */}
                 <AnimatedSection animation="fadeUp" delay={0.3}>
-                  <div className="bg-gradient-to-br from-surface-elevated to-surface border-2 border-accent-primary/20 p-8 shadow-lg">
-                    <div className="flex items-center justify-between mb-6">
-                      <h3 className="font-bebas text-2xl uppercase tracking-wide text-text-primary">
+                  <div className="bg-gradient-to-br from-surface-elevated to-surface border-2 border-accent-primary/20 p-6 sm:p-8 shadow-lg">
+                    <div className="flex items-center justify-between mb-4 sm:mb-6">
+                      <h3 className="font-bebas text-xl sm:text-2xl uppercase tracking-wide text-text-primary">
                         Select Options
                       </h3>
                       {product.inStock !== false && (
@@ -229,28 +229,28 @@ export function ProductPageContent({product, price, productSlug, mainImageUrl, t
 
                 {/* Additional Info */}
                 <AnimatedSection animation="fadeUp" delay={0.5}>
-                  <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
                     <div className="bg-background/30 border border-border p-4 hover:border-accent-primary/50 transition-colors group">
                       <div className="flex items-center gap-2 mb-2">
-                        <svg className="w-5 h-5 text-accent-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <svg className="w-5 h-5 text-accent-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.657-.672 3.157-1.757 4.243M3 12c0 1.657.672 3.157 1.757 4.243m0-8.486A5.959 5.959 0 003 12c0 1.657.672 3.157 1.757 4.243m13.486 0A5.959 5.959 0 0021 12c0-1.657-.672-3.157-1.757-4.243M9 12.75L11.25 15 15 9.75" />
                         </svg>
-                        <div className="text-accent-primary font-bold uppercase tracking-wider">
+                        <div className="text-accent-primary font-bold uppercase tracking-wider text-xs sm:text-sm">
                           Authentic
                         </div>
                       </div>
-                      <div className="text-text-muted">Official merchandise</div>
+                      <div className="text-text-muted text-xs sm:text-sm">Official merchandise</div>
                     </div>
                     <div className="bg-background/30 border border-border p-4 hover:border-accent-primary/50 transition-colors group">
                       <div className="flex items-center gap-2 mb-2">
-                        <svg className="w-5 h-5 text-accent-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <svg className="w-5 h-5 text-accent-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
                         </svg>
-                        <div className="text-accent-primary font-bold uppercase tracking-wider">
+                        <div className="text-accent-primary font-bold uppercase tracking-wider text-xs sm:text-sm">
                           Quality
                         </div>
                       </div>
-                      <div className="text-text-muted">Premium materials</div>
+                      <div className="text-text-muted text-xs sm:text-sm">Premium materials</div>
                     </div>
                   </div>
                 </AnimatedSection>
