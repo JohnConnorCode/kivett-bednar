@@ -1,6 +1,6 @@
 'use client'
 
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import Image from 'next/image'
 import {X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut} from 'lucide-react'
 
@@ -15,6 +15,14 @@ export function ImageLightbox({images, initialIndex = 0, isOpen, onClose}: Image
   const [currentIndex, setCurrentIndex] = useState(initialIndex)
   const [isZoomed, setIsZoomed] = useState(false)
   const [zoomPosition, setZoomPosition] = useState({x: 50, y: 50})
+
+  const handlePrevious = useCallback(() => {
+    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1))
+  }, [images.length])
+
+  const handleNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0))
+  }, [images.length])
 
   // Reset zoom when changing images
   useEffect(() => {
@@ -45,15 +53,7 @@ export function ImageLightbox({images, initialIndex = 0, isOpen, onClose}: Image
 
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [isOpen, currentIndex])
-
-  const handlePrevious = () => {
-    setCurrentIndex((prev) => (prev > 0 ? prev - 1 : images.length - 1))
-  }
-
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev < images.length - 1 ? prev + 1 : 0))
-  }
+  }, [isOpen, handlePrevious, handleNext, onClose])
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!isZoomed) return
