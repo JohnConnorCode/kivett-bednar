@@ -35,13 +35,40 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 
 export default async function ProductPage({params}: Props) {
   const {slug} = await params
-  let product = null
 
-  try {
-    product = await sanityFetch({query: productBySlugQuery, params: {slug}}).then((r) => r.data)
-  } catch (error) {
-    console.warn(`Failed to fetch product for slug: ${slug}`, error)
-  }
+  // Fetch product and related products in parallel
+  const [productResult, relatedProductsResult] = await Promise.allSettled([
+    sanityFetch({query: productBySlugQuery, params: {slug}}).then((r) => r.data),
+    // Pre-fetch related products query (will be resolved after we have product data)
+    sanityFetch({query: productBySlugQuery, params: {slug}})
+      .then(async (r) => {
+        const prod = r.data
+        if (!prod) return []
+
+        // If product has explicit related products, use those
+        if (prod.relatedProducts && prod.relatedProducts.length > 0) {
+          return prod.relatedProducts
+        }
+
+        // Otherwise fetch by category
+        if (prod.category) {
+          return sanityFetch({
+            query: relatedProductsByCategoryQuery,
+            params: {
+              category: prod.category,
+              excludeId: prod._id,
+              limit: 4,
+            },
+          }).then((r) => r.data || [])
+        }
+
+        return []
+      })
+      .catch(() => [])
+  ])
+
+  const product = productResult.status === 'fulfilled' ? productResult.value : null
+  const relatedProducts = relatedProductsResult.status === 'fulfilled' ? relatedProductsResult.value : []
 
   if (!product) {
     notFound()
@@ -70,26 +97,6 @@ export default async function ProductPage({params}: Props) {
         alt: img.alt || product.title || 'Product image'
       }))
     : []
-
-  // Fetch related products (from relatedProducts field or by category)
-  let relatedProducts: any[] = []
-  try {
-    if (product.relatedProducts && product.relatedProducts.length > 0) {
-      relatedProducts = product.relatedProducts
-    } else if (product.category) {
-      const categoryRelated = await sanityFetch({
-        query: relatedProductsByCategoryQuery,
-        params: {
-          category: product.category,
-          excludeId: product._id,
-          limit: 4,
-        },
-      }).then((r) => r.data)
-      relatedProducts = categoryRelated || []
-    }
-  } catch (error) {
-    console.warn('Failed to fetch related products:', error)
-  }
 
   // Generate JSON-LD structured data for product
   const productJsonLd = {

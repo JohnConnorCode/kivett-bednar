@@ -3,10 +3,21 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import {useCart} from './CartContext'
-import {useEffect} from 'react'
+import {useEffect, useState} from 'react'
+
+type PromoCodeData = {
+  code: string
+  discountType: string
+  discountCents: number
+  description: string
+}
 
 export function CartDrawer({open, onClose}: {open: boolean; onClose: () => void}) {
   const {items, totalCents, updateQty, removeItem} = useCart()
+  const [promoCode, setPromoCode] = useState('')
+  const [appliedPromo, setAppliedPromo] = useState<PromoCodeData | null>(null)
+  const [promoError, setPromoError] = useState('')
+  const [promoLoading, setPromoLoading] = useState(false)
 
   // Handle Escape key to close drawer
   useEffect(() => {
@@ -21,6 +32,47 @@ export function CartDrawer({open, onClose}: {open: boolean; onClose: () => void}
     document.addEventListener('keydown', handleEscape)
     return () => document.removeEventListener('keydown', handleEscape)
   }, [open, onClose])
+
+  const applyPromoCode = async () => {
+    if (!promoCode.trim()) return
+
+    setPromoLoading(true)
+    setPromoError('')
+
+    try {
+      const response = await fetch('/api/promo-code', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+          code: promoCode.trim(),
+          cartTotal: totalCents,
+        }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        setPromoError(data.error || 'Failed to apply promo code')
+        setAppliedPromo(null)
+      } else {
+        setAppliedPromo(data)
+        setPromoError('')
+      }
+    } catch (error) {
+      setPromoError('Failed to apply promo code')
+      setAppliedPromo(null)
+    } finally {
+      setPromoLoading(false)
+    }
+  }
+
+  const removePromoCode = () => {
+    setAppliedPromo(null)
+    setPromoCode('')
+    setPromoError('')
+  }
+
+  const finalTotal = appliedPromo ? totalCents - appliedPromo.discountCents : totalCents
 
   return (
     <div className={`fixed inset-0 z-[200] ${open ? '' : 'pointer-events-none'}`}>
@@ -97,11 +149,79 @@ export function CartDrawer({open, onClose}: {open: boolean; onClose: () => void}
             })
           )}
         </div>
-        <div className="p-4 border-t bg-surface-elevated flex-shrink-0 safe-bottom">
-          <div className="flex justify-between mb-3">
-            <span>Subtotal</span>
-            <span className="font-semibold">${(totalCents / 100).toFixed(2)}</span>
-          </div>
+        <div className="p-4 border-t bg-surface-elevated flex-shrink-0 safe-bottom space-y-4">
+          {/* Promo Code Section */}
+          {items.length > 0 && (
+            <div className="space-y-2">
+              <label className="text-xs uppercase tracking-wider font-bold text-text-muted">
+                Promo Code
+              </label>
+              {!appliedPromo ? (
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={promoCode}
+                    onChange={(e) => setPromoCode(e.target.value.toUpperCase())}
+                    onKeyDown={(e) => e.key === 'Enter' && applyPromoCode()}
+                    placeholder="Enter code"
+                    className="flex-1 bg-surface border border-border px-3 py-2 text-sm uppercase tracking-wider focus:border-accent-primary focus:outline-none transition-all"
+                    disabled={promoLoading}
+                  />
+                  <button
+                    onClick={applyPromoCode}
+                    disabled={promoLoading || !promoCode.trim()}
+                    className="px-4 py-2 bg-accent-primary text-black font-bold text-sm uppercase tracking-wider hover:bg-accent-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {promoLoading ? 'Applying...' : 'Apply'}
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center justify-between bg-green-500/10 border border-green-500/30 px-3 py-2">
+                  <div className="flex-1">
+                    <div className="font-bold text-green-500 text-sm uppercase tracking-wider">
+                      {appliedPromo.code}
+                    </div>
+                    {appliedPromo.description && (
+                      <div className="text-xs text-text-secondary">{appliedPromo.description}</div>
+                    )}
+                  </div>
+                  <button
+                    onClick={removePromoCode}
+                    className="text-text-muted hover:text-red-500 transition-colors"
+                    aria-label="Remove promo code"
+                  >
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              )}
+              {promoError && (
+                <div className="text-xs text-red-500">{promoError}</div>
+              )}
+            </div>
+          )}
+
+          {/* Totals */}
+          {items.length > 0 && (
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span>Subtotal</span>
+                <span className="font-semibold">${(totalCents / 100).toFixed(2)}</span>
+              </div>
+              {appliedPromo && appliedPromo.discountCents > 0 && (
+                <div className="flex justify-between text-sm text-green-500">
+                  <span>Discount ({appliedPromo.code})</span>
+                  <span className="font-semibold">-${(appliedPromo.discountCents / 100).toFixed(2)}</span>
+                </div>
+              )}
+              <div className="flex justify-between text-lg font-bold pt-2 border-t border-border">
+                <span>Total</span>
+                <span>${(finalTotal / 100).toFixed(2)}</span>
+              </div>
+            </div>
+          )}
+
           <Link href="/cart" onClick={onClose} className="btn-primary w-full block text-center">
             View Cart / Checkout
           </Link>

@@ -29,10 +29,21 @@ type Props = {
 export function MerchPageContent({merchPage, products}: Props) {
   const [selectedCategory, setSelectedCategory] = useState<string>('all')
   const [sortBy, setSortBy] = useState<string>('featured')
+  const [searchQuery, setSearchQuery] = useState<string>('')
 
   // Filter and sort products
   const filteredAndSortedProducts = useMemo(() => {
     let filtered = products
+
+    // Filter by search query
+    if (searchQuery.trim().length >= 2) {
+      const query = searchQuery.toLowerCase()
+      filtered = filtered.filter((p: any) =>
+        p.title?.toLowerCase().includes(query) ||
+        p.category?.toLowerCase().includes(query) ||
+        p.tags?.some((tag: string) => tag.toLowerCase().includes(query))
+      )
+    }
 
     // Filter by category
     if (selectedCategory !== 'all') {
@@ -58,7 +69,7 @@ export function MerchPageContent({merchPage, products}: Props) {
     })
 
     return sorted
-  }, [products, selectedCategory, sortBy])
+  }, [products, selectedCategory, sortBy, searchQuery])
 
   const categories = [
     {value: 'all', label: 'All Products'},
@@ -157,6 +168,46 @@ export function MerchPageContent({merchPage, products}: Props) {
                 <AnimatedSection animation="fadeUp" delay={0.1}>
                   <div className="mb-16">
                     <div className="bg-surface/50 backdrop-blur-sm border border-border/50 p-8 shadow-2xl">
+                    {/* Search Bar */}
+                    <div className="mb-8 pb-8 border-b border-border/50">
+                      <label className="block text-xs uppercase tracking-[0.2em] font-bold text-accent-primary mb-4 flex items-center gap-2">
+                        <span className="w-8 h-px bg-accent-primary" />
+                        Search Products
+                      </label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          value={searchQuery}
+                          onChange={(e) => setSearchQuery(e.target.value)}
+                          placeholder="Search by name, category, or tags..."
+                          className="w-full bg-surface-elevated border-2 border-border px-5 py-3 pl-12 text-text-primary placeholder:text-text-muted focus:border-accent-primary focus:outline-none transition-all uppercase tracking-wider text-sm font-bold"
+                        />
+                        <svg
+                          className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-text-muted"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                          />
+                        </svg>
+                        {searchQuery && (
+                          <button
+                            onClick={() => setSearchQuery('')}
+                            className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-accent-primary transition-colors"
+                          >
+                            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                          </button>
+                        )}
+                      </div>
+                    </div>
+
                     <div className="flex flex-col lg:flex-row gap-8 items-start lg:items-end justify-between">
                       {/* Category Filter */}
                       <div className="flex-1 w-full">
@@ -209,11 +260,12 @@ export function MerchPageContent({merchPage, products}: Props) {
                         Displaying {filteredAndSortedProducts.length}{' '}
                         {filteredAndSortedProducts.length === 1 ? 'product' : 'products'}
                       </p>
-                      {(selectedCategory !== 'all' || sortBy !== 'featured') && (
+                      {(selectedCategory !== 'all' || sortBy !== 'featured' || searchQuery) && (
                         <button
                           onClick={() => {
                             setSelectedCategory('all')
                             setSortBy('featured')
+                            setSearchQuery('')
                           }}
                           className="text-accent-primary hover:text-accent-primary/80 uppercase tracking-wider text-xs font-bold transition-colors"
                         >
@@ -228,15 +280,10 @@ export function MerchPageContent({merchPage, products}: Props) {
                 {/* Products Grid - Enhanced Layout */}
                 {filteredAndSortedProducts.length > 0 ? (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                    {filteredAndSortedProducts.map((product: any, index: number) => (
-                      <AnimatedSection
-                        key={product._id}
-                        animation="fadeUp"
-                        delay={index * 0.05}
-                        className="h-full"
-                      >
+                    {filteredAndSortedProducts.map((product: any) => (
+                      <div key={product._id} className="h-full">
                         <ProductCard product={product} />
-                      </AnimatedSection>
+                      </div>
                     ))}
                   </div>
                 ) : (
@@ -274,6 +321,7 @@ export function MerchPageContent({merchPage, products}: Props) {
                         onClick={() => {
                           setSelectedCategory('all')
                           setSortBy('featured')
+                          setSearchQuery('')
                         }}
                         className="inline-flex items-center gap-3 px-8 py-4 bg-accent-primary text-black font-bold uppercase tracking-wider hover:bg-accent-primary/90 transition-all duration-300 shadow-lg shadow-accent-primary/20"
                       >

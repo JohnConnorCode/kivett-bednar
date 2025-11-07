@@ -70,11 +70,12 @@ export function ProductCard({product}: {product: Product}) {
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 z-10" />
 
             <Image
-              src={urlFor(product.images[0].asset).width(800).height(800).url()}
+              src={urlFor(product.images[0].asset).width(600).height(600).url()}
               alt={product.images[0].alt || product.title}
               fill
               className="object-cover group-hover:scale-110 transition-transform duration-500"
-              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              loading="lazy"
               style={{
                 objectPosition: getObjectPosition(product.images[0], isMobile)
               }}
