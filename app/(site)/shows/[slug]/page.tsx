@@ -383,10 +383,76 @@ export default async function EventPage({params}: Props) {
                   <AnimatedSection animation="fadeUp" delay={0.3}>
                     <Link
                       href="/shows"
-                      className="btn-secondary w-full text-center"
+                      className="flex items-center justify-center gap-2 w-full bg-surface-elevated hover:bg-surface border border-border hover:border-accent-primary/50 text-text-primary py-4 px-6 rounded-lg transition-all group"
                     >
-                      ← Back to All Shows
+                      <svg className="w-5 h-5 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                      </svg>
+                      <span className="font-bold uppercase tracking-wider text-sm">Back to All Shows</span>
                     </Link>
+                  </AnimatedSection>
+
+                  {/* Share Event */}
+                  <AnimatedSection animation="fadeUp" delay={0.4}>
+                    <div className="bg-surface-elevated border border-border rounded-lg p-6">
+                      <h3 className="text-sm uppercase tracking-wider font-bold text-text-primary mb-3">Share Event</h3>
+                      <div className="flex gap-2">
+                        <button
+                          onClick={() => {
+                            if (navigator.share) {
+                              navigator.share({
+                                title: event.title,
+                                text: `Check out ${event.title} at ${event.venue}`,
+                                url: window.location.href,
+                              })
+                            } else {
+                              navigator.clipboard.writeText(window.location.href)
+                              alert('Link copied to clipboard!')
+                            }
+                          }}
+                          className="flex-1 flex items-center justify-center gap-2 py-2 px-3 bg-background hover:bg-accent-primary/10 border border-border hover:border-accent-primary text-text-secondary hover:text-accent-primary rounded transition-all"
+                          aria-label="Share event"
+                        >
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
+                          </svg>
+                          <span className="text-xs font-medium uppercase tracking-wide">Share</span>
+                        </button>
+                        <button
+                          onClick={() => {
+                            const eventData = {
+                              title: event.title,
+                              location: `${event.venue}, ${event.city}`,
+                              description: event.excerpt || '',
+                              startDate: startDateTime,
+                              endDate: event.endDateTime || startDateTime,
+                            }
+                            const icsContent = `BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:${eventData.title}
+LOCATION:${eventData.location}
+DESCRIPTION:${eventData.description}
+DTSTART:${new Date(eventData.startDate).toISOString().replace(/[-:]/g, '').split('.')[0]}Z
+DTEND:${new Date(eventData.endDate).toISOString().replace(/[-:]/g, '').split('.')[0]}Z
+END:VEVENT
+END:VCALENDAR`
+                            const blob = new Blob([icsContent], { type: 'text/calendar' })
+                            const url = URL.createObjectURL(blob)
+                            const link = document.createElement('a')
+                            link.href = url
+                            link.download = `${event.title.replace(/\s+/g, '-')}.ics`
+                            link.click()
+                            URL.revokeObjectURL(url)
+                          }}
+                          className="flex-1 flex items-center justify-center gap-2 py-2 px-3 bg-background hover:bg-accent-primary/10 border border-border hover:border-accent-primary text-text-secondary hover:text-accent-primary rounded transition-all"
+                          aria-label="Add to calendar"
+                        >
+                          <Calendar className="w-4 h-4" />
+                          <span className="text-xs font-medium uppercase tracking-wide">Calendar</span>
+                        </button>
+                      </div>
+                    </div>
                   </AnimatedSection>
                 </div>
               </div>

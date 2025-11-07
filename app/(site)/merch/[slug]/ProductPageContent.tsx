@@ -48,9 +48,23 @@ export function ProductPageContent({product, price, productSlug, mainImageUrl, t
             </AnimatedSection>
 
             <AnimatedSection animation="fadeUp" delay={0.3}>
-              <div className="flex items-baseline gap-3">
-                <span className="text-5xl font-bold text-accent-primary">${price}</span>
-                <span className="text-text-muted uppercase tracking-wide">{product.currency}</span>
+              <div className="flex items-center gap-4 flex-wrap">
+                <div className="flex items-baseline gap-3">
+                  <span className="text-5xl font-bold text-accent-primary">${price}</span>
+                  <span className="text-text-muted uppercase tracking-wide">{product.currency}</span>
+                </div>
+                {product.inStock !== false && (
+                  <div className="flex items-center gap-2 px-3 py-1 bg-green-500/10 border border-green-500/30 rounded-lg">
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                    <span className="text-green-400 text-sm font-medium uppercase tracking-wide">In Stock</span>
+                  </div>
+                )}
+                {product.inStock === false && (
+                  <div className="flex items-center gap-2 px-3 py-1 bg-red-500/10 border border-red-500/30 rounded-lg">
+                    <div className="w-2 h-2 bg-red-500 rounded-full" />
+                    <span className="text-red-400 text-sm font-medium uppercase tracking-wide">Out of Stock</span>
+                  </div>
+                )}
               </div>
             </AnimatedSection>
           </div>
@@ -155,10 +169,20 @@ export function ProductPageContent({product, price, productSlug, mainImageUrl, t
 
                 {/* Purchase Section */}
                 <AnimatedSection animation="fadeUp" delay={0.3}>
-                  <div className="bg-surface-elevated border border-border p-8">
-                    <h3 className="font-bebas text-2xl uppercase tracking-wide text-text-primary mb-6">
-                      Select Options
-                    </h3>
+                  <div className="bg-gradient-to-br from-surface-elevated to-surface border-2 border-accent-primary/20 p-8 shadow-lg">
+                    <div className="flex items-center justify-between mb-6">
+                      <h3 className="font-bebas text-2xl uppercase tracking-wide text-text-primary">
+                        Select Options
+                      </h3>
+                      {product.inStock !== false && (
+                        <div className="flex items-center gap-2 text-sm text-green-400">
+                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                          <span className="font-medium">Available</span>
+                        </div>
+                      )}
+                    </div>
                     <PurchaseSection
                       product={{
                         _id: product._id,
@@ -206,15 +230,25 @@ export function ProductPageContent({product, price, productSlug, mainImageUrl, t
                 {/* Additional Info */}
                 <AnimatedSection animation="fadeUp" delay={0.5}>
                   <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div className="bg-background/30 border border-border p-4">
-                      <div className="text-accent-primary font-bold uppercase tracking-wider mb-1">
-                        Authentic
+                    <div className="bg-background/30 border border-border p-4 hover:border-accent-primary/50 transition-colors group">
+                      <div className="flex items-center gap-2 mb-2">
+                        <svg className="w-5 h-5 text-accent-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.657-.672 3.157-1.757 4.243M3 12c0 1.657.672 3.157 1.757 4.243m0-8.486A5.959 5.959 0 003 12c0 1.657.672 3.157 1.757 4.243m13.486 0A5.959 5.959 0 0021 12c0-1.657-.672-3.157-1.757-4.243M9 12.75L11.25 15 15 9.75" />
+                        </svg>
+                        <div className="text-accent-primary font-bold uppercase tracking-wider">
+                          Authentic
+                        </div>
                       </div>
                       <div className="text-text-muted">Official merchandise</div>
                     </div>
-                    <div className="bg-background/30 border border-border p-4">
-                      <div className="text-accent-primary font-bold uppercase tracking-wider mb-1">
-                        Quality
+                    <div className="bg-background/30 border border-border p-4 hover:border-accent-primary/50 transition-colors group">
+                      <div className="flex items-center gap-2 mb-2">
+                        <svg className="w-5 h-5 text-accent-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+                        </svg>
+                        <div className="text-accent-primary font-bold uppercase tracking-wider">
+                          Quality
+                        </div>
                       </div>
                       <div className="text-text-muted">Premium materials</div>
                     </div>
