@@ -5,7 +5,7 @@
 @theme {
   /* Font Families - System Font Fallbacks */
   --font-inter: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-  --font-bebas: Impact, "Arial Black", "Franklin Gothic Medium", "Arial Narrow", sans-serif;
+  --font-bebas: Impact, "Helvetica Neue Condensed", "Helvetica Neue", "Arial Black", "Franklin Gothic Bold", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 
   /* Dark Cinematic Foundation */
   --color-background: #0a0a0a;
@@ -137,7 +137,7 @@ iframe {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-bebas), system-ui, -apple-system, sans-serif;
+  font-family: var(--font-bebas);
   font-weight: 400;
   letter-spacing: 0.05em;
   text-transform: uppercase;

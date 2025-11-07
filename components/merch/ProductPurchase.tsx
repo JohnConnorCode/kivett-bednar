@@ -23,7 +23,8 @@ export function PurchaseSection({
   const [quantity, setQuantity] = useState(1)
   const {addItem} = useCart()
   const {showToast} = useToast()
-  const price = product.priceCents ? (product.priceCents / 100).toFixed(2) : '0.00'
+  const unitPrice = product.priceCents ? (product.priceCents / 100).toFixed(2) : '0.00'
+  const totalPrice = product.priceCents ? ((product.priceCents * quantity) / 100).toFixed(2) : '0.00'
 
   const handleAddToCart = () => {
     addItem({
@@ -76,8 +77,10 @@ export function PurchaseSection({
         <div className="flex items-center gap-3">
           <button
             onClick={() => setQuantity(Math.max(1, quantity - 1))}
-            className="w-12 h-12 border border-border hover:border-accent-primary hover:bg-accent-primary hover:text-black transition-all duration-200 flex items-center justify-center text-text-primary font-bold"
+            className="w-12 h-12 border border-border hover:border-accent-primary hover:bg-accent-primary hover:text-black transition-all duration-200 flex items-center justify-center text-text-primary font-bold disabled:opacity-50 disabled:cursor-not-allowed"
             type="button"
+            disabled={quantity <= 1}
+            aria-label="Decrease quantity"
           >
             −
           </button>
@@ -88,10 +91,17 @@ export function PurchaseSection({
             onClick={() => setQuantity(quantity + 1)}
             className="w-12 h-12 border border-border hover:border-accent-primary hover:bg-accent-primary hover:text-black transition-all duration-200 flex items-center justify-center text-text-primary font-bold"
             type="button"
+            aria-label="Increase quantity"
           >
             +
           </button>
         </div>
+        {/* Show unit price if quantity > 1 */}
+        {quantity > 1 && (
+          <p className="text-text-muted text-sm mt-2">
+            {product.currency} ${unitPrice} each × {quantity}
+          </p>
+        )}
       </div>
 
       {/* Divider */}
@@ -99,7 +109,7 @@ export function PurchaseSection({
 
       {/* Add to Cart Button */}
       <button
-        className="w-full group relative bg-accent-primary hover:bg-accent-primary/90 text-black font-bold text-lg uppercase tracking-wider py-5 transition-all duration-300 overflow-hidden"
+        className="w-full group relative bg-accent-primary hover:bg-accent-primary/90 text-black font-bold text-lg uppercase tracking-wider py-5 transition-all duration-300 overflow-hidden hover:shadow-lg hover:shadow-accent-primary/30"
         onClick={handleAddToCart}
         type="button"
       >
@@ -118,7 +128,18 @@ export function PurchaseSection({
               d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
             />
           </svg>
-          Add to Cart — {product.currency} ${price}
+          <span className="flex flex-col items-center">
+            <span className="flex items-center gap-2">
+              Add to Cart
+              <span className="inline-block w-px h-4 bg-black/30" />
+              {product.currency} ${totalPrice}
+            </span>
+            {quantity > 1 && (
+              <span className="text-xs font-normal opacity-75 mt-0.5">
+                {quantity} items
+              </span>
+            )}
+          </span>
         </span>
         {/* Hover effect */}
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />

@@ -3,10 +3,11 @@
 import Link from 'next/link'
 import {useState, useEffect} from 'react'
 import {usePathname} from 'next/navigation'
-import {ShoppingCart, Search} from 'lucide-react'
+import {ShoppingCart, Search, X} from 'lucide-react'
 import {CartDrawer} from './CartDrawer'
 import {SearchModal} from './SearchModal'
 import {useCart} from './CartContext'
+import {motion, AnimatePresence} from 'framer-motion'
 
 interface HeaderProps {
   siteName?: string
@@ -160,68 +161,133 @@ export function Header({siteName, navigation}: HeaderProps) {
           </button>
         </div>
 
-        {/* Mobile Navigation - Enhanced glassy background when open */}
-        {mobileMenuOpen && (
-          <nav
-            id="mobile-menu"
-            className="md:hidden pb-4 border-t border-accent-primary/30 mt-2 pt-4 -mx-4 px-4"
-            role="navigation"
-            aria-label="Mobile navigation"
-            style={{
-              background: 'rgba(10, 10, 10, 0.3)',
-              backdropFilter: 'blur(16px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(16px) saturate(180%)',
-              isolation: 'isolate'
-            }}
-          >
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block py-3 text-white/90 hover:text-accent-primary transition-colors font-medium uppercase tracking-wider text-sm"
+        {/* Mobile Navigation - Full-screen drawer with smooth animations */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <>
+              {/* Backdrop Overlay */}
+              <motion.div
+                initial={{opacity: 0}}
+                animate={{opacity: 1}}
+                exit={{opacity: 0}}
+                transition={{duration: 0.3}}
+                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] md:hidden"
                 onClick={() => setMobileMenuOpen(false)}
-              >
-                {item.title}
-              </Link>
-            ))}
-            <div className="mt-2 pt-3 border-t border-accent-primary/30 space-y-3">
-              <button
-                aria-label="Search products"
-                className="flex items-center gap-2 text-white/90 hover:text-accent-primary transition-colors w-full"
-                onClick={() => {
-                  setMobileMenuOpen(false)
-                  setSearchOpen(true)
+                aria-hidden="true"
+              />
+
+              {/* Mobile Menu Drawer */}
+              <motion.nav
+                id="mobile-menu"
+                initial={{x: '100%'}}
+                animate={{x: 0}}
+                exit={{x: '100%'}}
+                transition={{
+                  type: 'spring',
+                  damping: 30,
+                  stiffness: 300,
                 }}
-                type="button"
+                className="fixed top-0 right-0 bottom-0 w-[85vw] max-w-sm z-[100] md:hidden overflow-y-auto"
+                role="navigation"
+                aria-label="Mobile navigation"
+                style={{
+                  background: 'rgba(10, 10, 10, 0.95)',
+                  backdropFilter: 'blur(24px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+                  borderLeft: '1px solid rgba(212, 175, 55, 0.2)',
+                }}
               >
-                <Search className="h-6 w-6" />
-                <span className="uppercase tracking-wider text-sm">Search</span>
-              </button>
-              <div className="flex items-center justify-between">
-                <button
-                  aria-label="Open cart"
-                  className="flex items-center gap-2 text-white/90 hover:text-accent-primary transition-colors"
-                  onClick={() => {
-                    setMobileMenuOpen(false)
-                    setCartOpen(true)
-                  }}
-                  type="button"
-                >
-                  <ShoppingCart className="h-6 w-6" />
-                  <span className="uppercase tracking-wider text-sm">Cart</span>
-                  {itemCount > 0 && (
-                    <span className="ml-2 text-xs bg-accent-primary text-black rounded-full px-1.5 py-0.5 font-bold">
-                      {itemCount}
-                    </span>
-                  )}
-                </button>
-                <Link href="/cart" className="text-sm text-white/80 hover:text-accent-primary" onClick={() => setMobileMenuOpen(false)}>
-                  View Cart
-                </Link>
-              </div>
-            </div>
-          </nav>
-        )}
+                <div className="flex flex-col h-full">
+                  {/* Header with Close Button */}
+                  <div className="flex items-center justify-between p-6 border-b border-accent-primary/20">
+                    <h2 className="text-2xl font-bold text-white tracking-tight">Menu</h2>
+                    <button
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="p-2 text-white/80 hover:text-accent-primary transition-colors"
+                      aria-label="Close menu"
+                    >
+                      <X className="h-6 w-6" />
+                    </button>
+                  </div>
+
+                  {/* Navigation Links with Staggered Animation */}
+                  <div className="flex-1 px-6 py-8 space-y-2">
+                    {navItems.map((item, index) => (
+                      <motion.div
+                        key={item.href}
+                        initial={{opacity: 0, x: 20}}
+                        animate={{opacity: 1, x: 0}}
+                        transition={{
+                          delay: index * 0.1,
+                          duration: 0.3,
+                        }}
+                      >
+                        <Link
+                          href={item.href}
+                          className="block py-4 px-4 text-white/90 hover:text-accent-primary hover:bg-accent-primary/10 rounded-lg transition-all font-medium uppercase tracking-wider text-lg border-l-2 border-transparent hover:border-accent-primary"
+                          onClick={() => setMobileMenuOpen(false)}
+                        >
+                          {item.title}
+                        </Link>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* Bottom Actions with Divider */}
+                  <div className="border-t border-accent-primary/20 p-6 space-y-4">
+                    <motion.button
+                      initial={{opacity: 0, y: 10}}
+                      animate={{opacity: 1, y: 0}}
+                      transition={{delay: navItems.length * 0.1 + 0.1}}
+                      aria-label="Search products"
+                      className="flex items-center gap-3 text-white/90 hover:text-accent-primary hover:bg-accent-primary/10 transition-all w-full py-3 px-4 rounded-lg"
+                      onClick={() => {
+                        setMobileMenuOpen(false)
+                        setSearchOpen(true)
+                      }}
+                      type="button"
+                    >
+                      <Search className="h-5 w-5" />
+                      <span className="uppercase tracking-wider text-sm font-medium">Search</span>
+                    </motion.button>
+
+                    <motion.div
+                      initial={{opacity: 0, y: 10}}
+                      animate={{opacity: 1, y: 0}}
+                      transition={{delay: navItems.length * 0.1 + 0.2}}
+                      className="flex gap-3"
+                    >
+                      <button
+                        aria-label="Open cart"
+                        className="flex-1 flex items-center justify-center gap-2 text-white/90 hover:text-accent-primary hover:bg-accent-primary/10 transition-all py-3 px-4 rounded-lg border border-accent-primary/30"
+                        onClick={() => {
+                          setMobileMenuOpen(false)
+                          setCartOpen(true)
+                        }}
+                        type="button"
+                      >
+                        <ShoppingCart className="h-5 w-5" />
+                        <span className="uppercase tracking-wider text-sm font-medium">Cart</span>
+                        {itemCount > 0 && (
+                          <span className="text-xs bg-accent-primary text-black rounded-full px-2 py-0.5 font-bold">
+                            {itemCount}
+                          </span>
+                        )}
+                      </button>
+                      <Link
+                        href="/cart"
+                        className="btn-primary py-3 px-6 text-sm"
+                        onClick={() => setMobileMenuOpen(false)}
+                      >
+                        View
+                      </Link>
+                    </motion.div>
+                  </div>
+                </div>
+              </motion.nav>
+            </>
+          )}
+        </AnimatePresence>
 
         {/* Cart Drawer */}
         <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
