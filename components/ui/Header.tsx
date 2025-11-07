@@ -50,6 +50,28 @@ export function Header({siteName, navigation}: HeaderProps) {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      // Save current scroll position
+      const scrollY = window.scrollY
+      document.body.style.position = 'fixed'
+      document.body.style.top = `-${scrollY}px`
+      document.body.style.width = '100%'
+      document.body.style.overflow = 'hidden'
+    } else {
+      // Restore scroll position
+      const scrollY = document.body.style.top
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.width = ''
+      document.body.style.overflow = ''
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1)
+      }
+    }
+  }, [mobileMenuOpen])
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ease-out ${
@@ -170,9 +192,10 @@ export function Header({siteName, navigation}: HeaderProps) {
                 initial={{opacity: 0}}
                 animate={{opacity: 1}}
                 exit={{opacity: 0}}
-                transition={{duration: 0.3}}
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-[90] md:hidden"
+                transition={{duration: 0.25, ease: 'easeInOut'}}
+                className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[90] md:hidden"
                 onClick={() => setMobileMenuOpen(false)}
+                onTouchEnd={() => setMobileMenuOpen(false)}
                 aria-hidden="true"
               />
 
@@ -184,14 +207,15 @@ export function Header({siteName, navigation}: HeaderProps) {
                 exit={{x: '100%'}}
                 transition={{
                   type: 'spring',
-                  damping: 30,
-                  stiffness: 300,
+                  damping: 25,
+                  stiffness: 250,
+                  mass: 0.8,
                 }}
-                className="fixed top-0 right-0 bottom-0 w-[85vw] max-w-sm z-[100] md:hidden overflow-y-auto"
+                className="fixed top-0 right-0 bottom-0 w-[85vw] max-w-sm z-[100] md:hidden overflow-y-auto overscroll-contain"
                 role="navigation"
                 aria-label="Mobile navigation"
                 style={{
-                  background: 'rgba(10, 10, 10, 0.95)',
+                  background: 'rgba(10, 10, 10, 0.98)',
                   backdropFilter: 'blur(24px) saturate(180%)',
                   WebkitBackdropFilter: 'blur(24px) saturate(180%)',
                   borderLeft: '1px solid rgba(212, 175, 55, 0.2)',
@@ -218,13 +242,14 @@ export function Header({siteName, navigation}: HeaderProps) {
                         initial={{opacity: 0, x: 20}}
                         animate={{opacity: 1, x: 0}}
                         transition={{
-                          delay: index * 0.1,
-                          duration: 0.3,
+                          delay: index * 0.06,
+                          duration: 0.25,
+                          ease: 'easeOut',
                         }}
                       >
                         <Link
                           href={item.href}
-                          className="block py-4 px-4 text-white/90 hover:text-accent-primary hover:bg-accent-primary/10 rounded-lg transition-all font-medium uppercase tracking-wider text-lg border-l-2 border-transparent hover:border-accent-primary"
+                          className="block py-4 px-4 text-white/90 hover:text-accent-primary hover:bg-accent-primary/10 rounded-lg transition-all duration-200 font-medium uppercase tracking-wider text-lg border-l-2 border-transparent hover:border-accent-primary active:scale-95"
                           onClick={() => setMobileMenuOpen(false)}
                         >
                           {item.title}
@@ -238,9 +263,13 @@ export function Header({siteName, navigation}: HeaderProps) {
                     <motion.button
                       initial={{opacity: 0, y: 10}}
                       animate={{opacity: 1, y: 0}}
-                      transition={{delay: navItems.length * 0.1 + 0.1}}
+                      transition={{
+                        delay: navItems.length * 0.06 + 0.1,
+                        duration: 0.25,
+                        ease: 'easeOut',
+                      }}
                       aria-label="Search products"
-                      className="flex items-center gap-3 text-white/90 hover:text-accent-primary hover:bg-accent-primary/10 transition-all w-full py-3 px-4 rounded-lg"
+                      className="flex items-center gap-3 text-white/90 hover:text-accent-primary hover:bg-accent-primary/10 transition-all duration-200 w-full py-3 px-4 rounded-lg active:scale-95"
                       onClick={() => {
                         setMobileMenuOpen(false)
                         setSearchOpen(true)
@@ -254,12 +283,16 @@ export function Header({siteName, navigation}: HeaderProps) {
                     <motion.div
                       initial={{opacity: 0, y: 10}}
                       animate={{opacity: 1, y: 0}}
-                      transition={{delay: navItems.length * 0.1 + 0.2}}
+                      transition={{
+                        delay: navItems.length * 0.06 + 0.15,
+                        duration: 0.25,
+                        ease: 'easeOut',
+                      }}
                       className="flex gap-3"
                     >
                       <button
                         aria-label="Open cart"
-                        className="flex-1 flex items-center justify-center gap-2 text-white/90 hover:text-accent-primary hover:bg-accent-primary/10 transition-all py-3 px-4 rounded-lg border border-accent-primary/30"
+                        className="flex-1 flex items-center justify-center gap-2 text-white/90 hover:text-accent-primary hover:bg-accent-primary/10 transition-all duration-200 py-3 px-4 rounded-lg border border-accent-primary/30 active:scale-95"
                         onClick={() => {
                           setMobileMenuOpen(false)
                           setCartOpen(true)
@@ -276,7 +309,7 @@ export function Header({siteName, navigation}: HeaderProps) {
                       </button>
                       <Link
                         href="/cart"
-                        className="btn-primary py-3 px-6 text-sm"
+                        className="btn-primary py-3 px-6 text-sm active:scale-95 transition-transform"
                         onClick={() => setMobileMenuOpen(false)}
                       >
                         View
