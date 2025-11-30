@@ -63,7 +63,7 @@ export function AnimatedHero({title, subtitle, variant = 'shows', backgroundImag
           style={{y: backgroundY}}
           className="absolute inset-0"
         >
-          <div className="absolute inset-0 animate-ken-burns">
+          <div className="absolute inset-0 animate-ken-burns-hero">
             <Image
               src={typeof imageWithPosition === 'string' ? imageWithPosition : (imageWithPosition?.asset?.url || '')}
               alt={backgroundAlt || title}

@@ -268,14 +268,25 @@ h3 { font-size: 32px; font-weight: 400; }
   0% {
     transform: scale(1) translate(0, 0);
   }
-  100% {
+  50% {
     transform: scale(1.08) translate(-1%, -1%);
+  }
+  100% {
+    transform: scale(1) translate(0, 0);
   }
 }
 
+/* For slider: continuous zoom in/out animation */
 .animate-ken-burns {
-  /* 6s matches slide interval for smooth sync */
-  animation: ken-burns 6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  animation: ken-burns 12s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  will-change: transform;
+}
+
+/* For single hero images: slower, more subtle continuous zoom */
+.animate-ken-burns-hero {
+  animation: ken-burns 20s cubic-bezier(0.25, 0.1, 0.25, 1) infinite;
   backface-visibility: hidden;
   perspective: 1000px;
   will-change: transform;
