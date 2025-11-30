@@ -105,7 +105,7 @@ export function ProductCard({product}: {product: Product}) {
     >
       <Link
         href={`/merch/${product.slug}`}
-        className="group block relative bg-surface border border-border overflow-hidden transition-all duration-500 hover:border-accent-primary"
+        className="group block relative bg-surface border border-border overflow-hidden transition-all duration-500 hover:border-accent-primary card-elevate border-glow"
       >
         {/* Premium hover effect wrapper */}
         <motion.div

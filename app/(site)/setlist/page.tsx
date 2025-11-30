@@ -5,6 +5,7 @@ import {setlistPageQuery, allSongsQuery} from '@/sanity/lib/queries'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
 import {ImageRevealScroll} from '@/components/ui/ImageRevealScroll'
+import {AnimatedCounter} from '@/components/ui/AnimatedCounter'
 import {Music, Disc3, Guitar, ChevronRight} from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -52,21 +53,23 @@ export default async function SetlistPage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16 text-center">
             <AnimatedSection animation="fadeIn" delay={0.1}>
-              <div className="flex flex-col items-center">
-                <span className="text-4xl md:text-5xl font-bebas text-accent-primary">{songs?.length || 0}</span>
-                <span className="text-xs uppercase tracking-widest text-text-muted mt-1">Songs</span>
+              <div className="flex flex-col items-center group cursor-default">
+                <span className="text-4xl md:text-5xl font-bebas text-accent-primary">
+                  <AnimatedCounter value={songs?.length || 0} />
+                </span>
+                <span className="text-xs uppercase tracking-widest text-text-muted mt-1 group-hover:text-accent-primary/70 transition-colors">Songs</span>
               </div>
             </AnimatedSection>
             <AnimatedSection animation="fadeIn" delay={0.2}>
-              <div className="flex items-center gap-3">
-                <Disc3 className="w-6 h-6 text-accent-primary animate-spin-slow" />
-                <span className="text-sm uppercase tracking-widest text-text-muted">Classic Blues</span>
+              <div className="flex items-center gap-3 group cursor-default">
+                <Disc3 className="w-6 h-6 text-accent-primary animate-spin-slow group-hover:text-white transition-colors" />
+                <span className="text-sm uppercase tracking-widest text-text-muted group-hover:text-accent-primary/70 transition-colors">Classic Blues</span>
               </div>
             </AnimatedSection>
             <AnimatedSection animation="fadeIn" delay={0.3}>
-              <div className="flex flex-col items-center">
-                <span className="text-4xl md:text-5xl font-bebas text-accent-primary">Live</span>
-                <span className="text-xs uppercase tracking-widest text-text-muted mt-1">Performance Ready</span>
+              <div className="flex flex-col items-center group cursor-default">
+                <span className="text-4xl md:text-5xl font-bebas text-accent-primary animate-count">Live</span>
+                <span className="text-xs uppercase tracking-widest text-text-muted mt-1 group-hover:text-accent-primary/70 transition-colors">Performance Ready</span>
               </div>
             </AnimatedSection>
           </div>

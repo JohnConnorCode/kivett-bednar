@@ -4,6 +4,7 @@ import {lessonsPageQuery, settingsQuery} from '@/sanity/lib/queries'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
 import {SplitScreenImage} from '@/components/ui/SplitScreenImage'
+import {AnimatedCounter} from '@/components/ui/AnimatedCounter'
 import {Guitar, Music, Mic2, BookOpen, Users, Award, Sparkles, ChevronRight} from 'lucide-react'
 
 export const metadata: Metadata = {
@@ -72,21 +73,25 @@ export default async function LessonsPage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16 text-center">
             <AnimatedSection animation="fadeIn" delay={0.1}>
-              <div className="flex flex-col items-center">
-                <span className="text-4xl md:text-5xl font-bebas text-accent-primary">20+</span>
-                <span className="text-xs uppercase tracking-widest text-text-muted mt-1">Years Experience</span>
+              <div className="flex flex-col items-center group cursor-default">
+                <span className="text-4xl md:text-5xl font-bebas text-accent-primary">
+                  <AnimatedCounter value={20} suffix="+" />
+                </span>
+                <span className="text-xs uppercase tracking-widest text-text-muted mt-1 group-hover:text-accent-primary/70 transition-colors">Years Experience</span>
               </div>
             </AnimatedSection>
             <AnimatedSection animation="fadeIn" delay={0.2}>
-              <div className="flex flex-col items-center">
-                <span className="text-4xl md:text-5xl font-bebas text-accent-primary">500+</span>
-                <span className="text-xs uppercase tracking-widest text-text-muted mt-1">Students Taught</span>
+              <div className="flex flex-col items-center group cursor-default">
+                <span className="text-4xl md:text-5xl font-bebas text-accent-primary">
+                  <AnimatedCounter value={500} suffix="+" />
+                </span>
+                <span className="text-xs uppercase tracking-widest text-text-muted mt-1 group-hover:text-accent-primary/70 transition-colors">Students Taught</span>
               </div>
             </AnimatedSection>
             <AnimatedSection animation="fadeIn" delay={0.3}>
-              <div className="flex flex-col items-center">
-                <span className="text-4xl md:text-5xl font-bebas text-accent-primary">All</span>
-                <span className="text-xs uppercase tracking-widest text-text-muted mt-1">Skill Levels</span>
+              <div className="flex flex-col items-center group cursor-default">
+                <span className="text-4xl md:text-5xl font-bebas text-accent-primary animate-count">All</span>
+                <span className="text-xs uppercase tracking-widest text-text-muted mt-1 group-hover:text-accent-primary/70 transition-colors">Skill Levels</span>
               </div>
             </AnimatedSection>
           </div>

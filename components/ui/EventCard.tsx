@@ -161,7 +161,7 @@ export function EventCard({event, index = 0}: {event: Event; index?: number}) {
     </>
   )
 
-  const cardClasses = "group relative overflow-hidden bg-surface border border-border hover:border-accent-primary/50 transition-all duration-500"
+  const cardClasses = "group relative overflow-hidden bg-surface border border-border hover:border-accent-primary/50 transition-all duration-500 card-elevate border-glow"
 
   if (eventLink) {
     return (
