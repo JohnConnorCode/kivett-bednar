@@ -4,6 +4,7 @@ import {lessonsPageQuery, settingsQuery} from '@/sanity/lib/queries'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
 import {SplitScreenImage} from '@/components/ui/SplitScreenImage'
+import {Guitar, Music, Mic2, BookOpen, Users, Award, Sparkles, ChevronRight} from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Lessons | Kivett Bednar',
@@ -12,6 +13,16 @@ export const metadata: Metadata = {
 
 // Revalidate every 60 seconds (ISR)
 export const revalidate = 60
+
+// Icon mapping for learning items
+const iconMap: Record<string, any> = {
+  guitar: Guitar,
+  music: Music,
+  mic: Mic2,
+  book: BookOpen,
+  users: Users,
+  award: Award,
+}
 
 export default async function LessonsPage() {
   let lessonsPage = null
@@ -35,6 +46,9 @@ export default async function LessonsPage() {
     )
   }
 
+  // Default icons for learning items if not specified
+  const defaultIcons = ['guitar', 'music', 'mic', 'book', 'users', 'award']
+
   return (
     <div className="min-h-screen">
       {/* Animated Hero */}
@@ -48,6 +62,37 @@ export default async function LessonsPage() {
         mobilePosition={lessonsPage.heroImage?.mobilePosition || undefined}
       />
 
+      {/* Credentials Banner */}
+      <section className="relative bg-gradient-to-r from-surface via-surface-elevated to-surface py-8 border-y border-accent-primary/20 overflow-hidden">
+        {/* Animated gold line */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-primary/50 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-primary/50 to-transparent" />
+        </div>
+        <div className="container mx-auto px-4">
+          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-16 text-center">
+            <AnimatedSection animation="fadeIn" delay={0.1}>
+              <div className="flex flex-col items-center">
+                <span className="text-4xl md:text-5xl font-bebas text-accent-primary">20+</span>
+                <span className="text-xs uppercase tracking-widest text-text-muted mt-1">Years Experience</span>
+              </div>
+            </AnimatedSection>
+            <AnimatedSection animation="fadeIn" delay={0.2}>
+              <div className="flex flex-col items-center">
+                <span className="text-4xl md:text-5xl font-bebas text-accent-primary">500+</span>
+                <span className="text-xs uppercase tracking-widest text-text-muted mt-1">Students Taught</span>
+              </div>
+            </AnimatedSection>
+            <AnimatedSection animation="fadeIn" delay={0.3}>
+              <div className="flex flex-col items-center">
+                <span className="text-4xl md:text-5xl font-bebas text-accent-primary">All</span>
+                <span className="text-xs uppercase tracking-widest text-text-muted mt-1">Skill Levels</span>
+              </div>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
+
       {/* Teaching Philosophy - Split Screen */}
       <SplitScreenImage
         imageSrc={lessonsPage.philosophyImage?.asset?.url || '/images/portraits/guild-shirt.jpg'}
@@ -55,43 +100,138 @@ export default async function LessonsPage() {
         imagePosition="right"
         darkBg={false}
       >
-        <h2 className="text-5xl font-bold mb-8 text-text-primary">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="h-px bg-accent-primary w-12" />
+          <span className="text-accent-primary text-sm uppercase tracking-wider font-bold">Teaching Philosophy</span>
+        </div>
+        <h2 className="font-bebas text-5xl md:text-6xl uppercase tracking-wide mb-8 text-text-primary">
           {lessonsPage.philosophyHeading}
         </h2>
-        <div className="space-y-6 text-xl text-text-secondary leading-relaxed whitespace-pre-wrap">
-          {lessonsPage.philosophyText}
+        <div className="space-y-6 text-lg text-text-secondary leading-relaxed">
+          {lessonsPage.philosophyText?.split('\n\n').map((paragraph: string, i: number) => (
+            <p key={i}>{paragraph}</p>
+          ))}
         </div>
       </SplitScreenImage>
 
-      {/* CTA Box */}
-      <section className="bg-surface py-24">
+      {/* What You'll Learn - Premium Cards */}
+      {lessonsPage.learningItems && lessonsPage.learningItems.length > 0 && (
+        <section className="relative bg-background py-24 overflow-hidden">
+          {/* Background decoration */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-20 left-10 w-96 h-96 rounded-full bg-accent-primary blur-3xl" />
+            <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-accent-primary blur-3xl" />
+          </div>
+
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="max-w-6xl mx-auto">
+              <AnimatedSection animation="fadeIn">
+                <div className="text-center mb-16">
+                  <div className="flex items-center justify-center gap-3 mb-4">
+                    <div className="h-px bg-accent-primary w-12" />
+                    <Sparkles className="w-5 h-5 text-accent-primary" />
+                    <div className="h-px bg-accent-primary w-12" />
+                  </div>
+                  <h2 className="font-bebas text-5xl md:text-6xl uppercase tracking-wide text-text-primary">
+                    {lessonsPage.learningItemsHeading || "What You'll Learn"}
+                  </h2>
+                </div>
+              </AnimatedSection>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {lessonsPage.learningItems.map((item: any, index: number) => {
+                  const iconKey = item.icon || defaultIcons[index % defaultIcons.length]
+                  const IconComponent = iconMap[iconKey] || Guitar
+
+                  return (
+                    <AnimatedSection key={item._key || index} animation="fadeUp" delay={0.1 * index}>
+                      <div className="group relative h-full">
+                        {/* Card */}
+                        <div className="relative h-full bg-surface-elevated border border-border hover:border-accent-primary/50 p-8 transition-all duration-500 overflow-hidden">
+                          {/* Hover glow effect */}
+                          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-accent-primary/10 rounded-full blur-3xl" />
+                          </div>
+
+                          {/* Icon */}
+                          <div className="relative mb-6">
+                            <div className="w-16 h-16 border-2 border-accent-primary/30 group-hover:border-accent-primary flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:shadow-accent-primary/20">
+                              <IconComponent className="w-8 h-8 text-accent-primary" />
+                            </div>
+                          </div>
+
+                          {/* Content */}
+                          <h3 className="font-bebas text-2xl uppercase tracking-wide mb-3 text-text-primary group-hover:text-accent-primary transition-colors">
+                            {item.title}
+                          </h3>
+                          <p className="text-text-secondary leading-relaxed">
+                            {item.description}
+                          </p>
+
+                          {/* Bottom accent */}
+                          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        </div>
+                      </div>
+                    </AnimatedSection>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* CTA Box - Premium Design */}
+      <section className="relative bg-surface py-24 overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent-primary/30 to-transparent" />
+          <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent-primary/30 to-transparent" />
+        </div>
+
         <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-4xl mx-auto">
             <AnimatedSection animation="fadeUp">
-              <div className="bg-gradient-to-br from-surface-elevated to-surface rounded-2xl p-12 text-text-primary flex flex-col justify-center border-2 border-accent-primary/20">
-                <h3 className="text-3xl font-bold mb-6">{lessonsPage.ctaBoxHeading}</h3>
-                <p className="text-lg mb-8 text-text-secondary">
-                  {lessonsPage.ctaBoxText}
-                </p>
-                <div className="space-y-4">
-                  {settings?.contactEmail && (
-                    <a
-                      href={`mailto:${settings.contactEmail}`}
-                      className="btn-primary block text-center"
-                    >
-                      {lessonsPage.emailButtonText || 'Email Me'}
-                    </a>
-                  )}
-                  {settings?.bookingUrl && (
-                    <a
-                      href={settings.bookingUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-secondary block text-center"
-                    >
-                      {lessonsPage.scheduleButtonText || 'Schedule a Lesson'}
-                    </a>
-                  )}
+              <div className="relative">
+                {/* Corner accents */}
+                <div className="absolute -top-4 -left-4 w-8 h-8 border-l-2 border-t-2 border-accent-primary" />
+                <div className="absolute -top-4 -right-4 w-8 h-8 border-r-2 border-t-2 border-accent-primary" />
+                <div className="absolute -bottom-4 -left-4 w-8 h-8 border-l-2 border-b-2 border-accent-primary" />
+                <div className="absolute -bottom-4 -right-4 w-8 h-8 border-r-2 border-b-2 border-accent-primary" />
+
+                <div className="bg-surface-elevated border border-border p-12 md:p-16 text-center">
+                  <div className="flex items-center justify-center gap-3 mb-6">
+                    <Guitar className="w-8 h-8 text-accent-primary" />
+                  </div>
+
+                  <h3 className="font-bebas text-4xl md:text-5xl uppercase tracking-wide mb-6 text-text-primary">
+                    {lessonsPage.ctaBoxHeading}
+                  </h3>
+                  <p className="text-lg text-text-secondary mb-10 max-w-2xl mx-auto">
+                    {lessonsPage.ctaBoxText}
+                  </p>
+
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    {settings?.contactEmail && (
+                      <a
+                        href={`mailto:${settings.contactEmail}`}
+                        className="group inline-flex items-center justify-center gap-2 bg-accent-primary hover:bg-accent-primary/90 text-black font-bold text-lg uppercase tracking-wider px-8 py-4 transition-all duration-300"
+                      >
+                        {lessonsPage.emailButtonText || 'Email Me'}
+                        <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                      </a>
+                    )}
+                    {settings?.bookingUrl && (
+                      <a
+                        href={settings.bookingUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-secondary"
+                      >
+                        {lessonsPage.scheduleButtonText || 'Schedule a Lesson'}
+                      </a>
+                    )}
+                  </div>
                 </div>
               </div>
             </AnimatedSection>
@@ -99,35 +239,28 @@ export default async function LessonsPage() {
         </div>
       </section>
 
-      {/* What You'll Learn */}
-      {lessonsPage.learningItems && lessonsPage.learningItems.length > 0 && (
-        <section className="bg-background py-24">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <AnimatedSection animation="fadeIn">
-                <div className="bg-surface-elevated rounded-2xl p-12 border-2 border-accent-primary/20">
-                  <h2 className="text-4xl font-bold mb-12 text-center text-text-primary">
-                    {lessonsPage.learningItemsHeading || "What You'll Learn"}
-                  </h2>
-                  <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {lessonsPage.learningItems.map((item: any, index: number) => (
-                      <AnimatedSection key={item._key || index} animation="fadeUp" delay={0.15 * index}>
-                        <div className="text-center group">
-                          <div className="w-12 h-12 mx-auto mb-4 rounded-full border-2 border-accent-primary/40 flex items-center justify-center text-accent-primary font-bold text-lg group-hover:border-accent-primary group-hover:text-accent-primary transition-colors">
-                            {index + 1}
-                          </div>
-                          <h3 className="text-2xl font-bold mb-3 text-text-primary">{item.title}</h3>
-                          <p className="text-text-secondary leading-relaxed">{item.description}</p>
-                        </div>
-                      </AnimatedSection>
-                    ))}
-                  </div>
-                </div>
-              </AnimatedSection>
-            </div>
+      {/* Testimonial Quote Section */}
+      <section className="bg-background py-24">
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto text-center">
+            <AnimatedSection animation="fadeIn">
+              <div className="relative">
+                {/* Large quote marks */}
+                <span className="absolute -top-8 left-0 text-8xl font-serif text-accent-primary/20 leading-none">&ldquo;</span>
+                <blockquote className="relative z-10 font-bebas text-3xl md:text-4xl uppercase tracking-wide text-text-primary px-8 md:px-16">
+                  Music isn&apos;t just about the notes you play — it&apos;s about the story you tell and the feeling you share.
+                </blockquote>
+                <span className="absolute -bottom-16 right-0 text-8xl font-serif text-accent-primary/20 leading-none">&rdquo;</span>
+              </div>
+              <div className="mt-8 flex items-center justify-center gap-3">
+                <div className="h-px bg-accent-primary/50 w-8" />
+                <span className="text-accent-primary uppercase tracking-widest text-sm font-bold">Kivett Bednar</span>
+                <div className="h-px bg-accent-primary/50 w-8" />
+              </div>
+            </AnimatedSection>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
     </div>
   )
 }

@@ -318,6 +318,20 @@ h3 { font-size: 32px; font-weight: 400; }
   animation: slide-in-down 0.2s ease-out;
 }
 
+/* Slow spin animation */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
 /* Gold sweep animation for buttons */
 @keyframes gold-sweep {
   0% {

@@ -3,9 +3,9 @@ import Link from 'next/link'
 import {sanityFetch} from '@/sanity/lib/live'
 import {contactPageQuery, settingsQuery, uiTextQuery} from '@/sanity/lib/queries'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
-import {ImageRevealScroll} from '@/components/ui/ImageRevealScroll'
 import {StaggeredImageGrid} from '@/components/ui/StaggeredImageGrid'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
+import {Mail, Calendar, Music, Instagram, Facebook, Youtube, MapPin, ChevronRight, ExternalLink} from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Contact | Kivett Bednar',
@@ -14,6 +14,13 @@ export const metadata: Metadata = {
 
 // Revalidate every 60 seconds (ISR)
 export const revalidate = 60
+
+// Social platform icons mapping
+const socialIcons: Record<string, any> = {
+  instagram: Instagram,
+  facebook: Facebook,
+  youtube: Youtube,
+}
 
 export default async function ContactPage() {
   let contactPage = null
@@ -32,7 +39,7 @@ export default async function ContactPage() {
 
   return (
     <div className="min-h-screen">
-      {/* Animated Hero with Vinyl Record */}
+      {/* Animated Hero */}
       <AnimatedHero
         title={contactPage?.heroHeading || 'Get in Touch'}
         subtitle={contactPage?.heroSubheading || undefined}
@@ -41,75 +48,227 @@ export default async function ContactPage() {
         backgroundAlt={contactPage?.heroImage?.alt || 'Kivett Bednar on stage'}
       />
 
-      {/* Content - Simplified Contact Info Only */}
-      <div className="bg-gradient-to-b from-surface via-surface-elevated to-surface py-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <div className="space-y-8">
-                {/* Direct Contact */}
-                {settings?.contactEmail && (
-                  <AnimatedSection animation="fadeUp" delay={0.2}>
-                    <div className="bg-gradient-to-br from-surface to-surface-elevated rounded-2xl p-8 text-text-primary border-4 border-accent-primary/30 shadow-2xl">
-                      <h2 className="text-3xl font-bold mb-4 text-accent-primary">{contactPage?.directContactHeading || 'Direct Contact'}</h2>
-                      <a
-                        href={`mailto:${settings.contactEmail}`}
-                        className="text-text-primary hover:text-accent-primary transition-colors text-lg font-semibold break-all block mb-6"
-                      >
+      {/* Contact Cards Section */}
+      <section className="relative bg-gradient-to-b from-surface via-surface-elevated to-surface py-24 overflow-hidden">
+        {/* Background decoration */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-20 left-10 w-96 h-96 rounded-full bg-accent-primary blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 rounded-full bg-accent-primary blur-3xl" />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-5xl mx-auto">
+            {/* Section header */}
+            <AnimatedSection animation="fadeIn">
+              <div className="text-center mb-16">
+                <div className="flex items-center justify-center gap-3 mb-4">
+                  <div className="h-px bg-accent-primary w-12" />
+                  <Mail className="w-5 h-5 text-accent-primary" />
+                  <div className="h-px bg-accent-primary w-12" />
+                </div>
+                <h2 className="font-bebas text-4xl md:text-5xl uppercase tracking-wide text-text-primary">
+                  Let&apos;s Connect
+                </h2>
+              </div>
+            </AnimatedSection>
+
+            {/* Contact Cards Grid */}
+            <div className="grid md:grid-cols-2 gap-6 mb-12">
+              {/* Email Card */}
+              {settings?.contactEmail && (
+                <AnimatedSection animation="fadeUp" delay={0.1}>
+                  <a
+                    href={`mailto:${settings.contactEmail}`}
+                    className="group block h-full"
+                  >
+                    <div className="relative h-full bg-surface-elevated border border-border hover:border-accent-primary/50 p-8 transition-all duration-500 overflow-hidden">
+                      {/* Hover glow */}
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-accent-primary/10 rounded-full blur-3xl" />
+                      </div>
+
+                      {/* Icon */}
+                      <div className="relative mb-6">
+                        <div className="w-16 h-16 border-2 border-accent-primary/30 group-hover:border-accent-primary flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:shadow-accent-primary/20">
+                          <Mail className="w-8 h-8 text-accent-primary" />
+                        </div>
+                      </div>
+
+                      {/* Content */}
+                      <h3 className="font-bebas text-2xl uppercase tracking-wide mb-2 text-text-primary group-hover:text-accent-primary transition-colors">
+                        {contactPage?.directContactHeading || 'Email Me'}
+                      </h3>
+                      <p className="text-accent-primary font-mono text-lg mb-4 break-all">
                         {settings.contactEmail}
-                      </a>
-                      <p className="text-text-secondary text-sm">
+                      </p>
+                      <p className="text-text-secondary text-sm leading-relaxed">
                         {contactPage?.directContactDescription || "Whether you're booking a show, inquiring about lessons, or just want to say hello — I'd love to hear from you."}
                       </p>
-                    </div>
-                  </AnimatedSection>
-                )}
 
-                {/* Social Media */}
-                {settings?.socialLinks && settings.socialLinks.length > 0 && (
-                  <AnimatedSection animation="fadeUp" delay={0.3}>
-                    <div className="bg-surface-elevated rounded-2xl p-8 border-2 border-accent-primary/20 shadow-lg">
-                      <h2 className="text-2xl font-bold mb-6 text-text-primary">{contactPage?.socialHeading || 'Follow Along'}</h2>
-                      <div className="grid grid-cols-2 gap-4">
-                        {settings.socialLinks.map((link: any) => (
-                          <a
-                            key={link.url}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex items-center justify-center gap-2 px-4 py-3 bg-surface rounded-lg hover:bg-surface-elevated border border-border hover:border-accent-primary/50 transition-all font-semibold capitalize text-text-primary hover:text-accent-primary"
-                          >
-                            <span className="text-accent-primary">→</span>
-                            {link.platform}
-                          </a>
-                        ))}
+                      {/* Arrow indicator */}
+                      <div className="absolute bottom-6 right-6 w-8 h-8 border border-accent-primary/30 group-hover:border-accent-primary group-hover:bg-accent-primary flex items-center justify-center transition-all duration-300">
+                        <ChevronRight className="w-4 h-4 text-accent-primary group-hover:text-black transition-colors" />
+                      </div>
+
+                      {/* Bottom accent */}
+                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                  </a>
+                </AnimatedSection>
+              )}
+
+              {/* Booking Card */}
+              <AnimatedSection animation="fadeUp" delay={0.2}>
+                <Link
+                  href="/shows"
+                  className="group block h-full"
+                >
+                  <div className="relative h-full bg-surface-elevated border border-border hover:border-accent-primary/50 p-8 transition-all duration-500 overflow-hidden">
+                    {/* Hover glow */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-accent-primary/10 rounded-full blur-3xl" />
+                    </div>
+
+                    {/* Icon */}
+                    <div className="relative mb-6">
+                      <div className="w-16 h-16 border-2 border-accent-primary/30 group-hover:border-accent-primary flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:shadow-accent-primary/20">
+                        <Calendar className="w-8 h-8 text-accent-primary" />
                       </div>
                     </div>
-                  </AnimatedSection>
-                )}
 
-              {/* Call to Action */}
+                    {/* Content */}
+                    <h3 className="font-bebas text-2xl uppercase tracking-wide mb-2 text-text-primary group-hover:text-accent-primary transition-colors">
+                      Book a Show
+                    </h3>
+                    <p className="text-text-secondary text-sm leading-relaxed mb-4">
+                      Looking for live blues at your venue or private event? Check out upcoming shows or reach out to discuss booking.
+                    </p>
+                    <span className="text-accent-primary font-bold text-sm uppercase tracking-wider">
+                      View Shows →
+                    </span>
+
+                    {/* Arrow indicator */}
+                    <div className="absolute bottom-6 right-6 w-8 h-8 border border-accent-primary/30 group-hover:border-accent-primary group-hover:bg-accent-primary flex items-center justify-center transition-all duration-300">
+                      <ChevronRight className="w-4 h-4 text-accent-primary group-hover:text-black transition-colors" />
+                    </div>
+
+                    {/* Bottom accent */}
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </Link>
+              </AnimatedSection>
+
+              {/* Lessons Card */}
+              <AnimatedSection animation="fadeUp" delay={0.3}>
+                <Link
+                  href="/lessons"
+                  className="group block h-full"
+                >
+                  <div className="relative h-full bg-surface-elevated border border-border hover:border-accent-primary/50 p-8 transition-all duration-500 overflow-hidden">
+                    {/* Hover glow */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-accent-primary/10 rounded-full blur-3xl" />
+                    </div>
+
+                    {/* Icon */}
+                    <div className="relative mb-6">
+                      <div className="w-16 h-16 border-2 border-accent-primary/30 group-hover:border-accent-primary flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:shadow-accent-primary/20">
+                        <Music className="w-8 h-8 text-accent-primary" />
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <h3 className="font-bebas text-2xl uppercase tracking-wide mb-2 text-text-primary group-hover:text-accent-primary transition-colors">
+                      Guitar Lessons
+                    </h3>
+                    <p className="text-text-secondary text-sm leading-relaxed mb-4">
+                      Learn blues guitar from decades of experience. All skill levels welcome — from beginners to advanced players.
+                    </p>
+                    <span className="text-accent-primary font-bold text-sm uppercase tracking-wider">
+                      Learn More →
+                    </span>
+
+                    {/* Arrow indicator */}
+                    <div className="absolute bottom-6 right-6 w-8 h-8 border border-accent-primary/30 group-hover:border-accent-primary group-hover:bg-accent-primary flex items-center justify-center transition-all duration-300">
+                      <ChevronRight className="w-4 h-4 text-accent-primary group-hover:text-black transition-colors" />
+                    </div>
+
+                    {/* Bottom accent */}
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </Link>
+              </AnimatedSection>
+
+              {/* Location Card */}
               <AnimatedSection animation="fadeUp" delay={0.4}>
-                <div className="bg-surface rounded-2xl p-8 border-2 border-accent-primary/20 text-center shadow-2xl">
-                  <h3 className="text-2xl font-bold mb-4 text-text-primary">
-                    {contactPage?.ctaSectionHeading || 'Looking for Live Blues?'}
+                <div className="relative h-full bg-surface-elevated border border-border p-8 overflow-hidden">
+                  {/* Icon */}
+                  <div className="relative mb-6">
+                    <div className="w-16 h-16 border-2 border-accent-primary/30 flex items-center justify-center">
+                      <MapPin className="w-8 h-8 text-accent-primary" />
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <h3 className="font-bebas text-2xl uppercase tracking-wide mb-2 text-text-primary">
+                    Based In
                   </h3>
-                  <p className="mb-6 text-text-secondary">
-                    {contactPage?.ctaSectionText || 'Check out my upcoming shows and experience gritty Texas Blues meets the heart of the Pacific Northwest.'}
+                  <p className="text-accent-primary font-bold text-lg mb-4">
+                    Pacific Northwest
                   </p>
-                  <Link
-                    href="/shows"
-                    className="btn-primary"
-                  >
-                    {contactPage?.ctaSectionButtonText || 'View Upcoming Shows'} →
-                  </Link>
+                  <p className="text-text-secondary text-sm leading-relaxed">
+                    Gritty Texas Blues meets the heart of the Pacific Northwest. Available for shows and events throughout the region.
+                  </p>
                 </div>
               </AnimatedSection>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Single Gallery Section - Replaces redundant portrait sections */}
+      {/* Social Media Section */}
+      {settings?.socialLinks && settings.socialLinks.length > 0 && (
+        <section className="bg-background py-24">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <AnimatedSection animation="fadeIn">
+                <div className="text-center mb-12">
+                  <h2 className="font-bebas text-4xl uppercase tracking-wide text-text-primary mb-4">
+                    {contactPage?.socialHeading || 'Follow the Journey'}
+                  </h2>
+                  <p className="text-text-secondary">
+                    Stay connected for show updates, behind-the-scenes content, and more
+                  </p>
+                </div>
+              </AnimatedSection>
+
+              <div className="flex flex-wrap justify-center gap-4">
+                {settings.socialLinks.map((link: any, index: number) => {
+                  const IconComponent = socialIcons[link.platform?.toLowerCase()] || ExternalLink
+                  return (
+                    <AnimatedSection key={link.url} animation="fadeUp" delay={0.1 * index}>
+                      <a
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group flex items-center gap-3 px-6 py-4 bg-surface-elevated border border-border hover:border-accent-primary/50 transition-all duration-300"
+                      >
+                        <IconComponent className="w-6 h-6 text-accent-primary" />
+                        <span className="font-bold uppercase tracking-wider text-text-primary group-hover:text-accent-primary transition-colors">
+                          {link.platform}
+                        </span>
+                        <ExternalLink className="w-4 h-4 text-text-muted group-hover:text-accent-primary transition-colors" />
+                      </a>
+                    </AnimatedSection>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Portrait Gallery */}
       {(() => {
         const validImages = contactPage?.portraitGallery
           ?.filter((img: any) => img.image?.asset?.url)
@@ -120,13 +279,20 @@ export default async function ContactPage() {
           })) || []
 
         return validImages.length > 0 ? (
-          <section className="bg-background py-24">
+          <section className="bg-surface py-24">
             <div className="container mx-auto px-4">
               <div className="max-w-6xl mx-auto">
                 <AnimatedSection animation="fadeIn">
-                  <h2 className="text-5xl font-bold text-center text-text-primary mb-16">
-                    {contactPage?.aboutHeading || 'Behind the Music'}
-                  </h2>
+                  <div className="text-center mb-16">
+                    <div className="flex items-center justify-center gap-3 mb-4">
+                      <div className="h-px bg-accent-primary w-12" />
+                      <span className="text-accent-primary text-sm uppercase tracking-wider font-bold">Gallery</span>
+                      <div className="h-px bg-accent-primary w-12" />
+                    </div>
+                    <h2 className="font-bebas text-5xl uppercase tracking-wide text-text-primary">
+                      {contactPage?.aboutHeading || 'Behind the Music'}
+                    </h2>
+                  </div>
                 </AnimatedSection>
                 <StaggeredImageGrid
                   images={validImages}
@@ -137,6 +303,35 @@ export default async function ContactPage() {
           </section>
         ) : null
       })()}
+
+      {/* Final CTA */}
+      <section className="relative bg-background py-24 overflow-hidden">
+        {/* Corner accents */}
+        <div className="absolute top-8 left-8 w-16 h-16 border-l-2 border-t-2 border-accent-primary/30" />
+        <div className="absolute top-8 right-8 w-16 h-16 border-r-2 border-t-2 border-accent-primary/30" />
+        <div className="absolute bottom-8 left-8 w-16 h-16 border-l-2 border-b-2 border-accent-primary/30" />
+        <div className="absolute bottom-8 right-8 w-16 h-16 border-r-2 border-b-2 border-accent-primary/30" />
+
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto text-center">
+            <AnimatedSection animation="fadeUp">
+              <h3 className="font-bebas text-4xl md:text-5xl uppercase tracking-wide mb-6 text-text-primary">
+                {contactPage?.ctaSectionHeading || 'Ready to Experience Live Blues?'}
+              </h3>
+              <p className="text-lg text-text-secondary mb-10">
+                {contactPage?.ctaSectionText || 'Check out upcoming shows and experience gritty Texas Blues meets the heart of the Pacific Northwest.'}
+              </p>
+              <Link
+                href="/shows"
+                className="group inline-flex items-center justify-center gap-2 bg-accent-primary hover:bg-accent-primary/90 text-black font-bold text-lg uppercase tracking-wider px-8 py-4 transition-all duration-300"
+              >
+                {contactPage?.ctaSectionButtonText || 'View Upcoming Shows'}
+                <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </AnimatedSection>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
