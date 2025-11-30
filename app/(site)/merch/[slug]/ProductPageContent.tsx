@@ -7,6 +7,8 @@ import {PurchaseSection} from '@/components/merch/ProductPurchase'
 import {ImageLightbox} from '@/components/ui/ImageLightbox'
 import {RelatedProductsCarousel} from '@/components/merch/RelatedProductsCarousel'
 import {PortableText} from '@portabletext/react'
+import {motion} from 'framer-motion'
+import {ShieldCheck, Star, Truck, Package, Guitar, Sparkles} from 'lucide-react'
 
 type ProductPageContentProps = {
   product: any
@@ -227,30 +229,44 @@ export function ProductPageContent({product, price, productSlug, mainImageUrl, t
                   </AnimatedSection>
                 )}
 
-                {/* Additional Info */}
+                {/* Trust Badges & Emotional Connection */}
                 <AnimatedSection animation="fadeUp" delay={0.5}>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-sm">
-                    <div className="bg-background/30 border border-border p-4 hover:border-accent-primary/50 transition-colors group">
+                  <div className="grid grid-cols-2 gap-3 sm:gap-4 text-sm">
+                    <div className="bg-background/30 border border-border p-4 hover:border-accent-primary/50 transition-all duration-300 group">
                       <div className="flex items-center gap-2 mb-2">
-                        <svg className="w-5 h-5 text-accent-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.657-.672 3.157-1.757 4.243M3 12c0 1.657.672 3.157 1.757 4.243m0-8.486A5.959 5.959 0 003 12c0 1.657.672 3.157 1.757 4.243m13.486 0A5.959 5.959 0 0021 12c0-1.657-.672-3.157-1.757-4.243M9 12.75L11.25 15 15 9.75" />
-                        </svg>
+                        <ShieldCheck className="w-5 h-5 text-accent-primary flex-shrink-0 group-hover:scale-110 transition-transform" />
                         <div className="text-accent-primary font-bold uppercase tracking-wider text-xs sm:text-sm">
                           Authentic
                         </div>
                       </div>
                       <div className="text-text-muted text-xs sm:text-sm">Official merchandise</div>
                     </div>
-                    <div className="bg-background/30 border border-border p-4 hover:border-accent-primary/50 transition-colors group">
+                    <div className="bg-background/30 border border-border p-4 hover:border-accent-primary/50 transition-all duration-300 group">
                       <div className="flex items-center gap-2 mb-2">
-                        <svg className="w-5 h-5 text-accent-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                        </svg>
+                        <Star className="w-5 h-5 text-accent-primary flex-shrink-0 group-hover:scale-110 transition-transform" />
                         <div className="text-accent-primary font-bold uppercase tracking-wider text-xs sm:text-sm">
                           Quality
                         </div>
                       </div>
                       <div className="text-text-muted text-xs sm:text-sm">Premium materials</div>
+                    </div>
+                    <div className="bg-background/30 border border-border p-4 hover:border-accent-primary/50 transition-all duration-300 group">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Truck className="w-5 h-5 text-accent-primary flex-shrink-0 group-hover:scale-110 transition-transform" />
+                        <div className="text-accent-primary font-bold uppercase tracking-wider text-xs sm:text-sm">
+                          Free Shipping
+                        </div>
+                      </div>
+                      <div className="text-text-muted text-xs sm:text-sm">On all orders</div>
+                    </div>
+                    <div className="bg-background/30 border border-border p-4 hover:border-accent-primary/50 transition-all duration-300 group">
+                      <div className="flex items-center gap-2 mb-2">
+                        <Guitar className="w-5 h-5 text-accent-primary flex-shrink-0 group-hover:scale-110 transition-transform" />
+                        <div className="text-accent-primary font-bold uppercase tracking-wider text-xs sm:text-sm">
+                          Blues Spirit
+                        </div>
+                      </div>
+                      <div className="text-text-muted text-xs sm:text-sm">Crafted with soul</div>
                     </div>
                   </div>
                 </AnimatedSection>

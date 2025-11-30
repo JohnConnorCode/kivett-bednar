@@ -7,6 +7,8 @@ import {useFormValidation} from '@/hooks/useFormValidation'
 import {FormField} from '@/components/ui/FormField'
 import Link from 'next/link'
 import Image from 'next/image'
+import {motion} from 'framer-motion'
+import {ShieldCheck, Lock, Truck, CreditCard, CheckCircle, ChevronRight} from 'lucide-react'
 
 export default function CheckoutPage() {
   const {items, totalCents} = useCart()
@@ -131,19 +133,60 @@ export default function CheckoutPage() {
 
   return (
     <div className="min-h-screen bg-background pt-20">
-      {/* Header */}
+      {/* Header with Progress Indicator */}
       <div className="bg-surface border-b border-border">
         <div className="container mx-auto px-4 py-12">
           <div className="max-w-6xl mx-auto">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-px bg-accent-primary w-12" />
-              <span className="text-accent-primary text-sm uppercase tracking-wider font-bold">
-                Secure Checkout
-              </span>
-            </div>
-            <h1 className="font-bebas text-5xl md:text-6xl uppercase tracking-wide text-text-primary">
-              Checkout
-            </h1>
+            {/* Progress Steps */}
+            <motion.div
+              initial={{opacity: 0, y: -10}}
+              animate={{opacity: 1, y: 0}}
+              className="flex items-center justify-center gap-2 md:gap-4 mb-8"
+            >
+              {/* Step 1: Cart - Completed */}
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-accent-primary flex items-center justify-center">
+                  <CheckCircle className="w-5 h-5 text-black" />
+                </div>
+                <span className="hidden sm:block text-sm font-bold text-accent-primary uppercase tracking-wide">Cart</span>
+              </div>
+              <div className="w-8 md:w-16 h-px bg-accent-primary" />
+
+              {/* Step 2: Checkout - Active */}
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-accent-primary flex items-center justify-center pulse-gold">
+                  <span className="text-black font-bold text-sm">2</span>
+                </div>
+                <span className="hidden sm:block text-sm font-bold text-accent-primary uppercase tracking-wide">Checkout</span>
+              </div>
+              <div className="w-8 md:w-16 h-px bg-border" />
+
+              {/* Step 3: Confirmation - Pending */}
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full bg-surface-elevated border-2 border-border flex items-center justify-center">
+                  <span className="text-text-muted font-bold text-sm">3</span>
+                </div>
+                <span className="hidden sm:block text-sm font-bold text-text-muted uppercase tracking-wide">Confirm</span>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{opacity: 0, y: 20}}
+              animate={{opacity: 1, y: 0}}
+              transition={{delay: 0.1}}
+            >
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="h-px bg-accent-primary w-12" />
+                <Lock className="w-4 h-4 text-accent-primary" />
+                <span className="text-accent-primary text-sm uppercase tracking-wider font-bold">
+                  Secure Checkout
+                </span>
+                <div className="h-px bg-accent-primary w-12" />
+              </div>
+              <h1 className="font-bebas text-5xl md:text-6xl uppercase tracking-wide text-text-primary text-center">
+                Complete Your Order
+              </h1>
+            </motion.div>
           </div>
         </div>
       </div>
@@ -157,8 +200,14 @@ export default function CheckoutPage() {
                 {/* Shipping Form */}
                 <div className="lg:col-span-2 space-y-8">
                   {/* Contact Information */}
-                  <div className="bg-surface-elevated border border-border p-8">
-                    <h2 className="font-bebas text-3xl uppercase tracking-wide text-text-primary mb-6">
+                  <motion.div
+                    initial={{opacity: 0, x: -20}}
+                    animate={{opacity: 1, x: 0}}
+                    transition={{delay: 0.2}}
+                    className="bg-surface-elevated border border-border p-8 border-glow"
+                  >
+                    <h2 className="font-bebas text-3xl uppercase tracking-wide text-text-primary mb-6 flex items-center gap-3">
+                      <CreditCard className="w-6 h-6 text-accent-primary" />
                       Contact Information
                     </h2>
                     <FormField
@@ -174,11 +223,17 @@ export default function CheckoutPage() {
                       touched={touched.email}
                       autoComplete="email"
                     />
-                  </div>
+                  </motion.div>
 
                   {/* Shipping Address */}
-                  <div className="bg-surface-elevated border border-border p-8">
-                    <h2 className="font-bebas text-3xl uppercase tracking-wide text-text-primary mb-6">
+                  <motion.div
+                    initial={{opacity: 0, x: -20}}
+                    animate={{opacity: 1, x: 0}}
+                    transition={{delay: 0.3}}
+                    className="bg-surface-elevated border border-border p-8 border-glow"
+                  >
+                    <h2 className="font-bebas text-3xl uppercase tracking-wide text-text-primary mb-6 flex items-center gap-3">
+                      <Truck className="w-6 h-6 text-accent-primary" />
                       Shipping Address
                     </h2>
                     <div className="space-y-6">
@@ -280,41 +335,85 @@ export default function CheckoutPage() {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
 
-                  {/* Payment Notice */}
-                  <div className="bg-background/50 border border-border p-6">
-                    <div className="flex gap-3">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-6 h-6 text-accent-primary flex-shrink-0"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
+                  {/* Trust Badges */}
+                  <motion.div
+                    initial={{opacity: 0, y: 20}}
+                    animate={{opacity: 1, y: 0}}
+                    transition={{delay: 0.4}}
+                    className="grid grid-cols-1 sm:grid-cols-3 gap-4"
+                  >
+                    {/* Secure Payment */}
+                    <div className="bg-surface-elevated border border-border p-4 flex items-center gap-3">
+                      <div className="w-10 h-10 bg-accent-primary/10 border border-accent-primary/30 flex items-center justify-center flex-shrink-0">
+                        <Lock className="w-5 h-5 text-accent-primary" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-wide text-text-primary">Secure</p>
+                        <p className="text-xs text-text-muted">256-bit SSL</p>
+                      </div>
+                    </div>
+
+                    {/* Free Shipping */}
+                    <div className="bg-surface-elevated border border-border p-4 flex items-center gap-3">
+                      <div className="w-10 h-10 bg-accent-primary/10 border border-accent-primary/30 flex items-center justify-center flex-shrink-0">
+                        <Truck className="w-5 h-5 text-accent-primary" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-wide text-text-primary">Free Shipping</p>
+                        <p className="text-xs text-text-muted">On all orders</p>
+                      </div>
+                    </div>
+
+                    {/* Money Back */}
+                    <div className="bg-surface-elevated border border-border p-4 flex items-center gap-3">
+                      <div className="w-10 h-10 bg-accent-primary/10 border border-accent-primary/30 flex items-center justify-center flex-shrink-0">
+                        <ShieldCheck className="w-5 h-5 text-accent-primary" />
+                      </div>
+                      <div>
+                        <p className="text-xs font-bold uppercase tracking-wide text-text-primary">Guarantee</p>
+                        <p className="text-xs text-text-muted">30-day returns</p>
+                      </div>
+                    </div>
+                  </motion.div>
+
+                  {/* Delivery Estimate */}
+                  <motion.div
+                    initial={{opacity: 0, y: 20}}
+                    animate={{opacity: 1, y: 0}}
+                    transition={{delay: 0.5}}
+                    className="bg-accent-primary/5 border border-accent-primary/20 p-6"
+                  >
+                    <div className="flex gap-3 items-start">
+                      <Truck className="w-6 h-6 text-accent-primary flex-shrink-0 mt-0.5" />
                       <div>
                         <h4 className="font-bold text-text-primary mb-1 uppercase tracking-wide text-sm">
-                          Demo Mode
+                          Estimated Delivery
                         </h4>
                         <p className="text-text-secondary text-sm">
-                          This is a demo checkout flow. Payment processing will be integrated soon.
-                          Complete the form to see the order confirmation page.
+                          Your order will arrive in <span className="text-accent-primary font-bold">3-5 business days</span> after processing.
+                          You&apos;ll receive tracking information via email.
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
 
                 {/* Order Summary */}
                 <div className="lg:col-span-1">
-                  <div className="bg-surface-elevated border border-border p-8 sticky top-24">
+                  <motion.div
+                    initial={{opacity: 0, x: 20}}
+                    animate={{opacity: 1, x: 0}}
+                    transition={{delay: 0.3}}
+                    className="bg-surface-elevated border border-border p-8 sticky top-24 border-glow"
+                  >
+                    {/* Corner accents */}
+                    <div className="absolute -top-px -left-px w-6 h-6 border-l-2 border-t-2 border-accent-primary" />
+                    <div className="absolute -top-px -right-px w-6 h-6 border-r-2 border-t-2 border-accent-primary" />
+                    <div className="absolute -bottom-px -left-px w-6 h-6 border-l-2 border-b-2 border-accent-primary" />
+                    <div className="absolute -bottom-px -right-px w-6 h-6 border-r-2 border-b-2 border-accent-primary" />
+
                     <h2 className="font-bebas text-3xl uppercase tracking-wide text-text-primary mb-6">
                       Order Summary
                     </h2>
@@ -388,10 +487,27 @@ export default function CheckoutPage() {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="w-full bg-accent-primary hover:bg-accent-primary/90 disabled:bg-accent-primary/50 text-black font-bold text-lg uppercase tracking-wider py-4 transition-all duration-300 mb-3"
+                      className="group w-full bg-accent-primary hover:bg-accent-primary/90 disabled:bg-accent-primary/50 text-black font-bold text-lg uppercase tracking-wider py-4 transition-all duration-300 mb-4 flex items-center justify-center gap-2 btn-press"
                     >
-                      {isSubmitting ? 'Processing...' : 'Place Order'}
+                      {isSubmitting ? (
+                        <>
+                          <div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        <>
+                          <Lock className="w-5 h-5" />
+                          Place Order
+                          <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                        </>
+                      )}
                     </button>
+
+                    {/* Secure checkout note */}
+                    <div className="flex items-center justify-center gap-2 text-text-muted text-xs mb-4">
+                      <Lock className="w-3 h-3" />
+                      <span>Secure 256-bit SSL encryption</span>
+                    </div>
 
                     <Link
                       href="/cart"
@@ -399,7 +515,7 @@ export default function CheckoutPage() {
                     >
                       ← Return to Cart
                     </Link>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </form>

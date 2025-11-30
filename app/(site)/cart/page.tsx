@@ -5,6 +5,8 @@ import Image from 'next/image'
 import {useCart} from '@/components/ui/CartContext'
 import {useRouter} from 'next/navigation'
 import {PromoCodeInput} from '@/components/ui/PromoCodeInput'
+import {motion} from 'framer-motion'
+import {ShoppingCart, Trash2, ChevronRight, Package, ShieldCheck} from 'lucide-react'
 
 export default function CartPage() {
   const {items, totalCents, updateQty, removeItem, clear, promoCode, applyPromoCode, removePromoCode, finalTotalCents} = useCart()
@@ -28,20 +30,27 @@ export default function CartPage() {
       <div className="bg-surface border-b border-border">
         <div className="container mx-auto px-4 py-16">
           <div className="max-w-6xl mx-auto">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="h-px bg-accent-primary w-12" />
-              <span className="text-accent-primary text-sm uppercase tracking-wider font-bold">
-                Shopping Cart
-              </span>
-            </div>
-            <h1 className="font-bebas text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-wide text-text-primary">
-              Your Cart
-            </h1>
-            {items.length > 0 && (
-              <p className="text-text-secondary mt-4">
-                {items.length} {items.length === 1 ? 'item' : 'items'} in your cart
-              </p>
-            )}
+            <motion.div
+              initial={{opacity: 0, y: 20}}
+              animate={{opacity: 1, y: 0}}
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-px bg-accent-primary w-12" />
+                <ShoppingCart className="w-5 h-5 text-accent-primary" />
+                <span className="text-accent-primary text-sm uppercase tracking-wider font-bold">
+                  Shopping Cart
+                </span>
+                <div className="h-px bg-accent-primary w-12" />
+              </div>
+              <h1 className="font-bebas text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase tracking-wide text-text-primary text-center">
+                Your Cart
+              </h1>
+              {items.length > 0 && (
+                <p className="text-text-secondary mt-4 text-center">
+                  <span className="text-accent-primary font-bold">{items.length}</span> {items.length === 1 ? 'item' : 'items'} ready for checkout
+                </p>
+              )}
+            </motion.div>
           </div>
         </div>
       </div>
@@ -97,16 +106,19 @@ export default function CartPage() {
               <div className="grid lg:grid-cols-3 gap-8">
                 {/* Cart Items */}
                 <div className="lg:col-span-2 space-y-4">
-                  {items.map((it) => {
+                  {items.map((it, index) => {
                     const optKey = it.options
                       ? Object.entries(it.options)
                           .map(([k, v]) => `${k}: ${v}`)
                           .join(', ')
                       : ''
                     return (
-                      <div
+                      <motion.div
                         key={it.productId + optKey}
-                        className="bg-surface-elevated border border-border p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-6 items-start"
+                        initial={{opacity: 0, x: -20}}
+                        animate={{opacity: 1, x: 0}}
+                        transition={{delay: index * 0.1}}
+                        className="group bg-surface-elevated border border-border hover:border-accent-primary/50 p-4 sm:p-6 flex flex-col sm:flex-row gap-4 sm:gap-6 items-start transition-all duration-300 card-elevate border-glow"
                       >
                         {/* Image and Basic Info - Mobile Layout */}
                         <div className="flex gap-4 w-full sm:w-auto">
@@ -175,8 +187,9 @@ export default function CartPage() {
                             </div>
                             <button
                               onClick={() => removeItem(it.productId, optKey)}
-                              className="ml-auto text-xs sm:text-sm text-accent-red hover:text-red-400 uppercase tracking-wide font-bold transition-colors"
+                              className="ml-auto flex items-center gap-1 text-xs sm:text-sm text-accent-red hover:text-red-400 uppercase tracking-wide font-bold transition-colors group/remove"
                             >
+                              <Trash2 className="w-4 h-4 group-hover/remove:scale-110 transition-transform" />
                               Remove
                             </button>
                           </div>
@@ -184,22 +197,34 @@ export default function CartPage() {
 
                         {/* Price - Desktop only */}
                         <div className="hidden sm:block text-right flex-shrink-0">
-                          <div className="text-xl md:text-2xl font-bold text-accent-primary">
+                          <div className="text-xl md:text-2xl font-bold text-accent-primary group-hover:scale-105 transition-transform origin-right">
                             ${((it.priceCents * it.quantity) / 100).toFixed(2)}
                           </div>
                           <div className="text-xs md:text-sm text-text-muted mt-1">
                             {it.currency} ${(it.priceCents / 100).toFixed(2)} each
                           </div>
                         </div>
-                      </div>
+                      </motion.div>
                     )
                   })}
                 </div>
 
                 {/* Order Summary */}
                 <div className="lg:col-span-1">
-                  <div className="bg-surface-elevated border border-border p-6 sm:p-8 lg:sticky lg:top-24">
-                    <h2 className="font-bebas text-3xl uppercase tracking-wide text-text-primary mb-6">
+                  <motion.div
+                    initial={{opacity: 0, x: 20}}
+                    animate={{opacity: 1, x: 0}}
+                    transition={{delay: 0.2}}
+                    className="relative bg-surface-elevated border border-border p-6 sm:p-8 lg:sticky lg:top-24 border-glow"
+                  >
+                    {/* Corner accents */}
+                    <div className="absolute -top-px -left-px w-6 h-6 border-l-2 border-t-2 border-accent-primary" />
+                    <div className="absolute -top-px -right-px w-6 h-6 border-r-2 border-t-2 border-accent-primary" />
+                    <div className="absolute -bottom-px -left-px w-6 h-6 border-l-2 border-b-2 border-accent-primary" />
+                    <div className="absolute -bottom-px -right-px w-6 h-6 border-r-2 border-b-2 border-accent-primary" />
+
+                    <h2 className="font-bebas text-3xl uppercase tracking-wide text-text-primary mb-6 flex items-center gap-3">
+                      <Package className="w-6 h-6 text-accent-primary" />
                       Order Summary
                     </h2>
 
@@ -256,25 +281,33 @@ export default function CartPage() {
 
                     <button
                       onClick={proceedToCheckout}
-                      className="w-full bg-accent-primary hover:bg-accent-primary/90 text-black font-bold text-lg uppercase tracking-wider py-4 transition-all duration-300 mb-3"
+                      className="group w-full bg-accent-primary hover:bg-accent-primary/90 text-black font-bold text-lg uppercase tracking-wider py-4 transition-all duration-300 mb-3 flex items-center justify-center gap-2 btn-press"
                     >
                       Proceed to Checkout
+                      <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </button>
 
                     <button
                       onClick={clear}
-                      className="w-full border border-border hover:border-accent-red hover:text-accent-red text-text-secondary font-bold uppercase tracking-wide py-3 transition-all duration-200"
+                      className="w-full border border-border hover:border-accent-red hover:text-accent-red text-text-secondary font-bold uppercase tracking-wide py-3 transition-all duration-200 flex items-center justify-center gap-2"
                     >
+                      <Trash2 className="w-4 h-4" />
                       Clear Cart
                     </button>
 
+                    {/* Trust badge */}
+                    <div className="flex items-center justify-center gap-2 mt-6 pt-6 border-t border-border text-text-muted text-xs">
+                      <ShieldCheck className="w-4 h-4 text-accent-primary" />
+                      <span>Secure checkout guaranteed</span>
+                    </div>
+
                     <Link
                       href="/merch"
-                      className="block text-center text-text-muted hover:text-accent-primary mt-6 text-sm uppercase tracking-wide transition-colors"
+                      className="block text-center text-text-muted hover:text-accent-primary mt-4 text-sm uppercase tracking-wide transition-colors"
                     >
                       ← Continue Shopping
                     </Link>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             )}

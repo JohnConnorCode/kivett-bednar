@@ -199,27 +199,50 @@ export default async function ContactPage() {
                 </Link>
               </AnimatedSection>
 
-              {/* Location Card */}
+              {/* Location Card - Interactive */}
               <AnimatedSection animation="fadeUp" delay={0.4}>
-                <div className="relative h-full bg-surface-elevated border border-border p-8 overflow-hidden">
-                  {/* Icon */}
-                  <div className="relative mb-6">
-                    <div className="w-16 h-16 border-2 border-accent-primary/30 flex items-center justify-center">
-                      <MapPin className="w-8 h-8 text-accent-primary" />
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Portland+Oregon"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group block h-full"
+                >
+                  <div className="relative h-full bg-surface-elevated border border-border hover:border-accent-primary/50 p-8 overflow-hidden transition-all duration-500">
+                    {/* Hover glow */}
+                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-32 bg-accent-primary/10 rounded-full blur-3xl" />
                     </div>
-                  </div>
 
-                  {/* Content */}
-                  <h3 className="font-bebas text-2xl uppercase tracking-wide mb-2 text-text-primary">
-                    Based In
-                  </h3>
-                  <p className="text-accent-primary font-bold text-lg mb-4">
-                    Pacific Northwest
-                  </p>
-                  <p className="text-text-secondary text-sm leading-relaxed">
-                    Gritty Texas Blues meets the heart of the Pacific Northwest. Available for shows and events throughout the region.
-                  </p>
-                </div>
+                    {/* Icon */}
+                    <div className="relative mb-6">
+                      <div className="w-16 h-16 border-2 border-accent-primary/30 group-hover:border-accent-primary flex items-center justify-center transition-all duration-300 group-hover:shadow-lg group-hover:shadow-accent-primary/20">
+                        <MapPin className="w-8 h-8 text-accent-primary" />
+                      </div>
+                    </div>
+
+                    {/* Content */}
+                    <h3 className="font-bebas text-2xl uppercase tracking-wide mb-2 text-text-primary group-hover:text-accent-primary transition-colors">
+                      Based In
+                    </h3>
+                    <p className="text-accent-primary font-bold text-lg mb-4">
+                      Pacific Northwest
+                    </p>
+                    <p className="text-text-secondary text-sm leading-relaxed mb-4">
+                      Gritty Texas Blues meets the heart of the Pacific Northwest. Available for shows and events throughout the region.
+                    </p>
+                    <span className="text-accent-primary font-bold text-sm uppercase tracking-wider">
+                      View on Map →
+                    </span>
+
+                    {/* Arrow indicator */}
+                    <div className="absolute bottom-6 right-6 w-8 h-8 border border-accent-primary/30 group-hover:border-accent-primary group-hover:bg-accent-primary flex items-center justify-center transition-all duration-300">
+                      <ChevronRight className="w-4 h-4 text-accent-primary group-hover:text-black transition-colors" />
+                    </div>
+
+                    {/* Bottom accent */}
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </a>
               </AnimatedSection>
             </div>
           </div>

@@ -301,7 +301,7 @@ export default async function EventPage({params}: Props) {
                 <div className="space-y-6">
                   {/* Event Info Card */}
                   <AnimatedSection animation="fadeUp" delay={0.2}>
-                    <div className="bg-gradient-to-br from-surface to-surface-elevated rounded-2xl p-8 text-text-primary border-4 border-accent-primary/40 shadow-2xl sticky top-24 relative overflow-hidden">
+                    <div className="bg-gradient-to-br from-surface to-surface-elevated rounded-2xl p-8 text-text-primary border-4 border-accent-primary/40 shadow-2xl sticky top-24 relative overflow-hidden border-glow">
                       {/* Decorative corner accent */}
                       <div className="absolute top-0 right-0 w-32 h-32 bg-accent-primary/10 rounded-bl-full" />
                       <div className="absolute bottom-0 left-0 w-24 h-24 bg-accent-secondary/5 rounded-tr-full" />

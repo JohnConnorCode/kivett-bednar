@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {ProductCard} from '@/components/ui/ProductCard'
 import {AnimatedSection} from '@/components/animations/AnimatedSection'
+import {motion} from 'framer-motion'
+import {Search, Filter, Star, Sparkles} from 'lucide-react'
 
 type MerchPageData = {
   heroHeading?: string | null
@@ -91,19 +93,21 @@ export function MerchPageContent({merchPage, products}: Props) {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Cinematic Hero Section with Image */}
+      {/* Cinematic Hero Section with Image and Ken Burns Effect */}
       <div className="relative bg-background border-b border-border overflow-hidden">
-        {/* Background Image */}
+        {/* Background Image with Ken Burns */}
         {merchPage?.heroImage?.asset?.url ? (
           <div className="absolute inset-0">
-            <Image
-              src={merchPage.heroImage.asset.url}
-              alt={merchPage.heroImage.alt || 'Kivett Bednar performing'}
-              fill
-              className="object-cover"
-              style={{objectPosition: '50% 30%'}}
-              priority
-            />
+            <div className="absolute inset-0 animate-ken-burns-hero">
+              <Image
+                src={merchPage.heroImage.asset.url}
+                alt={merchPage.heroImage.alt || 'Kivett Bednar performing'}
+                fill
+                className="object-cover"
+                style={{objectPosition: '50% 30%'}}
+                priority
+              />
+            </div>
             {/* Dark overlay for text readability */}
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/90" />
           </div>
@@ -111,14 +115,16 @@ export function MerchPageContent({merchPage, products}: Props) {
           // Fallback: Use a placeholder blues musician image
           <>
             <div className="absolute inset-0">
-              <Image
-                src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1920&h=800&fit=crop&q=80"
-                alt="Blues guitarist performing"
-                fill
-                className="object-cover"
-                style={{objectPosition: '50% 30%'}}
-                priority
-              />
+              <div className="absolute inset-0 animate-ken-burns-hero">
+                <Image
+                  src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1920&h=800&fit=crop&q=80"
+                  alt="Blues guitarist performing"
+                  fill
+                  className="object-cover"
+                  style={{objectPosition: '50% 30%'}}
+                  priority
+                />
+              </div>
               {/* Dark overlay for text readability */}
               <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/90" />
             </div>
@@ -171,7 +177,7 @@ export function MerchPageContent({merchPage, products}: Props) {
                     {/* Search Bar */}
                     <div className="mb-8 pb-8 border-b border-border/50">
                       <label className="block text-xs uppercase tracking-[0.2em] font-bold text-accent-primary mb-4 flex items-center gap-2">
-                        <span className="w-8 h-px bg-accent-primary" />
+                        <Search className="w-4 h-4" />
                         Search Products
                       </label>
                       <div className="relative">
@@ -212,7 +218,7 @@ export function MerchPageContent({merchPage, products}: Props) {
                       {/* Category Filter */}
                       <div className="flex-1 w-full">
                         <label className="block text-xs uppercase tracking-[0.2em] font-bold text-accent-primary mb-4 flex items-center gap-2">
-                          <span className="w-8 h-px bg-accent-primary" />
+                          <Filter className="w-4 h-4" />
                           Browse by Category
                         </label>
                         <div className="flex flex-wrap gap-3">
