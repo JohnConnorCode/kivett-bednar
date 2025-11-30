@@ -198,9 +198,28 @@ export function HeroSlider({
 
       {/* Animated Content */}
       <div className="relative z-30 container mx-auto px-4 text-center">
+        {/* Decorative accent line */}
+        <motion.div
+          initial={{opacity: 0, scaleX: 0}}
+          whileInView={{opacity: 1, scaleX: 1}}
+          viewport={{once: true, amount: 0.3}}
+          transition={{
+            duration: 0.8,
+            delay: 0.1,
+            ease: [0.22, 1, 0.36, 1],
+          }}
+          className="flex items-center justify-center gap-4 mb-8"
+        >
+          <div className="h-px w-16 md:w-24 bg-gradient-to-r from-transparent to-accent-primary" />
+          <span className="text-accent-primary text-xs md:text-sm uppercase tracking-[0.3em] font-medium">
+            Blues Guitarist
+          </span>
+          <div className="h-px w-16 md:w-24 bg-gradient-to-l from-transparent to-accent-primary" />
+        </motion.div>
+
         <motion.h1
-          initial={{opacity: 0, y: 50, scale: 0.95}}
-          whileInView={{opacity: 1, y: 0, scale: 1}}
+          initial={{opacity: 0, y: 50, scale: 0.95, filter: 'blur(10px)'}}
+          whileInView={{opacity: 1, y: 0, scale: 1, filter: 'blur(0px)'}}
           viewport={{once: true, amount: 0.3}}
           transition={{
             duration: 0.8,
@@ -214,15 +233,15 @@ export function HeroSlider({
             leadingMap[headingLineHeight] || 'leading-none'
           )}
           style={{
-            textShadow: '0 4px 8px rgba(0,0,0,0.8)',
+            textShadow: '0 4px 8px rgba(0,0,0,0.8), 0 8px 16px rgba(0,0,0,0.4)',
             fontFamily: 'var(--font-bebas), system-ui, sans-serif'
           }}
         >
           {heading}
         </motion.h1>
         <motion.p
-          initial={{opacity: 0, y: 30}}
-          whileInView={{opacity: 1, y: 0}}
+          initial={{opacity: 0, y: 30, filter: 'blur(5px)'}}
+          whileInView={{opacity: 1, y: 0, filter: 'blur(0px)'}}
           viewport={{once: true, amount: 0.3}}
           transition={{
             duration: 0.8,
@@ -230,10 +249,13 @@ export function HeroSlider({
             ease: [0.22, 1, 0.36, 1],
           }}
           className={cn(
-            'text-2xl md:text-4xl lg:text-5xl mb-8 font-normal text-white',
+            'text-2xl md:text-4xl lg:text-5xl mb-8 text-white text-elegant',
             trackingMap[subheadingTracking] || 'tracking-normal',
             leadingMap[subheadingLineHeight] || 'leading-normal'
           )}
+          style={{
+            textShadow: '0 2px 4px rgba(0,0,0,0.6)',
+          }}
         >
           {subheading}
         </motion.p>
@@ -272,6 +294,47 @@ export function HeroSlider({
         </motion.div>
       </div>
 
+      {/* Slide indicators */}
+      {slides.length > 1 && (
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 flex items-center gap-3">
+          {slides.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+              className={`relative h-1 transition-all duration-500 ${
+                index === currentSlide ? 'w-12 bg-accent-primary' : 'w-6 bg-white/40 hover:bg-white/60'
+              }`}
+            >
+              {index === currentSlide && (
+                <motion.div
+                  className="absolute inset-0 bg-accent-primary"
+                  initial={{scaleX: 0}}
+                  animate={{scaleX: 1}}
+                  transition={{duration: 6, ease: 'linear'}}
+                  style={{transformOrigin: 'left'}}
+                />
+              )}
+            </button>
+          ))}
+        </div>
+      )}
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
+        transition={{delay: 1.5, duration: 0.5}}
+        className="absolute bottom-24 left-1/2 -translate-x-1/2 z-40 hidden md:block"
+      >
+        <motion.div
+          animate={{y: [0, 8, 0]}}
+          transition={{duration: 1.5, repeat: Infinity, ease: 'easeInOut'}}
+          className="w-6 h-10 rounded-full border-2 border-white/40 flex justify-center pt-2"
+        >
+          <motion.div className="w-1 h-2 bg-white/60 rounded-full" />
+        </motion.div>
+      </motion.div>
     </section>
   )
 }

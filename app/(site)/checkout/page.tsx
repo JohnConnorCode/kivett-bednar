@@ -182,7 +182,7 @@ export default function CheckoutPage() {
                       Shipping Address
                     </h2>
                     <div className="space-y-6">
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <FormField
                           label="First Name"
                           name="firstName"
@@ -220,7 +220,7 @@ export default function CheckoutPage() {
                         autoComplete="street-address"
                       />
 
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <FormField
                           label="City"
                           name="city"
@@ -245,7 +245,7 @@ export default function CheckoutPage() {
                         />
                       </div>
 
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <FormField
                           label="ZIP / Postal Code"
                           name="zipCode"

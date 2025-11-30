@@ -3,8 +3,12 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import {urlFor} from '@/lib/image-positioning'
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useCallback} from 'react'
 import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
+import {motion} from 'framer-motion'
+import {ShoppingCart} from 'lucide-react'
+import {useCart} from './CartContext'
+import {useToast} from './Toast'
 
 type Product = {
   _id: string
@@ -22,10 +26,18 @@ type Product = {
   inventoryQuantity?: number
   trackInventory?: boolean
   lowStockThreshold?: number
+  options?: Array<{name: string; values: string[]}>
 }
 
 export function ProductCard({product}: {product: Product}) {
   const [isMobile, setIsMobile] = useState(false)
+  const [isAddingToCart, setIsAddingToCart] = useState(false)
+  const [imageError, setImageError] = useState(false)
+  const {addItem} = useCart()
+  const {showToast} = useToast()
+
+  // Check if product has options that require selection
+  const hasOptions = product.options && product.options.length > 0
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
@@ -33,6 +45,33 @@ export function ProductCard({product}: {product: Product}) {
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
+
+  // Quick add to cart for products without options
+  const handleQuickAdd = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+
+    if (hasOptions) return
+
+    setIsAddingToCart(true)
+
+    addItem({
+      productId: product._id,
+      title: product.title,
+      slug: product.slug,
+      priceCents: product.priceCents,
+      currency: product.currency,
+      imageUrl: product.images?.[0]?.asset
+        ? urlFor(product.images[0].asset).width(200).height(200).url()
+        : undefined,
+      quantity: 1,
+      options: {},
+    })
+
+    showToast(`${product.title} added to cart`, 'success')
+
+    setTimeout(() => setIsAddingToCart(false), 500)
+  }, [product, hasOptions, addItem, showToast])
 
   const price = (product.priceCents / 100).toFixed(2)
   const compareAtPrice = product.compareAtPriceCents
@@ -58,30 +97,57 @@ export function ProductCard({product}: {product: Product}) {
       : null
 
   return (
-    <Link
-      href={`/merch/${product.slug}`}
-      className="group block relative bg-surface border border-border overflow-hidden transition-all duration-300 hover:border-accent-primary hover:-translate-y-2 hover:shadow-2xl hover:shadow-accent-primary/20"
+    <motion.div
+      initial={{opacity: 0, y: 20}}
+      whileInView={{opacity: 1, y: 0}}
+      viewport={{once: true, margin: '-50px'}}
+      transition={{duration: 0.5, ease: [0.22, 1, 0.36, 1]}}
     >
-      {/* Image Container */}
-      <div className="relative aspect-square bg-background overflow-hidden">
-        {product.images?.[0]?.asset ? (
-          <>
-            {/* Dark overlay that lightens on hover */}
-            <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-all duration-300 z-10" />
+      <Link
+        href={`/merch/${product.slug}`}
+        className="group block relative bg-surface border border-border overflow-hidden transition-all duration-500 hover:border-accent-primary"
+      >
+        {/* Premium hover effect wrapper */}
+        <motion.div
+          whileHover={{
+            y: -6,
+            transition: {duration: 0.3, ease: [0.22, 1, 0.36, 1]}
+          }}
+          className="relative"
+        >
+          {/* Ambient glow on hover */}
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-30"
+            style={{
+              background: 'radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.15) 0%, transparent 60%)'
+            }}
+          />
 
-            <Image
-              src={urlFor(product.images[0].asset).width(600).height(600).url()}
-              alt={product.images[0].alt || product.title}
-              fill
-              className="object-cover group-hover:scale-110 transition-transform duration-500"
-              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-              loading="lazy"
-              style={{
-                objectPosition: getObjectPosition(product.images[0], isMobile)
-              }}
-            />
-          </>
-        ) : (
+          {/* Image Container */}
+          <div className="relative aspect-square bg-background overflow-hidden">
+            {product.images?.[0]?.asset && !imageError ? (
+              <>
+                {/* Dark overlay that lightens on hover */}
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-all duration-500 z-10" />
+
+                <Image
+                  src={urlFor(product.images[0].asset).width(600).height(600).url()}
+                  alt={product.images[0].alt || product.title}
+                  fill
+                  className="object-cover transition-all duration-700 ease-out group-hover:scale-110 group-hover:brightness-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  loading="lazy"
+                  onError={() => setImageError(true)}
+                  style={{
+                    objectPosition: getObjectPosition(product.images[0], isMobile),
+                    filter: 'saturate(0.95)',
+                  }}
+                />
+
+                {/* Bottom gradient with gold tint on hover */}
+                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 via-black/30 to-transparent group-hover:from-black/40 transition-all duration-500 z-10 pointer-events-none" />
+              </>
+            ) : (
           /* Professional fallback placeholder */
           <div className="absolute inset-0 bg-gradient-to-br from-surface-elevated via-surface to-background flex items-center justify-center group-hover:scale-105 transition-transform duration-500">
             <div className="text-center px-8">
@@ -140,62 +206,77 @@ export function ProductCard({product}: {product: Product}) {
           )}
         </div>
 
-        {/* Quick View Badge */}
-        <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="bg-accent-primary text-black text-xs font-bold px-3 py-1.5 uppercase tracking-wider shadow-lg">
-            View
-          </div>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="relative p-6 bg-surface-elevated border-t border-border">
-        {/* Title */}
-        <h3 className="font-bebas text-2xl uppercase tracking-wide text-text-primary mb-3 group-hover:text-accent-primary transition-colors duration-300">
-          {product.title}
-        </h3>
-
-        {/* Price Bar */}
-        <div className="flex items-center justify-between">
-          <div className="flex flex-col gap-1">
-            <div className="flex items-baseline gap-2">
-              <span className="text-sm text-text-muted uppercase tracking-wide">
-                {product.currency}
-              </span>
-              <span className="text-3xl font-bold text-accent-primary">
-                ${price}
-              </span>
+            {/* Quick Add / View Button */}
+            <div className="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+              {!isOutOfStock && !hasOptions ? (
+                <motion.button
+                  onClick={handleQuickAdd}
+                  disabled={isAddingToCart}
+                  whileHover={{scale: 1.05}}
+                  whileTap={{scale: 0.95}}
+                  className="flex items-center gap-2 bg-accent-primary text-black text-xs font-bold px-3 py-2 uppercase tracking-wider shadow-lg hover:bg-white transition-colors duration-200 disabled:opacity-70"
+                >
+                  <ShoppingCart className="w-4 h-4" />
+                  {isAddingToCart ? 'Added!' : 'Quick Add'}
+                </motion.button>
+              ) : (
+                <div className="bg-accent-primary text-black text-xs font-bold px-3 py-2 uppercase tracking-wider shadow-lg">
+                  {hasOptions ? 'Select Options' : 'View'}
+                </div>
+              )}
             </div>
-            {compareAtPrice && product.onSale && (
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-text-muted line-through">
-                  ${compareAtPrice}
-                </span>
-                <span className="text-xs text-accent-red font-bold uppercase">
-                  Save ${(parseFloat(compareAtPrice) - parseFloat(price)).toFixed(2)}
-                </span>
+          </div>
+
+          {/* Content */}
+          <div className="relative p-6 bg-surface-elevated border-t border-border">
+            {/* Title */}
+            <h3 className="font-bebas text-2xl uppercase tracking-wide text-text-primary mb-3 group-hover:text-accent-primary transition-colors duration-300">
+              {product.title}
+            </h3>
+
+            {/* Price Bar */}
+            <div className="flex items-center justify-between">
+              <div className="flex flex-col gap-1">
+                <div className="flex items-baseline gap-2">
+                  <span className="text-sm text-text-muted uppercase tracking-wide">
+                    {product.currency}
+                  </span>
+                  <span className="text-3xl font-bold text-accent-primary">
+                    ${price}
+                  </span>
+                </div>
+                {compareAtPrice && product.onSale && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-text-muted line-through">
+                      ${compareAtPrice}
+                    </span>
+                    <span className="text-xs text-accent-red font-bold uppercase">
+                      Save ${(parseFloat(compareAtPrice) - parseFloat(price)).toFixed(2)}
+                    </span>
+                  </div>
+                )}
               </div>
-            )}
+
+              {/* CTA Arrow */}
+              <div className="w-10 h-10 flex items-center justify-center border border-accent-primary text-accent-primary group-hover:bg-accent-primary group-hover:text-black transition-all duration-300 flex-shrink-0">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2.5}
+                  stroke="currentColor"
+                  className="w-5 h-5"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </div>
+            </div>
           </div>
 
-          {/* CTA Arrow */}
-          <div className="w-10 h-10 flex items-center justify-center border border-accent-primary text-accent-primary group-hover:bg-accent-primary group-hover:text-black transition-all duration-300 flex-shrink-0">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2.5}
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom accent line */}
-      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-    </Link>
+          {/* Bottom accent line */}
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-accent-primary to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        </motion.div>
+      </Link>
+    </motion.div>
   )
 }

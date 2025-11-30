@@ -5,28 +5,18 @@ import Image from 'next/image'
 import {useCart} from '@/components/ui/CartContext'
 import {useRouter} from 'next/navigation'
 import {PromoCodeInput} from '@/components/ui/PromoCodeInput'
-import {useState} from 'react'
 
 export default function CartPage() {
-  const {items, totalCents, updateQty, removeItem, clear} = useCart()
+  const {items, totalCents, updateQty, removeItem, clear, promoCode, applyPromoCode, removePromoCode, finalTotalCents} = useCart()
   const router = useRouter()
-  const [promoDiscount, setPromoDiscount] = useState(0)
-  const [promoCode, setPromoCode] = useState('')
-  const [promoDescription, setPromoDescription] = useState('')
 
   const handleApplyPromo = (discountCents: number, code: string, description?: string) => {
-    setPromoDiscount(discountCents)
-    setPromoCode(code)
-    setPromoDescription(description || '')
+    applyPromoCode(code, discountCents, description)
   }
 
   const handleRemovePromo = () => {
-    setPromoDiscount(0)
-    setPromoCode('')
-    setPromoDescription('')
+    removePromoCode()
   }
-
-  const finalTotal = Math.max(0, totalCents - promoDiscount)
 
   const proceedToCheckout = () => {
     router.push('/checkout')
@@ -62,29 +52,44 @@ export default function CartPage() {
           <div className="max-w-6xl mx-auto">
             {items.length === 0 ? (
               <div className="text-center py-12 sm:py-16 md:py-24">
-                <div className="bg-surface-elevated border border-border p-8 sm:p-12 md:p-16 max-w-2xl mx-auto">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1}
-                    stroke="currentColor"
-                    className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto text-text-muted mb-4 sm:mb-6"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                    />
-                  </svg>
-                  <h2 className="font-bebas text-3xl sm:text-4xl uppercase tracking-wide text-text-primary mb-3 sm:mb-4">
+                <div className="relative bg-surface-elevated border border-border p-8 sm:p-12 md:p-16 max-w-2xl mx-auto overflow-hidden">
+                  {/* Subtle gold gradient accent */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-accent-primary/50 to-transparent" />
+
+                  {/* Cart icon with gold accent */}
+                  <div className="relative inline-flex items-center justify-center w-24 h-24 sm:w-28 sm:h-28 mb-6 sm:mb-8">
+                    <div className="absolute inset-0 rounded-full bg-accent-primary/5" />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1}
+                      stroke="currentColor"
+                      className="w-12 h-12 sm:w-14 sm:h-14 text-accent-primary/60"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
+                      />
+                    </svg>
+                  </div>
+
+                  <h2 className="font-bebas text-3xl sm:text-4xl uppercase tracking-wide text-white mb-3 sm:mb-4">
                     Your cart is empty
                   </h2>
-                  <p className="text-text-secondary mb-6 sm:mb-8 text-sm sm:text-base">
-                    Looks like you haven&apos;t added any items to your cart yet.
+                  <p className="text-text-muted mb-8 sm:mb-10 text-sm sm:text-base max-w-sm mx-auto">
+                    Looks like you haven&apos;t added any items to your cart yet. Check out the latest merch!
                   </p>
-                  <Link href="/merch" className="btn-primary inline-flex">
-                    Continue Shopping
+
+                  <Link
+                    href="/merch"
+                    className="inline-flex items-center gap-2 bg-accent-primary hover:bg-accent-primary/90 text-black font-bold uppercase tracking-wider px-8 py-4 transition-all duration-300"
+                  >
+                    <span>Browse Merch</span>
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
                   </Link>
                 </div>
               </div>
@@ -205,18 +210,18 @@ export default function CartPage() {
                           ${(totalCents / 100).toFixed(2)}
                         </span>
                       </div>
-                      {promoDiscount > 0 && (
+                      {promoCode && promoCode.discountCents > 0 && (
                         <div className="flex justify-between text-accent-primary">
                           <span>
                             Discount
-                            {promoDescription && (
+                            {promoCode.description && (
                               <span className="text-xs block text-text-muted mt-0.5">
-                                {promoDescription}
+                                {promoCode.description}
                               </span>
                             )}
                           </span>
                           <span className="font-bold">
-                            -${(promoDiscount / 100).toFixed(2)}
+                            -${(promoCode.discountCents / 100).toFixed(2)}
                           </span>
                         </div>
                       )}
@@ -236,7 +241,7 @@ export default function CartPage() {
                         cartTotal={totalCents}
                         onApply={handleApplyPromo}
                         onRemove={handleRemovePromo}
-                        currentCode={promoCode}
+                        currentCode={promoCode?.code || ''}
                       />
                     </div>
 
@@ -245,7 +250,7 @@ export default function CartPage() {
                         Total
                       </span>
                       <span className="text-3xl font-bold text-accent-primary">
-                        ${(finalTotal / 100).toFixed(2)}
+                        ${(finalTotalCents / 100).toFixed(2)}
                       </span>
                     </div>
 

@@ -1,7 +1,13 @@
 'use client'
 
-import {createContext, useContext, useEffect, useMemo, useState} from 'react'
+import {createContext, useContext, useEffect, useMemo, useState, useCallback} from 'react'
 import {CartItem, loadCart, saveCart, cartTotalCents} from '@/lib/cart'
+
+type PromoCodeData = {
+  code: string
+  discountCents: number
+  description?: string
+}
 
 type CartState = {
   items: CartItem[]
@@ -10,6 +16,11 @@ type CartState = {
   updateQty: (productId: string, qty: number, optionsKey?: string) => void
   clear: () => void
   totalCents: number
+  // Promo code state
+  promoCode: PromoCodeData | null
+  applyPromoCode: (code: string, discountCents: number, description?: string) => void
+  removePromoCode: () => void
+  finalTotalCents: number
 }
 
 const Ctx = createContext<CartState | null>(null)
@@ -24,14 +35,48 @@ function optionsKey(options?: Record<string, string>) {
 
 export function CartProvider({children}: {children: React.ReactNode}) {
   const [items, setItems] = useState<CartItem[]>([])
+  const [promoCode, setPromoCode] = useState<PromoCodeData | null>(null)
 
   useEffect(() => {
     setItems(loadCart())
+    // Load promo code from sessionStorage
+    try {
+      const savedPromo = sessionStorage.getItem('cart-promo-code')
+      if (savedPromo) {
+        setPromoCode(JSON.parse(savedPromo))
+      }
+    } catch (e) {
+      // Ignore errors
+    }
   }, [])
 
   useEffect(() => {
     saveCart(items)
   }, [items])
+
+  // Save promo code to sessionStorage when it changes
+  useEffect(() => {
+    try {
+      if (promoCode) {
+        sessionStorage.setItem('cart-promo-code', JSON.stringify(promoCode))
+      } else {
+        sessionStorage.removeItem('cart-promo-code')
+      }
+    } catch (e) {
+      // Ignore errors
+    }
+  }, [promoCode])
+
+  const applyPromoCode = useCallback((code: string, discountCents: number, description?: string) => {
+    setPromoCode({code, discountCents, description})
+  }, [])
+
+  const removePromoCode = useCallback(() => {
+    setPromoCode(null)
+  }, [])
+
+  const totalCents = cartTotalCents(items)
+  const finalTotalCents = Math.max(0, totalCents - (promoCode?.discountCents || 0))
 
   const api: CartState = useMemo(
     () => ({
@@ -58,10 +103,17 @@ export function CartProvider({children}: {children: React.ReactNode}) {
           prev.map((i) => (i.productId === productId && optionsKey(i.options) === optKey ? {...i, quantity: qty} : i)),
         )
       },
-      clear: () => setItems([]),
-      totalCents: cartTotalCents(items),
+      clear: () => {
+        setItems([])
+        setPromoCode(null)
+      },
+      totalCents,
+      promoCode,
+      applyPromoCode,
+      removePromoCode,
+      finalTotalCents,
     }),
-    [items],
+    [items, totalCents, promoCode, applyPromoCode, removePromoCode, finalTotalCents],
   )
 
   return <Ctx.Provider value={api}>{children}</Ctx.Provider>

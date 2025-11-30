@@ -2,11 +2,12 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import {format} from 'date-fns'
 import {formatInTimeZone} from 'date-fns-tz'
 import {urlFor} from '@/lib/image-positioning'
 import {useState, useEffect} from 'react'
+import {motion} from 'framer-motion'
 import {getObjectPosition, type SanityImageWithPositioning} from '@/lib/image-positioning'
+import {MapPin, Calendar, Clock} from 'lucide-react'
 
 type Event = {
   _id: string
@@ -25,8 +26,9 @@ type Event = {
   isSoldOut?: boolean
 }
 
-export function EventCard({event}: {event: Event}) {
+export function EventCard({event, index = 0}: {event: Event; index?: number}) {
   const [isMobile, setIsMobile] = useState(false)
+  const [imageError, setImageError] = useState(false)
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
@@ -57,82 +59,146 @@ export function EventCard({event}: {event: Event}) {
   const cardContent = (
     <>
       {/* Image Section */}
-      {event.coverImage?.asset && (
+      {event.coverImage?.asset && !imageError ? (
         <div className="relative aspect-video overflow-hidden">
           <Image
             src={urlFor(event.coverImage.asset).width(600).height(400).url()}
             alt={event.coverImage.alt || event.title}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110"
             sizes="(min-width: 1024px) 800px, (min-width: 768px) 700px, 100vw"
+            onError={() => setImageError(true)}
             style={{
               objectPosition: getObjectPosition(event.coverImage, isMobile)
             }}
           />
 
-          {/* Dark gradient overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+          {/* Premium gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-80 group-hover:opacity-70 transition-opacity duration-500" />
+
+          {/* Subtle gold accent on hover */}
+          <div className="absolute inset-0 bg-gradient-to-br from-accent-primary/0 via-transparent to-accent-primary/0 group-hover:from-accent-primary/10 group-hover:to-accent-primary/5 transition-all duration-500" />
 
           {/* Canceled overlay */}
           {event.isCanceled && (
-            <div className="absolute inset-0 bg-black/80 flex items-center justify-center z-20">
-              <span className="text-white text-3xl font-black tracking-wider uppercase">
+            <div className="absolute inset-0 bg-black/85 flex items-center justify-center z-20 backdrop-blur-sm">
+              <span className="text-white text-3xl font-bebas tracking-[0.2em] uppercase border-2 border-white/30 px-6 py-2">
                 CANCELED
               </span>
             </div>
           )}
 
-          {/* Sold Out badge */}
+          {/* Sold Out badge - premium styling */}
           {event.isSoldOut && !event.isCanceled && (
-            <div className="absolute top-4 right-4 bg-accent-primary text-black px-4 py-2 text-sm font-bold tracking-wider uppercase z-20">
-              SOLD OUT
+            <div className="absolute top-4 right-4 z-20">
+              <div className="bg-accent-primary text-black px-4 py-2 text-xs font-bold tracking-[0.15em] uppercase shadow-lg shadow-accent-primary/30">
+                SOLD OUT
+              </div>
             </div>
           )}
+        </div>
+      ) : (
+        /* Fallback placeholder when no image or image fails to load */
+        <div className="relative aspect-video overflow-hidden bg-gradient-to-br from-surface-elevated via-surface to-background">
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-center px-8">
+              <Calendar className="w-16 h-16 mx-auto text-accent-primary/30 mb-3" />
+              <p className="text-text-muted/40 text-xs uppercase tracking-widest font-bold">Event Image</p>
+            </div>
+          </div>
+          {/* Premium gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent opacity-60" />
         </div>
       )}
 
       {/* Content Section */}
-      <div className="relative p-6 bg-surface-elevated">
-        {/* Date and Time */}
-        <div className="text-sm font-bold text-accent-primary mb-3 tracking-wider uppercase">
-          {eventDate} • {eventTime}
+      <div className="relative p-4 sm:p-6 bg-surface-elevated">
+        {/* Date/Time Row with icons - stacks on very small screens */}
+        <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs font-medium text-accent-primary mb-4 tracking-wider uppercase">
+          <span className="inline-flex items-center gap-1.5">
+            <Calendar className="w-3.5 h-3.5 flex-shrink-0" />
+            <span className="whitespace-nowrap">{eventDate}</span>
+          </span>
+          <span className="hidden sm:block w-px h-3 bg-accent-primary/30" />
+          <span className="text-accent-primary/50 sm:hidden">•</span>
+          <span className="inline-flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5 flex-shrink-0" />
+            <span className="whitespace-nowrap">{eventTime}</span>
+          </span>
         </div>
 
         {/* Event Title */}
-        <h3 className="text-2xl font-bold mb-3 text-text-primary group-hover:text-accent-primary transition-colors">
+        <h3 className="text-2xl font-bebas uppercase tracking-wide mb-3 text-white group-hover:text-accent-primary transition-colors duration-300">
           {event.title}
         </h3>
 
-        {/* Venue Info */}
+        {/* Venue Info with icon */}
         <div className="text-text-secondary mb-6">
-          <p className="font-semibold text-text-primary">{event.venue}</p>
-          <p className="text-sm">{event.city}{event.state && `, ${event.state}`}</p>
+          <div className="flex items-start gap-2">
+            <MapPin className="w-4 h-4 text-text-muted mt-0.5 flex-shrink-0" />
+            <div>
+              <p className="font-medium text-text-primary">{event.venue}</p>
+              <p className="text-sm text-text-muted">{event.city}{event.state && `, ${event.state}`}</p>
+            </div>
+          </div>
         </div>
 
-        {/* View Details indicator */}
+        {/* View Details indicator - premium arrow */}
         {eventLink && !event.isCanceled && (
-          <div className="inline-flex items-center gap-2 text-accent-primary font-semibold group-hover:gap-3 transition-all">
+          <div className="inline-flex items-center gap-2 text-accent-primary font-medium text-sm uppercase tracking-wider group/link">
             <span>View Details</span>
-            <span>→</span>
+            <svg
+              className="w-4 h-4 transform group-hover:translate-x-1 transition-transform duration-300"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
           </div>
         )}
       </div>
     </>
   )
 
+  const cardClasses = "group relative overflow-hidden bg-surface border border-border hover:border-accent-primary/50 transition-all duration-500"
+
   if (eventLink) {
     return (
-      <article className="group relative border border-border overflow-hidden hover:shadow-2xl hover:border-accent-primary transition-all hover:-translate-y-1 duration-300 bg-surface">
+      <motion.article
+        initial={{opacity: 0, y: 20}}
+        whileInView={{opacity: 1, y: 0}}
+        viewport={{once: true, margin: '-50px'}}
+        transition={{duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1]}}
+        whileHover={{y: -4}}
+        className={cardClasses}
+        style={{
+          boxShadow: 'none',
+        }}
+      >
         <Link href={eventLink} className="block">
           {cardContent}
         </Link>
-      </article>
+        {/* Ambient glow on hover */}
+        <div className="absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-inherit"
+          style={{
+            background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent, rgba(212, 175, 55, 0.05))',
+          }}
+        />
+      </motion.article>
     )
   }
 
   return (
-    <article className="group relative border border-border overflow-hidden hover:shadow-2xl hover:border-accent-primary transition-all hover:-translate-y-1 duration-300 bg-surface">
+    <motion.article
+      initial={{opacity: 0, y: 20}}
+      whileInView={{opacity: 1, y: 0}}
+      viewport={{once: true, margin: '-50px'}}
+      transition={{duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1]}}
+      whileHover={{y: -4}}
+      className={cardClasses}
+    >
       {cardContent}
-    </article>
+    </motion.article>
   )
 }
