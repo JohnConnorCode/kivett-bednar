@@ -39,3 +39,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.tstest-results/
 playwright-report/
+tests/.auth/
