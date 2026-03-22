@@ -1,6 +1,6 @@
 import {Metadata} from 'next'
 import {sanityFetch} from '@/sanity/lib/live'
-import {upcomingEventsQuery, showsPageQuery} from '@/sanity/lib/queries'
+import {upcomingEventsQuery, pastEventsQuery, showsPageQuery} from '@/sanity/lib/queries'
 import {EventCard} from '@/components/ui/EventCard'
 import {AnimatedHero} from '@/components/ui/AnimatedHero'
 import {StaggeredImageGrid} from '@/components/ui/StaggeredImageGrid'
@@ -31,13 +31,18 @@ export const revalidate = 60
 export default async function ShowsPage() {
   let showsPage = null
   let events = null
+  let pastEvents = null
 
   try {
-    ;[showsPage, events] = await Promise.all([
+    ;[showsPage, events, pastEvents] = await Promise.all([
       sanityFetch({query: showsPageQuery}).then((r) => r.data),
       sanityFetch({
         query: upcomingEventsQuery,
         params: {now: new Date().toISOString(), limit: 50},
+      }).then((r) => r.data),
+      sanityFetch({
+        query: pastEventsQuery,
+        params: {now: new Date().toISOString(), offset: 0, limit: 12},
       }).then((r) => r.data),
     ])
   } catch (error) {
@@ -193,6 +198,35 @@ export default async function ShowsPage() {
                   <p className="text-text-secondary mt-2">
                     {showsPage?.emptyStateText || 'Check back soon for new dates! Follow on social media for announcements.'}
                   </p>
+                </div>
+              </AnimatedSection>
+            )}
+
+            {/* Past Shows */}
+            {pastEvents && pastEvents.length > 0 && (
+              <AnimatedSection animation="fadeUp" delay={0.2}>
+                <div className="mt-20 pt-16 border-t border-border">
+                  <h2 className="text-4xl font-bold mb-8 text-text-primary">
+                    Past Shows
+                  </h2>
+                  <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {pastEvents.map((event: {_id: string; title: string | null; startDateTime: string | null; venue: string | null; city: string | null; state: string | null}) => {
+                      const date = event.startDateTime ? new Date(event.startDateTime) : null
+                      return (
+                        <div key={event._id} className="bg-surface-elevated border border-border p-4 opacity-80">
+                          <div className="text-xs text-text-muted uppercase tracking-wide mb-1">
+                            {date ? date.toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}) : 'TBD'}
+                          </div>
+                          <div className="font-bold text-text-primary text-sm">
+                            {event.title}
+                          </div>
+                          <div className="text-xs text-text-secondary mt-1">
+                            {[event.venue, event.city, event.state].filter(Boolean).join(' · ')}
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
               </AnimatedSection>
             )}

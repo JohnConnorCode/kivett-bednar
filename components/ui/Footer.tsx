@@ -202,11 +202,18 @@ export function Footer({
                 : `© ${currentYear} Kivett Bednar. All rights reserved.`}
             </p>
 
-            {/* Decorative element */}
-            <div className="flex items-center gap-3 text-text-muted/50">
-              <span className="w-8 h-px bg-border" />
-              <Music2 className="w-4 h-4" />
-              <span className="w-8 h-px bg-border" />
+            <div className="flex items-center gap-4 text-xs text-text-muted">
+              <Link href="/privacy-policy" className="hover:text-text-secondary transition-colors">
+                Privacy Policy
+              </Link>
+              <span className="w-1 h-1 rounded-full bg-border" />
+              <Link href="/terms" className="hover:text-text-secondary transition-colors">
+                Terms of Service
+              </Link>
+              <span className="w-1 h-1 rounded-full bg-border" />
+              <Link href="/returns" className="hover:text-text-secondary transition-colors">
+                Returns & Refunds
+              </Link>
             </div>
           </div>
         </div>

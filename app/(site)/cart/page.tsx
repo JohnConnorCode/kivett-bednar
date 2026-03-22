@@ -347,7 +347,9 @@ export default function CartPage() {
                     )}
 
                     <button
-                      onClick={clear}
+                      onClick={() => {
+                        if (window.confirm('Remove all items from your cart?')) clear()
+                      }}
                       className="w-full border border-border hover:border-accent-red hover:text-accent-red text-text-secondary font-bold uppercase tracking-wide py-3 transition-all duration-200 flex items-center justify-center gap-2"
                     >
                       <Trash2 className="w-4 h-4" />
