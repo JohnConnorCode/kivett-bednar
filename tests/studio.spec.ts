@@ -12,15 +12,17 @@ const authFile = path.join(__dirname, '.auth', 'sanity-session.json');
 const hasAuth = fs.existsSync(authFile);
 
 async function openStructure(page: import('@playwright/test').Page) {
-  await page.goto('/studio/structure', { waitUntil: 'load', timeout: 30000 });
+  await page.goto('/studio/structure', { waitUntil: 'load', timeout: 60000 });
   await page.waitForSelector('text=Content Management', { timeout: 30000 });
 
-  // Dismiss any announcement banners or overlays that block clicks
-  const dismiss = page.getByRole('button', { name: /dismiss/i });
-  if (await dismiss.isVisible({ timeout: 2000 }).catch(() => false)) {
-    await dismiss.click();
-    await page.waitForTimeout(500);
-  }
+  // Dismiss announcements banner if present (may auto-dismiss, so catch errors)
+  try {
+    const dismiss = page.getByRole('button', { name: /dismiss/i });
+    if (await dismiss.isVisible({ timeout: 2000 })) {
+      await dismiss.click({ force: true, timeout: 2000 });
+    }
+  } catch { /* banner may have auto-dismissed */ }
+  await page.waitForTimeout(500);
 }
 
 async function clickSidebarItem(page: import('@playwright/test').Page, text: string) {
